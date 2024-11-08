@@ -1,0 +1,1871 @@
+# General Parameters ========================================
+AirDensity:
+	Unit: "kg/m^3"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Density of air at start/finish line"
+
+AirPressure:
+	Unit: "Hg"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pressure of air at start/finish line"
+
+AirTemp:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Temperature of air at start/finish line"
+
+Alt:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Altitude in meters"
+
+Brake:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "0=brake released to 1=max pedal force"
+
+BrakeRaw:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Raw brake input 0=brake released to 1=max pedal force"
+
+CamCameraNumber:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Active camera number"
+
+CamCameraState:
+	Unit: "irsdk_CameraState"
+	Type: "bitfield"
+	Disk: 0
+	Live: 1
+	Description: "State of camera system"
+
+CamCarIdx:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Active camera's focus car index"
+
+CamGroupNumber:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Active camera group number"
+
+Clutch:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "0=disengaged to 1=fully engaged"
+
+CpuUsageBG:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Percent of available tim bg thread took with a 1 sec avg"
+
+DCDriversSoFar:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Number of team drivers who have run a stint"
+
+DCLapStatus:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Status of driver change lap requirements"
+
+DisplayUnits:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Default units for the user interface 0 = english 1 = metric"
+
+DriverMarker:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "Driver activated flag"
+
+EngineWarnings:
+	Unit: "irsdk_EngineWarnings"
+	Type: "bitfield"
+	Disk: 1
+	Live: 1
+	Description: "Bitfield for warning lights"
+
+EnterExitReset:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Indicate action the reset key will take 0 enter 1 exit 2 reset"
+
+FogLevel:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Fog level"
+
+FrameRate:
+	Unit: "fps"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Average frames per second"
+
+FuelLevel:
+	Unit: "l"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Liters of fuel remaining"
+
+FuelLevelPct:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Percent fuel remaining"
+
+FuelPress:
+	Unit: "bar"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine fuel pressure"
+
+FuelUsePerHour:
+	Unit: "kg/h"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine fuel used instantaneous"
+
+Gear:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "-1=reverse 0=neutral 1..n=current gear"
+
+IsDiskLoggingActive:
+	Unit: ""
+	Type: "bool"
+	Disk: 0
+	Live: 1
+	Description: "0=disk based telemetry file not being written 1=being written"
+
+IsDiskLoggingEnabled:
+	Unit: ""
+	Type: "bool"
+	Disk: 0
+	Live: 1
+	Description: "0=disk based telemetry turned off 1=turned on"
+
+IsInGarage:
+	Unit: ""
+	Type: "bool"
+	Disk: 0
+	Live: 1
+	Description: "1=Car in garage physics running"
+
+IsOnTrack:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "1=Car on track physics running with player in car"
+
+IsOnTrackCar:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "1=Car on track physics running"
+
+IsReplayPlaying:
+	Unit: ""
+	Type: "bool"
+	Disk: 0
+	Live: 1
+	Description: "0=replay not playing 1=replay playing"
+
+Lap:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Lap count"
+
+LapBestLap:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Players best lap number"
+
+LapBestLapTime:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Players best lap time"
+
+LapBestNLapLap:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Player last lap in best N average lap time"
+
+LapBestNLapTime:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Player best N average lap time"
+
+LapCurrentLapTime:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Estimate of players current lap time as shown in F3 box"
+
+LapDeltaToBestLap:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for best lap"
+
+LapDeltaToBestLap_DD:
+	Unit: "s/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Rate of change of delta time for best lap"
+
+LapDeltaToBestLap_OK:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for best lap is valid"
+
+LapDeltaToOptimalLap:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for optimal lap"
+
+LapDeltaToOptimalLap_DD:
+	Unit: "s/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Rate of change of delta time for optimal lap"
+
+LapDeltaToOptimalLap_OK:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for optimal lap is valid"
+
+LapDeltaToSessionBestLap:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for session best lap"
+
+LapDeltaToSessionBestLap_DD:
+	Unit: "s/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Rate of change of delta time for session best lap"
+
+LapDeltaToSessionBestLap_OK:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for session best lap is valid"
+
+LapDeltaToSessionLastlLap:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for session last lap"
+
+LapDeltaToSessionLastlLap_DD:
+	Unit: "s/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Rate of change of delta time for session last lap"
+
+LapDeltaToSessionLastlLap_OK:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for session last lap is valid"
+
+LapDeltaToSessionOptimalLap:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for session optimal lap"
+
+LapDeltaToSessionOptimalLap_DD:
+	Unit: "s/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Rate of change of delta time for session optimal lap"
+
+LapDeltaToSessionOptimalLap_OK:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "Delta time for session optimal lap is valid"
+
+LapDist:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Meters traveled from S/F this lap"
+
+LapDistPct:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Percentage distance around lap"
+
+LapLasNLapSeq:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Player num consecutive clean laps completed for N average"
+
+LapLastLapTime:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Players last lap time"
+
+LapLastNLapTime:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Player last N average lap time"
+
+Lat:
+	Unit: "deg"
+	Type: "double"
+	Disk: 1
+	Live: 1
+	Description: "Latitude in decimal degrees"
+
+LatAccel:
+	Unit: "m/s^2"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Lateral acceleration (including gravity)"
+
+Lon:
+	Unit: "deg"
+	Type: "double"
+	Disk: 1
+	Live: 1
+	Description: "Longitude in decimal degrees"
+
+LongAccel:
+	Unit: "m/s^2"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Longitudinal acceleration (including gravity)"
+
+ManifoldPress:
+	Unit: "bar"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine manifold pressure"
+
+OilLevel:
+	Unit: "l"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine oil level"
+
+OilPress:
+	Unit: "bar"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine oil pressure"
+
+OilTemp:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine oil temperature"
+
+OnPitRoad:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "Is the player car on pit road between the cones"
+
+Pitch:
+	Unit: "rad"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitch orientation"
+
+PitchRate:
+	Unit: "rad/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitch rate"
+
+PitOptRepairLeft:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Time left for optional repairs if repairs are active"
+
+PitRepairLeft:
+	Unit: "s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Time left for mandatory pit repairs if repairs are active"
+
+PitSvFlags:
+	Unit: "irsdk_PitSvFlags"
+	Type: "bitfield"
+	Disk: 1
+	Live: 1
+	Description: "Bitfield of pit service checkboxes"
+
+PitSvFuel:
+	Unit: "l"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pit service fuel add amount"
+
+PitSvLFP:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pit service left front tire pressure"
+
+PitSvLRP:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pit service left rear tire pressure"
+
+PitSvRFP:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pit service right front tire pressure"
+
+PitSvRRP:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pit service right rear tire pressure"
+
+PlayerCarClassPosition:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Players class position in race"
+
+PlayerCarPosition:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Players position in race"
+
+RaceLaps:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Laps completed in race"
+
+RadioTransmitCarIdx:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "The car index of the current person speaking on the radio"
+
+RadioTransmitFrequencyIdx:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "The frequency index of the current person speaking on the raio"
+
+RadioTransmitRadioIdx:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "The radio index of the current person speaking on the radio"
+
+RelativeHumidity:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Relative Humidity"
+
+ReplayFrameNum:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Integer replay frame number (60 per second)"
+
+ReplayFrameNumEnd:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Integer replay frame number from end of tape"
+
+ReplayPlaySlowMotion:
+	Unit: ""
+	Type: "bool"
+	Disk: 0
+	Live: 1
+	Description: "0=not slow motion 1=replay is in slow motion"
+
+ReplayPlaySpeed:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Replay playback speed"
+
+ReplaySessionNum:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Replay session number"
+
+ReplaySessionTime:
+	Unit: "s"
+	Type: "double"
+	Disk: 0
+	Live: 1
+	Description: "Seconds since replay session start"
+
+Roll:
+	Unit: "rad"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Roll orientation"
+
+RollRate:
+	Unit: "rad/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Roll rate"
+
+RPM:
+	Unit: "revs/min"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine rpm"
+
+SessionFlags:
+	Unit: "irsdk_Flags"
+	Type: "bitfield"
+	Disk: 0
+	Live: 1
+	Description: "Session flags"
+
+SessionLapsRemain:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Laps left till session ends"
+
+SessionNum:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Session number"
+
+SessionState:
+	Unit: "irsdk_SessionState"
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Session state"
+
+SessionTime:
+	Unit: "s"
+	Type: "double"
+	Disk: 1
+	Live: 1
+	Description: "Seconds since session start"
+
+SessionTimeRemain:
+	Unit: "s"
+	Type: "double"
+	Disk: 1
+	Live: 1
+	Description: "Seconds left till session ends"
+
+SessionUniqueID:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Session ID"
+
+ShiftGrindRPM:
+	Unit: "RPM"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RPM of shifter grinding noise"
+
+ShiftIndicatorPct:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "DEPRECATED use DriverCarSLBlinkRPM instead"
+
+ShiftPowerPct:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Friction torque applied to gears when shifting or grinding"
+
+Skies:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Skies (0=clear/1=p cloudy/2=m cloudy/3=overcast)"
+
+Speed:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "GPS vehicle speed"
+
+SteeringWheelAngle:
+	Unit: "rad"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Steering wheel angle"
+
+SteeringWheelAngleMax:
+	Unit: "rad"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Steering wheel max angle"
+
+SteeringWheelPctDamper:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Force feedback % max damping"
+
+SteeringWheelPctTorque:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Force feedback % max torque on steering shaft unsigned"
+
+SteeringWheelPctTorqueSign:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Force feedback % max torque on steering shaft signed"
+
+SteeringWheelPctTorqueSignStops:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Force feedback % max torque on steering shaft signed stops"
+
+SteeringWheelPeakForceNm:
+	Unit: "N*m"
+	Type: "float"
+	Disk: 0
+	Live: 1
+	Description: "Peak torque mapping to direct input units for FFB"
+
+SteeringWheelTorque:
+	Unit: "N*m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Output torque on steering shaft"
+
+Throttle:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "0=off throttle to 1=full throttle"
+
+ThrottleRaw:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Raw throttle input 0=off throttle to 1=full throttle"
+
+TrackTemp:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Temperature of track at start/finish line"
+
+TrackTempCrew:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Temperature of track measured by crew around track"
+
+VelocityX:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "X velocity"
+
+VelocityY:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Y velocity"
+
+VelocityZ:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Z velocity"
+
+VertAccel:
+	Unit: "m/s^2"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Vertical acceleration (including gravity)"
+
+Voltage:
+	Unit: "V"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine voltage"
+
+WaterLevel:
+	Unit: "l"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine coolant level"
+
+WaterTemp:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Engine coolant temp"
+
+WeatherType:
+	Unit: ""
+	Type: "int"
+	Disk: 1
+	Live: 1
+	Description: "Weather type (0=constant 1=dynamic)"
+
+WindDir:
+	Unit: "rad"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Wind direction at start/finish line"
+
+WindVel:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Wind velocity at start/finish line"
+
+Yaw:
+	Unit: "rad"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Yaw orientation"
+
+YawNorth:
+	Unit: "rad"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Yaw orientation relative to north"
+
+YawRate:
+	Unit: "rad/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Yaw rate"
+
+# Car Setup Parameters ========================================
+CFrideHeight:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "CF ride height"
+
+CFshockDefl:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "CF shock deflection"
+
+CFshockVel:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "CF shock velocity"
+
+CFSRrideHeight:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "CFSR ride height"
+
+CRrideHeight:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "CR ride height"
+
+CRshockDefl:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "CR shock deflection"
+
+CRshockVel:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "CR shock velocity"
+
+dcABS:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car abs adjustment"
+
+dcAntiRollFront:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car front anti roll bar adjustment"
+
+dcAntiRollRear:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car rear anti roll bar adjustment"
+
+dcBoostLevel:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car boost level adjustment"
+
+dcBrakeBias:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car brake bias adjustment"
+
+dcBrakeBias:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car brake bias adjustment"
+
+dcDiffEntry:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car diff entry adjustment"
+
+dcDiffExit:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car diff exit adjustment"
+
+dcDiffMiddle:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car diff middle adjustment"
+
+dcEngineBraking:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car engine braking adjustment"
+
+dcEnginePower:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car engine power adjustment"
+
+dcFuelMixture:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car fuel mixture adjustment"
+
+dcRevLimiter:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car rev limiter adjustment"
+
+dcThrottleShape:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car throttle shape adjustment"
+
+dcTractionControl:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car traction control adjustment"
+
+dcTractionControl2:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car traction control 2 adjustment"
+
+dcTractionControlToggle:
+	Unit: ""
+	Type: "bool"
+	Disk: 1
+	Live: 1
+	Description: "In car traction control active"
+
+dcWeightJackerLeft:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car left weight jacker adjustment"
+
+dcWeightJackerRight:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car right weight jacker adjustment"
+
+dcWingFront:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car front wing adjustment"
+
+dcWingRear:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "In car rear wing adjustment"
+
+dpFNOMKnobSetting:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop front flap adjustment"
+
+dpFUFangleIndex:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop front upper flap adjustment"
+
+dpFWingAngle:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop front wing adjustment"
+
+dpFWingIndex:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop front wing adjustment"
+
+dpLrWedgeAdj:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop lr spring offset adjustment"
+
+dpPSSetting:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop power steering adjustment"
+
+dpQtape:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop qtape adjustment"
+
+dpRBarSetting:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop rear bar adjustment"
+
+dpRFTruckarmP1Dz:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop rftruckarmP1Dz adjustment"
+
+dpRRDamperPerchOffsetm:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop right rear dampter perch offset adjustment"
+
+dpRrPerchOffsetm:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop right rear spring offset adjustment"
+
+dpRrWedgeAdj:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop rr spring offset adjustment"
+
+dpRWingAngle:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop rear wing adjustment"
+
+dpRWingIndex:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop rear wing adjustment"
+
+dpRWingSetting:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop rear wing adjustment"
+
+dpTruckarmP1Dz:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop truckarmP1Dz adjustment"
+
+dpWedgeAdj:
+	Unit: ""
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "Pitstop wedge adjustment"
+
+LFbrakeLinePress:
+	Unit: "bar"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF brake line pressure"
+
+LFcoldPressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF tire cold pressure as set in the garage"
+
+LFpressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LF tire pressure"
+
+LFrideHeight:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LF ride height"
+
+LFshockDefl:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF shock deflection"
+
+LFshockVel:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF shock velocity"
+
+LFspeed:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF wheel speed"
+
+LFtempCL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF tire left carcass temperature"
+
+LFtempCM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF tire middle carcass temperature"
+
+LFtempCR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF tire right carcass temperature"
+
+LFtempL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LF tire left surface temperature"
+
+LFtempM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LF tire middle surface temperature"
+
+LFtempR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LF tire right surface temperature"
+
+LFwearL:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF tire left percent tread remaining"
+
+LFwearM:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF tire middle percent tread remaining"
+
+LFwearR:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LF tire right percent tread remaining"
+
+LRbrakeLinePress:
+	Unit: "bar"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR brake line pressure"
+
+LRcoldPressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR tire cold pressure as set in the garage"
+
+LRpressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LR tire pressure"
+
+LRrideHeight:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LR ride height"
+
+LRshockDefl:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR shock deflection"
+
+LRshockVel:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR shock velocity"
+
+LRspeed:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR wheel speed"
+
+LRtempCL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR tire left carcass temperature"
+
+LRtempCM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR tire middle carcass temperature"
+
+LRtempCR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR tire right carcass temperature"
+
+LRtempL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LR tire left surface temperature"
+
+LRtempM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LR tire middle surface temperature"
+
+LRtempR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "LR tire right surface temperature"
+
+LRwearL:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR tire left percent tread remaining"
+
+LRwearM:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR tire middle percent tread remaining"
+
+LRwearR:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "LR tire right percent tread remaining"
+
+RFbrakeLinePress:
+	Unit: "bar"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF brake line pressure"
+
+RFcoldPressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF tire cold pressure as set in the garage"
+
+RFpressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RF tire pressure"
+
+RFrideHeight:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RF ride height"
+
+RFshockDefl:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF shock deflection"
+
+RFshockVel:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF shock velocity"
+
+RFspeed:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF wheel speed"
+
+RFtempCL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF tire left carcass temperature"
+
+RFtempCM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF tire middle carcass temperature"
+
+RFtempCR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF tire right carcass temperature"
+
+RFtempL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RF tire left surface temperature"
+
+RFtempM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RF tire middle surface temperature"
+
+RFtempR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RF tire right surface temperature"
+
+RFwearL:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF tire left percent tread remaining"
+
+RFwearM:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF tire middle percent tread remaining"
+
+RFwearR:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RF tire right percent tread remaining"
+
+RRbrakeLinePress:
+	Unit: "bar"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "R brake line pressure"
+
+RRcoldPressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR tire cold pressure as set in the garage"
+
+RRpressure:
+	Unit: "kPa"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RR tire pressure"
+
+RRrideHeight:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RR ride height"
+
+RRshockDefl:
+	Unit: "m"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR shock deflection"
+
+RRshockVel:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR shock velocity"
+
+RRspeed:
+	Unit: "m/s"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR wheel speed"
+
+RRtempCL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR tire left carcass temperature"
+
+RRtempCM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR tire middle carcass temperature"
+
+RRtempCR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR tire right carcass temperature"
+
+RRtempL:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RR tire left surface temperature"
+
+RRtempM:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RR tire middle surface temperature"
+
+RRtempR:
+	Unit: "C"
+	Type: "float"
+	Disk: 1
+	Live: 0
+	Description: "RR tire right surface temperature"
+
+RRwearL:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR tire left percent tread remaining"
+
+RRwearM:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR tire middle percent tread remaining"
+
+RRwearR:
+	Unit: "%"
+	Type: "float"
+	Disk: 1
+	Live: 1
+	Description: "RR tire right percent tread remaining"
+
+# CarIdx Parameters ========================================
+CarIdxClassPosition:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Cars class position in race by car index"
+
+CarIdxEstTime:
+	Unit: "s"
+	Type: "float"
+	Disk: 0
+	Live: 1
+	Description: "Estimated time to reach current location on track"
+
+CarIdxF2Time:
+	Unit: "s"
+	Type: "float"
+	Disk: 0
+	Live: 1
+	Description: "Race time behind leader or fastest lap time otherwise"
+
+CarIdxGear:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "-1=reverse 0=neutral 1..n=current gear by car index"
+
+CarIdxLap:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Lap count by car index"
+
+CarIdxLapDistPct:
+	Unit: "%"
+	Type: "float"
+	Disk: 0
+	Live: 1
+	Description: "Percentage distance around lap by car index"
+
+CarIdxOnPitRoad:
+	Unit: ""
+	Type: "bool"
+	Disk: 0
+	Live: 1
+	Description: "On pit road between the cones by car index"
+
+CarIdxPosition:
+	Unit: ""
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Cars position in race by car index"
+
+CarIdxRPM:
+	Unit: "revs/min"
+	Type: "float"
+	Disk: 0
+	Live: 1
+	Description: "Engine rpm by car index"
+
+CarIdxSteer:
+	Unit: "rad"
+	Type: "float"
+	Disk: 0
+	Live: 1
+	Description: "Steering wheel angle by car index"
+
+CarIdxTrackSurface:
+	Unit: "irsdk_TrkLoc"
+	Type: "int"
+	Disk: 0
+	Live: 1
+	Description: "Track surface type by car index"
+
+# irsdk_ Units ========================================
+irsdk_EngineWarnings:
+	Name: "irsdk_waterTempWarning"
+	Value: 0x0001
+	Name: "irsdk_fuelPressureWarning"
+	Value: 0x0002
+	Name: "irsdk_oilPressureWarning"
+	Value: 0x0004
+	Name: "irsdk_engineStalled"
+	Value: 0x0008
+	Name: "irsdk_pitSpeedLimiter"
+	Value: 0x0010
+	Name: "irsdk_revLimiterActive"
+	Value: 0x0020
+irsdk_Flags:
+	Name: "irsdk_checkered"
+	Value: 0x00000001
+	Name: "irsdk_white"
+	Value: 0x00000002
+	Name: "irsdk_green"
+	Value: 0x00000004
+	Name: "irsdk_yellow"
+	Value: 0x00000008
+	Name: "irsdk_red"
+	Value: 0x00000010
+	Name: "irsdk_blue"
+	Value: 0x00000020
+	Name: "irsdk_debris"
+	Value: 0x00000040
+	Name: "irsdk_crossed"
+	Value: 0x00000080
+	Name: "irsdk_yellowWaving"
+	Value: 0x00000100
+	Name: "irsdk_oneLapToGreen"
+	Value: 0x00000200
+	Name: "irsdk_greenHeld"
+	Value: 0x00000400
+	Name: "irsdk_tenToGo"
+	Value: 0x00000800
+	Name: "irsdk_fiveToGo"
+	Value: 0x00001000
+	Name: "irsdk_randomWaving"
+	Value: 0x00002000
+	Name: "irsdk_caution"
+	Value: 0x00004000
+	Name: "irsdk_cautionWaving"
+	Value: 0x00008000
+	Name: "irsdk_black"
+	Value: 0x00010000
+	Name: "irsdk_disqualify"
+	Value: 0x00020000
+	Name: "irsdk_servicible"
+	Value: 0x00040000
+	Name: "irsdk_furled"
+	Value: 0x00080000
+	Name: "irsdk_repair"
+	Value: 0x00100000
+	Name: "irsdk_startHidden"
+	Value: 0x10000000
+	Name: "irsdk_startReady"
+	Value: 0x20000000
+	Name: "irsdk_startSet"
+	Value: 0x40000000
+	Name: "irsdk_startGo"
+	Value: 0x80000000
+irsdk_CameraState:
+	Name: "irsdk_IsSessionScreen"
+	Value: 0x0001
+	Name: "irsdk_IsScenicActive"
+	Value: 0x0002
+	Name: "irsdk_CamToolActive"
+	Value: 0x0004
+	Name: "irsdk_UIHidden"
+	Value: 0x0008
+	Name: "irsdk_UseAutoShotSelection"
+	Value: 0x0010
+	Name: "irsdk_UseTemporaryEdits"
+	Value: 0x0020
+	Name: "irsdk_UseKeyAcceleration"
+	Value: 0x0040
+	Name: "irsdk_UseKey10xAcceleration"
+	Value: 0x0080
+	Name: "irsdk_UseMouseAimMode"
+	Value: 0x0100
+irsdk_PitSvFlags:
+	Name: "irsdk_LFTireChange"
+	Value: 0x0001
+	Name: "irsdk_RFTireChange"
+	Value: 0x0002
+	Name: "irsdk_LRTireChange"
+	Value: 0x0004
+	Name: "irsdk_RRTireChange"
+	Value: 0x0008
+	Name: "irsdk_FuelFill"
+	Value: 0x0010
+	Name: "irsdk_WindshieldTearoff"
+	Value: 0x0020
+	Name: "irsdk_FastRepair"
+	Value: 0x0040
+irsdk_TrkLoc:
+	Name: "irsdk_NotInWorld"
+	Value: -1
+	Name: "irsdk_OffTrack"
+	Value: 0
+	Name: "irsdk_InPitStall"
+	Value: 1
+	Name: "irsdk_AproachingPits"
+	Value: 2
+	Name: "irsdk_OnTrack"
+	Value: 3
+irsdk_SessionState:
+	Name: "irsdk_StateInvalid"
+	Value: 0
+	Name: "irsdk_StateGetInCar"
+	Value: 1
+	Name: "irsdk_StateWarmup"
+	Value: 2
+	Name: "irsdk_StateParadeLaps"
+	Value: 3
+	Name: "irsdk_StateRacing"
+	Value: 4
+	Name: "irsdk_StateCheckered"
+	Value: 5
+	Name: "irsdk_StateCoolDown"
+	Value: 6

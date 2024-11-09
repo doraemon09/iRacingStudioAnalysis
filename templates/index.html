@@ -9,8 +9,8 @@
         <script src="/static/js/script.js" defer></script>
 
         <!-- css -->
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css">
-        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css" rel="stylesheet">
 
         <!-- -->
         <title data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス">iRacing Studio Analysis</title>
@@ -40,12 +40,16 @@
                     <h1 data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス"><!-- text from data attribute --></h1>
                     <p data-en="Upload iRacing telemetry file (.ibt) to start your analysis." data-jp="iRacingテレメトリーファイル（.ibt）をアップロードして下さい。"><!-- text from data attribute --></p>
                     <p data-en="Telemetry files are located in \Documents\iRacing\Telemetry\ folder." data-jp="テレメトリ ファイルは \Documents\iRacing\Telemetry\ フォルダーにあります。"><!-- text from data attribute --></p>
-                    <form method="post" enctype="multipart/form-data">
-                        <input type="file" name="file" accept=".ibt">
-                        <input type="submit" value="Upload">
-                    </form>
                 </div>
             </div>
+            <form class="row my-2" method="post" enctype="multipart/form-data">
+                <div class="col-md-6">
+                    <input class="form-control" type="file" name="file" accept=".ibt">
+                </div>
+                <div class="col-md-6">
+                    <input class="btn btn-primary" type="submit" data-en="Upload" data-jp="アップロード" value="Upload">
+                </div>
+            </form>
         </div>
     </body>
 </html>

@@ -5,7 +5,11 @@ function switchLanguage(language) {
     // Update content display per selected language
     const elements = document.querySelectorAll('[data-en][data-jp]');
     elements.forEach(element => {
-        element.textContent = element.getAttribute(`data-${language}`);
+        if (element.tagName === 'INPUT' && element.type === 'submit') {
+            element.value = element.getAttribute(`data-${language}`);
+        } else {
+            element.textContent = element.getAttribute(`data-${language}`);
+        };
     });
 };
 

@@ -1,10 +1,23 @@
 from flask import Flask, render_template, request, redirect, url_for
+import werkzeug.utils
 import os
 import irsdk
 
 
+# Initialize Flash app
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
+
+
+# Set allowed file extensions
+ALLOWED_FILE_EXTENSIONS = {'ibt'}
+
+
+# Check for file extension on uploaded file
+def allowed_file(filename):
+    if '.' not in filename:
+        return False
+    return filename.rsplit('.', 1)[1].lower() in ALLOWED_FILE_EXTENSIONS
 
 
 # Route for upload form
@@ -14,20 +27,29 @@ def upload_file():
         if 'file' not in request.files:
             return "No file uploaded!"
 
-        # file
+        # Assign to file variable
         file = request.files['file']
 
         if file.filename == '':
             return "No file selected!"
 
-        if file:
+        if file and allowed_file(file.filename):
+            # Clean up file name
+            file.filename = werkzeug.utils.secure_filename(file.filename)
+
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-            file.save(filepath)
 
-            # Process binary file and display result
-            session_data = get_session_info(filepath)
+            try:
+                file.save(filepath)
 
-            return render_template('display.html', session_info=session_data)
+                # Process ibt file and display result
+                session_data = get_session_info(filepath)
+
+                return render_template('display.html', session_info=session_data)
+            except Exception as err:
+                return f"Error processing file: {err}"
+        else:
+            return "Invalid file extension. iRacing telemetry (.ibt) file only!"
 
     return render_template('index.html')
 

@@ -1,14 +1,190 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html>
     <head>
-        <meta charset="UTF-8">
-        <title>IBT content</title>
+        <!-- meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- js -->
+        <script src="/static/js/script.js" defer></script>
+
+        <!-- css -->
+        <link href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css" rel="stylesheet">
+
+        <!-- -->
+        <title data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス">iRacing Studio Analysis</title>
     </head>
 
     <body>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <!-- switch language buttons -->
+            <div class="row my-2">
+                <div class="col-md-12">
+                    <button class="btn btn-light" onclick="switchLanguage('en')">
+                        <span class="fi fi-us"></span>
+                        <span data-en="English" data-jp="英語"><!-- text from data attribute --></span>
+                    </button>
+
+                    <button class="btn btn-light" onclick="switchLanguage('jp')">
+                        <span class="fi fi-jp"></span>
+                        <span data-en="Japanese" data-jp="日本語"><!-- text from data attribute --></span>
+                    </button>
+
+                    <a class="btn btn-primary" href="{{ url_for('upload_file') }}" data-en="Upload" data-jp="アップロード"><!-- text from data attribute --></a>
+                </div>
+            </div>
+        </nav>
+
+        <!--
+        DriverInfo
+        RadioInfo
+        CameraInfo
+        QualifyResultsInfo
+        -->
         <h1>IBT content</h1>
-        <pre>{{ data }}</pre>
-        <a href="{{ url_for('upload_file') }}">Upload another IBT file</a>
+        <!--
+        <pre>{{ session_info.var_headers_names }}</pre>
+        <pre>{{ session_info._var_headers_dict }}</pre>
+        -->
+        <pre>{{ session_info['SplitTimeInfo'] }}</pre>
+
+        <!-- Split Time Info -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Split Time Info</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for split_time in session_info['SplitTimeInfo']['Sectors'] %}
+                    {% for sector, info in split_time.items() %}
+                        <tr>
+                            <th scope="row">{{ sector }}</th>
+                            <td>{{ info }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Car Setup -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Car Setup</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for setup, info in session_info['CarSetup'].items() %}
+                    <tr>
+                        <th scope="row">{{ setup }}</th>
+                        {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
+                            <td>
+                                <ul>
+                                    {% for info_options, info_value in info.items() %}
+                                        {% if info_value is mapping %} <!-- use 'mapping' to check if dictionary -->
+                                            <li>
+                                                {{ info_options }}
+                                                <ul>
+                                                    {% for sub_options, sub_value in info_value.items() %}
+                                                        <li>{{ sub_options }}: {{ sub_value }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </li>
+                                        {% else %}
+                                            <li>{{ info_options }}: {{ info_value }}</li>
+                                        {% endif %}
+                                    {% endfor%}
+                                </ul>
+                            </td>
+                        {% else %}
+                            <td>{{ info }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Session Info -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Session Info</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session_info in session_info['SessionInfo']['Sessions'] %}
+                    {% for session, info in session_info.items() %}
+                        <tr>
+                            <th scope="row">{{ session }}</th>
+                            {% if info is sequence and info|length == 1 %} <!-- use 'sequence' to check if list/tuple -->
+                                <td>
+                                    <ul>
+                                        {% for info_options in info %}
+                                            {% for idx, val in info_options.items() %}
+                                                <li>{{ idx }}: {{ val }}</li>
+                                            {% endfor %}
+                                        {% endfor%}
+                                    </ul>
+                                </td>
+                            {% else %}
+                                <td>{{ info }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Weekend Info -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Weekend Info</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for weekend, info in session_info['WeekendInfo'].items() %}
+                    <tr>
+                        <th scope="row">{{ weekend }}</th>
+                        {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
+                            <td>
+                                <ul>
+                                    {% for info_options, info_value in info.items() %}
+                                        <li>{{ info_options }}: {{ info_value }}</li>
+                                    {% endfor%}
+                                </ul>
+                            </td>
+                        {% else %}
+                            <td>{{ info }}</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Telemetry -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Parameter</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for header in session_info.var_headers_names %}
+                    <tr>
+                        <th scope="row">{{ header }}</th>
+                        <td>{{ session_info[header]|length }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
     </body>
 </html>

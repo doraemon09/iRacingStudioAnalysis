@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
-import string
 import irsdk
 
 
@@ -26,22 +25,23 @@ def upload_file():
             file.save(filepath)
 
             # Process binary file and display result
-            processed_data = process_binary_file(filepath)
-            return render_template('display.html', data=processed_data)
+            session_data = get_session_info(filepath)
+
+            return render_template('display.html', session_info=session_data)
 
     return render_template('index.html')
 
 
-# Function to process IBT / binary file
-def process_binary_file(filepath):
+# Retrieve session info, ie: Weather and Car Set up
+def get_session_info(filepath):
     try:
-        # Use IBT class for reading telemetry file
-        ibt = irsdk.IBT()
+        # Use IRSDK class for session info
+        ibt_session_info = irsdk.IRSDK()
 
-        # Open uploaded file
-        ibt.open(filepath)
+        # Read uploaded file
+        ibt_session_info.startup(test_file=filepath)
 
-        return ibt
+        return ibt_session_info
     except Exception as err:
         return f"Error reading file: {err}"
 

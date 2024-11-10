@@ -42,10 +42,13 @@ def upload_file():
             try:
                 file.save(filepath)
 
-                # Process ibt file and display result
+                # Session Info
                 session_data = get_session_info(filepath)
 
-                return render_template('display.html', session_info=session_data)
+                # Telemetry Info
+                telemetry_data = get_telemetry_info(filepath)
+
+                return render_template('display.html', session_info=session_data, telemetry_info=telemetry_data)
             except Exception as err:
                 return f"Error processing file: {err}"
         else:
@@ -64,6 +67,20 @@ def get_session_info(filepath):
         ibt_session_info.startup(test_file=filepath)
 
         return ibt_session_info
+    except Exception as err:
+        return f"Error reading file: {err}"
+
+
+# Retrieve telemetry info, ie: Lap time and Throttle
+def get_telemetry_info(filepath):
+    try:
+        # Use IBT class for telemetry info
+        ibt_telemetry_info = irsdk.IBT()
+
+        # Read uploaded file
+        ibt_telemetry_info.open(filepath)
+
+        return ibt_telemetry_info
     except Exception as err:
         return f"Error reading file: {err}"
 

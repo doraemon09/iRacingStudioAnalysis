@@ -36,18 +36,160 @@
             </div>
         </nav>
 
-        <!--
-        DriverInfo
-        RadioInfo
-        CameraInfo
-        QualifyResultsInfo
-        -->
         <h1>IBT content</h1>
+        <pre> &bullet; {{ session_info }}</pre>
         <!--
-        <pre>{{ session_info.var_headers_names }}</pre>
-        <pre>{{ session_info._var_headers_dict }}</pre>
+        <pre> &bullet; {{ session_info.var_headers_names }}</pre>
+        <pre> &bullet; {{ session_info._var_headers_dict }}</pre>
+        <pre> &bullet; {{ session_info['RadioInfo'] }}</pre>
         -->
-        <pre>{{ session_info['SplitTimeInfo'] }}</pre>
+        <pre> &bullet; {{ telemetry_info }}</pre>
+        <!--
+        <pre> &bullet; {{ telemetry_info._var_headers_dict }}</pre>
+        <pre> &bullet; {{ telemetry_info.get_all('Speed') }}</pre>
+        -->
+
+        <!-- Qualify Results Info -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Qualify Results Info</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for qualify in session_info['QualifyResultsInfo']['Results'] %}
+                    <tr>
+                        <th scope="row">Position {{ qualify['Position'] }}</th>
+                            <td>
+                                <ul>
+                                    {% for qualify_options, qualify_values in qualify.items() %}
+                                        <li>{{ qualify_options }}: {{ qualify_values }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Camera Info -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Camera Info</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for camera in session_info['CameraInfo']['Groups'] %}
+                    <tr>
+                        <th scope="row">Group {{ camera['GroupNum'] }}</th>
+                        <td>
+                            <ul>
+                                {% for info_options, info_values in camera.items() %}
+                                    <li>
+                                        {{ info_options }}:
+                                        {% if info_values[0] is mapping %}
+                                            <ul>
+                                                {% for info_sub_values in info_values %}
+                                                    {% for sub_options, sub_values in info_sub_values.items() %}
+                                                        <li>{{ sub_options }}: {{ sub_values }}</li>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            {{ info_values }}
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Radio Info -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Radio Info</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for radio, info in session_info['RadioInfo'].items() %}
+                    <tr>
+                        <th scope="row">{{ radio }}</th>
+                        <td>
+                            {% if info[0] is mapping %}
+                                <ul>
+                                    {% for sub_info_values in info %}
+                                        {% for sub_options, sub_values in sub_info_values.items() %}
+                                            <li>
+                                                {{ sub_options }}:
+                                                {% if sub_values[0] is mapping %}
+                                                    {% for info_sub_values in sub_values %}
+                                                        {% for sub_options2, sub_values2 in info_sub_values.items() %}
+                                                            <ul>
+                                                                <li>{{ sub_options2 }}: {{ sub_values2 }}</li>
+                                                            </ul>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% else %}
+                                                    {{ sub_values }}
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                {{ info }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Driver Info -->
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Driver Info</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for driver, info in session_info['DriverInfo'].items() %}
+                    {% if driver == 'Drivers' %}
+                        {% for info_options in info %}
+                            <tr>
+                                <th scope="row">
+                                    Driver
+                                    {{ info_options['CarIdx'] }} -
+                                    {{ info_options['UserName'] }}
+                                    {% if info_options['CarIsAI'] %}(AI){% endif %}
+                                </th>
+                                <td>
+                                    <ul>
+                                        {% for sub_options, sub_values in info_options.items() %}
+                                            <li>{{ sub_options }}: {{ sub_values }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <th scope="row">{{ driver }}</th>
+                            <td>{{ info }}</td>
+                        </tr>
+                    {% endif%}
+                {% endfor %}
+            </tbody>
+        </table>
 
         <!-- Split Time Info -->
         <table class="table table-hover">
@@ -172,19 +314,18 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">Parameter</th>
+                    <th scope="col">Telemetry</th>
                     <th scope="col">Value</th>
                 </tr>
             </thead>
             <tbody>
-                {% for header in session_info.var_headers_names %}
+                {% for header in telemetry_info._var_headers_dict %}
                     <tr>
                         <th scope="row">{{ header }}</th>
-                        <td>{{ session_info[header]|length }}</td>
+                        <td>{{ telemetry_info.get_all(header) }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-
     </body>
 </html>

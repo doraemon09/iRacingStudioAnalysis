@@ -1,1871 +1,2473 @@
-# General Parameters ========================================
-AirDensity:
-    Unit: "kg/m^3"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Density of air at start/finish line"
-
-AirPressure:
-    Unit: "Hg"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pressure of air at start/finish line"
-
-AirTemp:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Temperature of air at start/finish line"
-
-Alt:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Altitude in meters"
-
-Brake:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "0=brake released to 1=max pedal force"
-
-BrakeRaw:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Raw brake input 0=brake released to 1=max pedal force"
-
-CamCameraNumber:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Active camera number"
-
-CamCameraState:
-    Unit: "irsdk_CameraState"
-    Type: "bitfield"
-    Disk: 0
-    Live: 1
-    Description: "State of camera system"
-
-CamCarIdx:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Active camera's focus car index"
-
-CamGroupNumber:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Active camera group number"
-
-Clutch:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "0=disengaged to 1=fully engaged"
-
-CpuUsageBG:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Percent of available tim bg thread took with a 1 sec avg"
-
-DCDriversSoFar:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Number of team drivers who have run a stint"
-
-DCLapStatus:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Status of driver change lap requirements"
-
-DisplayUnits:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Default units for the user interface 0 = english 1 = metric"
-
-DriverMarker:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "Driver activated flag"
-
-EngineWarnings:
-    Unit: "irsdk_EngineWarnings"
-    Type: "bitfield"
-    Disk: 1
-    Live: 1
-    Description: "Bitfield for warning lights"
-
-EnterExitReset:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Indicate action the reset key will take 0 enter 1 exit 2 reset"
-
-FogLevel:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Fog level"
-
-FrameRate:
-    Unit: "fps"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Average frames per second"
-
-FuelLevel:
-    Unit: "l"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Liters of fuel remaining"
-
-FuelLevelPct:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Percent fuel remaining"
-
-FuelPress:
-    Unit: "bar"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine fuel pressure"
-
-FuelUsePerHour:
-    Unit: "kg/h"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine fuel used instantaneous"
-
-Gear:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "-1=reverse 0=neutral 1..n=current gear"
-
-IsDiskLoggingActive:
-    Unit: ""
-    Type: "bool"
-    Disk: 0
-    Live: 1
-    Description: "0=disk based telemetry file not being written 1=being written"
-
-IsDiskLoggingEnabled:
-    Unit: ""
-    Type: "bool"
-    Disk: 0
-    Live: 1
-    Description: "0=disk based telemetry turned off 1=turned on"
-
-IsInGarage:
-    Unit: ""
-    Type: "bool"
-    Disk: 0
-    Live: 1
-    Description: "1=Car in garage physics running"
-
-IsOnTrack:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "1=Car on track physics running with player in car"
-
-IsOnTrackCar:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "1=Car on track physics running"
-
-IsReplayPlaying:
-    Unit: ""
-    Type: "bool"
-    Disk: 0
-    Live: 1
-    Description: "0=replay not playing 1=replay playing"
-
-Lap:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Lap count"
-
-LapBestLap:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Players best lap number"
-
-LapBestLapTime:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Players best lap time"
-
-LapBestNLapLap:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Player last lap in best N average lap time"
-
-LapBestNLapTime:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Player best N average lap time"
-
-LapCurrentLapTime:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Estimate of players current lap time as shown in F3 box"
-
-LapDeltaToBestLap:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for best lap"
-
-LapDeltaToBestLap_DD:
-    Unit: "s/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Rate of change of delta time for best lap"
-
-LapDeltaToBestLap_OK:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for best lap is valid"
-
-LapDeltaToOptimalLap:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for optimal lap"
-
-LapDeltaToOptimalLap_DD:
-    Unit: "s/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Rate of change of delta time for optimal lap"
-
-LapDeltaToOptimalLap_OK:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for optimal lap is valid"
-
-LapDeltaToSessionBestLap:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for session best lap"
-
-LapDeltaToSessionBestLap_DD:
-    Unit: "s/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Rate of change of delta time for session best lap"
-
-LapDeltaToSessionBestLap_OK:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for session best lap is valid"
-
-LapDeltaToSessionLastlLap:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for session last lap"
-
-LapDeltaToSessionLastlLap_DD:
-    Unit: "s/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Rate of change of delta time for session last lap"
-
-LapDeltaToSessionLastlLap_OK:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for session last lap is valid"
-
-LapDeltaToSessionOptimalLap:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for session optimal lap"
-
-LapDeltaToSessionOptimalLap_DD:
-    Unit: "s/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Rate of change of delta time for session optimal lap"
-
-LapDeltaToSessionOptimalLap_OK:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "Delta time for session optimal lap is valid"
-
-LapDist:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Meters traveled from S/F this lap"
-
-LapDistPct:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Percentage distance around lap"
-
-LapLasNLapSeq:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Player num consecutive clean laps completed for N average"
-
-LapLastLapTime:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Players last lap time"
-
-LapLastNLapTime:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Player last N average lap time"
-
-Lat:
-    Unit: "deg"
-    Type: "double"
-    Disk: 1
-    Live: 1
-    Description: "Latitude in decimal degrees"
-
-LatAccel:
-    Unit: "m/s^2"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Lateral acceleration (including gravity)"
-
-Lon:
-    Unit: "deg"
-    Type: "double"
-    Disk: 1
-    Live: 1
-    Description: "Longitude in decimal degrees"
-
-LongAccel:
-    Unit: "m/s^2"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Longitudinal acceleration (including gravity)"
-
-ManifoldPress:
-    Unit: "bar"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine manifold pressure"
-
-OilLevel:
-    Unit: "l"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine oil level"
-
-OilPress:
-    Unit: "bar"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine oil pressure"
-
-OilTemp:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine oil temperature"
-
-OnPitRoad:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "Is the player car on pit road between the cones"
-
-Pitch:
-    Unit: "rad"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitch orientation"
-
-PitchRate:
-    Unit: "rad/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitch rate"
-
-PitOptRepairLeft:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Time left for optional repairs if repairs are active"
-
-PitRepairLeft:
-    Unit: "s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Time left for mandatory pit repairs if repairs are active"
-
-PitSvFlags:
-    Unit: "irsdk_PitSvFlags"
-    Type: "bitfield"
-    Disk: 1
-    Live: 1
-    Description: "Bitfield of pit service checkboxes"
-
-PitSvFuel:
-    Unit: "l"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pit service fuel add amount"
-
-PitSvLFP:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pit service left front tire pressure"
-
-PitSvLRP:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pit service left rear tire pressure"
-
-PitSvRFP:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pit service right front tire pressure"
-
-PitSvRRP:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pit service right rear tire pressure"
-
-PlayerCarClassPosition:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Players class position in race"
-
-PlayerCarPosition:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Players position in race"
-
-RaceLaps:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Laps completed in race"
-
-RadioTransmitCarIdx:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "The car index of the current person speaking on the radio"
-
-RadioTransmitFrequencyIdx:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "The frequency index of the current person speaking on the raio"
-
-RadioTransmitRadioIdx:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "The radio index of the current person speaking on the radio"
-
-RelativeHumidity:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Relative Humidity"
-
-ReplayFrameNum:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Integer replay frame number (60 per second)"
-
-ReplayFrameNumEnd:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Integer replay frame number from end of tape"
-
-ReplayPlaySlowMotion:
-    Unit: ""
-    Type: "bool"
-    Disk: 0
-    Live: 1
-    Description: "0=not slow motion 1=replay is in slow motion"
-
-ReplayPlaySpeed:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Replay playback speed"
-
-ReplaySessionNum:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Replay session number"
-
-ReplaySessionTime:
-    Unit: "s"
-    Type: "double"
-    Disk: 0
-    Live: 1
-    Description: "Seconds since replay session start"
-
-Roll:
-    Unit: "rad"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Roll orientation"
-
-RollRate:
-    Unit: "rad/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Roll rate"
-
-RPM:
-    Unit: "revs/min"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine rpm"
-
-SessionFlags:
-    Unit: "irsdk_Flags"
-    Type: "bitfield"
-    Disk: 0
-    Live: 1
-    Description: "Session flags"
-
-SessionLapsRemain:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Laps left till session ends"
-
-SessionNum:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Session number"
-
-SessionState:
-    Unit: "irsdk_SessionState"
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Session state"
-
-SessionTime:
-    Unit: "s"
-    Type: "double"
-    Disk: 1
-    Live: 1
-    Description: "Seconds since session start"
-
-SessionTimeRemain:
-    Unit: "s"
-    Type: "double"
-    Disk: 1
-    Live: 1
-    Description: "Seconds left till session ends"
-
-SessionUniqueID:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Session ID"
-
-ShiftGrindRPM:
-    Unit: "RPM"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RPM of shifter grinding noise"
-
-ShiftIndicatorPct:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "DEPRECATED use DriverCarSLBlinkRPM instead"
-
-ShiftPowerPct:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Friction torque applied to gears when shifting or grinding"
-
-Skies:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Skies (0=clear/1=p cloudy/2=m cloudy/3=overcast)"
-
-Speed:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "GPS vehicle speed"
-
-SteeringWheelAngle:
-    Unit: "rad"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Steering wheel angle"
-
-SteeringWheelAngleMax:
-    Unit: "rad"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Steering wheel max angle"
-
-SteeringWheelPctDamper:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Force feedback % max damping"
-
-SteeringWheelPctTorque:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Force feedback % max torque on steering shaft unsigned"
-
-SteeringWheelPctTorqueSign:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Force feedback % max torque on steering shaft signed"
-
-SteeringWheelPctTorqueSignStops:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Force feedback % max torque on steering shaft signed stops"
-
-SteeringWheelPeakForceNm:
-    Unit: "N*m"
-    Type: "float"
-    Disk: 0
-    Live: 1
-    Description: "Peak torque mapping to direct input units for FFB"
-
-SteeringWheelTorque:
-    Unit: "N*m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Output torque on steering shaft"
-
-Throttle:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "0=off throttle to 1=full throttle"
-
-ThrottleRaw:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Raw throttle input 0=off throttle to 1=full throttle"
-
-TrackTemp:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Temperature of track at start/finish line"
-
-TrackTempCrew:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Temperature of track measured by crew around track"
-
-VelocityX:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "X velocity"
-
-VelocityY:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Y velocity"
-
-VelocityZ:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Z velocity"
-
-VertAccel:
-    Unit: "m/s^2"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Vertical acceleration (including gravity)"
-
-Voltage:
-    Unit: "V"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine voltage"
-
-WaterLevel:
-    Unit: "l"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine coolant level"
-
-WaterTemp:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Engine coolant temp"
-
-WeatherType:
-    Unit: ""
-    Type: "int"
-    Disk: 1
-    Live: 1
-    Description: "Weather type (0=constant 1=dynamic)"
-
-WindDir:
-    Unit: "rad"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Wind direction at start/finish line"
-
-WindVel:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Wind velocity at start/finish line"
-
-Yaw:
-    Unit: "rad"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Yaw orientation"
-
-YawNorth:
-    Unit: "rad"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Yaw orientation relative to north"
-
-YawRate:
-    Unit: "rad/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Yaw rate"
-
-# Car Setup Parameters ========================================
-CFrideHeight:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "CF ride height"
-
-CFshockDefl:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "CF shock deflection"
-
-CFshockVel:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "CF shock velocity"
-
-CFSRrideHeight:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "CFSR ride height"
-
-CRrideHeight:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "CR ride height"
-
-CRshockDefl:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "CR shock deflection"
-
-CRshockVel:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "CR shock velocity"
-
-dcABS:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car abs adjustment"
-
-dcAntiRollFront:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car front anti roll bar adjustment"
-
-dcAntiRollRear:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car rear anti roll bar adjustment"
-
-dcBoostLevel:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car boost level adjustment"
-
-dcBrakeBias:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car brake bias adjustment"
-
-dcBrakeBias:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car brake bias adjustment"
-
-dcDiffEntry:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car diff entry adjustment"
-
-dcDiffExit:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car diff exit adjustment"
-
-dcDiffMiddle:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car diff middle adjustment"
-
-dcEngineBraking:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car engine braking adjustment"
-
-dcEnginePower:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car engine power adjustment"
-
-dcFuelMixture:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car fuel mixture adjustment"
-
-dcRevLimiter:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car rev limiter adjustment"
-
-dcThrottleShape:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car throttle shape adjustment"
-
-dcTractionControl:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car traction control adjustment"
-
-dcTractionControl2:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car traction control 2 adjustment"
-
-dcTractionControlToggle:
-    Unit: ""
-    Type: "bool"
-    Disk: 1
-    Live: 1
-    Description: "In car traction control active"
-
-dcWeightJackerLeft:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car left weight jacker adjustment"
-
-dcWeightJackerRight:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car right weight jacker adjustment"
-
-dcWingFront:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car front wing adjustment"
-
-dcWingRear:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "In car rear wing adjustment"
-
-dpFNOMKnobSetting:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop front flap adjustment"
-
-dpFUFangleIndex:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop front upper flap adjustment"
-
-dpFWingAngle:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop front wing adjustment"
-
-dpFWingIndex:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop front wing adjustment"
-
-dpLrWedgeAdj:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop lr spring offset adjustment"
-
-dpPSSetting:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop power steering adjustment"
-
-dpQtape:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop qtape adjustment"
-
-dpRBarSetting:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop rear bar adjustment"
-
-dpRFTruckarmP1Dz:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop rftruckarmP1Dz adjustment"
-
-dpRRDamperPerchOffsetm:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop right rear dampter perch offset adjustment"
-
-dpRrPerchOffsetm:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop right rear spring offset adjustment"
-
-dpRrWedgeAdj:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop rr spring offset adjustment"
-
-dpRWingAngle:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop rear wing adjustment"
-
-dpRWingIndex:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop rear wing adjustment"
-
-dpRWingSetting:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop rear wing adjustment"
-
-dpTruckarmP1Dz:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop truckarmP1Dz adjustment"
-
-dpWedgeAdj:
-    Unit: ""
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "Pitstop wedge adjustment"
-
-LFbrakeLinePress:
-    Unit: "bar"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF brake line pressure"
-
-LFcoldPressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF tire cold pressure as set in the garage"
-
-LFpressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LF tire pressure"
-
-LFrideHeight:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LF ride height"
-
-LFshockDefl:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF shock deflection"
-
-LFshockVel:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF shock velocity"
-
-LFspeed:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF wheel speed"
-
-LFtempCL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF tire left carcass temperature"
-
-LFtempCM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF tire middle carcass temperature"
-
-LFtempCR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF tire right carcass temperature"
-
-LFtempL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LF tire left surface temperature"
-
-LFtempM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LF tire middle surface temperature"
-
-LFtempR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LF tire right surface temperature"
-
-LFwearL:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF tire left percent tread remaining"
-
-LFwearM:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF tire middle percent tread remaining"
-
-LFwearR:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LF tire right percent tread remaining"
-
-LRbrakeLinePress:
-    Unit: "bar"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR brake line pressure"
-
-LRcoldPressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR tire cold pressure as set in the garage"
-
-LRpressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LR tire pressure"
-
-LRrideHeight:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LR ride height"
-
-LRshockDefl:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR shock deflection"
-
-LRshockVel:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR shock velocity"
-
-LRspeed:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR wheel speed"
-
-LRtempCL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR tire left carcass temperature"
-
-LRtempCM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR tire middle carcass temperature"
-
-LRtempCR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR tire right carcass temperature"
-
-LRtempL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LR tire left surface temperature"
-
-LRtempM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LR tire middle surface temperature"
-
-LRtempR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "LR tire right surface temperature"
-
-LRwearL:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR tire left percent tread remaining"
-
-LRwearM:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR tire middle percent tread remaining"
-
-LRwearR:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "LR tire right percent tread remaining"
-
-RFbrakeLinePress:
-    Unit: "bar"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF brake line pressure"
-
-RFcoldPressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF tire cold pressure as set in the garage"
-
-RFpressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RF tire pressure"
-
-RFrideHeight:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RF ride height"
-
-RFshockDefl:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF shock deflection"
-
-RFshockVel:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF shock velocity"
-
-RFspeed:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF wheel speed"
-
-RFtempCL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF tire left carcass temperature"
-
-RFtempCM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF tire middle carcass temperature"
-
-RFtempCR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF tire right carcass temperature"
-
-RFtempL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RF tire left surface temperature"
-
-RFtempM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RF tire middle surface temperature"
-
-RFtempR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RF tire right surface temperature"
-
-RFwearL:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF tire left percent tread remaining"
-
-RFwearM:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF tire middle percent tread remaining"
-
-RFwearR:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RF tire right percent tread remaining"
-
-RRbrakeLinePress:
-    Unit: "bar"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "R brake line pressure"
-
-RRcoldPressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR tire cold pressure as set in the garage"
-
-RRpressure:
-    Unit: "kPa"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RR tire pressure"
-
-RRrideHeight:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RR ride height"
-
-RRshockDefl:
-    Unit: "m"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR shock deflection"
-
-RRshockVel:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR shock velocity"
-
-RRspeed:
-    Unit: "m/s"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR wheel speed"
-
-RRtempCL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR tire left carcass temperature"
-
-RRtempCM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR tire middle carcass temperature"
-
-RRtempCR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR tire right carcass temperature"
-
-RRtempL:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RR tire left surface temperature"
-
-RRtempM:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RR tire middle surface temperature"
-
-RRtempR:
-    Unit: "C"
-    Type: "float"
-    Disk: 1
-    Live: 0
-    Description: "RR tire right surface temperature"
-
-RRwearL:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR tire left percent tread remaining"
-
-RRwearM:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR tire middle percent tread remaining"
-
-RRwearR:
-    Unit: "%"
-    Type: "float"
-    Disk: 1
-    Live: 1
-    Description: "RR tire right percent tread remaining"
-
-# CarIdx Parameters ========================================
-CarIdxClassPosition:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Cars class position in race by car index"
-
-CarIdxEstTime:
-    Unit: "s"
-    Type: "float"
-    Disk: 0
-    Live: 1
-    Description: "Estimated time to reach current location on track"
-
-CarIdxF2Time:
-    Unit: "s"
-    Type: "float"
-    Disk: 0
-    Live: 1
-    Description: "Race time behind leader or fastest lap time otherwise"
-
-CarIdxGear:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "-1=reverse 0=neutral 1..n=current gear by car index"
-
-CarIdxLap:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Lap count by car index"
-
-CarIdxLapDistPct:
-    Unit: "%"
-    Type: "float"
-    Disk: 0
-    Live: 1
-    Description: "Percentage distance around lap by car index"
-
-CarIdxOnPitRoad:
-    Unit: ""
-    Type: "bool"
-    Disk: 0
-    Live: 1
-    Description: "On pit road between the cones by car index"
-
-CarIdxPosition:
-    Unit: ""
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Cars position in race by car index"
-
-CarIdxRPM:
-    Unit: "revs/min"
-    Type: "float"
-    Disk: 0
-    Live: 1
-    Description: "Engine rpm by car index"
-
-CarIdxSteer:
-    Unit: "rad"
-    Type: "float"
-    Disk: 0
-    Live: 1
-    Description: "Steering wheel angle by car index"
-
-CarIdxTrackSurface:
-    Unit: "irsdk_TrkLoc"
-    Type: "int"
-    Disk: 0
-    Live: 1
-    Description: "Track surface type by car index"
-
-# irsdk_ Units ========================================
-irsdk_EngineWarnings:
-    Name: "irsdk_waterTempWarning"
-    Value: 0x0001
-    Name: "irsdk_fuelPressureWarning"
-    Value: 0x0002
-    Name: "irsdk_oilPressureWarning"
-    Value: 0x0004
-    Name: "irsdk_engineStalled"
-    Value: 0x0008
-    Name: "irsdk_pitSpeedLimiter"
-    Value: 0x0010
-    Name: "irsdk_revLimiterActive"
-    Value: 0x0020
-irsdk_Flags:
-    Name: "irsdk_checkered"
-    Value: 0x00000001
-    Name: "irsdk_white"
-    Value: 0x00000002
-    Name: "irsdk_green"
-    Value: 0x00000004
-    Name: "irsdk_yellow"
-    Value: 0x00000008
-    Name: "irsdk_red"
-    Value: 0x00000010
-    Name: "irsdk_blue"
-    Value: 0x00000020
-    Name: "irsdk_debris"
-    Value: 0x00000040
-    Name: "irsdk_crossed"
-    Value: 0x00000080
-    Name: "irsdk_yellowWaving"
-    Value: 0x00000100
-    Name: "irsdk_oneLapToGreen"
-    Value: 0x00000200
-    Name: "irsdk_greenHeld"
-    Value: 0x00000400
-    Name: "irsdk_tenToGo"
-    Value: 0x00000800
-    Name: "irsdk_fiveToGo"
-    Value: 0x00001000
-    Name: "irsdk_randomWaving"
-    Value: 0x00002000
-    Name: "irsdk_caution"
-    Value: 0x00004000
-    Name: "irsdk_cautionWaving"
-    Value: 0x00008000
-    Name: "irsdk_black"
-    Value: 0x00010000
-    Name: "irsdk_disqualify"
-    Value: 0x00020000
-    Name: "irsdk_servicible"
-    Value: 0x00040000
-    Name: "irsdk_furled"
-    Value: 0x00080000
-    Name: "irsdk_repair"
-    Value: 0x00100000
-    Name: "irsdk_startHidden"
-    Value: 0x10000000
-    Name: "irsdk_startReady"
-    Value: 0x20000000
-    Name: "irsdk_startSet"
-    Value: 0x40000000
-    Name: "irsdk_startGo"
-    Value: 0x80000000
-irsdk_CameraState:
-    Name: "irsdk_IsSessionScreen"
-    Value: 0x0001
-    Name: "irsdk_IsScenicActive"
-    Value: 0x0002
-    Name: "irsdk_CamToolActive"
-    Value: 0x0004
-    Name: "irsdk_UIHidden"
-    Value: 0x0008
-    Name: "irsdk_UseAutoShotSelection"
-    Value: 0x0010
-    Name: "irsdk_UseTemporaryEdits"
-    Value: 0x0020
-    Name: "irsdk_UseKeyAcceleration"
-    Value: 0x0040
-    Name: "irsdk_UseKey10xAcceleration"
-    Value: 0x0080
-    Name: "irsdk_UseMouseAimMode"
-    Value: 0x0100
-irsdk_PitSvFlags:
-    Name: "irsdk_LFTireChange"
-    Value: 0x0001
-    Name: "irsdk_RFTireChange"
-    Value: 0x0002
-    Name: "irsdk_LRTireChange"
-    Value: 0x0004
-    Name: "irsdk_RRTireChange"
-    Value: 0x0008
-    Name: "irsdk_FuelFill"
-    Value: 0x0010
-    Name: "irsdk_WindshieldTearoff"
-    Value: 0x0020
-    Name: "irsdk_FastRepair"
-    Value: 0x0040
-irsdk_TrkLoc:
-    Name: "irsdk_NotInWorld"
-    Value: -1
-    Name: "irsdk_OffTrack"
-    Value: 0
-    Name: "irsdk_InPitStall"
-    Value: 1
-    Name: "irsdk_AproachingPits"
-    Value: 2
-    Name: "irsdk_OnTrack"
-    Value: 3
-irsdk_SessionState:
-    Name: "irsdk_StateInvalid"
-    Value: 0
-    Name: "irsdk_StateGetInCar"
-    Value: 1
-    Name: "irsdk_StateWarmup"
-    Value: 2
-    Name: "irsdk_StateParadeLaps"
-    Value: 3
-    Name: "irsdk_StateRacing"
-    Value: 4
-    Name: "irsdk_StateCheckered"
-    Value: 5
-    Name: "irsdk_StateCoolDown"
-    Value: 6
+# ========================================
+# Session ================================
+# ========================================
+Session:
+    WeatherInfo:
+        label:
+            en: "Weather"
+            jp: "気象"
+    SessionInfo:
+        label:
+            en: "Session"
+            jp: "セッション"
+    QualifyResultsInfo:
+        label:
+            en: "Qualify Results"
+            jp: "予選結果"
+    SplitTimeInfo:
+        label:
+            en: "Split Time"
+            jp: "スプリット・タイム"
+    CarSetup:
+        label:
+            en: "Car Setup"
+            jp: "セットアップ"
+    DriverInfo:
+        label:
+            en: "Driver"
+            jp: "ドライバー"
+    RadioInfo:
+        label:
+            en: "Radio"
+            jp: "無線"
+    CameraInfo:
+        label:
+            en: "Camera"
+            jp: "カメラ"
+
+# ========================================
+# Telemetry ==============================
+# ========================================
+Telemetry:
+    # Camera ========================================
+    Camera:
+        Label:
+            en: "Camera"
+            jp: "カメラ"
+        Property:
+            CamCameraNumber:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Active camera number"
+                    jp: "アクティブカメラ番号"
+
+            CamCameraState:
+                Unit: "irsdk_CameraState"
+                Type: "bitfield"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "State of camera system"
+                    jp: "カメラシステムの状態"
+
+            CamCarIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Active camera's focus car index"
+                    jp: "アクティブカメラのフォーカスカーインデックス"
+
+            CamGroupNumber:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Active camera group number"
+                    jp: "アクティブカメラグループ番号"
+
+    # Miscellaneous ========================================
+    Miscellaneous:
+        Label:
+            en: "Miscellaneous"
+            jp: "その他"
+        Property:
+            CpuUsageBG:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Percent of available tim bg thread took with a 1 sec avg"
+                    jp: "平均 1 秒で BG スレッドが消費した利用可能な時間の割合"
+
+            DisplayUnits:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Default units for the user interface 0 = english 1 = metric"
+                    jp: "ユーザー インターフェイスのデフォルトの単位 0 = イギリス 1 = メートル法"
+
+            DriverMarker:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Driver activated flag"
+                    jp: "ドライバー有効化フラグ"
+
+            EnterExitReset:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Indicate action the reset key will take 0 enter 1 exit 2 reset"
+                    jp: "リセットキーが実行するアクションを示します 0 入力 1 終了 2 リセット"
+
+            FrameRate:
+                Unit: "fps"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Average frames per second"
+                    jp: 1秒あたりの平均フレーム数"
+
+            IsDiskLoggingActive:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=disk based telemetry file not being written 1=being written"
+                    jp: "0 = ディスクベースのテレメトリ ファイルが書き込まれていない 1 = 書き込まれている"
+
+            IsDiskLoggingEnabled:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=disk based telemetry turned off 1=turned on"
+                    jp: "0=ディスクベースのテレメトリがオフ 1=オン"
+
+            IsInGarage:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "1=Car in garage physics running"
+                    jp: "1=ガレージ内の車が物理演算を実行中"
+
+            IsOnTrack:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "1=Car on track physics running with player in car"
+                    jp: "1=車がトラック上で物理走行し、プレイヤーが車内にいる"
+
+            IsOnTrackCar:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "1=Car on track physics running"
+                    jp: "1=車がコース上で物理的に動作中"
+
+            IsReplayPlaying:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=replay not playing 1=replay playing"
+                    jp: "0=リプレイを再生していない 1=リプレイを再生中"
+
+            OnPitRoad:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Is the player car on pit road between the cones"
+                    jp: "プレイヤーの車はピットロードのコーンの間にあります"
+
+    # Pitstop ========================================
+    Pitstop:
+        Label:
+            en: "Pitstop"
+            jp: "ピットストップ"
+        Property:
+            PitOptRepairLeft:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Time left for optional repairs if repairs are active"
+                    jp: "修理がアクティブな場合、オプションの修理に残された時間"
+
+            PitRepairLeft:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Time left for mandatory pit repairs if repairs are active"
+                    jp: "修理がアクティブな場合の必須ピット修理の残り時間"
+
+            PitSvFlags:
+                Unit: "irsdk_PitSvFlags"
+                Type: "bitfield"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Bitfield of pit service checkboxes"
+                    jp: "ピットサービスチェックボックスのビットフィールド"
+
+            PitSvFuel:
+                Unit: "l"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service fuel add amount"
+                    jp: "ピットサービス燃料追加量"
+
+            PitSvLFP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service left front tire pressure"
+                    jp: "ピットサービス左フロントタイヤ空気圧"
+
+            PitSvLRP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service left rear tire pressure"
+                    jp: "ピットサービス左後輪タイヤ空気圧"
+
+            PitSvRFP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service right front tire pressure"
+                    jp: "ピットサービス右フロントタイヤ空気圧"
+
+            PitSvRRP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service right rear tire pressure"
+                    jp: "ピットサービス右後輪タイヤ空気圧"
+
+    # Positioning ========================================
+    Positioning:
+        Label:
+            en: "Positioning"
+            jp: "ポジショニング"
+        Property:
+            Alt:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Altitude in meters"
+                    jp: "高度（メートル）"
+
+            Lat:
+                Unit: "deg"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Latitude in decimal degrees"
+                    jp: "緯度（十進度）"
+
+            LatAccel:
+                Unit: "m/s^2"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Lateral acceleration (including gravity)"
+                    jp: "横方向加速度（重力を含む）"
+
+            Lon:
+                Unit: "deg"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Longitude in decimal degrees"
+                    jp: "経度（十進度）"
+
+            LongAccel:
+                Unit: "m/s^2"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Longitudinal acceleration (including gravity)"
+                    jp: "縦方向の加速度（重力を含む）"
+
+            Pitch:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitch orientation"
+                    jp: "ピッチの方向"
+
+            PitchRate:
+                Unit: "rad/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitch rate"
+                    jp: "ピッチレート"
+
+            Roll:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Roll orientation"
+                    jp: "ロール方向"
+
+            RollRate:
+                Unit: "rad/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Roll rate"
+                    jp: "ロールレート"
+
+            VelocityX:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "X velocity"
+                    jp: "X速度"
+
+            VelocityY:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Y velocity"
+                    jp: "Y 方向速度"
+
+            VelocityZ:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Z velocity"
+                    jp: "Z 方向速度"
+
+            VertAccel:
+                Unit: "m/s^2"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Vertical acceleration (including gravity)"
+                    jp: "垂直加速度（重力含む）"
+
+            Yaw:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Yaw orientation"
+                    jp: "ヨー角"
+
+            YawNorth:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Yaw orientation relative to north"
+                    jp: "北基準ヨー角"
+
+            YawRate:
+                Unit: "rad/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Yaw rate"
+                    jp: "ヨーレート"
+
+    # Radio ========================================
+    Radio:
+        Label:
+            en: "Radio"
+            jp: "無線"
+        Property:
+            RadioTransmitCarIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "The car index of the current person speaking on the radio"
+                    jp: "現在の発言者の車インデックス"
+
+            RadioTransmitFrequencyIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "The frequency index of the current person speaking on the raio"
+                    jp: "現在の発言者の周波数インデックス"
+
+            RadioTransmitRadioIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "The radio index of the current person speaking on the radio"
+                    jp: "現在の発言者の無線インデックス"
+
+    # Replay ========================================
+    Replay:
+        Label:
+            en: "Replay"
+            jp: "リプレイ"
+        Property:
+            ReplayFrameNum:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Integer replay frame number (60 per second)"
+                    jp: "リプレイフレーム番号"
+
+            ReplayFrameNumEnd:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Integer replay frame number from end of tape"
+                    jp: "リプレイ終了フレーム番号"
+
+            ReplayPlaySlowMotion:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=not slow motion 1=replay is in slow motion"
+                    jp: "スローモーション再生"
+
+            ReplayPlaySpeed:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Replay playback speed"
+                    jp: "リプレイ再生速度"
+
+            ReplaySessionNum:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Replay session number"
+                    jp: "リプレイセッション番号"
+
+            ReplaySessionTime:
+                Unit: "s"
+                Type: "double"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Seconds since replay session start"
+                    jp: "リプレイセッション開始からの経過時間"
+
+    # Session ========================================
+    Session:
+        Label:
+            en: "Session"
+            jp: "セッション"
+        Property:
+            SessionFlags:
+                Unit: "irsdk_Flags"
+                Type: "bitfield"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Session flags"
+                    jp: "セッションフラグ"
+
+            SessionLapsRemain:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Laps left till session ends"
+                    jp: "セッション残りラップ数"
+
+            SessionNum:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Session number"
+                    jp: "セッション番号"
+
+            SessionState:
+                Unit: "irsdk_SessionState"
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Session state"
+                    jp: "セッション状態"
+
+            SessionTime:
+                Unit: "s"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Seconds since session start"
+                    jp: "セッション開始からの経過時間"
+
+            SessionTimeRemain:
+                Unit: "s"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Seconds left till session ends"
+                    jp: "セッション終了までの残り時間"
+
+            SessionUniqueID:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Session ID"
+                    jp: "セッションID"
+
+    # Timing ========================================
+    Timing:
+        Label:
+            en: "Timing"
+            jp: "タイミング"
+        Property:
+            DCDriversSoFar:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Number of team drivers who have run a stint"
+                    jp: "これまでに走行したドライバー数"
+
+            DCLapStatus:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Status of driver change lap requirements"
+                    jp: "ドライバー交代ラップステータス"
+
+            Lap:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Lap count"
+                    jp: "ラップ数"
+
+            LapBestLap:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Players best lap number"
+                    jp: "ベストラップ番号"
+
+            LapBestLapTime:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Players best lap time"
+                    jp: "ベストラップタイム"
+
+            LapBestNLapLap:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Player last lap in best N average lap time"
+                    jp: "ベストNラップの最後のラップ番号"
+
+            LapBestNLapTime:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Player best N average lap time"
+                    jp: "ベストNラップ平均タイム"
+
+            LapCurrentLapTime:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Estimate of players current lap time as shown in F3 box"
+                    jp: "現在のラップタイムの推定値（F3ボックスに表示される値）"
+
+            LapDeltaToBestLap:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for best lap"
+                    jp: "ベストラップとのタイム差"
+
+            LapDeltaToBestLap_DD:
+                Unit: "s/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Rate of change of delta time for best lap"
+                    jp: "ベストラップとのタイム差の変化率"
+
+            LapDeltaToBestLap_OK:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for best lap is valid"
+                    jp: "ベストラップとのタイム差が有効"
+
+            LapDeltaToOptimalLap:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for optimal lap"
+                    jp: "オプティマルラップとのタイム差"
+
+            LapDeltaToOptimalLap_DD:
+                Unit: "s/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Rate of change of delta time for optimal lap"
+                    jp: "オプティマルラップとのタイム差の変化率"
+
+            LapDeltaToOptimalLap_OK:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for optimal lap is valid"
+                    jp: "オプティマルラップとのタイム差が有効"
+
+            LapDeltaToSessionBestLap:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for session best lap"
+                    jp: "セッションベストラップとのタイム差"
+
+            LapDeltaToSessionBestLap_DD:
+                Unit: "s/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Rate of change of delta time for session best lap"
+                    jp: "セッションベストラップとのタイム差の変化率"
+
+            LapDeltaToSessionBestLap_OK:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for session best lap is valid"
+                    jp: "セッションベストラップとのタイム差が有効"
+
+            LapDeltaToSessionLastlLap:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for session last lap"
+                    jp: "セッションラストラップとのタイム差"
+
+            LapDeltaToSessionLastlLap_DD:
+                Unit: "s/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Rate of change of delta time for session last lap"
+                    jp: "セッションラストラップとのタイム差の変化率"
+
+            LapDeltaToSessionLastlLap_OK:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for session last lap is valid"
+                    jp: "セッションラストラップとのタイム差が有効"
+
+            LapDeltaToSessionOptimalLap:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for session optimal lap"
+                    jp: "セッションオプティマルラップとのタイム差"
+
+            LapDeltaToSessionOptimalLap_DD:
+                Unit: "s/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Rate of change of delta time for session optimal lap"
+                    jp: "セッションオプティマルラップとのタイム差の変化率"
+
+            LapDeltaToSessionOptimalLap_OK:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Delta time for session optimal lap is valid"
+                    jp: "セッションオプティマルラップとのタイム差が有効"
+
+            LapDist:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Meters traveled from S/F this lap"
+                    jp: "現在のラップの走行距離"
+
+            LapDistPct:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Percentage distance around lap"
+                    jp: "現在のラップの進行度"
+
+            LapLasNLapSeq:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Player num consecutive clean laps completed for N average"
+                    jp: "ベストNラップの連続ラップ数"
+
+            LapLastLapTime:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Players last lap time"
+                    jp: "前回のラップタイム"
+
+            LapLastNLapTime:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Player last N average lap time"
+                    jp: "直近Nラップの平均ラップタイム"
+
+            PlayerCarClassPosition:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Players class position in race"
+                    jp: "クラス内順位"
+
+            PlayerCarPosition:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Players position in race"
+                    jp: "全体順位"
+
+            RaceLaps:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Laps completed in race"
+                    jp: "レースの総ラップ数"
+
+    # Vehicle ========================================
+    Vehicle:
+        Label:
+            en: "Vehicle"
+            jp: "車両"
+        Property:
+            Brake:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "0=brake released to 1=max pedal force"
+                    jp: "ブレーキペダル"
+
+            BrakeRaw:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Raw brake input 0=brake released to 1=max pedal force"
+                    jp: "生ブレーキ入力"
+
+            Clutch:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "0=disengaged to 1=fully engaged"
+                    jp: "クラッチペダル"
+
+            EngineWarnings:
+                Unit: "irsdk_EngineWarnings"
+                Type: "bitfield"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Bitfield for warning lights"
+                    jp: "エンジン警告灯"
+
+            FuelLevel:
+                Unit: "l"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Liters of fuel remaining"
+                    jp: "燃料残量"
+
+            FuelLevelPct:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Percent fuel remaining"
+                    jp: "燃料残量パーセンテージ"
+
+            FuelPress:
+                Unit: "bar"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine fuel pressure"
+                    jp: "エンジン燃料圧力"
+
+            FuelUsePerHour:
+                Unit: "kg/h"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine fuel used instantaneous"
+                    jp: "エンジン燃料消費率"
+
+            Gear:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "-1=reverse 0=neutral 1..n=current gear"
+                    jp: "ギア"
+
+            ManifoldPress:
+                Unit: "bar"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine manifold pressure"
+                    jp: "マニホールド圧力"
+
+            OilLevel:
+                Unit: "l"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine oil level"
+                    jp: "オイルレベル"
+
+            OilPress:
+                Unit: "bar"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine oil pressure"
+                    jp: "オイル圧力"
+
+            OilTemp:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine oil temperature"
+                    jp: "オイル温度"
+
+            RPM:
+                Unit: "revs/min"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine rpm"
+                    jp: "エンジン回転数"
+
+            ShiftGrindRPM:
+                Unit: "RPM"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RPM of shifter grinding noise"
+                    jp: "ギアシフトノイズRPM"
+
+            ShiftIndicatorPct:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "DEPRECATED use DriverCarSLBlinkRPM instead"
+                    jp: "シフトインジケーターパーセンテージ (非推奨)"
+
+            ShiftPowerPct:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Friction torque applied to gears when shifting or grinding"
+                    jp: "シフトパワーパーセンテージ"
+
+            Speed:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "GPS vehicle speed"
+                    jp: "車速"
+
+            SteeringWheelAngle:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Steering wheel angle"
+                    jp: "ステアリングホイール角度"
+
+            SteeringWheelAngleMax:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Steering wheel max angle"
+                    jp: "ステアリングホイール最大角度"
+
+            SteeringWheelPctDamper:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Force feedback % max damping"
+                    jp: "フォースフィードバック最大ダンピング率"
+
+            SteeringWheelPctTorque:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Force feedback % max torque on steering shaft unsigned"
+                    jp: "フォースフィードバック最大トルク率（符号なし）"
+
+            SteeringWheelPctTorqueSign:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Force feedback % max torque on steering shaft signed"
+                    jp: "フォースフィードバック最大トルク率（符号あり）"
+
+            SteeringWheelPctTorqueSignStops:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Force feedback % max torque on steering shaft signed stops"
+                    jp: "フォースフィードバック最大トルク率（符号あり、ストップ含む）"
+
+            SteeringWheelPeakForceNm:
+                Unit: "N*m"
+                Type: "float"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Peak torque mapping to direct input units for FFB"
+                    jp: "フォースフィードバックピークトルク"
+
+            SteeringWheelTorque:
+                Unit: "N*m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Output torque on steering shaft"
+                    jp: "ステアリングシャフト出力トルク"
+
+            Throttle:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "0=off throttle to 1=full throttle"
+                    jp: "スロットルペダル"
+
+            ThrottleRaw:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Raw throttle input 0=off throttle to 1=full throttle"
+                    jp: "生スロットル入力"
+
+            Voltage:
+                Unit: "V"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine voltage"
+                    jp: "電圧"
+
+            WaterLevel:
+                Unit: "l"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine coolant level"
+                    jp: "ウォーターレベル"
+
+            WaterTemp:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Engine coolant temp"
+                    jp: "ウォーター温度"
+
+    # Weather ========================================
+    Weather:
+        Label:
+            en: "Weather"
+            jp: "気象"
+        Property:
+            AirDensity:
+                Unit: "kg/m^3"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Density of air at start/finish line"
+                    jp: "スタート/フィニッシュラインの空気密度"
+
+            AirPressure:
+                Unit: "Hg"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pressure of air at start/finish line"
+                    jp: "スタート/フィニッシュラインの気圧"
+
+            AirTemp:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Temperature of air at start/finish line"
+                    jp: "スタート/フィニッシュラインの気温"
+
+            FogLevel:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Fog level"
+                    jp: "霧の濃度"
+
+            RelativeHumidity:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Relative Humidity"
+                    jp: "相対湿度"
+
+            Skies:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Skies (0=clear/1=p cloudy/2=m cloudy/3=overcast)"
+                    jp: "空の状態 (0=晴れ/1=部分的に曇り/2=曇り/3=曇り)"
+
+            TrackTemp:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Temperature of track at start/finish line"
+                    jp: "スタート/フィニッシュラインの路面温度"
+
+            TrackTempCrew:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Temperature of track measured by crew around track"
+                    jp: "クルーが計測した路面温度"
+
+            WeatherType:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Weather type (0=constant 1=dynamic)"
+                    jp: "天候タイプ (0=固定/1=ダイナミック)"
+
+            WindDir:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Wind direction at start/finish line"
+                    jp: "スタート/フィニッシュラインの風向"
+
+            WindVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Wind velocity at start/finish line"
+                    jp: "スタート/フィニッシュラインの風速"
+
+    # Car Setup Parameters ========================================
+    Garage:
+        Label:
+            en: "Garage"
+            jp: "ガレージ"
+        Property:
+            CFrideHeight:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "CF ride height"
+                    jp: "CFライドハイト"
+
+            CFshockDefl:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "CF shock deflection"
+                    jp: "CFショックデフレクション"
+
+            CFshockVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "CF shock velocity"
+                    jp: "CFショック速度"
+
+            CFSRrideHeight:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "CFSR ride height"
+                    jp: "CFSRライドハイト"
+
+            CRrideHeight:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "CR ride height"
+                    jp: "CRライドハイト"
+
+            CRshockDefl:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "CR shock deflection"
+                    jp: "CRショックデフレクション"
+
+            CRshockVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "CR shock velocity"
+                    jp: "CRショック速度"
+
+            dcABS:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car abs adjustment"
+                    jp: "インカーABS調整"
+
+            dcAntiRollFront:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car front anti roll bar adjustment"
+                    jp: "インカーフロントアンチロールバー調整"
+
+            dcAntiRollRear:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car rear anti roll bar adjustment"
+                    jp: "インカーリアアンチロールバー調整"
+
+            dcBoostLevel:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car boost level adjustment"
+                    jp: "インカーブーストレベル調整"
+
+            dcBrakeBias:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car brake bias adjustment"
+                    jp: "インカーブレーキバイアス調整"
+
+            dcDiffEntry:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car diff entry adjustment"
+                    jp: "インカーデフエントリー調整"
+
+            dcDiffExit:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car diff exit adjustment"
+                    jp: "インカーデフエグジット調整"
+
+            dcDiffMiddle:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car diff middle adjustment"
+                    jp: "インカーデフミドル調整"
+
+            dcEngineBraking:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car engine braking adjustment"
+                    jp: "インカーエンジンブレーキ調整"
+
+            dcEnginePower:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car engine power adjustment"
+                    jp: "インカーエンジンパワー調整"
+
+            dcFuelMixture:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car fuel mixture adjustment"
+                    jp: "インカー燃料混合比調整"
+
+            dcRevLimiter:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car rev limiter adjustment"
+                    jp: "インカーレブリミッター調整"
+
+            dcThrottleShape:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car throttle shape adjustment"
+                    jp: "インカースロットルシェイプ調整"
+
+            dcTractionControl:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car traction control adjustment"
+                    jp: "インカトラクションコントロール調整"
+
+            dcTractionControl2:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car traction control 2 adjustment"
+                    jp: "インカトラクションコントロール2調整"
+
+            dcTractionControlToggle:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car traction control active"
+                    jp: "インカトラクションコントロールアクティブ"
+
+            dcWeightJackerLeft:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car left weight jacker adjustment"
+                    jp: "インカー左ウェイトジャッキ調整"
+
+            dcWeightJackerRight:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car right weight jacker adjustment"
+                    jp: "インカー右ウェイトジャッキ調整"
+
+            dcWingFront:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car front wing adjustment"
+                    jp: "インカーフロントウィング調整"
+
+            dcWingRear:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "In car rear wing adjustment"
+                    jp: "インカーリアウィング調整"
+
+            dpFNOMKnobSetting:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop front flap adjustment"
+                    jp: "ピットストップ フロントノーズ調整"
+
+            dpFUFangleIndex:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop front upper flap adjustment"
+                    jp: "ピットストップ フロントアッパーフラップ調整"
+
+            dpFWingAngle:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop front wing adjustment"
+                    jp: "ピットストップ フロントウィング角度調整"
+
+            dpFWingIndex:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop front wing adjustment"
+                    jp: "ピットストップ フロントウィング調整"
+
+            dpLrWedgeAdj:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop lr spring offset adjustment"
+                    jp: "ピットストップ LRスプリングオフセット調整"
+
+            dpPSSetting:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop power steering adjustment"
+                    jp: "ピットストップパワステ調整"
+
+            dpQtape:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop qtape adjustment"
+                    jp: "ピットストップQテープ調整"
+
+            dpRBarSetting:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop rear bar adjustment"
+                    jp: "ピットストップリアバー調整"
+
+            dpRFTruckarmP1Dz:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop rftruckarmP1Dz adjustment"
+                    jp: "ピットストップRFトラックアームP1Dz調整"
+
+            dpRRDamperPerchOffsetm:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop right rear dampter perch offset adjustment"
+                    jp: "ピットストップ右リアダンパーパーチオフセット調整"
+
+            dpRrPerchOffsetm:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop right rear spring offset adjustment"
+                    jp: "ピットストップ右リアスプリングオフセット調整"
+
+            dpRrWedgeAdj:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop rr spring offset adjustment"
+                    jp: "ピットストップRRスプリングオフセット調整"
+
+            dpRWingAngle:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop rear wing adjustment"
+                    jp: "ピットストップリアウィング角度調整"
+
+            dpRWingIndex:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop rear wing adjustment"
+                    jp: "ピットストップリアウィング調整"
+
+            dpRWingSetting:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop rear wing adjustment"
+                    jp: "ピットストップリアウィング調整"
+
+            dpTruckarmP1Dz:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop truckarmP1Dz adjustment"
+                    jp: "ピットストップトラックアームP1Dz調整"
+
+            dpWedgeAdj:
+                Unit: ""
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitstop wedge adjustment"
+                    jp: "ピットストップウェッジ調整"
+
+            LFbrakeLinePress:
+                Unit: "bar"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF brake line pressure"
+                    jp: "LFブレーキライン圧力"
+
+            LFcoldPressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF tire cold pressure as set in the garage"
+                    jp: "LFタイヤコールド圧力"
+
+            LFpressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LF tire pressure"
+                    jp: "LFタイヤ圧力"
+
+            LFrideHeight:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LF ride height"
+                    jp: "LFライドハイト"
+
+            LFshockDefl:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF shock deflection"
+                    jp: "LFショックデフレクション"
+
+            LFshockVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF shock velocity"
+                    jp: "LFショック速度"
+
+            LFspeed:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF wheel speed"
+                    jp: "LFホイールスピード"
+
+            LFtempCL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF tire left carcass temperature"
+                    jp: "LFタイヤ左カーカス温度"
+
+            LFtempCM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF tire middle carcass temperature"
+                    jp: "LFタイヤ中央カーカス温度"
+
+            LFtempCR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF tire right carcass temperature"
+                    jp: "LFタイヤ右カーカス温度"
+
+            LFtempL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LF tire left surface temperature"
+                    jp: "LFタイヤ左側表面温度"
+
+            LFtempM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LF tire middle surface temperature"
+                    jp: "LFタイヤ中央表面温度"
+
+            LFtempR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LF tire right surface temperature"
+                    jp: "LFタイヤ右側表面温度"
+
+            LFwearL:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF tire left percent tread remaining"
+                    jp: "LFタイヤ左側残り溝深さ"
+
+            LFwearM:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF tire middle percent tread remaining"
+                    jp: "LFタイヤ中央残り溝深さ"
+
+            LFwearR:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LF tire right percent tread remaining"
+                    jp: "LFタイヤ右側残り溝深さ"
+
+            LRbrakeLinePress:
+                Unit: "bar"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR brake line pressure"
+                    jp: "LRブレーキライン圧力"
+
+            LRcoldPressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR tire cold pressure as set in the garage"
+                    jp: "LRタイヤコールド圧力"
+
+            LRpressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LR tire pressure"
+                    jp: "LRタイヤ圧力"
+
+            LRrideHeight:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LR ride height"
+                    jp: "LRライドハイト"
+
+            LRshockDefl:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR shock deflection"
+                    jp: "LRショックデフレクション"
+
+            LRshockVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR shock velocity"
+                    jp: "LRショック速度"
+
+            LRspeed:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR wheel speed"
+                    jp: "LRホイールスピード"
+
+            LRtempCL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR tire left carcass temperature"
+                    jp: "LRタイヤ左カーカス温度"
+
+            LRtempCM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR tire middle carcass temperature"
+                    jp: "LRタイヤ中央カーカス温度"
+
+            LRtempCR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR tire right carcass temperature"
+                    jp: "LRタイヤ右カーカス温度"
+
+            LRtempL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LR tire left surface temperature"
+                    jp: "LRタイヤ左側表面温度"
+
+            LRtempM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LR tire middle surface temperature"
+                    jp: "LRタイヤ中央表面温度"
+
+            LRtempR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "LR tire right surface temperature"
+                    jp: "LRタイヤ右側表面温度"
+
+            LRwearL:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR tire left percent tread remaining"
+                    jp: "LRタイヤ左側残り溝深さ"
+
+            LRwearM:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR tire middle percent tread remaining"
+                    jp: "LRタイヤ中央残り溝深さ"
+
+            LRwearR:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "LR tire right percent tread remaining"
+                    jp: "LRタイヤ右側残り溝深さ"
+
+            RFbrakeLinePress:
+                Unit: "bar"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF brake line pressure"
+                    jp: "RFブレーキライン圧力"
+
+            RFcoldPressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF tire cold pressure as set in the garage"
+                    jp: "RFタイヤコールド圧力"
+
+            RFpressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RF tire pressure"
+                    jp: "RFタイヤ圧力"
+
+            RFrideHeight:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RF ride height"
+                    jp: "RFライドハイト"
+
+            RFshockDefl:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF shock deflection"
+                    jp: "RFショックデフレクション"
+
+            RFshockVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF shock velocity"
+                    jp: "RFショック速度"
+
+            RFspeed:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF wheel speed"
+                    jp: "RFホイールスピード"
+
+            RFtempCL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF tire left carcass temperature"
+                    jp: "RFタイヤ左カーカス温度"
+
+            RFtempCM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF tire middle carcass temperature"
+                    jp: "RFタイヤ中央カーカス温度"
+
+            RFtempCR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF tire right carcass temperature"
+                    jp: "RFタイヤ右カーカス温度"
+
+            RFtempL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RF tire left surface temperature"
+                    jp: "RFタイヤ左側表面温度"
+
+            RFtempM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RF tire middle surface temperature"
+                    jp: "RFタイヤ中央表面温度"
+
+            RFtempR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RF tire right surface temperature"
+                    jp: "RFタイヤ右側表面温度"
+
+            RFwearL:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF tire left percent tread remaining"
+                    jp: "RFタイヤ左側残り溝深さ"
+
+            RFwearM:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF tire middle percent tread remaining"
+                    jp: "RFタイヤ中央残り溝深さ"
+
+            RFwearR:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RF tire right percent tread remaining"
+                    jp: "RFタイヤ右側残り溝深さ"
+
+            RRbrakeLinePress:
+                Unit: "bar"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "R brake line pressure"
+                    jp: "RRブレーキライン圧力"
+
+            RRcoldPressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR tire cold pressure as set in the garage"
+                    jp: "RRタイヤコールド圧力"
+
+            RRpressure:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RR tire pressure"
+                    jp: "RRタイヤ圧力"
+
+            RRrideHeight:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RR ride height"
+                    jp: "RRライドハイト"
+
+            RRshockDefl:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR shock deflection"
+                    jp: "RRショックデフレクション"
+
+            RRshockVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR shock velocity"
+                    jp: "RRショック速度"
+
+            RRspeed:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR wheel speed"
+                    jp: "RRホイールスピード"
+
+            RRtempCL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR tire left carcass temperature"
+                    jp: "RRタイヤ左カーカス温度"
+
+            RRtempCM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR tire middle carcass temperature"
+                    jp: "RRタイヤ中央カーカス温度"
+
+            RRtempCR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR tire right carcass temperature"
+                    jp: "RRタイヤ右カーカス温度"
+
+            RRtempL:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RR tire left surface temperature"
+                    jp: "RRタイヤ左側表面温度"
+
+            RRtempM:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RR tire middle surface temperature"
+                    jp: "RRタイヤ中央表面温度"
+
+            RRtempR:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 0
+                Description:
+                    en: "RR tire right surface temperature"
+                    jp: "RRタイヤ右側表面温度"
+
+            RRwearL:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR tire left percent tread remaining"
+                    jp: "RRタイヤ左側残り溝深さ"
+
+            RRwearM:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR tire middle percent tread remaining"
+                    jp: "RRタイヤ中央残り溝深さ"
+
+            RRwearR:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "RR tire right percent tread remaining"
+                    jp: "RRタイヤ右側残り溝深さ"
+
+    # CarIdx Parameters ========================================
+    CarIdx:
+        Label:
+            en: "Car Index"
+            jp: "カーインデックス"
+        Property:
+            CarIdxClassPosition:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Cars class position in race by car index"
+                    jp: "カーインデックスによるクラス内順位"
+
+            CarIdxEstTime:
+                Unit: "s"
+                Type: "float"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Estimated time to reach current location on track"
+                    jp: "現在のトラック位置に到達するまでの推定時間"
+
+            CarIdxF2Time:
+                Unit: "s"
+                Type: "float"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Race time behind leader or fastest lap time otherwise"
+                    jp: "リーダーとのタイム差または最速ラップタイム"
+
+            CarIdxGear:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "-1=reverse 0=neutral 1..n=current gear by car index"
+                    jp: "カーインデックスによるギア"
+
+            CarIdxLap:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Lap count by car index"
+                    jp: "カーインデックスによるラップ数"
+
+            CarIdxLapDistPct:
+                Unit: "%"
+                Type: "float"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Percentage distance around lap by car index"
+                    jp: "カーインデックスによるラップの進行度"
+
+            CarIdxOnPitRoad:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "On pit road between the cones by car index"
+                    jp: "ピットロードにいるかどうか（カーインデックス）"
+
+            CarIdxPosition:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Cars position in race by car index"
+                    jp: "カーインデックスによるレース順位"
+
+            CarIdxRPM:
+                Unit: "revs/min"
+                Type: "float"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Engine rpm by car index"
+                    jp: "カーインデックスによるエンジン回転数"
+
+            CarIdxSteer:
+                Unit: "rad"
+                Type: "float"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Steering wheel angle by car index"
+                    jp: "カーインデックスによるステアリングホイール角度"
+
+            CarIdxTrackSurface:
+                Unit: "irsdk_TrkLoc"
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Track surface type by car index"
+                    jp: "カーインデックスによるトラックサーフェスタイプ"
+
+# ========================================
+# irsdk_ Units ===========================
+# ========================================
+irskd_units:
+    irsdk_EngineWarnings:
+        Name: "irsdk_waterTempWarning"
+        Value: 0x0001
+        Name: "irsdk_fuelPressureWarning"
+        Value: 0x0002
+        Name: "irsdk_oilPressureWarning"
+        Value: 0x0004
+        Name: "irsdk_engineStalled"
+        Value: 0x0008
+        Name: "irsdk_pitSpeedLimiter"
+        Value: 0x0010
+        Name: "irsdk_revLimiterActive"
+        Value: 0x0020
+    irsdk_Flags:
+        Name: "irsdk_checkered"
+        Value: 0x00000001
+        Name: "irsdk_white"
+        Value: 0x00000002
+        Name: "irsdk_green"
+        Value: 0x00000004
+        Name: "irsdk_yellow"
+        Value: 0x00000008
+        Name: "irsdk_red"
+        Value: 0x00000010
+        Name: "irsdk_blue"
+        Value: 0x00000020
+        Name: "irsdk_debris"
+        Value: 0x00000040
+        Name: "irsdk_crossed"
+        Value: 0x00000080
+        Name: "irsdk_yellowWaving"
+        Value: 0x00000100
+        Name: "irsdk_oneLapToGreen"
+        Value: 0x00000200
+        Name: "irsdk_greenHeld"
+        Value: 0x00000400
+        Name: "irsdk_tenToGo"
+        Value: 0x00000800
+        Name: "irsdk_fiveToGo"
+        Value: 0x00001000
+        Name: "irsdk_randomWaving"
+        Value: 0x00002000
+        Name: "irsdk_caution"
+        Value: 0x00004000
+        Name: "irsdk_cautionWaving"
+        Value: 0x00008000
+        Name: "irsdk_black"
+        Value: 0x00010000
+        Name: "irsdk_disqualify"
+        Value: 0x00020000
+        Name: "irsdk_servicible"
+        Value: 0x00040000
+        Name: "irsdk_furled"
+        Value: 0x00080000
+        Name: "irsdk_repair"
+        Value: 0x00100000
+        Name: "irsdk_startHidden"
+        Value: 0x10000000
+        Name: "irsdk_startReady"
+        Value: 0x20000000
+        Name: "irsdk_startSet"
+        Value: 0x40000000
+        Name: "irsdk_startGo"
+        Value: 0x80000000
+    irsdk_CameraState:
+        Name: "irsdk_IsSessionScreen"
+        Value: 0x0001
+        Name: "irsdk_IsScenicActive"
+        Value: 0x0002
+        Name: "irsdk_CamToolActive"
+        Value: 0x0004
+        Name: "irsdk_UIHidden"
+        Value: 0x0008
+        Name: "irsdk_UseAutoShotSelection"
+        Value: 0x0010
+        Name: "irsdk_UseTemporaryEdits"
+        Value: 0x0020
+        Name: "irsdk_UseKeyAcceleration"
+        Value: 0x0040
+        Name: "irsdk_UseKey10xAcceleration"
+        Value: 0x0080
+        Name: "irsdk_UseMouseAimMode"
+        Value: 0x0100
+    irsdk_PitSvFlags:
+        Name: "irsdk_LFTireChange"
+        Value: 0x0001
+        Name: "irsdk_RFTireChange"
+        Value: 0x0002
+        Name: "irsdk_LRTireChange"
+        Value: 0x0004
+        Name: "irsdk_RRTireChange"
+        Value: 0x0008
+        Name: "irsdk_FuelFill"
+        Value: 0x0010
+        Name: "irsdk_WindshieldTearoff"
+        Value: 0x0020
+        Name: "irsdk_FastRepair"
+        Value: 0x0040
+    irsdk_TrkLoc:
+        Name: "irsdk_NotInWorld"
+        Value: -1
+        Name: "irsdk_OffTrack"
+        Value: 0
+        Name: "irsdk_InPitStall"
+        Value: 1
+        Name: "irsdk_AproachingPits"
+        Value: 2
+        Name: "irsdk_OnTrack"
+        Value: 3
+    irsdk_SessionState:
+        Name: "irsdk_StateInvalid"
+        Value: 0
+        Name: "irsdk_StateGetInCar"
+        Value: 1
+        Name: "irsdk_StateWarmup"
+        Value: 2
+        Name: "irsdk_StateParadeLaps"
+        Value: 3
+        Name: "irsdk_StateRacing"
+        Value: 4
+        Name: "irsdk_StateCheckered"
+        Value: 5
+        Name: "irsdk_StateCoolDown"
+        Value: 6

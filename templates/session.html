@@ -1,30 +1,16 @@
 <div id="session_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
         <div class="col-md-12">
-            <button class="btn btn-info" onclick="showSessionSection('WeatherInfo')">
-                <span data-en="Weather" data-jp="天気"><!-- text from data attribute --></span>
-            </button>
-            <button class="btn btn-info" onclick="showSessionSection('SessionInfo')">
-                <span data-en="Session" data-jp="セッション"><!-- text from data attribute --></span>
-            </button>
-            <button class="btn btn-info" onclick="showSessionSection('QualifyResultsInfo')">
-                <span data-en="Qualify Results" data-jp="予選結果"><!-- text from data attribute --></span>
-            </button>
-            <button class="btn btn-info" onclick="showSessionSection('SplitTimeInfo')">
-                <span data-en="Split Time" data-jp="スプリット・タイム"><!-- text from data attribute --></span>
-            </button>
-            <button class="btn btn-info" onclick="showSessionSection('CarSetup')">
-                <span data-en="Car Setup" data-jp="セットアップ"><!-- text from data attribute --></span>
-            </button>
-            <button class="btn btn-info" onclick="showSessionSection('DriverInfo')">
-                <span data-en="Driver" data-jp="ドライバー"><!-- text from data attribute --></span>
-            </button>
-            <button class="btn btn-info" onclick="showSessionSection('RadioInfo')">
-                <span data-en="Radio" data-jp="ラジオ"><!-- text from data attribute --></span>
-            </button>
-            <button class="btn btn-info" onclick="showSessionSection('CameraInfo')">
-                <span data-en="Camera" data-jp="カメラ"><!-- text from data attribute --></span>
-            </button>
+            {% for key in yaml_info['Session'] %}
+                <button class="btn btn-info" onclick="showSessionSection('{{ key }}')">
+                    <span
+                        data-en="{{ yaml_info['Session'][key]['label']['en'] }}"
+                        data-jp="{{ yaml_info['Session'][key]['label']['jp'] }}"
+                    >
+                        {{ yaml_info['Session'][key]['label']['en'] }}
+                    </span>
+                </button>
+            {% endfor %}
         </div>
     </div>
 
@@ -34,8 +20,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Weekend Info</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['WeatherInfo']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['WeatherInfo']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['WeatherInfo']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,8 +58,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Session Info</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['SessionInfo']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['SessionInfo']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['SessionInfo']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,8 +100,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Qualify Results Info</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['QualifyResultsInfo']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['QualifyResultsInfo']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['QualifyResultsInfo']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,8 +134,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Split Time Info</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['SplitTimeInfo']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['SplitTimeInfo']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['SplitTimeInfo']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,8 +164,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Car Setup</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['CarSetup']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['CarSetup']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['CarSetup']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -197,8 +213,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Driver Info</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['DriverInfo']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['DriverInfo']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['DriverInfo']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -239,8 +261,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Radio Info</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['RadioInfo']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['RadioInfo']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['RadioInfo']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -286,8 +314,14 @@
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
-                        <th scope="col">Camera Info</th>
-                        <th scope="col">Value</th>
+                        <th
+                            scope="col"
+                            data-en="{{ yaml_info['Session']['CameraInfo']['label']['en'] }}"
+                            data-jp="{{ yaml_info['Session']['CameraInfo']['label']['jp'] }}"
+                        >
+                            {{ yaml_info['Session']['CameraInfo']['label']['en'] }}
+                        </th>
+                        <th scope="col" data-en="Value" data-jp="値">Value</th>
                     </tr>
                 </thead>
                 <tbody>

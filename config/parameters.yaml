@@ -39,552 +39,6 @@ Session:
 # Telemetry ==============================
 # ========================================
 Telemetry:
-    # Camera ========================================
-    Camera:
-        Label:
-            en: "Camera"
-            jp: "カメラ"
-        Property:
-            CamCameraNumber:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Active camera number"
-                    jp: "アクティブカメラ番号"
-
-            CamCameraState:
-                Unit: "irsdk_CameraState"
-                Type: "bitfield"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "State of camera system"
-                    jp: "カメラシステムの状態"
-
-            CamCarIdx:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Active camera's focus car index"
-                    jp: "アクティブカメラのフォーカスカーインデックス"
-
-            CamGroupNumber:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Active camera group number"
-                    jp: "アクティブカメラグループ番号"
-
-    # Miscellaneous ========================================
-    Miscellaneous:
-        Label:
-            en: "Miscellaneous"
-            jp: "その他"
-        Property:
-            CpuUsageBG:
-                Unit: "%"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Percent of available tim bg thread took with a 1 sec avg"
-                    jp: "平均 1 秒で BG スレッドが消費した利用可能な時間の割合"
-
-            DisplayUnits:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Default units for the user interface 0 = english 1 = metric"
-                    jp: "ユーザー インターフェイスのデフォルトの単位 0 = イギリス 1 = メートル法"
-
-            DriverMarker:
-                Unit: ""
-                Type: "bool"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Driver activated flag"
-                    jp: "ドライバー有効化フラグ"
-
-            EnterExitReset:
-                Unit: ""
-                Type: "int"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Indicate action the reset key will take 0 enter 1 exit 2 reset"
-                    jp: "リセットキーが実行するアクションを示します 0 入力 1 終了 2 リセット"
-
-            FrameRate:
-                Unit: "fps"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Average frames per second"
-                    jp: 1秒あたりの平均フレーム数"
-
-            IsDiskLoggingActive:
-                Unit: ""
-                Type: "bool"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "0=disk based telemetry file not being written 1=being written"
-                    jp: "0 = ディスクベースのテレメトリ ファイルが書き込まれていない 1 = 書き込まれている"
-
-            IsDiskLoggingEnabled:
-                Unit: ""
-                Type: "bool"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "0=disk based telemetry turned off 1=turned on"
-                    jp: "0=ディスクベースのテレメトリがオフ 1=オン"
-
-            IsInGarage:
-                Unit: ""
-                Type: "bool"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "1=Car in garage physics running"
-                    jp: "1=ガレージ内の車が物理演算を実行中"
-
-            IsOnTrack:
-                Unit: ""
-                Type: "bool"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "1=Car on track physics running with player in car"
-                    jp: "1=車がトラック上で物理走行し、プレイヤーが車内にいる"
-
-            IsOnTrackCar:
-                Unit: ""
-                Type: "bool"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "1=Car on track physics running"
-                    jp: "1=車がコース上で物理的に動作中"
-
-            IsReplayPlaying:
-                Unit: ""
-                Type: "bool"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "0=replay not playing 1=replay playing"
-                    jp: "0=リプレイを再生していない 1=リプレイを再生中"
-
-            OnPitRoad:
-                Unit: ""
-                Type: "bool"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Is the player car on pit road between the cones"
-                    jp: "プレイヤーの車はピットロードのコーンの間にあります"
-
-    # Pitstop ========================================
-    Pitstop:
-        Label:
-            en: "Pitstop"
-            jp: "ピットストップ"
-        Property:
-            PitOptRepairLeft:
-                Unit: "s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Time left for optional repairs if repairs are active"
-                    jp: "修理がアクティブな場合、オプションの修理に残された時間"
-
-            PitRepairLeft:
-                Unit: "s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Time left for mandatory pit repairs if repairs are active"
-                    jp: "修理がアクティブな場合の必須ピット修理の残り時間"
-
-            PitSvFlags:
-                Unit: "irsdk_PitSvFlags"
-                Type: "bitfield"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Bitfield of pit service checkboxes"
-                    jp: "ピットサービスチェックボックスのビットフィールド"
-
-            PitSvFuel:
-                Unit: "l"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pit service fuel add amount"
-                    jp: "ピットサービス燃料追加量"
-
-            PitSvLFP:
-                Unit: "kPa"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pit service left front tire pressure"
-                    jp: "ピットサービス左フロントタイヤ空気圧"
-
-            PitSvLRP:
-                Unit: "kPa"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pit service left rear tire pressure"
-                    jp: "ピットサービス左後輪タイヤ空気圧"
-
-            PitSvRFP:
-                Unit: "kPa"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pit service right front tire pressure"
-                    jp: "ピットサービス右フロントタイヤ空気圧"
-
-            PitSvRRP:
-                Unit: "kPa"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pit service right rear tire pressure"
-                    jp: "ピットサービス右後輪タイヤ空気圧"
-
-    # Positioning ========================================
-    Positioning:
-        Label:
-            en: "Positioning"
-            jp: "ポジショニング"
-        Property:
-            Alt:
-                Unit: "m"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Altitude in meters"
-                    jp: "高度（メートル）"
-
-            Lat:
-                Unit: "deg"
-                Type: "double"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Latitude in decimal degrees"
-                    jp: "緯度（十進度）"
-
-            LatAccel:
-                Unit: "m/s^2"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Lateral acceleration (including gravity)"
-                    jp: "横方向加速度（重力を含む）"
-
-            Lon:
-                Unit: "deg"
-                Type: "double"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Longitude in decimal degrees"
-                    jp: "経度（十進度）"
-
-            LongAccel:
-                Unit: "m/s^2"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Longitudinal acceleration (including gravity)"
-                    jp: "縦方向の加速度（重力を含む）"
-
-            Pitch:
-                Unit: "rad"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pitch orientation"
-                    jp: "ピッチの方向"
-
-            PitchRate:
-                Unit: "rad/s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pitch rate"
-                    jp: "ピッチレート"
-
-            Roll:
-                Unit: "rad"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Roll orientation"
-                    jp: "ロール方向"
-
-            RollRate:
-                Unit: "rad/s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Roll rate"
-                    jp: "ロールレート"
-
-            VelocityX:
-                Unit: "m/s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "X velocity"
-                    jp: "X速度"
-
-            VelocityY:
-                Unit: "m/s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Y velocity"
-                    jp: "Y 方向速度"
-
-            VelocityZ:
-                Unit: "m/s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Z velocity"
-                    jp: "Z 方向速度"
-
-            VertAccel:
-                Unit: "m/s^2"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Vertical acceleration (including gravity)"
-                    jp: "垂直加速度（重力含む）"
-
-            Yaw:
-                Unit: "rad"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Yaw orientation"
-                    jp: "ヨー角"
-
-            YawNorth:
-                Unit: "rad"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Yaw orientation relative to north"
-                    jp: "北基準ヨー角"
-
-            YawRate:
-                Unit: "rad/s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Yaw rate"
-                    jp: "ヨーレート"
-
-    # Radio ========================================
-    Radio:
-        Label:
-            en: "Radio"
-            jp: "無線"
-        Property:
-            RadioTransmitCarIdx:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "The car index of the current person speaking on the radio"
-                    jp: "現在の発言者の車インデックス"
-
-            RadioTransmitFrequencyIdx:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "The frequency index of the current person speaking on the raio"
-                    jp: "現在の発言者の周波数インデックス"
-
-            RadioTransmitRadioIdx:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "The radio index of the current person speaking on the radio"
-                    jp: "現在の発言者の無線インデックス"
-
-    # Replay ========================================
-    Replay:
-        Label:
-            en: "Replay"
-            jp: "リプレイ"
-        Property:
-            ReplayFrameNum:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Integer replay frame number (60 per second)"
-                    jp: "リプレイフレーム番号"
-
-            ReplayFrameNumEnd:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Integer replay frame number from end of tape"
-                    jp: "リプレイ終了フレーム番号"
-
-            ReplayPlaySlowMotion:
-                Unit: ""
-                Type: "bool"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "0=not slow motion 1=replay is in slow motion"
-                    jp: "スローモーション再生"
-
-            ReplayPlaySpeed:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Replay playback speed"
-                    jp: "リプレイ再生速度"
-
-            ReplaySessionNum:
-                Unit: ""
-                Type: "int"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Replay session number"
-                    jp: "リプレイセッション番号"
-
-            ReplaySessionTime:
-                Unit: "s"
-                Type: "double"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Seconds since replay session start"
-                    jp: "リプレイセッション開始からの経過時間"
-
-    # Session ========================================
-    Session:
-        Label:
-            en: "Session"
-            jp: "セッション"
-        Property:
-            SessionFlags:
-                Unit: "irsdk_Flags"
-                Type: "bitfield"
-                Disk: 0
-                Live: 1
-                Description:
-                    en: "Session flags"
-                    jp: "セッションフラグ"
-
-            SessionLapsRemain:
-                Unit: ""
-                Type: "int"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Laps left till session ends"
-                    jp: "セッション残りラップ数"
-
-            SessionNum:
-                Unit: ""
-                Type: "int"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Session number"
-                    jp: "セッション番号"
-
-            SessionState:
-                Unit: "irsdk_SessionState"
-                Type: "int"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Session state"
-                    jp: "セッション状態"
-
-            SessionTime:
-                Unit: "s"
-                Type: "double"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Seconds since session start"
-                    jp: "セッション開始からの経過時間"
-
-            SessionTimeRemain:
-                Unit: "s"
-                Type: "double"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Seconds left till session ends"
-                    jp: "セッション終了までの残り時間"
-
-            SessionUniqueID:
-                Unit: ""
-                Type: "int"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Session ID"
-                    jp: "セッションID"
-
     # Timing ========================================
     Timing:
         Label:
@@ -1155,112 +609,7 @@ Telemetry:
                     en: "Engine coolant temp"
                     jp: "ウォーター温度"
 
-    # Weather ========================================
-    Weather:
-        Label:
-            en: "Weather"
-            jp: "気象"
-        Property:
-            AirDensity:
-                Unit: "kg/m^3"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Density of air at start/finish line"
-                    jp: "スタート/フィニッシュラインの空気密度"
-
-            AirPressure:
-                Unit: "Hg"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Pressure of air at start/finish line"
-                    jp: "スタート/フィニッシュラインの気圧"
-
-            AirTemp:
-                Unit: "C"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Temperature of air at start/finish line"
-                    jp: "スタート/フィニッシュラインの気温"
-
-            FogLevel:
-                Unit: "%"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Fog level"
-                    jp: "霧の濃度"
-
-            RelativeHumidity:
-                Unit: "%"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Relative Humidity"
-                    jp: "相対湿度"
-
-            Skies:
-                Unit: ""
-                Type: "int"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Skies (0=clear/1=p cloudy/2=m cloudy/3=overcast)"
-                    jp: "空の状態 (0=晴れ/1=部分的に曇り/2=曇り/3=曇り)"
-
-            TrackTemp:
-                Unit: "C"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Temperature of track at start/finish line"
-                    jp: "スタート/フィニッシュラインの路面温度"
-
-            TrackTempCrew:
-                Unit: "C"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Temperature of track measured by crew around track"
-                    jp: "クルーが計測した路面温度"
-
-            WeatherType:
-                Unit: ""
-                Type: "int"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Weather type (0=constant 1=dynamic)"
-                    jp: "天候タイプ (0=固定/1=ダイナミック)"
-
-            WindDir:
-                Unit: "rad"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Wind direction at start/finish line"
-                    jp: "スタート/フィニッシュラインの風向"
-
-            WindVel:
-                Unit: "m/s"
-                Type: "float"
-                Disk: 1
-                Live: 1
-                Description:
-                    en: "Wind velocity at start/finish line"
-                    jp: "スタート/フィニッシュラインの風速"
-
-    # Car Setup Parameters ========================================
+    # Garage | Car Setup Parameters ========================================
     Garage:
         Label:
             en: "Garage"
@@ -2237,6 +1586,657 @@ Telemetry:
                 Description:
                     en: "RR tire right percent tread remaining"
                     jp: "RRタイヤ右側残り溝深さ"
+
+    # Pitstop ========================================
+    Pitstop:
+        Label:
+            en: "Pitstop"
+            jp: "ピットストップ"
+        Property:
+            PitOptRepairLeft:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Time left for optional repairs if repairs are active"
+                    jp: "修理がアクティブな場合、オプションの修理に残された時間"
+
+            PitRepairLeft:
+                Unit: "s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Time left for mandatory pit repairs if repairs are active"
+                    jp: "修理がアクティブな場合の必須ピット修理の残り時間"
+
+            PitSvFlags:
+                Unit: "irsdk_PitSvFlags"
+                Type: "bitfield"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Bitfield of pit service checkboxes"
+                    jp: "ピットサービスチェックボックスのビットフィールド"
+
+            PitSvFuel:
+                Unit: "l"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service fuel add amount"
+                    jp: "ピットサービス燃料追加量"
+
+            PitSvLFP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service left front tire pressure"
+                    jp: "ピットサービス左フロントタイヤ空気圧"
+
+            PitSvLRP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service left rear tire pressure"
+                    jp: "ピットサービス左後輪タイヤ空気圧"
+
+            PitSvRFP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service right front tire pressure"
+                    jp: "ピットサービス右フロントタイヤ空気圧"
+
+            PitSvRRP:
+                Unit: "kPa"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pit service right rear tire pressure"
+                    jp: "ピットサービス右後輪タイヤ空気圧"
+
+    # Positioning ========================================
+    Positioning:
+        Label:
+            en: "Positioning"
+            jp: "ポジショニング"
+        Property:
+            Alt:
+                Unit: "m"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Altitude in meters"
+                    jp: "高度（メートル）"
+
+            Lat:
+                Unit: "deg"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Latitude in decimal degrees"
+                    jp: "緯度（十進度）"
+
+            LatAccel:
+                Unit: "m/s^2"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Lateral acceleration (including gravity)"
+                    jp: "横方向加速度（重力を含む）"
+
+            Lon:
+                Unit: "deg"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Longitude in decimal degrees"
+                    jp: "経度（十進度）"
+
+            LongAccel:
+                Unit: "m/s^2"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Longitudinal acceleration (including gravity)"
+                    jp: "縦方向の加速度（重力を含む）"
+
+            Pitch:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitch orientation"
+                    jp: "ピッチの方向"
+
+            PitchRate:
+                Unit: "rad/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pitch rate"
+                    jp: "ピッチレート"
+
+            Roll:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Roll orientation"
+                    jp: "ロール方向"
+
+            RollRate:
+                Unit: "rad/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Roll rate"
+                    jp: "ロールレート"
+
+            VelocityX:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "X velocity"
+                    jp: "X速度"
+
+            VelocityY:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Y velocity"
+                    jp: "Y 方向速度"
+
+            VelocityZ:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Z velocity"
+                    jp: "Z 方向速度"
+
+            VertAccel:
+                Unit: "m/s^2"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Vertical acceleration (including gravity)"
+                    jp: "垂直加速度（重力含む）"
+
+            Yaw:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Yaw orientation"
+                    jp: "ヨー角"
+
+            YawNorth:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Yaw orientation relative to north"
+                    jp: "北基準ヨー角"
+
+            YawRate:
+                Unit: "rad/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Yaw rate"
+                    jp: "ヨーレート"
+
+    # Session ========================================
+    Session:
+        Label:
+            en: "Session"
+            jp: "セッション"
+        Property:
+            SessionFlags:
+                Unit: "irsdk_Flags"
+                Type: "bitfield"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Session flags"
+                    jp: "セッションフラグ"
+
+            SessionLapsRemain:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Laps left till session ends"
+                    jp: "セッション残りラップ数"
+
+            SessionNum:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Session number"
+                    jp: "セッション番号"
+
+            SessionState:
+                Unit: "irsdk_SessionState"
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Session state"
+                    jp: "セッション状態"
+
+            SessionTime:
+                Unit: "s"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Seconds since session start"
+                    jp: "セッション開始からの経過時間"
+
+            SessionTimeRemain:
+                Unit: "s"
+                Type: "double"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Seconds left till session ends"
+                    jp: "セッション終了までの残り時間"
+
+            SessionUniqueID:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Session ID"
+                    jp: "セッションID"
+
+    # Weather ========================================
+    Weather:
+        Label:
+            en: "Weather"
+            jp: "気象"
+        Property:
+            AirDensity:
+                Unit: "kg/m^3"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Density of air at start/finish line"
+                    jp: "スタート/フィニッシュラインの空気密度"
+
+            AirPressure:
+                Unit: "Hg"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Pressure of air at start/finish line"
+                    jp: "スタート/フィニッシュラインの気圧"
+
+            AirTemp:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Temperature of air at start/finish line"
+                    jp: "スタート/フィニッシュラインの気温"
+
+            FogLevel:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Fog level"
+                    jp: "霧の濃度"
+
+            RelativeHumidity:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Relative Humidity"
+                    jp: "相対湿度"
+
+            Skies:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Skies (0=clear/1=p cloudy/2=m cloudy/3=overcast)"
+                    jp: "空の状態 (0=晴れ/1=部分的に曇り/2=曇り/3=曇り)"
+
+            TrackTemp:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Temperature of track at start/finish line"
+                    jp: "スタート/フィニッシュラインの路面温度"
+
+            TrackTempCrew:
+                Unit: "C"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Temperature of track measured by crew around track"
+                    jp: "クルーが計測した路面温度"
+
+            WeatherType:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Weather type (0=constant 1=dynamic)"
+                    jp: "天候タイプ (0=固定/1=ダイナミック)"
+
+            WindDir:
+                Unit: "rad"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Wind direction at start/finish line"
+                    jp: "スタート/フィニッシュラインの風向"
+
+            WindVel:
+                Unit: "m/s"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Wind velocity at start/finish line"
+                    jp: "スタート/フィニッシュラインの風速"
+
+    # Radio ========================================
+    Radio:
+        Label:
+            en: "Radio"
+            jp: "無線"
+        Property:
+            RadioTransmitCarIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "The car index of the current person speaking on the radio"
+                    jp: "現在の発言者の車インデックス"
+
+            RadioTransmitFrequencyIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "The frequency index of the current person speaking on the raio"
+                    jp: "現在の発言者の周波数インデックス"
+
+            RadioTransmitRadioIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "The radio index of the current person speaking on the radio"
+                    jp: "現在の発言者の無線インデックス"
+
+    # Replay ========================================
+    Replay:
+        Label:
+            en: "Replay"
+            jp: "リプレイ"
+        Property:
+            ReplayFrameNum:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Integer replay frame number (60 per second)"
+                    jp: "リプレイフレーム番号"
+
+            ReplayFrameNumEnd:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Integer replay frame number from end of tape"
+                    jp: "リプレイ終了フレーム番号"
+
+            ReplayPlaySlowMotion:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=not slow motion 1=replay is in slow motion"
+                    jp: "スローモーション再生"
+
+            ReplayPlaySpeed:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Replay playback speed"
+                    jp: "リプレイ再生速度"
+
+            ReplaySessionNum:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Replay session number"
+                    jp: "リプレイセッション番号"
+
+            ReplaySessionTime:
+                Unit: "s"
+                Type: "double"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Seconds since replay session start"
+                    jp: "リプレイセッション開始からの経過時間"
+
+    # Camera ========================================
+    Camera:
+        Label:
+            en: "Camera"
+            jp: "カメラ"
+        Property:
+            CamCameraNumber:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Active camera number"
+                    jp: "アクティブカメラ番号"
+
+            CamCameraState:
+                Unit: "irsdk_CameraState"
+                Type: "bitfield"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "State of camera system"
+                    jp: "カメラシステムの状態"
+
+            CamCarIdx:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Active camera's focus car index"
+                    jp: "アクティブカメラのフォーカスカーインデックス"
+
+            CamGroupNumber:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Active camera group number"
+                    jp: "アクティブカメラグループ番号"
+
+    # Miscellaneous ========================================
+    Miscellaneous:
+        Label:
+            en: "Miscellaneous"
+            jp: "その他"
+        Property:
+            CpuUsageBG:
+                Unit: "%"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Percent of available tim bg thread took with a 1 sec avg"
+                    jp: "平均 1 秒で BG スレッドが消費した利用可能な時間の割合"
+
+            DisplayUnits:
+                Unit: ""
+                Type: "int"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "Default units for the user interface 0 = english 1 = metric"
+                    jp: "ユーザー インターフェイスのデフォルトの単位 0 = イギリス 1 = メートル法"
+
+            DriverMarker:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Driver activated flag"
+                    jp: "ドライバー有効化フラグ"
+
+            EnterExitReset:
+                Unit: ""
+                Type: "int"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Indicate action the reset key will take 0 enter 1 exit 2 reset"
+                    jp: "リセットキーが実行するアクションを示します 0 入力 1 終了 2 リセット"
+
+            FrameRate:
+                Unit: "fps"
+                Type: "float"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Average frames per second"
+                    jp: 1秒あたりの平均フレーム数"
+
+            IsDiskLoggingActive:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=disk based telemetry file not being written 1=being written"
+                    jp: "0 = ディスクベースのテレメトリ ファイルが書き込まれていない 1 = 書き込まれている"
+
+            IsDiskLoggingEnabled:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=disk based telemetry turned off 1=turned on"
+                    jp: "0=ディスクベースのテレメトリがオフ 1=オン"
+
+            IsInGarage:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "1=Car in garage physics running"
+                    jp: "1=ガレージ内の車が物理演算を実行中"
+
+            IsOnTrack:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "1=Car on track physics running with player in car"
+                    jp: "1=車がトラック上で物理走行し、プレイヤーが車内にいる"
+
+            IsOnTrackCar:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "1=Car on track physics running"
+                    jp: "1=車がコース上で物理的に動作中"
+
+            IsReplayPlaying:
+                Unit: ""
+                Type: "bool"
+                Disk: 0
+                Live: 1
+                Description:
+                    en: "0=replay not playing 1=replay playing"
+                    jp: "0=リプレイを再生していない 1=リプレイを再生中"
+
+            OnPitRoad:
+                Unit: ""
+                Type: "bool"
+                Disk: 1
+                Live: 1
+                Description:
+                    en: "Is the player car on pit road between the cones"
+                    jp: "プレイヤーの車はピットロードのコーンの間にあります"
 
     # CarIdx Parameters ========================================
     CarIdx:

@@ -1,3 +1,4 @@
+// Languages
 function switchLanguage(language) {
     // Save selected preference
     localStorage.setItem('preferredLanguage', language);
@@ -15,8 +16,10 @@ function switchLanguage(language) {
 
 // Session Info section
 function showSessionData() {
-    const default_section = document.getElementById('WeatherInfo');
     document.getElementById('session_data').style.display = 'block';
+    document.getElementById('telemetry_data').style.display = 'none';
+
+    const default_section = document.getElementById('WeatherInfo');
     default_section.style.display = 'block';
 };
 
@@ -34,14 +37,28 @@ function showSessionSection(section) {
     this_section.style.display = 'block';
 };
 
+// Telemetry Info section
+function showTelemetryData() {
+    document.getElementById('telemetry_data').style.display = 'block';
+    document.getElementById('session_data').style.display = 'none';
+
+    //const default_section = document.getElementById('LapTime');
+    //default_section.style.display = 'block';
+};
+
+
 // Load preferred language on page load
 document.addEventListener('DOMContentLoaded', () => {
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'en';
     switchLanguage(preferredLanguage);
 
-    // Hide spinner on display.html
-    document.getElementById('spinner-container').style.display = 'none';
+    // Look for spinner which only exists post file upload
+    const spinner = document.getElementById('spinner-container');
 
-    // Show session section on load by default
-    showSessionData();
+    if (spinner) {
+        spinner.style.display = 'none';
+
+        // Show session section on load by default
+        showSessionData();
+    };
 });

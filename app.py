@@ -56,14 +56,14 @@ def upload_file():
                     'display.html',
                     session_info=session_data,
                     telemetry_info=telemetry_data,
-                    yaml_info=yaml_data
+                    yaml_info=yaml_data,
                 )
             except Exception as err:
                 return f"Error processing file: {err}"
         else:
             return "Invalid file extension. iRacing telemetry (.ibt) file only!"
 
-    return render_template('index.html')
+    return render_template('index.html', yaml_info=yaml_data)
 
 
 # Retrieve session info, ie: Weather and Car Set up

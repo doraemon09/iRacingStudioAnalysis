@@ -1,6 +1,17 @@
 <div id="telemetry_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
         <div class="col-md-12">
+            {% for key in yaml_info['Telemetry'] %}
+                <button class="btn btn-info" onclick="showTelemetrySection('{{ key }}')">
+                    <span
+                        data-en="{{ yaml_info['Telemetry'][key]['Label']['en'] }}"
+                        data-jp="{{ yaml_info['Telemetry'][key]['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['Telemetry'][key]['Label']['en'] }}
+                    </span>
+                </button>
+            {% endfor%}
+
             <ul>
                 {% for header in telemetry_info._var_headers_dict %}
                     <li>{{ header }}

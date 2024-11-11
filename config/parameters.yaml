@@ -3,35 +3,35 @@
 # ========================================
 Session:
     WeatherInfo:
-        label:
+        Label:
             en: "Weather"
             jp: "気象"
     SessionInfo:
-        label:
+        Label:
             en: "Session"
             jp: "セッション"
     QualifyResultsInfo:
-        label:
+        Label:
             en: "Qualify Results"
             jp: "予選結果"
     SplitTimeInfo:
-        label:
+        Label:
             en: "Split Time"
             jp: "スプリット・タイム"
     CarSetup:
-        label:
+        Label:
             en: "Car Setup"
             jp: "セットアップ"
     DriverInfo:
-        label:
+        Label:
             en: "Driver"
             jp: "ドライバー"
     RadioInfo:
-        label:
+        Label:
             en: "Radio"
             jp: "無線"
     CameraInfo:
-        label:
+        Label:
             en: "Camera"
             jp: "カメラ"
 

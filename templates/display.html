@@ -13,14 +13,19 @@
         <link href="//cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css" rel="stylesheet">
 
         <!-- -->
-        <title data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス">iRacing Studio Analysis</title>
+        <title
+            data-en="{{ yaml_info['General']['Title']['Label']['en'] }}"
+            data-jp="{{ yaml_info['General']['Title']['Label']['jp'] }}"
+        >
+            {{ yaml_info['General']['Title']['Label']['en'] }}
+        </title>
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            {% include 'navbar.html' %}
-        </nav>
+        <!-- Navbar -->
+        {% include 'navbar.html' %}
 
+        <!-- Load Spinner -->
         <div id="spinner-container" class="container-fluid">
             <div class="row my-2">
                 <div class="col-md-12">

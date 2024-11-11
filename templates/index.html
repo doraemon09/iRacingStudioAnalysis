@@ -13,20 +13,34 @@
         <link href="//cdnjs.cloudflare.com/ajax/libs/flag-icons/6.6.6/css/flag-icons.min.css" rel="stylesheet">
 
         <!-- -->
-        <title data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス">iRacing Studio Analysis</title>
+        <title
+            data-en="{{ yaml_info['General']['Title']['Label']['en'] }}"
+            data-jp="{{ yaml_info['General']['Title']['Label']['jp'] }}"
+        >
+            {{ yaml_info['General']['Title']['Label']['en'] }}
+        </title>
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            {% include 'navbar.html' %}
-        </nav>
+        <!-- Navbar -->
+        {% include 'navbar.html' %}
 
+        <!-- Content -->
         <div class="container-fluid">
             <div class="row my-2">
                 <div class="col-md-12">
-                    <h1 data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス"><!-- text from data attribute --></h1>
-                    <p data-en="Upload iRacing telemetry file (.ibt) to start your analysis." data-jp="iRacingテレメトリーファイル（.ibt）をアップロードして下さい。"><!-- text from data attribute --></p>
-                    <p data-en="Telemetry files are located in \Documents\iRacing\Telemetry\ folder." data-jp="テレメトリ ファイルは \Documents\iRacing\Telemetry\ フォルダーにあります。"><!-- text from data attribute --></p>
+                    <h1
+                        data-en="{{ yaml_info['General']['Title']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Title']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Title']['Label']['en'] }}
+                    </h1>
+                    <p
+                        data-en="{{ yaml_info['General']['Intro']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Intro']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Intro']['Label']['en'] }}
+                    </p>
                 </div>
             </div>
             <form class="row my-2" method="post" enctype="multipart/form-data">
@@ -34,7 +48,13 @@
                     <input class="form-control" type="file" name="file" accept=".ibt">
                 </div>
                 <div class="col-md-6">
-                    <input class="btn btn-primary" type="submit" data-en="Upload" data-jp="アップロード" value="Upload">
+                    <input
+                        class="btn btn-primary"
+                        type="submit"
+                        data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
+                        value="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
+                    >
                 </div>
             </form>
         </div>

@@ -1,32 +1,60 @@
-<div class="container-fluid">
-    <div class="row my-2">
-        <div class="col-md-12 text-white">
-            <span class="h3 pe-2 align-middle" data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス"><!-- text from data attribute --></span>
-            <button class="btn btn-light" onclick="switchLanguage('en')">
-                <span class="fi fi-us"></span>
-                <span data-en="English" data-jp="英語"><!-- text from data attribute --></span>
-            </button>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+        <div class="row my-2">
+            <div class="col-md-12 text-white">
+                <span
+                    class="h3 pe-2 align-middle"
+                    data-en="{{ yaml_info['General']['Title']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['General']['Title']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['General']['Title']['Label']['en'] }}
+                </span>
 
-            <button class="btn btn-light" onclick="switchLanguage('jp')">
-                <span class="fi fi-jp"></span>
-                <span data-en="Japanese" data-jp="日本語"><!-- text from data attribute --></span>
-            </button>
+                {% for key in yaml_info['General']['Language'] %}
+                    <button class="btn btn-light" onclick="switchLanguage('{{ key }}')">
+                        <span class="{{ yaml_info['General']['Language'][key]['Icon'] }}"></span>
+                        <span
+                            data-en="{{ yaml_info['General']['Language'][key]['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Language'][key]['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Language'][key]['Label']['en'] }}
+                        </span>
+                    </button>
+                {% endfor %}
 
-            {% if session_info is defined or telemetry_info is defined %}
-                <a class="btn btn-primary" href="{{ url_for('upload_file') }}" data-en="Upload" data-jp="アップロード"><!-- text from data attribute --></a>
-            {% endif %}
+                {% if session_info is defined or telemetry_info is defined %}
+                    <a
+                        class="btn btn-primary"
+                        href="{{ url_for('upload_file') }}"
+                        data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Button']['Upload']['Label']['en'] }}
+                    </a>
+                {% endif %}
 
-            {% if session_info is defined %}
-                <button class="btn btn-outline-info" onclick="showSessionData()">
-                    <span data-en="Session Info" data-jp="セッション情報"><!-- text from data attribute --></span>
-                </button>
-            {% endif %}
+                {% if session_info is defined %}
+                    <button class="btn btn-outline-info" onclick="showSessionData()">
+                        <span
+                            data-en="{{ yaml_info['General']['Button']['Session']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Button']['Session']['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Button']['Session']['Label']['en'] }}
+                        </span>
+                    </button>
+                {% endif %}
 
-            {% if telemetry_info is defined %}
-                <button class="btn btn-outline-info" onclick="showTelemetryData()">
-                    <span data-en="Telemetry Data" data-jp="テレメトリーデータ"><!-- text from data attribute --></span>
-                </button>
-            {% endif %}
+                {% if telemetry_info is defined %}
+                    <button class="btn btn-outline-info" onclick="showTelemetryData()">
+                        <span
+                            data-en="{{ yaml_info['General']['Button']['Telemetry']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Button']['Telemetry']['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Button']['Telemetry']['Label']['en'] }}
+                        </span>
+                    </button>
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
+</nav>

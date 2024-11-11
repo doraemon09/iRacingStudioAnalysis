@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import werkzeug.utils
 import os
+import yaml
 import irsdk
 
 
@@ -8,6 +9,9 @@ import irsdk
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
+# Load YAML
+with open('config/parameters.yaml', 'r') as yaml_file:
+    yaml_data = yaml.safe_load(yaml_file)
 
 # Set allowed file extensions
 ALLOWED_FILE_EXTENSIONS = {'ibt'}
@@ -48,7 +52,12 @@ def upload_file():
                 # Telemetry Info
                 telemetry_data = get_telemetry_info(filepath)
 
-                return render_template('display.html', session_info=session_data, telemetry_info=telemetry_data)
+                return render_template(
+                    'display.html',
+                    session_info=session_data,
+                    telemetry_info=telemetry_data,
+                    yaml_info=yaml_data
+                )
             except Exception as err:
                 return f"Error processing file: {err}"
         else:

@@ -1,0 +1,22 @@
+<div id="telemetry_data" class="container-fluid" style="display: none;">
+    <div class="row my-2">
+        <div class="col-md-12">
+            <ul>
+                {% for header in telemetry_info._var_headers_dict %}
+                    <li>{{ header }}
+                        <ul>
+                            {% if yaml_info[header] %}
+                                {% for attr, val in yaml_info[header].items() %}
+                                    <li>{{ attr }}: {{ val }}</li>
+                                {% endfor %}
+                                {#<li>Data: {{ telemetry_info.get_all(header) }}</li>#}
+                            {% else %}
+                                <li>Not found in YAML</li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                {% endfor %}
+           </ul>
+        </div>
+    </div>
+</div>

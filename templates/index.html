@@ -18,23 +18,10 @@
 
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <!-- switch language buttons -->
-            <div class="row my-2">
-                <div class="col-md-12">
-                    <button class="btn btn-light" onclick="switchLanguage('en')">
-                        <span class="fi fi-us"></span>
-                        <span data-en="English" data-jp="英語"><!-- text from data attribute --></span>
-                    </button>
-
-                    <button class="btn btn-light" onclick="switchLanguage('jp')">
-                        <span class="fi fi-jp"></span>
-                        <span data-en="Japanese" data-jp="日本語"><!-- text from data attribute --></span>
-                    </button>
-                </div>
-            </div>
+            {% include 'navbar.html' %}
         </nav>
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row my-2">
                 <div class="col-md-12">
                     <h1 data-en="iRacing Studio Analysis" data-jp="iRacing スタジオ アナリシス"><!-- text from data attribute --></h1>

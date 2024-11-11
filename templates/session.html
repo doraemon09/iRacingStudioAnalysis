@@ -1,0 +1,323 @@
+<div id="session_data" class="container-fluid" style="display: none;">
+    <div class="row my-2">
+        <div class="col-md-12">
+            <button class="btn btn-info" onclick="showSessionSection('WeatherInfo')">
+                <span data-en="Weather" data-jp="天気"><!-- text from data attribute --></span>
+            </button>
+            <button class="btn btn-info" onclick="showSessionSection('SessionInfo')">
+                <span data-en="Session" data-jp="セッション"><!-- text from data attribute --></span>
+            </button>
+            <button class="btn btn-info" onclick="showSessionSection('QualifyResultsInfo')">
+                <span data-en="Qualify Results" data-jp="予選結果"><!-- text from data attribute --></span>
+            </button>
+            <button class="btn btn-info" onclick="showSessionSection('SplitTimeInfo')">
+                <span data-en="Split Time" data-jp="スプリット・タイム"><!-- text from data attribute --></span>
+            </button>
+            <button class="btn btn-info" onclick="showSessionSection('CarSetup')">
+                <span data-en="Car Setup" data-jp="セットアップ"><!-- text from data attribute --></span>
+            </button>
+            <button class="btn btn-info" onclick="showSessionSection('DriverInfo')">
+                <span data-en="Driver" data-jp="ドライバー"><!-- text from data attribute --></span>
+            </button>
+            <button class="btn btn-info" onclick="showSessionSection('RadioInfo')">
+                <span data-en="Radio" data-jp="ラジオ"><!-- text from data attribute --></span>
+            </button>
+            <button class="btn btn-info" onclick="showSessionSection('CameraInfo')">
+                <span data-en="Camera" data-jp="カメラ"><!-- text from data attribute --></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Weekend Info -->
+    <div id="WeatherInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Weekend Info</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for weekend, info in session_info['WeekendInfo'].items() %}
+                        <tr>
+                            <th scope="row">{{ weekend }}</th>
+                            {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
+                                <td>
+                                    <ul>
+                                        {% for info_options, info_value in info.items() %}
+                                            <li>{{ info_options }}: {{ info_value }}</li>
+                                        {% endfor%}
+                                    </ul>
+                                </td>
+                            {% else %}
+                                <td>{{ info }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Session Info -->
+    <div id="SessionInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Session Info</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session_info in session_info['SessionInfo']['Sessions'] %}
+                        {% for session, info in session_info.items() %}
+                            <tr>
+                                <th scope="row">{{ session }}</th>
+                                {% if info is sequence and info|length == 1 %} <!-- use 'sequence' to check if list/tuple -->
+                                    <td>
+                                        <ul>
+                                            {% for info_options in info %}
+                                                {% for idx, val in info_options.items() %}
+                                                    <li>{{ idx }}: {{ val }}</li>
+                                                {% endfor %}
+                                            {% endfor%}
+                                        </ul>
+                                    </td>
+                                {% else %}
+                                    <td>{{ info }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Qualify Results Info -->
+    <div id="QualifyResultsInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Qualify Results Info</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for qualify in session_info['QualifyResultsInfo']['Results'] %}
+                        <tr>
+                            <th scope="row">Position {{ qualify['Position'] }}</th>
+                                <td>
+                                    <ul>
+                                        {% for qualify_options, qualify_values in qualify.items() %}
+                                            <li>{{ qualify_options }}: {{ qualify_values }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Split Time Info -->
+    <div id="SplitTimeInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Split Time Info</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for split_time in session_info['SplitTimeInfo']['Sectors'] %}
+                        {% for sector, info in split_time.items() %}
+                            <tr>
+                                <th scope="row">{{ sector }}</th>
+                                <td>{{ info }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Car Setup -->
+    <div id="CarSetup" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Car Setup</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for setup, info in session_info['CarSetup'].items() %}
+                        <tr>
+                            <th scope="row">{{ setup }}</th>
+                            {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
+                                <td>
+                                    <ul>
+                                        {% for info_options, info_value in info.items() %}
+                                            {% if info_value is mapping %} <!-- use 'mapping' to check if dictionary -->
+                                                <li>
+                                                    {{ info_options }}
+                                                    <ul>
+                                                        {% for sub_options, sub_value in info_value.items() %}
+                                                            <li>{{ sub_options }}: {{ sub_value }}</li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </li>
+                                            {% else %}
+                                                <li>{{ info_options }}: {{ info_value }}</li>
+                                            {% endif %}
+                                        {% endfor%}
+                                    </ul>
+                                </td>
+                            {% else %}
+                                <td>{{ info }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Driver Info -->
+    <div id="DriverInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Driver Info</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for driver, info in session_info['DriverInfo'].items() %}
+                        {% if driver == 'Drivers' %}
+                            {% for info_options in info %}
+                                <tr>
+                                    <th scope="row">
+                                        Driver
+                                        {{ info_options['CarIdx'] }} -
+                                        {{ info_options['UserName'] }}
+                                        {% if info_options['CarIsAI'] %}(AI){% endif %}
+                                    </th>
+                                    <td>
+                                        <ul>
+                                            {% for sub_options, sub_values in info_options.items() %}
+                                                <li>{{ sub_options }}: {{ sub_values }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <th scope="row">{{ driver }}</th>
+                                <td>{{ info }}</td>
+                            </tr>
+                        {% endif%}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Radio Info -->
+    <div id="RadioInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Radio Info</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for radio, info in session_info['RadioInfo'].items() %}
+                        <tr>
+                            <th scope="row">{{ radio }}</th>
+                            <td>
+                                {% if info[0] is mapping %}
+                                    <ul>
+                                        {% for sub_info_values in info %}
+                                            {% for sub_options, sub_values in sub_info_values.items() %}
+                                                <li>
+                                                    {{ sub_options }}:
+                                                    {% if sub_values[0] is mapping %}
+                                                        {% for info_sub_values in sub_values %}
+                                                            {% for sub_options2, sub_values2 in info_sub_values.items() %}
+                                                                <ul>
+                                                                    <li>{{ sub_options2 }}: {{ sub_values2 }}</li>
+                                                                </ul>
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                    {% else %}
+                                                        {{ sub_values }}
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </ul>
+                                {% else %}
+                                    {{ info }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Camera Info -->
+    <div id="CameraInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Camera Info</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for camera in session_info['CameraInfo']['Groups'] %}
+                        <tr>
+                            <th scope="row">Group {{ camera['GroupNum'] }}</th>
+                            <td>
+                                <ul>
+                                    {% for info_options, info_values in camera.items() %}
+                                        <li>
+                                            {{ info_options }}:
+                                            {% if info_values[0] is mapping %}
+                                                <ul>
+                                                    {% for info_sub_values in info_values %}
+                                                        {% for sub_options, sub_values in info_sub_values.items() %}
+                                                            <li>{{ sub_options }}: {{ sub_values }}</li>
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                </ul>
+                                            {% else %}
+                                                {{ info_values }}
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

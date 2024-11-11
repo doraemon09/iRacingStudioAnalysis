@@ -1,4 +1,49 @@
 # ========================================
+# General ================================
+# ========================================
+General:
+    Intro:
+        Label:
+            en: "Upload iRacing telemetry file (.ibt) to start your analysis. Telemetry files are located in \\Documents\\iRacing\\Telemetry\\ folder."
+            jp: "iRacingテレメトリーファイル（.ibt）をアップロードして下さい。テレメトリ ファイルは \\Documents\\iRacing\\Telemetry\\ フォルダーにあります。"
+
+    Button:
+        Upload:
+            Label:
+                en: "Upload"
+                jp: "アップロード"
+        Session:
+            Label:
+                en: "Session Info"
+                jp: "セッション情報"
+        Telemetry:
+            Label:
+                en: "Telemetry Data"
+                jp: "テレメトリーデータ"
+
+    Language:
+        en:
+            Icon: "fi fi-us"
+            Label:
+                en: "English"
+                jp: "英語"
+        jp:
+            Icon: "fi fi-jp"
+            Label:
+                en: "Japanese"
+                jp: "日本語"
+
+    Title:
+        Label:
+            en: "iRacing Studio Analysis"
+            jp: "iRacing スタジオ アナリシス"
+
+    Value:
+        Label:
+            en: "Value"
+            jp: "値"
+
+# ========================================
 # Session ================================
 # ========================================
 Session:

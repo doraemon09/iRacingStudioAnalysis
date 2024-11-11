@@ -9,8 +9,8 @@ import irsdk
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
-# Load YAML
-with open('config/parameters.yaml', 'r') as yaml_file:
+# Load YAML with utf-8 encoding for Japanese characters
+with open('config/parameters.yaml', 'r', encoding='utf-8') as yaml_file:
     yaml_data = yaml.safe_load(yaml_file)
 
 # Set allowed file extensions

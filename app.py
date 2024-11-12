@@ -53,10 +53,15 @@ def upload_file():
                 # Telemetry Info | gets dataframe
                 telemetry_data = get_telemetry_info(filepath)
 
+                # Process selected lap related data | gets dataframe
+                lap_data = process_lap_info(telemetry_data)
+
                 return render_template(
                     'display.html',
                     session_info=session_data,
+                    telemetry_info_dict=telemetry_data,
                     telemetry_info=telemetry_data.to_dict(orient='records'),
+                    lap_info=lap_data.to_dict(orient='records'),
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -125,6 +130,101 @@ def process_ibt_telemetry_info(ibt_telemetry_info):
     except Exception as err:
         print(f"Error processing telemetry info: {err}")
         return []
+
+
+# Lap data
+def process_lap_info(ibt_telemetry_info):
+    try:
+        fields_to_process = ['Lap', 'LapDist']
+
+        lap_dict = {}
+
+        for header in fields_to_process:
+            try:
+                # Assigned retrieved data set
+                lap_dict[header] = ibt_telemetry_info[header]
+            except Exception as err:
+                # Set to empty if header is not found in ibt_telemetry_info
+                # Which should not happen to begine with
+                lap_dict[header] = []
+                print(f"Error retrieving data for {header}: {err}")
+
+        # Create dataframe with lap_dict
+        lap_dataframe = pd.DataFrame(lap_dict)
+
+        # Calculate time based on the 60Hz sampling frequency (1/60 seconds between each sample)
+        lap_dataframe['Time'] = lap_dataframe.groupby('Lap').cumcount() / 60
+
+        # Calculate lap times by subtracting the first time value in each lap group from the last
+        lap_times = lap_dataframe.groupby('Lap')['Time'].max() - lap_dataframe.groupby('Lap')['Time'].min()
+
+        # Calculate total lap distance by taking the maximum distance value within each lap
+        lap_distances = lap_dataframe.groupby('Lap')['LapDist'].max()
+
+        # Build dataframe with lap time and other lap info
+        lap_data = pd.DataFrame({
+            'Lap': lap_times.index,
+            'LapTime': lap_times.values,
+            'LapDist': lap_distances.values,
+        })
+
+        # Replace missing data values (NaN) with 0
+        lap_data.fillna(0, inplace=True)
+
+        # Exclude the first and last laps for best lap calculation
+        laps_to_consider = lap_data['Lap'].iloc[1:-1]  # Excluding the first and last lap
+        lap_times_considered = lap_data[lap_data['Lap'].isin(laps_to_consider)]
+
+        # Find best lap
+        best_lap_time = lap_times_considered['LapTime'].min()
+
+        # Returns 0/1
+        lap_data['BestLap'] = lap_data['LapTime'].apply(lambda x: 1 if x == best_lap_time else 0)
+
+        # Find shortest distance
+        shortest_lap_distance = lap_times_considered['LapDist'].min()
+
+        # Returns 0/1
+        lap_data['ShortestLapDist'] = lap_data['LapDist'].apply(lambda x: 1 if x == shortest_lap_distance else 0)
+
+        # Find delta to best lap
+        lap_data['DeltaToBestLap'] = lap_data['LapTime'] - best_lap_time
+        lap_data['DeltaToBestLapPercent'] = ((lap_data['LapTime'] - best_lap_time) / best_lap_time) * 100
+
+        # Second run of replace missing data values (NaN) with 0
+        lap_data.fillna(0, inplace=True)
+
+        return lap_data
+    except Exception as err:
+        print(f"Error processing telemetry info: {err}")
+        return []
+
+
+# Custom jinja2 filter
+@app.template_filter('timeformat')
+def timeformat(seconds):
+    mins = int(seconds // 60)
+    secs = seconds % 60
+
+    return f"{mins}:{secs:05.3f}"
+
+
+# Custom jinja2 filter
+@app.template_filter('to_km')
+def to_km(meters):
+    return round(meters / 1000, 5)
+
+
+# Custom jinja2 filter
+def round_filter(value, decimals=2):
+    try:
+        return round(value, decimals)
+    except Exception as err:
+        return value
+
+
+# Register filter with jinja2
+app.jinja_env.filters['round'] = round_filter
 
 
 # ====================

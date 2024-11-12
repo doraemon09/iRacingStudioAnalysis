@@ -1,6 +1,10 @@
 <div id="telemetry_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
         <div class="col-md-12">
+            <button class="btn btn-info" onclick="showTelemetrySection('LapInfo')">
+                <span>Lap Info</span>
+            </button>
+            {#
             {% for key in yaml_info['Telemetry'] %}
                 <button class="btn btn-info" onclick="showTelemetrySection('{{ key }}')">
                     <span
@@ -11,23 +15,86 @@
                     </span>
                 </button>
             {% endfor%}
+            #}
+        </div>
+    </div>
 
-            <ul>
-                {% for header in telemetry_info._var_headers_dict %}
-                    <li>{{ header }}
-                        <ul>
-                            {% if yaml_info[header] %}
-                                {% for attr, val in yaml_info[header].items() %}
-                                    <li>{{ attr }}: {{ val }}</li>
-                                {% endfor %}
-                                {#<li>Data: {{ telemetry_info.get_all(header) }}</li>#}
-                            {% else %}
-                                <li>Not found in YAML</li>
-                            {% endif %}
-                        </ul>
-                    </li>
-                {% endfor %}
-           </ul>
+    <div id="LapInfo" class="row my-2" style="display: block;">
+        <div class="col-md-12">
+            <div class="row">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Lap No.</th>
+                            <th scope="col">Lap Time</th>
+                            <th scope="col">Delta (s)</th>
+                            <th scope="col">Delta (%)</th>
+                            <th scope="col">Lap Distance (km)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for idx in lap_info %}
+                            <tr>
+                                <th scope="row">{{ idx.Lap }}</th>
+                                <td class="{% if idx.BestLap %}table-success fw-bold{% endif%}">{{ idx.LapTime | timeformat }}</td>
+                                <td>{{ idx.DeltaToBestLap | round(3) }}</td>
+                                <td>{{ idx.DeltaToBestLapPercent | round() }}</td>
+                                <td class="{% if idx.ShortestLapDist %}table-success fw-bold{% endif%}">{{ idx.LapDist | to_km }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+                <div id="lapTimeDistanceChart"></div>
+
+                <!-- Ployly chart -->
+                <script>
+                    var lapData = {{ lap_info | tojson }};
+
+                    var lapNumbers = lapData.map(function(data) { return data.Lap; });
+                    var lapTimes = lapData.map(function(data) { return data.LapTime; });
+                    var lapDistances = lapData.map(function(data) { return data.LapDist; });
+
+                    var lapTimeDistance_trace1 = {
+                        x: lapNumbers,
+                        y: lapTimes,
+                        type: 'scatter', // scatter plot or line chart
+                        mode: 'lines+markers',
+                        name: 'Lap Time',
+                    };
+
+                    var lapTimeDistance_trace2 = {
+                        x: lapNumbers,
+                        y: lapDistances,
+                        type: 'scatter',
+                        mode: 'lines+markers',
+                        name: 'Lap Distance (m)',
+                        yaxis: 'y2', // Secondary y-axis for lap distances
+                    };
+
+                    var lapTimeDistance_layout = {
+                        autosize: true,
+                        title: 'Lap Times and Lap Distances',
+                        xaxis: {
+                            title: 'Lap Number',
+                        },
+                        yaxis: {
+                            title: 'Lap Time (s)',
+                        },
+                        yaxis2: {
+                            title: 'Lap Distance (m)',
+                            overlaying: 'y',
+                            side: 'right',
+                        },
+                    };
+
+                    var lapTimeDistance_data = [lapTimeDistance_trace1, lapTimeDistance_trace2];
+
+                    Plotly.newPlot('lapTimeDistanceChart', lapTimeDistance_data, lapTimeDistance_layout);
+                </script>
+            </div>
         </div>
     </div>
 </div>

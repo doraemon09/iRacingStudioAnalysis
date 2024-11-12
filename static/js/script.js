@@ -46,6 +46,13 @@ function showTelemetryData() {
     //default_section.style.display = 'block';
 };
 
+// Telemetry Info buttons
+function showTelemetrySection(section) {
+    const this_section = document.getElementById(section);
+
+    // Show selected section
+    this_section.style.display = 'block';
+};
 
 // Load preferred language on page load
 document.addEventListener('DOMContentLoaded', () => {
@@ -61,4 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Show session section on load by default
         showSessionData();
     };
+
+    // Turn the table into a DataTable
+    $('table').DataTable({
+        lengthMenu: [ 5, 10, 15, 20, 25 ],
+        pageLength: 15,
+    });
 });

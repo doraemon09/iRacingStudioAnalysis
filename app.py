@@ -59,7 +59,6 @@ def upload_file():
                 return render_template(
                     'display.html',
                     session_info=session_data,
-                    telemetry_info_dict=telemetry_data,
                     telemetry_info=telemetry_data.to_dict(orient='records'),
                     lap_info=lap_data.to_dict(orient='records'),
                     yaml_info=yaml_data,
@@ -135,7 +134,7 @@ def process_ibt_telemetry_info(ibt_telemetry_info):
 # Lap data
 def process_lap_info(ibt_telemetry_info):
     try:
-        fields_to_process = ['Lap', 'LapDist']
+        fields_to_process = ['Lap', 'LapDist', 'Speed']
 
         lap_dict = {}
 
@@ -158,6 +157,9 @@ def process_lap_info(ibt_telemetry_info):
         # Calculate lap times by subtracting the first time value in each lap group from the last
         lap_times = lap_dataframe.groupby('Lap')['Time'].max() - lap_dataframe.groupby('Lap')['Time'].min()
 
+        speed_max = lap_dataframe.groupby('Lap')['Time'].max()
+        speed_avg = lap_dataframe.groupby('Lap')['Time'].mean()
+
         # Calculate total lap distance by taking the maximum distance value within each lap
         lap_distances = lap_dataframe.groupby('Lap')['LapDist'].max()
 
@@ -166,6 +168,8 @@ def process_lap_info(ibt_telemetry_info):
             'Lap': lap_times.index,
             'LapTime': lap_times.values,
             'LapDist': lap_distances.values,
+            'SpeedMax': speed_max.values,
+            'SpeedAvg': speed_avg.values,
         })
 
         # Replace missing data values (NaN) with 0
@@ -175,21 +179,33 @@ def process_lap_info(ibt_telemetry_info):
         laps_to_consider = lap_data['Lap'].iloc[1:-1]  # Excluding the first and last lap
         lap_times_considered = lap_data[lap_data['Lap'].isin(laps_to_consider)]
 
-        # Find best lap
-        best_lap_time = lap_times_considered['LapTime'].min()
+        # Find best/worst lap
+        lap_time_best = lap_times_considered['LapTime'].min()
+        lap_time_worst = lap_times_considered['LapTime'].max()
+
+        # Find shortest/longest distance
+        lap_distance_shortest = lap_times_considered['LapDist'].min()
+        lap_distance_longest = lap_times_considered['LapDist'].max()
+
+        # Find higest/lowest on both max and avg speed
+        speed_max_highest = lap_times_considered['SpeedMax'].max()
+        speed_max_lowest = lap_times_considered['SpeedMax'].min()
+        speed_avg_highest = lap_times_considered['SpeedAvg'].max()
+        speed_avg_lowest = lap_times_considered['SpeedAvg'].min()
 
         # Returns 0/1
-        lap_data['BestLap'] = lap_data['LapTime'].apply(lambda x: 1 if x == best_lap_time else 0)
-
-        # Find shortest distance
-        shortest_lap_distance = lap_times_considered['LapDist'].min()
-
-        # Returns 0/1
-        lap_data['ShortestLapDist'] = lap_data['LapDist'].apply(lambda x: 1 if x == shortest_lap_distance else 0)
+        lap_data['IsBestLap'] = lap_data['LapTime'].apply(lambda x: 1 if x == lap_time_best else 0)
+        lap_data['IsWorstLap'] = lap_data['LapTime'].apply(lambda x: 1 if x == lap_time_worst else 0)
+        lap_data['IsShortestLapDist'] = lap_data['LapDist'].apply(lambda x: 1 if x == lap_distance_shortest else 0)
+        lap_data['IsLongestLapDist'] = lap_data['LapDist'].apply(lambda x: 1 if x == lap_distance_longest else 0)
+        lap_data['IsBestMaxSpeed'] = lap_data['SpeedMax'].apply(lambda x: 1 if x == speed_max_highest else 0)
+        lap_data['IsWorstMaxSpeed'] = lap_data['SpeedMax'].apply(lambda x: 1 if x == speed_max_lowest else 0)
+        lap_data['IsBestAvgSpeed'] = lap_data['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_highest else 0)
+        lap_data['IsWorstAvgSpeed'] = lap_data['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_lowest else 0)
 
         # Find delta to best lap
-        lap_data['DeltaToBestLap'] = lap_data['LapTime'] - best_lap_time
-        lap_data['DeltaToBestLapPercent'] = ((lap_data['LapTime'] - best_lap_time) / best_lap_time) * 100
+        lap_data['DeltaToBestLap'] = lap_data['LapTime'] - lap_time_best
+        lap_data['DeltaToBestLapPercent'] = ((lap_data['LapTime'] - lap_time_best) / lap_time_best) * 100
 
         # Second run of replace missing data values (NaN) with 0
         lap_data.fillna(0, inplace=True)

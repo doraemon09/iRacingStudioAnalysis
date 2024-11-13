@@ -33,17 +33,6 @@
                     </a>
                 {% endif %}
 
-                {% if session_info is defined %}
-                    <button class="btn btn-outline-info" onclick="showSessionData()">
-                        <span
-                            data-en="{{ yaml_info['General']['Button']['Session']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Button']['Session']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Button']['Session']['Label']['en'] }}
-                        </span>
-                    </button>
-                {% endif %}
-
                 {% if telemetry_info is defined %}
                     <button class="btn btn-outline-info" onclick="showTelemetryData()">
                         <span
@@ -51,6 +40,17 @@
                             data-jp="{{ yaml_info['General']['Button']['Telemetry']['Label']['jp'] }}"
                         >
                             {{ yaml_info['General']['Button']['Telemetry']['Label']['en'] }}
+                        </span>
+                    </button>
+                {% endif %}
+
+                {% if session_info is defined %}
+                    <button class="btn btn-outline-info" onclick="showSessionData()">
+                        <span
+                            data-en="{{ yaml_info['General']['Button']['Session']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Button']['Session']['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Button']['Session']['Label']['en'] }}
                         </span>
                     </button>
                 {% endif %}

@@ -1,3 +1,7 @@
+// Global var
+let session_sections = ['WeatherInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
+let telemetry_sections = ['Charts', 'Laps'];
+
 // Languages
 function switchLanguage(language) {
     // Save selected preference
@@ -14,10 +18,19 @@ function switchLanguage(language) {
     });
 };
 
+function hideSections(section_list) {
+    section_list.forEach(section => {
+        document.getElementById(section).style.display = 'none';
+    });
+};
+
 // Session Info section
 function showSessionData() {
     document.getElementById('session_data').style.display = 'block';
     document.getElementById('telemetry_data').style.display = 'none';
+
+    // Hide all session sections
+    hideSections(session_sections)
 
     const default_section = document.getElementById('WeatherInfo');
     default_section.style.display = 'block';
@@ -26,10 +39,7 @@ function showSessionData() {
 // Session Info buttons
 function showSessionSection(section) {
     // Hide all session sections
-    session_sections = ['WeatherInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
-    session_sections.forEach(section => {
-        document.getElementById(section).style.display = 'none';
-    });
+    hideSections(session_sections)
 
     // Show selected section
     const this_section = document.getElementById(section);
@@ -41,6 +51,9 @@ function showTelemetryData() {
     document.getElementById('telemetry_data').style.display = 'block';
     document.getElementById('session_data').style.display = 'none';
 
+    // Hide all telemetry sections
+    hideSections(telemetry_sections)
+
     const default_section = document.getElementById('Charts');
     default_section.style.display = 'block';
 };
@@ -48,10 +61,7 @@ function showTelemetryData() {
 // Telemetry Info buttons
 function showTelemetrySection(section) {
     // Hide all telemetry sections
-    telemetry_sections = ['Charts', 'Laps'];
-    telemetry_sections.forEach(section => {
-        document.getElementById(section).style.display = 'none';
-    });
+    hideSections(telemetry_sections)
 
     // Show selected section
     const this_section = document.getElementById(section);

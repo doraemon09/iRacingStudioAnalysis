@@ -8,14 +8,26 @@ General:
             jp: "iRacingテレメトリーファイル（.ibt）をアップロードして下さい。テレメトリ ファイルは \\Documents\\iRacing\\Telemetry\\ フォルダーにあります。"
 
     Button:
+        Charts:
+            Label:
+                en: "Charts"
+                jp: "グラフ"
+
+        Laps:
+            Label:
+                en: "Laps"
+                jp: "ラップ"
+
         Upload:
             Label:
                 en: "Upload"
                 jp: "アップロード"
+
         Session:
             Label:
                 en: "Session Info"
                 jp: "セッション情報"
+
         Telemetry:
             Label:
                 en: "Telemetry Data"
@@ -27,6 +39,7 @@ General:
             Label:
                 en: "English"
                 jp: "英語"
+
         jp:
             Icon: "fi fi-jp"
             Label:

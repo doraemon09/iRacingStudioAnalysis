@@ -25,8 +25,6 @@ function showSessionData() {
 
 // Session Info buttons
 function showSessionSection(section) {
-    const this_section = document.getElementById(section);
-
     // Hide all session sections
     session_sections = ['WeatherInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
     session_sections.forEach(section => {
@@ -34,6 +32,7 @@ function showSessionSection(section) {
     });
 
     // Show selected section
+    const this_section = document.getElementById(section);
     this_section.style.display = 'block';
 };
 
@@ -42,15 +41,20 @@ function showTelemetryData() {
     document.getElementById('telemetry_data').style.display = 'block';
     document.getElementById('session_data').style.display = 'none';
 
-    //const default_section = document.getElementById('LapTime');
-    //default_section.style.display = 'block';
+    const default_section = document.getElementById('Charts');
+    default_section.style.display = 'block';
 };
 
 // Telemetry Info buttons
 function showTelemetrySection(section) {
-    const this_section = document.getElementById(section);
+    // Hide all telemetry sections
+    telemetry_sections = ['Charts', 'Laps'];
+    telemetry_sections.forEach(section => {
+        document.getElementById(section).style.display = 'none';
+    });
 
     // Show selected section
+    const this_section = document.getElementById(section);
     this_section.style.display = 'block';
 };
 
@@ -65,8 +69,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (spinner) {
         spinner.style.display = 'none';
 
-        // Show session section on load by default
-        showSessionData();
+        // Show telemetry section on load by default
+        showTelemetryData();
     };
 
     // Turn the table into a DataTable

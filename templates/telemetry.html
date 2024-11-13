@@ -1,25 +1,20 @@
 <div id="telemetry_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
         <div class="col-md-12">
-            <button class="btn btn-info" onclick="showTelemetrySection('LapInfo')">
-                <span>Lap Info</span>
-            </button>
-            {#
-            {% for key in yaml_info['Telemetry'] %}
+            {% for key in ['Charts', 'Laps'] %}
                 <button class="btn btn-info" onclick="showTelemetrySection('{{ key }}')">
                     <span
-                        data-en="{{ yaml_info['Telemetry'][key]['Label']['en'] }}"
-                        data-jp="{{ yaml_info['Telemetry'][key]['Label']['jp'] }}"
+                        data-en="{{ yaml_info['General']['Button'][key]['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Button'][key]['Label']['jp'] }}"
                     >
-                        {{ yaml_info['Telemetry'][key]['Label']['en'] }}
+                        {{ yaml_info['General']['Button'][key]['Label']['en'] }}
                     </span>
                 </button>
             {% endfor%}
-            #}
         </div>
     </div>
 
-    <div id="LapInfo" class="row my-2" style="display: block;">
+    <div id="Laps" class="row my-2" style="display: none;">
         <div class="col-md-12">
             <div class="row">
                 <table class="table table-hover">
@@ -49,12 +44,12 @@
                                 <td>{{ idx.DeltaToBestLap | round(3) }}</td>
                                 <td>{{ idx.DeltaToBestLapPercent | round() }}</td>
                                 <td
-                                    {% if idx.IsShortestLapDist or idx.IsLongestLapDist %}
-                                        class="table-{% if idx.IsShortestLapDist %}success{% elif idx.IsLongestLapDist %}danger{% endif %} fw-bold"
+                                    {% if idx.IsBestLapDist or idx.IsWorstLapDist %}
+                                        class="table-{% if idx.IsBestLapDist %}success{% elif idx.IsWorstLapDist %}danger{% endif %} fw-bold"
                                         style="border-color:revert;"
                                     {% endif %}
                                 >
-                                    {{ idx.LapDist | to_km }}
+                                    {{ idx.LapDistance | to_km }}
                                 </td>
                                 <td
                                     {% if idx.IsBestMaxSpeed or idx.IsWorstMaxSpeed %}
@@ -77,54 +72,295 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+
+    <div id="Charts" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-6">
+                    <div id="chartDeltaLapTime"></div>
+                </div>
+                <div class="col-6">
+                    <div id="chartDeltaSpeed"></div>
+                </div>
+
+                <script>
+                    $(document).ready(function() {
+                        /*
+                            =========================
+                            Delta: Lap Time
+                            =========================
+                        */
+                        var chartDeltaLapTime_traces = [];
+
+                        {% for lap, data in chart_info.items() %}
+                            chartDeltaLapTime_traces.push({
+                                x: {{ data['DistanceInterpolated'] | tojson }},
+                                y: {{ data['LapTimeDelta'] | tojson }},
+                                mode: 'lines',
+                                name: 'Lap {{ lap }}',
+                                visible: {% if loop.index == data['LapBest'] or loop.index == data['LapWorst'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
+
+                        var chartDeltaLapTime_layout = {
+                            autosize: true,
+                            showlegend: true,
+                            title: 'Delta: Lap Time',
+                            xaxis: {
+                                title: 'Distance (m)',
+                            },
+                            yaxis: {
+                                title: 'Lap Time Delta (s)',
+                            },
+                        };
+
+                        Plotly.newPlot(
+                            'chartDeltaLapTime',
+                            chartDeltaLapTime_traces,
+                            chartDeltaLapTime_layout,
+                        );
+
+                        /*
+                            =========================
+                            Delta: Speed
+                            =========================
+                        */
+                        var chartDeltaSpeed_traces = [];
+
+                        {% for lap, data in chart_info.items() %}
+                            chartDeltaSpeed_traces.push({
+                                x: {{ data['DistanceInterpolated'] | tojson }},
+                                y: {{ data['SpeedDelta'] | tojson }},
+                                mode: 'lines',
+                                name: 'Lap {{ lap }}',
+                                visible: {% if loop.index == data['LapBest'] or loop.index == data['LapWorst'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
+
+                        var chartDeltaSpeed_layout = {
+                            autosize: true,
+                            showlegend: true,
+                            title: 'Delta: Speed',
+                            xaxis: {
+                                title: 'Distance (m)',
+                            },
+                            yaxis: {
+                                title: 'Speed Delta (m/s)',
+                            },
+                        };
+
+                        Plotly.newPlot(
+                            'chartDeltaSpeed',
+                            chartDeltaSpeed_traces,
+                            chartDeltaSpeed_layout,
+                        );
+
+                        /*
+                            =========================
+                            Sync hover on both delta charts
+                            =========================
+                        */
+                        var chartDeltaLapTime = document.getElementById('chartDeltaLapTime');
+                        var chartDeltaSpeed = document.getElementById('chartDeltaSpeed');
+
+                        chartDeltaLapTime.on('plotly_hover', function(data) {
+                            var curveNumber = data.points[0].curveNumber;
+                            var pointIndex = data.points[0].pointIndex;
+
+                            Plotly.Fx.hover('chartDeltaSpeed', [{
+                                curveNumber: curveNumber, // match lap trace
+                                pointNumber: pointIndex, // match point within the lap trace
+                            }]);
+                        });
+
+                        chartDeltaLapTime.on('plotly_unhover', function(data) {
+                            Plotly.Fx.unhover('chartDeltaSpeed');
+                        });
+
+                        chartDeltaSpeed.on('plotly_hover', function(data) {
+                            var curveNumber = data.points[0].curveNumber;
+                            var pointIndex = data.points[0].pointIndex;
+
+                            Plotly.Fx.hover('chartDeltaLapTime', [{
+                                curveNumber: curveNumber, // match lap trace
+                                pointNumber: pointIndex, // match point within the lap trace
+                            }]);
+                        });
+
+                        chartDeltaSpeed.on('plotly_unhover', function(data) {
+                            Plotly.Fx.unhover('chartDeltaLapTime');
+                        });
+                    });
+                </script>
+            </div>
 
             <div class="row">
-                <div id="lapTimeDistanceChart"></div>
+                <div class="col-6">
+                    <div id="chartBrakeThrottle"></div>
+                </div>
+                <div class="col-6">
+                    <div id="chartSpeedRpm"></div>
+                </div>
 
                 <!-- Ployly chart -->
                 <script>
-                    var lapData = {{ lap_info | tojson }};
+                    $(document).ready(function() {
+                        /*
+                            =========================
+                            Brake and Throttle
+                            =========================
+                        */
+                        var chartBrakeThrottle_traces = [];
 
-                    var lapNumbers = lapData.map(function(data) { return data.Lap; });
-                    var lapTimes = lapData.map(function(data) { return data.LapTime; });
-                    var lapDistances = lapData.map(function(data) { return data.LapDist; });
+                        {% for lap, data in chart_info.items() %}
+                            chartBrakeThrottle_traces.push({
+                                x: {{ data['Distance'] | tojson }},
+                                y: {{ data['Throttle'] | tojson }},
+                                yaxis: 'y1',
+                                mode: 'lines',
+                                name: 'L{{ lap }} Throttle',
+                                visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
 
-                    var lapTimeDistance_trace1 = {
-                        x: lapNumbers,
-                        y: lapTimes,
-                        type: 'scatter', // scatter plot or line chart
-                        mode: 'lines+markers',
-                        name: 'Lap Time',
-                    };
+                        {% for lap, data in chart_info.items() %}
+                            chartBrakeThrottle_traces.push({
+                                x: {{ data['Distance'] | tojson }},
+                                y: {{ data['Brake'] | tojson }},
+                                yaxis: 'y2',
+                                mode: 'lines',
+                                name: 'L{{ lap }} Brake',
+                                visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
 
-                    var lapTimeDistance_trace2 = {
-                        x: lapNumbers,
-                        y: lapDistances,
-                        type: 'scatter',
-                        mode: 'lines+markers',
-                        name: 'Lap Distance (m)',
-                        yaxis: 'y2', // Secondary y-axis for lap distances
-                    };
+                        var chartBrakeThrottle_layout = {
+                            autosize: true,
+                            showlegend: true,
+                            title: 'Brake and Throttle',
+                            xaxis: {
+                                title: 'Distance (m)',
+                            },
+                            yaxis: {
+                                title: 'Throttle (%)',
+                                side: 'left',
+                                overlaying: 'y2'
+                            },
+                            yaxis2: {
+                                title: 'Brake (%)',
+                                side: 'right',
+                            },
+                            legend: {
+                                x: 1.1,
+                                y: 1,
+                                xanchor: 'left',
+                                yanchor: 'top',
+                            },
+                        };
 
-                    var lapTimeDistance_layout = {
-                        autosize: true,
-                        title: 'Lap Times and Lap Distances',
-                        xaxis: {
-                            title: 'Lap Number',
-                        },
-                        yaxis: {
-                            title: 'Lap Time (s)',
-                        },
-                        yaxis2: {
-                            title: 'Lap Distance (m)',
-                            overlaying: 'y',
-                            side: 'right',
-                        },
-                    };
+                        Plotly.newPlot(
+                            'chartBrakeThrottle',
+                            chartBrakeThrottle_traces,
+                            chartBrakeThrottle_layout,
+                        );
 
-                    var lapTimeDistance_data = [lapTimeDistance_trace1, lapTimeDistance_trace2];
+                        /*
+                            =========================
+                            Speed and RPM
+                            =========================
+                        */
+                        var chartSpeedRpm_traces = [];
 
-                    Plotly.newPlot('lapTimeDistanceChart', lapTimeDistance_data, lapTimeDistance_layout);
+                        {% for lap, data in chart_info.items() %}
+                            chartSpeedRpm_traces.push({
+                                x: {{ data['Distance'] | tojson }},
+                                y: {{ data['Speed'] | tojson }},
+                                yaxis: 'y1',
+                                mode: 'lines',
+                                name: 'L{{ lap }} Speed',
+                                visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
+
+                        {% for lap, data in chart_info.items() %}
+                            chartSpeedRpm_traces.push({
+                                x: {{ data['Distance'] | tojson }},
+                                y: {{ data['RPM'] | tojson }},
+                                yaxis: 'y2',
+                                mode: 'lines',
+                                name: 'L{{ lap }} RPM',
+                                visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
+
+                        var chartSpeedRpm_layout = {
+                            autosize: true,
+                            showlegend: true,
+                            title: 'Speed and RPM',
+                            xaxis: {
+                                title: 'Distance (m)',
+                            },
+                            yaxis: {
+                                title: 'Speed (m/s)',
+                                side: 'left',
+                                overlaying: 'y2'
+                            },
+                            yaxis2: {
+                                title: 'RPM (revs/min)',
+                                side: 'right',
+                            },
+                            legend: {
+                                x: 1.1,
+                                y: 1,
+                                xanchor: 'left',
+                                yanchor: 'top',
+                            },
+                        };
+
+                        Plotly.newPlot(
+                            'chartSpeedRpm',
+                            chartSpeedRpm_traces,
+                            chartSpeedRpm_layout,
+                        );
+
+                        /*
+                            =========================
+                            Sync hover on Brake/Throttle and Speed/RPM
+                            =========================
+                        */
+                        var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
+                        var chartSpeedRpm = document.getElementById('chartSpeedRpm');
+
+                        chartBrakeThrottle.on('plotly_hover', function(data) {
+                            var curveNumber = data.points[0].curveNumber;
+                            var pointIndex = data.points[0].pointIndex;
+
+                            Plotly.Fx.hover('chartSpeedRpm', [{
+                                curveNumber: curveNumber, // match lap trace
+                                pointNumber: pointIndex, // match point within the lap trace
+                            }]);
+                        });
+
+                        chartBrakeThrottle.on('plotly_unhover', function(data) {
+                            Plotly.Fx.unhover('chartSpeedRpm');
+                        });
+
+                        chartSpeedRpm.on('plotly_hover', function(data) {
+                            var curveNumber = data.points[0].curveNumber;
+                            var pointIndex = data.points[0].pointIndex;
+
+                            Plotly.Fx.hover('chartBrakeThrottle', [{
+                                curveNumber: curveNumber, // match lap trace
+                                pointNumber: pointIndex, // match point within the lap trace
+                            }]);
+                        });
+
+                        chartSpeedRpm.on('plotly_unhover', function(data) {
+                            Plotly.Fx.unhover('chartBrakeThrottle');
+                        });
+                    });
                 </script>
             </div>
         </div>

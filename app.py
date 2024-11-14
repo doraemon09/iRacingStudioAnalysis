@@ -136,7 +136,7 @@ def process_ibt_telemetry_data(ibt_telemetry_data):
 # Lap data
 def process_lap_data(ibt_telemetry_data):
     try:
-        fields_to_process = ['Brake', 'Lap', 'LapDist', 'RPM', 'Speed', 'Throttle']
+        fields_to_process = ['Brake', 'Gear', 'Lap', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
 
         main_dict = {}
 
@@ -249,12 +249,15 @@ def process_lap_data(ibt_telemetry_data):
                 'Throttle': chart_dataframe['Throttle'].values.tolist(),
                 'Speed': chart_dataframe['Speed'].values.tolist(),
                 'RPM': chart_dataframe['RPM'].values.tolist(),
+                'Gear': chart_dataframe['Gear'].values.tolist(),
                 'Distance': chart_dataframe['LapDist'].values.tolist(),
-                'DistanceInterpolated': lap_reference_dataframe['LapDist'].values.tolist(),
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),
                 'LapBest': lap_best.tolist(), # Single value
                 'LapWorst': lap_worst.tolist(), # Single value
+                'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
+                'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
+                'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
             }
 
         return {

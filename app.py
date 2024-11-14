@@ -245,6 +245,7 @@ def process_lap_data(ibt_telemetry_data):
             delta_laptimes = lap_interpolated_laptimes - lap_reference_dataframe['Time'].values
 
             chart_dict[lap] = {
+                'LapTime': chart_dataframe['Time'].values.tolist(),
                 'Brake': chart_dataframe['Brake'].values.tolist(),
                 'Throttle': chart_dataframe['Throttle'].values.tolist(),
                 'Speed': chart_dataframe['Speed'].values.tolist(),

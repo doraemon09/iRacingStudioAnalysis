@@ -57,12 +57,16 @@ def upload_file():
                 # Process selected lap related data | gets dictionary
                 lap_data = process_lap_data(telemetry_data)
 
+                # Split sector data
+                sector_data = process_sector_data(session_data, lap_data)
+
                 return render_template(
                     'display.html',
                     session_info=session_data,
                     # telemetry_info=telemetry_data.to_dict(orient='records'),
                     lap_info=lap_data['lap_data'],
                     chart_info=lap_data['chart_data'],
+                    sector_info=sector_data,
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -268,6 +272,54 @@ def process_lap_data(ibt_telemetry_data):
     except Exception as err:
         print(f"Error processing telemetry info: {err}")
         return []
+
+
+# Lap Sectors
+def process_sector_data(session, lap):
+    split_sector_percents = []
+    split_sector_points = []
+    split_sector_colors = []
+    split_sector_lats = []
+    split_sector_lons = []
+
+    split_sector_dict = {}
+
+    colors = [
+        'rgb(159, 226, 191)', 'rgb(255, 127, 80)',
+        'rgb(64, 224, 208)', 'rgb(189, 183, 107)',
+        'rgb(204, 204, 255)', 'rgb(255, 191, 0)',
+        'rgb(255, 182, 193)', 'rgb(100, 149, 237)',
+    ]
+
+    # Gather all the sectors and the percentage values
+    for sector in session['SplitTimeInfo']['Sectors']:
+        split_sector_percents.append(sector['SectorStartPct'])
+
+    # Find lat/lon estimates by multiplying the list length
+    # and use that list position to retrieve the coordinates
+    for percent in split_sector_percents:
+        split_sector_points.append(round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent))
+        split_sector_colors.extend(colors)
+
+        split_sector_lats.append(
+            lap['chart_data'][1]['GPSLatitudeRefLap']
+            [round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent)]
+        )
+        split_sector_lons.append(
+            lap['chart_data'][1]['GPSLongitudeRefLap']
+            [round(len(lap['chart_data'][1]['GPSLongitudeRefLap']) * percent)]
+        )
+
+    split_sector_dict['SplitSectors'] = {
+        # 'SectorNum': len(split_sector_percents),
+        'Percentages': split_sector_percents,
+        'SectorPoints': split_sector_points,
+        'SectorColors': split_sector_colors,
+        'Latitude': split_sector_lats,
+        'Longitude': split_sector_lons,
+    }
+
+    return split_sector_dict
 
 
 """

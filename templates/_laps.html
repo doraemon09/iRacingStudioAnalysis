@@ -1,0 +1,60 @@
+<div id="Laps" class="row my-2" style="display: none;">
+    <div class="col-md-12">
+        <div class="row">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Lap No.</th>
+                        <th scope="col">Lap Time</th>
+                        <th scope="col">Delta (s)</th>
+                        <th scope="col">Delta (%)</th>
+                        <th scope="col">Lap Distance (km)</th>
+                        <th scope="col">Speed (kph, Max)</th>
+                        <th scope="col">Speed (kph, Avg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for idx in lap_info %}
+                        <tr>
+                            <th scope="row">{{ idx.LapNum }}</th>
+                            <td
+                                {% if idx.IsBestLap or idx.IsWorstLap %}
+                                    class="table-{% if idx.IsBestLap %}success{% elif idx.IsWorstLap %}danger{% endif %} fw-bold"
+                                    style="border-color:revert;"
+                                {% endif %}
+                            >
+                                {{ idx.LapTime | timeformat }}
+                            </td>
+                            <td>{{ idx.DeltaToBestLap | round(3) }}</td>
+                            <td>{{ idx.DeltaToBestLapPercent | round() }}</td>
+                            <td
+                                {% if idx.IsBestLapDist or idx.IsWorstLapDist %}
+                                    class="table-{% if idx.IsBestLapDist %}success{% elif idx.IsWorstLapDist %}danger{% endif %} fw-bold"
+                                    style="border-color:revert;"
+                                {% endif %}
+                            >
+                                {{ idx.LapDistance | to_km }}
+                            </td>
+                            <td
+                                {% if idx.IsBestMaxSpeed or idx.IsWorstMaxSpeed %}
+                                    class="table-{% if idx.IsBestMaxSpeed %}success{% elif idx.IsWorstMaxSpeed %}danger{% endif %} fw-bold"
+                                    style="border-color:revert;"
+                                {% endif %}
+                            >
+                                {{ idx.SpeedMax | round(3) }}
+                            </td>
+                            <td
+                                {% if idx.IsBestAvgSpeed or idx.IsWorstAvgSpeed %}
+                                    class="table-{% if idx.IsBestAvgSpeed %}success{% elif idx.IsWorstAvgSpeed %}danger{% endif %} fw-bold"
+                                    style="border-color:revert;"
+                                {% endif %}
+                            >
+                                {{ idx.SpeedAvg | round(3) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

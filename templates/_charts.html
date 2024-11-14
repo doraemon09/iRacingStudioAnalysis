@@ -1,0 +1,290 @@
+<div id="Charts" class="row my-2" style="display: none;">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-6">
+                <div id="chartDeltaLapTime"></div>
+            </div>
+            <div class="col-6">
+                <div id="chartDeltaSpeed"></div>
+            </div>
+
+            <script>
+                $(document).ready(function() {
+                    /*
+                        =========================
+                        Delta: Lap Time
+                        =========================
+                    */
+                    var chartDeltaLapTime_traces = [];
+
+                    {% for lap, data in chart_info.items() %}
+                        chartDeltaLapTime_traces.push({
+                            x: {{ data['DistanceRefLap'] | tojson }},
+                            y: {{ data['LapTimeDelta'] | tojson }},
+                            mode: 'lines',
+                            name: 'Lap {{ lap }}',
+                            visible: {% if loop.index == data['LapBest'] or loop.index == data['LapWorst'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    var chartDeltaLapTime_layout = {
+                        autosize: true,
+                        showlegend: true,
+                        title: 'Delta: Lap Time',
+                        xaxis: {
+                            title: 'Distance (m)',
+                        },
+                        yaxis: {
+                            title: 'Lap Time Delta (s)',
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'chartDeltaLapTime',
+                        chartDeltaLapTime_traces,
+                        chartDeltaLapTime_layout,
+                    );
+
+                    /*
+                        =========================
+                        Delta: Speed
+                        =========================
+                    */
+                    var chartDeltaSpeed_traces = [];
+
+                    {% for lap, data in chart_info.items() %}
+                        chartDeltaSpeed_traces.push({
+                            x: {{ data['DistanceRefLap'] | tojson }},
+                            y: {{ data['SpeedDelta'] | tojson }},
+                            mode: 'lines',
+                            name: 'Lap {{ lap }}',
+                            visible: {% if loop.index == data['LapBest'] or loop.index == data['LapWorst'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    var chartDeltaSpeed_layout = {
+                        autosize: true,
+                        showlegend: true,
+                        title: 'Delta: Speed',
+                        xaxis: {
+                            title: 'Distance (m)',
+                        },
+                        yaxis: {
+                            title: 'Speed Delta (m/s)',
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'chartDeltaSpeed',
+                        chartDeltaSpeed_traces,
+                        chartDeltaSpeed_layout,
+                    );
+
+                    /*
+                        =========================
+                        Sync hover on both delta charts
+                        =========================
+                    */
+                    var chartDeltaLapTime = document.getElementById('chartDeltaLapTime');
+                    var chartDeltaSpeed = document.getElementById('chartDeltaSpeed');
+
+                    chartDeltaLapTime.on('plotly_hover', function(data) {
+                        var curveNumber = data.points[0].curveNumber;
+                        var pointIndex = data.points[0].pointIndex;
+
+                        Plotly.Fx.hover('chartDeltaSpeed', [{
+                            curveNumber: curveNumber, // match lap trace
+                            pointNumber: pointIndex, // match point within the lap trace
+                        }]);
+                    });
+
+                    chartDeltaLapTime.on('plotly_unhover', function(data) {
+                        Plotly.Fx.unhover('chartDeltaSpeed');
+                    });
+
+                    chartDeltaSpeed.on('plotly_hover', function(data) {
+                        var curveNumber = data.points[0].curveNumber;
+                        var pointIndex = data.points[0].pointIndex;
+
+                        Plotly.Fx.hover('chartDeltaLapTime', [{
+                            curveNumber: curveNumber, // match lap trace
+                            pointNumber: pointIndex, // match point within the lap trace
+                        }]);
+                    });
+
+                    chartDeltaSpeed.on('plotly_unhover', function(data) {
+                        Plotly.Fx.unhover('chartDeltaLapTime');
+                    });
+                });
+            </script>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div id="chartBrakeThrottle"></div>
+            </div>
+            <div class="col-6">
+                <div id="chartSpeedRpm"></div>
+            </div>
+
+            <!-- Ployly chart -->
+            <script>
+                $(document).ready(function() {
+                    /*
+                        =========================
+                        Brake and Throttle
+                        =========================
+                    */
+                    var chartBrakeThrottle_traces = [];
+
+                    {% for lap, data in chart_info.items() %}
+                        chartBrakeThrottle_traces.push({
+                            x: {{ data['Distance'] | tojson }},
+                            y: {{ data['Throttle'] | tojson }},
+                            yaxis: 'y1',
+                            mode: 'lines',
+                            name: 'L{{ lap }} Throttle',
+                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    {% for lap, data in chart_info.items() %}
+                        chartBrakeThrottle_traces.push({
+                            x: {{ data['Distance'] | tojson }},
+                            y: {{ data['Brake'] | tojson }},
+                            yaxis: 'y2',
+                            mode: 'lines',
+                            name: 'L{{ lap }} Brake',
+                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    var chartBrakeThrottle_layout = {
+                        autosize: true,
+                        showlegend: true,
+                        title: 'Brake and Throttle',
+                        xaxis: {
+                            title: 'Distance (m)',
+                        },
+                        yaxis: {
+                            title: 'Throttle (%)',
+                            side: 'left',
+                            overlaying: 'y2'
+                        },
+                        yaxis2: {
+                            title: 'Brake (%)',
+                            side: 'right',
+                        },
+                        legend: {
+                            x: 1.1,
+                            y: 1,
+                            xanchor: 'left',
+                            yanchor: 'top',
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'chartBrakeThrottle',
+                        chartBrakeThrottle_traces,
+                        chartBrakeThrottle_layout,
+                    );
+
+                    /*
+                        =========================
+                        Speed and RPM
+                        =========================
+                    */
+                    var chartSpeedRpm_traces = [];
+
+                    {% for lap, data in chart_info.items() %}
+                        chartSpeedRpm_traces.push({
+                            x: {{ data['Distance'] | tojson }},
+                            y: {{ data['Speed'] | tojson }},
+                            yaxis: 'y1',
+                            mode: 'lines',
+                            name: 'L{{ lap }} Speed',
+                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    {% for lap, data in chart_info.items() %}
+                        chartSpeedRpm_traces.push({
+                            x: {{ data['Distance'] | tojson }},
+                            y: {{ data['RPM'] | tojson }},
+                            yaxis: 'y2',
+                            mode: 'lines',
+                            name: 'L{{ lap }} RPM',
+                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    var chartSpeedRpm_layout = {
+                        autosize: true,
+                        showlegend: true,
+                        title: 'Speed and RPM',
+                        xaxis: {
+                            title: 'Distance (m)',
+                        },
+                        yaxis: {
+                            title: 'Speed (m/s)',
+                            side: 'left',
+                            overlaying: 'y2'
+                        },
+                        yaxis2: {
+                            title: 'RPM (revs/min)',
+                            side: 'right',
+                        },
+                        legend: {
+                            x: 1.1,
+                            y: 1,
+                            xanchor: 'left',
+                            yanchor: 'top',
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'chartSpeedRpm',
+                        chartSpeedRpm_traces,
+                        chartSpeedRpm_layout,
+                    );
+
+                    /*
+                        =========================
+                        Sync hover on Brake/Throttle and Speed/RPM
+                        =========================
+                    */
+                    var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
+                    var chartSpeedRpm = document.getElementById('chartSpeedRpm');
+
+                    chartBrakeThrottle.on('plotly_hover', function(data) {
+                        var curveNumber = data.points[0].curveNumber;
+                        var pointIndex = data.points[0].pointIndex;
+
+                        Plotly.Fx.hover('chartSpeedRpm', [{
+                            curveNumber: curveNumber, // match lap trace
+                            pointNumber: pointIndex, // match point within the lap trace
+                        }]);
+                    });
+
+                    chartBrakeThrottle.on('plotly_unhover', function(data) {
+                        Plotly.Fx.unhover('chartSpeedRpm');
+                    });
+
+                    chartSpeedRpm.on('plotly_hover', function(data) {
+                        var curveNumber = data.points[0].curveNumber;
+                        var pointIndex = data.points[0].pointIndex;
+
+                        Plotly.Fx.hover('chartBrakeThrottle', [{
+                            curveNumber: curveNumber, // match lap trace
+                            pointNumber: pointIndex, // match point within the lap trace
+                        }]);
+                    });
+
+                    chartSpeedRpm.on('plotly_unhover', function(data) {
+                        Plotly.Fx.unhover('chartBrakeThrottle');
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>

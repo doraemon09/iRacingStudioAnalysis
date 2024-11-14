@@ -1,0 +1,226 @@
+<div id="TrackMaps" class="row my-2" style="display: none;">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-6">
+                <div id="chartTrackMap"></div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    /*
+                        =========================
+                        GPS: Track Map
+                        =========================
+                    */
+                    const track_name = "{{ session_info['WeekendInfo']['TrackDisplayName'] }}";
+                    const track_config = "{{ session_info['WeekendInfo']['TrackConfigName'] }}";
+                    const vehicle = "{{ session_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
+
+                    const latitudes = {{ chart_info[1]['GPSLatitudeRefLap'] | tojson }};
+                    const longitudes = {{ chart_info[1]['GPSLongitudeRefLap'] | tojson }};
+
+                    const latitude_start = latitudes[0];
+                    const longitude_start = longitudes[0]
+
+                    const latitude_finish = latitudes[latitudes.length - 1];
+                    const longitude_finish = longitudes[longitudes.length - 1];
+
+                    // Since both GPS Lat/Lon are data from reference lap aka Best Lap
+                    // sensor from best lap will need to be used to match
+                    const speeds = {{ chart_info[chart_info[1]['LapBest']]['Speed'] | tojson }};
+                    const rpms = {{ chart_info[chart_info[1]['LapBest']]['RPM'] | tojson }};
+                    const gears = {{ chart_info[chart_info[1]['LapBest']]['Gear'] | tojson }};
+                    const laptimes = {{ chart_info[chart_info[1]['LapBest']]['LapTime'] | tojson }};
+
+                    // Convert and clean up
+                    const speeds_kmh = speeds.map(speed => (speed * 3.6).toFixed(2));
+                    const speeds_mph = speeds.map(speed => (speed * 2.237).toFixed(2));
+                    const rpms_cleaned = rpms.map(rpm => Math.round(rpm));
+                    const gears_cleaned = gears.map(gear => {
+                        if (gear === 0) return 'N';
+                        if (gear === -1) return 'R';
+                        return gear.toString();
+                    });
+                    const laptimes_cleaned = laptimes.map(laptime => {
+                        const minutes = Math.floor(laptime / 60);
+                        const seconds = Math.floor(laptime % 60);
+                        const milliseconds = Math.round((laptime % 1) * 1000);
+
+                        const laptime_formatted = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+
+                        return laptime_formatted;
+                    });
+
+                    // Combine latitudes and longitudes into a GeoJSON format for Turf.js
+                    const points = latitudes.map((lat, index) => ({
+                        type: 'Feature',
+                        geometry: {
+                            type: 'Point',
+                            coordinates: [longitudes[index], lat]
+                        },
+                        properties: {
+                            // Attach data to each point
+                            speed_kmh: speeds_kmh[index],
+                            speed_mph: speeds_mph[index],
+                            rpm: rpms_cleaned[index],
+                            gear: gears_cleaned[index],
+                            laptime: laptimes_cleaned[index],
+                        },
+                    }));
+
+                    const customData = points.map((point) => [
+                        point.properties.speed_mph,
+                        point.properties.rpm,
+                        point.properties.gear,
+                        point.properties.laptime,
+                    ]);
+
+                    const geoJsonPoints = {
+                        type: 'FeatureCollection',
+                        features: points
+                    };
+
+                    // Use Turf.js to calculate the bounding box of the points
+                    const bbox = turf.bbox(geoJsonPoints); // [west, south, east, north]
+
+                    // Calculate the center (centroid) of the points
+                    const center = turf.center(geoJsonPoints); // returns { type: 'Feature', geometry: { type: 'Point', coordinates: [lon, lat] } }
+
+                    // Extract the center coordinates
+                    const center_lat = center.geometry.coordinates[1];
+                    const center_lon = center.geometry.coordinates[0];
+
+                    // Set padding
+                    const padding = 0.18; // 1.00 = 100 percent
+
+                    // Expand the bounding box by the padding percentage
+                    const lat_diff = bbox[3] - bbox[1];
+                    const lon_diff = bbox[2] - bbox[0];
+
+                    const expanded_bbox = [
+                        bbox[0] - lon_diff * padding, // West
+                        bbox[1] - lat_diff * padding, // South
+                        bbox[2] + lon_diff * padding, // East
+                        bbox[3] + lat_diff * padding  // North
+                    ];
+
+                    // Define the data trace for the map
+                    var map_traces = [];
+
+                    // Set marker for sectors
+                    {% for idx in range(sector_info['SplitSectors']['Percentages'] | length) %}
+                        {% if idx == (sector_info['SplitSectors']['Percentages'] | length) - 1 %}
+                            var sector_start = {{ sector_info['SplitSectors']['SectorPoints'][idx] }};
+                            var sector_end = -1;
+                        {% else %}
+                            var sector_start = {{ sector_info['SplitSectors']['SectorPoints'][idx] }};
+                            var sector_end = {{ sector_info['SplitSectors']['SectorPoints'][idx + 1] }};
+                        {% endif %}
+
+                        var sector_lat = latitudes.slice(sector_start, sector_end);
+                        var sector_lon = longitudes.slice(sector_start, sector_end);
+                        var sector_speed_kmh = speeds_kmh.slice(sector_start, sector_end);
+
+                        var sector_custom_data = points.slice(sector_start, sector_end).map((point) => [
+                            point.properties.speed_mph,
+                            point.properties.rpm,
+                            point.properties.gear,
+                            point.properties.laptime,
+                        ]);
+
+                        map_traces.push({
+                            type: 'scattergeo',
+                            mode: 'lines',
+                            name: vehicle,
+                            lat: latitudes.slice(sector_start, sector_end),
+                            lon: longitudes.slice(sector_start, sector_end),
+                            text: speeds_kmh.slice(sector_start, sector_end),
+                            customdata: sector_custom_data,
+                            hovertemplate:
+                                '%{customdata[3]}<br>' +
+                                '%{text} km/h<br>' +
+                                '%{customdata[0]} mph<br>' +
+                                '%{customdata[1]} revs/min<br>' +
+                                'Gear: %{customdata[2]}',
+                            line: {
+                                color: '{{ sector_info['SplitSectors']['SectorColors'][idx] }}',
+                                width: 5,
+                            },
+                        });
+                    {% endfor %}
+
+                    // Start from 1 since sector 0 marker is the same as start
+                    {% for idx in range(1,sector_info['SplitSectors']['Percentages'] | length) %}
+                        map_traces.push({
+                            type: 'scattergeo',
+                            mode: 'markers',
+                            lat: [{{ sector_info['SplitSectors']['Latitude'][idx] }}],
+                            lon: [{{ sector_info['SplitSectors']['Longitude'][idx] }}],
+                            marker: {
+                                size: 8,
+                                color: 'purple',
+                                symbol: 'diamond',
+                            },
+                            name: 'Sector {{idx}}',
+                            text: 'Sector {{idx}}',
+                            hoverinfo: 'text',
+                        });
+                    {% endfor %}
+
+                    // Add finish point/line to the trace
+                    map_traces.push({
+                        type: 'scattergeo',
+                        mode: 'markers',
+                        lat: [latitude_finish],
+                        lon: [longitude_finish],
+                        marker: {
+                            size: 12,
+                            color: 'red',
+                            symbol: 'circle',
+                        },
+                        name: 'Finish',
+                        text: '🏁 Finish',
+                        hoverinfo: 'text',
+                    });
+
+                    // Add start point/line to the trace
+                    map_traces.push({
+                        type: 'scattergeo',
+                        mode: 'markers',
+                        lat: [latitude_start],
+                        lon: [longitude_start],
+                        marker: {
+                            size: 12,
+                            color: 'green',
+                            symbol: 'star',
+                        },
+                        name: 'Start',
+                        text: '🟢 Start',
+                        hoverinfo: 'text',
+                    });
+
+                    // Define the layout for the map, with center, zoom, and bounding box
+                    var map_layout = {
+                        autosize: true,
+                        showlegend: false,
+                        title: track_name + '<br>' + track_config,
+                        geo: {
+                            center: {
+                                lat: center_lat,
+                                lon: center_lon,
+                            },
+                            projection: {
+                                type: 'mercator',
+                            },
+                            // Set zoom level based on bounding box dimensions
+                            lataxis: {range: [expanded_bbox[1], expanded_bbox[3]]},
+                            lonaxis: {range: [expanded_bbox[0], expanded_bbox[2]]},
+                        },
+                    };
+
+                    // Render the map with Plotly
+                    Plotly.newPlot('chartTrackMap', map_traces, map_layout);
+                });
+            </script>
+        </div>
+    </div>
+</div>

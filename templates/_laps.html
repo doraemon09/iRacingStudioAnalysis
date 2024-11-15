@@ -1,6 +1,6 @@
 <div id="Laps" class="row my-2" style="display: none;">
     <div class="col-md-12">
-        <div class="row">
+        <div class="row my-2">
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
@@ -51,6 +51,31 @@
                             >
                                 {{ idx.SpeedAvg | round(3) }}
                             </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row my-2">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Lap No.</th>
+                        <th scope="col">Lap Time</th>
+                        {% for split in range(1, split_time_info[0]['LapSectorTimes'] | length) %}
+                            <th scope="col">Sector {{ split }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for idx in split_time_info %}
+                        <tr>
+                            <th scope="row">{{ idx }}</th>
+                            <td>{{ split_time_info[idx]['LapTime'] | timeformat }}</td>
+                            {% for time in range(1, split_time_info[idx]['LapSectorTimes'] | length) %}
+                                <td>{{ split_time_info[idx]['LapSectorTimes'][time] | timeformat }}</td>
+                            {% endfor %}
                         </tr>
                     {% endfor %}
                 </tbody>

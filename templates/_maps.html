@@ -107,13 +107,13 @@
                     var map_traces = [];
 
                     // Set marker for sectors
-                    {% for idx in range(sector_info['SplitSectors']['Percentages'] | length) %}
-                        {% if idx == (sector_info['SplitSectors']['Percentages'] | length) - 1 %}
-                            var sector_start = {{ sector_info['SplitSectors']['SectorPoints'][idx] }};
+                    {% for idx in range(split_sector_info['SplitSectors']['Percentages'] | length) %}
+                        {% if idx == (split_sector_info['SplitSectors']['Percentages'] | length) - 1 %}
+                            var sector_start = {{ split_sector_info['SplitSectors']['SectorPoints'][idx] }};
                             var sector_end = -1;
                         {% else %}
-                            var sector_start = {{ sector_info['SplitSectors']['SectorPoints'][idx] }};
-                            var sector_end = {{ sector_info['SplitSectors']['SectorPoints'][idx + 1] }};
+                            var sector_start = {{ split_sector_info['SplitSectors']['SectorPoints'][idx] }};
+                            var sector_end = {{ split_sector_info['SplitSectors']['SectorPoints'][idx + 1] }};
                         {% endif %}
 
                         var sector_lat = latitudes.slice(sector_start, sector_end);
@@ -142,19 +142,19 @@
                                 '%{customdata[1]} revs/min<br>' +
                                 'Gear: %{customdata[2]}',
                             line: {
-                                color: '{{ sector_info['SplitSectors']['SectorColors'][idx] }}',
+                                color: '{{ split_sector_info['SplitSectors']['SectorColors'][idx] }}',
                                 width: 5,
                             },
                         });
                     {% endfor %}
 
                     // Start from 1 since sector 0 marker is the same as start
-                    {% for idx in range(1,sector_info['SplitSectors']['Percentages'] | length) %}
+                    {% for idx in range(1,split_sector_info['SplitSectors']['Percentages'] | length) %}
                         map_traces.push({
                             type: 'scattergeo',
                             mode: 'markers',
-                            lat: [{{ sector_info['SplitSectors']['Latitude'][idx] }}],
-                            lon: [{{ sector_info['SplitSectors']['Longitude'][idx] }}],
+                            lat: [{{ split_sector_info['SplitSectors']['Latitude'][idx] }}],
+                            lon: [{{ split_sector_info['SplitSectors']['Longitude'][idx] }}],
                             marker: {
                                 size: 8,
                                 color: 'purple',

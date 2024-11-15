@@ -18,11 +18,6 @@ General:
                 en: "Laps"
                 jp: "ラップ"
 
-        Upload:
-            Label:
-                en: "Upload"
-                jp: "アップロード"
-
         Session:
             Label:
                 en: "Session Info"
@@ -32,6 +27,16 @@ General:
             Label:
                 en: "Telemetry Data"
                 jp: "テレメトリーデータ"
+
+        TrackMaps:
+            Label:
+                en: "Track Maps"
+                jp: "サーキットマップ"
+
+        Upload:
+            Label:
+                en: "Upload"
+                jp: "アップロード"
 
     Language:
         en:

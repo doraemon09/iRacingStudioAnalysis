@@ -66,7 +66,8 @@ def upload_file():
                     # telemetry_info=telemetry_data.to_dict(orient='records'),
                     lap_info=lap_data['lap_data'],
                     chart_info=lap_data['chart_data'],
-                    sector_info=sector_data,
+                    split_sector_info=sector_data['split_sector_data'],
+                    split_time_info=sector_data['split_time_data'],
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -151,7 +152,7 @@ def process_lap_data(ibt_telemetry_data):
             except Exception as err:
                 # Set to empty if header is not found in ibt_telemetry_info
                 # Which should not happen to begine with
-                main_dict[header] = []
+                main_dict[header] = {}
                 print(f"Error retrieving data for {header}: {err}")
 
         # Create dataframe with lap_dict
@@ -276,6 +277,32 @@ def process_lap_data(ibt_telemetry_data):
 
 # Lap Sectors
 def process_sector_data(session, lap):
+    """
+    Set up data for sector/split lap times
+    """
+    split_time_dict = {}
+
+    for idx in range(len(lap['lap_data'])):
+        try:
+            # Inline loop to calculate the split time
+            lap_sector_times = [
+                lap['lap_data'][idx]['LapTime'] * info['SectorStartPct']
+                for info in session['SplitTimeInfo']['Sectors']
+            ]
+
+            split_time_dict[idx] = {
+                'LapNum': lap['lap_data'][idx]['LapNum'],
+                'LapTime': lap['lap_data'][idx]['LapTime'],
+                'LapSectorTimes': lap_sector_times
+            }
+        except Exception as err:
+            # Set to empty if error
+            split_time_dict = {}
+            print(f"Error retrieving data: {err}")
+
+    """
+    Set up sector data for track map
+    """
     split_sector_percents = []
     split_sector_points = []
     split_sector_colors = []
@@ -319,7 +346,10 @@ def process_sector_data(session, lap):
         'Longitude': split_sector_lons,
     }
 
-    return split_sector_dict
+    return {
+        'split_time_data': split_time_dict,
+        'split_sector_data': split_sector_dict,
+    }
 
 
 """
@@ -328,9 +358,10 @@ def process_sector_data(session, lap):
 @app.template_filter('timeformat')
 def timeformat(seconds):
     mins = int(seconds // 60)
-    secs = seconds % 60
+    secs = int(seconds % 60)
+    millisecs = round((seconds % 1) * 1000)
 
-    return f"{mins}:{secs:05.3f}"
+    return f"{mins}:{secs:02d}.{millisecs:03d}"
 
 
 @app.template_filter('to_km')

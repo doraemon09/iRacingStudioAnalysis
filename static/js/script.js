@@ -1,6 +1,6 @@
 // Global var
 let session_sections = ['WeatherInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
-let telemetry_sections = ['Charts', 'Laps'];
+let telemetry_sections = ['Charts', 'Laps', 'TrackMaps'];
 
 // Languages
 function switchLanguage(language) {

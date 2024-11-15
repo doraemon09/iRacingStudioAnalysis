@@ -1,7 +1,7 @@
 # Folders
 __pycache__/
 env/
-uploads/
 
 # Files
 *.pyc
+*.ibt

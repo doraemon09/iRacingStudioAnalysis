@@ -22,14 +22,13 @@ This project uses the [pyirsdk](https://github.com/kutu/pyirsdk) library to acce
 Follow these steps to set up and run the application locally.
 
 ### 1. Create the "uploads" folder
-
 At the root of your project directory, create a folder named `uploads`. This is where uploaded files will be stored.
 ```bash
 mkdir uploads
 ```
 
 ### 2. Install Python 3.13.0
-Make sure you have Python 3.13.0 installed on your machine.
+Make sure you have [Python 3.13.0](https://www.python.org/downloads/) installed on your machine.
 To check if you already have Python installed, run the following command:
 ```bash
 python --version
@@ -80,6 +79,42 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## クレジット
 
 このプロジェクトでは、iRacing テレメトリ データにアクセスするための [pyirsdk](https://github.com/kutu/pyirsdk) ライブラリを使用しています。`pyirsdk` の貢献者の皆様に感謝いたします。
+
+## セットアップ手順
+
+以下の手順に従って、アプリケーションをローカル環境でセットアップして実行してください。
+
+### 1. 「uploads」フォルダーの作成
+プロジェクトディレクトリのルートに`uploads`という名前のフォルダーを作成してください。ここにアップロードされたファイルが保存されます。
+```bash
+mkdir uploads
+```
+
+### 2. Python 3.13.0 のインストール
+[Python 3.13.0](https://www.python.org/downloads/) がマシンにインストールされていることを確認してください。すでにインストールされているか確認するには、以下のコマンドを実行します：
+```bash
+python --version
+```
+もしPythonがインストールされていない場合は、上記の公式サイトからPython 3.13.0をダウンロードしてインストールしてください。
+
+### 3. 必要な依存関係のインストール
+このプロジェクトにはいくつかのPythonパッケージが必要です。`pip`を使用してインストールできます。以下のコマンドを実行して必要なパッケージをインストールしてください：
+```bash
+pip install flask
+pip install pyyaml
+pip install pandas
+pip install pyirsdk
+```
+
+### 4. アプリケーションの起動
+すべてのインストールと設定が完了したら、以下のコマンドでFlask開発サーバーを起動できます：
+```bash
+flask run
+```
+デフォルトでは、サーバーはブラウザで `http://127.0.0.1:5000/` にアクセスすることで利用可能です。
+
+### 5. アプリケーションへのアクセス
+ウェブブラウザを開き、`http://127.0.0.1:5000/` にアクセスしてアプリケーションを使用できます。
 
 ## ライセンス
 

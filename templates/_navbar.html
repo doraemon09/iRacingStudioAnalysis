@@ -10,27 +10,12 @@
                     {{ yaml_info['General']['Title']['Label']['en'] }}
                 </span>
 
-                {% for key in yaml_info['General']['Language'] %}
-                    <button class="btn btn-light" onclick="switchLanguage('{{ key }}')">
-                        <span class="{{ yaml_info['General']['Language'][key]['Icon'] }}"></span>
-                        <span
-                            data-en="{{ yaml_info['General']['Language'][key]['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Language'][key]['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Language'][key]['Label']['en'] }}
-                        </span>
-                    </button>
-                {% endfor %}
-
-                {% if session_info is defined or telemetry_info is defined %}
-                    <a
-                        class="btn btn-primary"
-                        href="{{ url_for('upload_file') }}"
-                        data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
-                        data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
-                    >
-                        {{ yaml_info['General']['Button']['Upload']['Label']['en'] }}
-                    </a>
+                {% if session_info is defined or chart_info is defined %}
+                    <span class="h5 pe-2 align-middle">
+                        [{{ session_info['WeekendInfo']['EventType'] }}]
+                        [{{ session_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}]
+                        [{{ session_info['WeekendInfo']['TrackDisplayName'] }}]
+                    </span>
                 {% endif %}
 
                 {% if chart_info is defined %}
@@ -53,6 +38,29 @@
                             {{ yaml_info['General']['Button']['Session']['Label']['en'] }}
                         </span>
                     </button>
+                {% endif %}
+
+                {% for key in yaml_info['General']['Language'] %}
+                    <button class="btn btn-light" onclick="switchLanguage('{{ key }}')">
+                        <span class="{{ yaml_info['General']['Language'][key]['Icon'] }}"></span>
+                        <span
+                            data-en="{{ yaml_info['General']['Language'][key]['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Language'][key]['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Language'][key]['Label']['en'] }}
+                        </span>
+                    </button>
+                {% endfor %}
+
+                {% if session_info is defined or chart_info is defined %}
+                    <a
+                        class="btn btn-primary"
+                        href="{{ url_for('upload_file') }}"
+                        data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Button']['Upload']['Label']['en'] }}
+                    </a>
                 {% endif %}
             </div>
         </div>

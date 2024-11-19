@@ -13,7 +13,7 @@ function switchLanguage(language) {
         if (element.tagName.toLowerCase() === 'input' && element.type.toLowerCase() === 'submit') {
             element.value = element.getAttribute(`data-${language}`);
         } else {
-            element.textContent = element.getAttribute(`data-${language}`);
+            element.innerHTML = element.getAttribute(`data-${language}`);
         };
     });
 };

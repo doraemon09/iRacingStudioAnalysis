@@ -17,6 +17,45 @@ This application allows users to upload iRacing telemetry files in `.ibt` format
 
 This project uses the [pyirsdk](https://github.com/kutu/pyirsdk) library to access iRacing telemetry data. Special thanks to the contributors of `pyirsdk` for making this project possible.
 
+## Setup Instructions
+
+Follow these steps to set up and run the application locally.
+
+### 1. Create the "uploads" folder
+
+At the root of your project directory, create a folder named `uploads`. This is where uploaded files will be stored.
+```bash
+mkdir uploads
+```
+
+### 2. Install Python 3.13.0
+Make sure you have Python 3.13.0 installed on your machine.
+To check if you already have Python installed, run the following command:
+```bash
+python --version
+```
+If Python is not installed, download and install Python 3.13.0 from the official website linked above.
+
+### 3. Install Required Dependencies
+The project requires several Python packages. You can install them using `pip`.
+Run the following commands to install the required packages:
+```bash
+pip install flask
+pip install pyyaml
+pip install pandas
+pip install pyirsdk
+```
+
+### 4. Start the Application
+Once everything is installed and configured, you can start the Flask development server by running:
+```bash
+flask run
+```
+By default, the server will be accessible at `http://127.0.0.1:5000/` in your browser.
+
+### 5. Accessing the Application
+Open your web browser and go to `http://127.0.0.1:5000/` to access the application.
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.

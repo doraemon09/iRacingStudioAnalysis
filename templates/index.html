@@ -47,6 +47,7 @@
                     </p>
                 </div>
             </div>
+
             <form class="row my-2" method="post" enctype="multipart/form-data">
                 <div class="col-md-6">
                     <input class="form-control" type="file" name="file" accept=".ibt">
@@ -61,6 +62,17 @@
                     >
                 </div>
             </form>
+
+            <div class="row my-2">
+                <div class="col-md-12">
+                    <p
+                        data-en="{{ yaml_info['General']['GitHub']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['GitHub']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['GitHub']['Label']['en'] }}
+                    </p>
+                </div>
+            </div>
         </div>
     </body>
 </html>

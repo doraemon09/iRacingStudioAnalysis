@@ -38,6 +38,11 @@ General:
                 en: "Upload"
                 jp: "アップロード"
 
+    GitHub:
+        Label:
+            en: "The souce code can be found on <a href=\"https://github.com/doraemon09/iRacingStudioAnalysis.git\">GitHub</a>"
+            jp: "ソースコードは<a href=\"https://github.com/doraemon09/iRacingStudioAnalysis.git\">GitHub</a>であります。"
+
     Language:
         en:
             Icon: "fi fi-us"

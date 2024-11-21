@@ -73,18 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'en';
     switchLanguage(preferredLanguage);
 
-    // Look for spinner which only exists post file upload
-    const spinner = document.getElementById('spinner-container');
+    // Look for display page
+    const display_page = document.getElementById('display');
 
-    if (spinner) {
-        spinner.style.display = 'none';
+    if (display_page) {
+        // Hide loading spinner
+        document.getElementById('spinner-container').style.display = 'none';
 
         // Show telemetry section on load by default
         showTelemetryData();
-    };
 
-    // Turn the table into a DataTable
-    if (document.getElementsByTagName('table').length > 0) {
+        // Turn the table into a DataTable
         $('table').DataTable({
             lengthMenu: [ 5, 10, 15, 20, 25 ],
             pageLength: 15,

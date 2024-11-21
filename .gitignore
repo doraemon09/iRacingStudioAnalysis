@@ -1,7 +1,8 @@
 # Folders
 __pycache__/
 env/
+uploads/
+venv/
 
 # Files
 *.pyc
-*.ibt

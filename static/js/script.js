@@ -84,9 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Turn the table into a DataTable
-    $('table').DataTable({
-        lengthMenu: [ 5, 10, 15, 20, 25 ],
-        pageLength: 15,
-        "order": [], // Disable default sort onload
-    });
+    if (document.getElementsByTagName('table').length > 0) {
+        $('table').DataTable({
+            lengthMenu: [ 5, 10, 15, 20, 25 ],
+            pageLength: 15,
+            "order": [], // Disable default sort onload
+        });
+    };
 });

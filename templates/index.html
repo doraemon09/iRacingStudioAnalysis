@@ -36,29 +36,65 @@
                     >
                         {{ yaml_info['General']['Title']['Label']['en'] }}
                     </h1>
-                    <p
-                        data-en="{{ yaml_info['General']['Intro']['Label']['en'] }}"
-                        data-jp="{{ yaml_info['General']['Intro']['Label']['jp'] }}"
-                    >
-                        {{ yaml_info['General']['Intro']['Label']['en'] }}
-                    </p>
                 </div>
             </div>
 
-            <form class="row my-2" method="post" enctype="multipart/form-data">
-                <div class="col-md-6">
-                    <input class="form-control" type="file" name="file" accept=".ibt">
+            {% if is_localhost %}
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        <p
+                            data-en="{{ yaml_info['General']['Intro']['Upload']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Intro']['Upload']['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Intro']['Upload']['Label']['en'] }}
+                        </p>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <input
-                        class="btn btn-primary"
-                        type="submit"
-                        data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
-                        data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
-                        value="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
-                    >
+
+                <form class="row my-2" method="post" enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        <input class="form-control" type="file" name="uploadfile" accept=".ibt">
+                    </div>
+                    <div class="col-md-6">
+                        <input
+                            class="btn btn-primary"
+                            type="submit"
+                            data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
+                            value="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
+                        >
+                    </div>
+                </form>
+            {% else %}
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        <p
+                            data-en="{{ yaml_info['General']['Intro']['Demo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Intro']['Demo']['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Intro']['Demo']['Label']['en'] }}
+                        </p>
+                    </div>
                 </div>
-            </form>
+                <form class="row my-2" method="post" enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        <select class="form-select" name="demofile" id="demofile">
+                            {% for file in demo_files %}
+                                <option value="{{ file }}">{{ file }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input
+                            class="btn btn-primary"
+                            type="submit"
+                            data-en="{{ yaml_info['General']['Button']['Demo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Button']['Demo']['Label']['jp'] }}"
+                            value="{{ yaml_info['General']['Button']['Demo']['Label']['en'] }}"
+                        >
+                    </div>
+                </form>
+            {% endif %}
 
             <div class="row my-2">
                 <div class="col-md-12">

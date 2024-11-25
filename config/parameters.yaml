@@ -3,15 +3,25 @@
 # ========================================
 General:
     Intro:
-        Label:
-            en: "Upload iRacing telemetry file (.ibt) to start your analysis. Telemetry files are located in \\Documents\\iRacing\\Telemetry\\ folder."
-            jp: "iRacingテレメトリーファイル（.ibt）をアップロードして下さい。テレメトリ ファイルは \\Documents\\iRacing\\Telemetry\\ フォルダーにあります。"
+        Demo:
+            Label:
+                en: "Select a demo session and click \"Load\" to start."
+                jp: "デモセッションを選択し、[ロード] をクリックして開始します。"
+        Upload:
+            Label:
+                en: "Upload iRacing telemetry file (.ibt) to start your analysis. Telemetry files are located in \\Documents\\iRacing\\Telemetry\\ folder."
+                jp: "iRacingテレメトリーファイル（.ibt）をアップロードして下さい。テレメトリ ファイルは \\Documents\\iRacing\\Telemetry\\ フォルダーにあります。"
 
     Button:
         Charts:
             Label:
                 en: "Charts"
                 jp: "グラフ"
+
+        Demo:
+            Label:
+                en: "Load"
+                jp: "ロード"
 
         Laps:
             Label:

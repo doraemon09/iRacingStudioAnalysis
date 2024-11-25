@@ -9,7 +9,10 @@ import irsdk
 
 # Initialize Flash app
 app = Flask(__name__)
+
+# Set upload and demo file folders
 app.config['UPLOAD_FOLDER'] = 'uploads'
+DEMO_FILES_DIR = 'static/demo_files'
 
 # Load YAML with utf-8 encoding for Japanese characters
 with open('config/parameters.yaml', 'r', encoding='utf-8') as yaml_file:
@@ -30,29 +33,49 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
-        if 'file' not in request.files:
-            return "No file uploaded!"
+        # demo / upload flags
+        is_demo_file = 0
+        is_upload_file = 0
 
-        # Assign to file variable
-        file = request.files['file']
+        # Check if demo file was used
+        demofile = request.form.get('demofile')
 
-        if file.filename == '':
-            return "No file selected!"
+        if demofile:
+            is_demo_file = 1
+            is_upload_file = 0
 
-        if file and allowed_file(file.filename):
+            # Assign to file variables
+            this_file_name = demofile
+            this_folder_path = DEMO_FILES_DIR
+
+        if not is_demo_file:
+            is_demo_file = 0
+            is_upload_file = 1
+
+            # Process upload file
+            if 'uploadfile' not in request.files:
+                return "No file uploaded!"
+
+            # Assign to file variable
+            this_file_name = request.files['uploadfile'].filename
+            this_folder_path = app.config['UPLOAD_FOLDER']
+
+        if allowed_file(this_file_name):
             # Clean up file name
-            file.filename = werkzeug.utils.secure_filename(file.filename)
+            this_file_name = werkzeug.utils.secure_filename(this_file_name)
 
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            # Set file path
+            this_file_path = os.path.join(this_folder_path, this_file_name)
 
             try:
-                file.save(filepath)
+                if is_upload_file:
+                    request.files['uploadfile'].save(this_file_path)
 
                 # Session Info | gets obj
-                session_data = get_session_data(filepath)
+                session_data = get_session_data(this_file_path)
 
                 # Telemetry Info | gets dataframe
-                telemetry_data = get_telemetry_data(filepath)
+                telemetry_data = get_telemetry_data(this_file_path)
 
                 # Process selected lap related data | gets dictionary
                 lap_data = process_lap_data(telemetry_data)
@@ -74,8 +97,21 @@ def upload_file():
                 return f"Error processing file: {err}"
         else:
             return "Invalid file extension. iRacing telemetry (.ibt) file only!"
-    # Else
-    return render_template('index.html', yaml_info=yaml_data)
+    """
+        Else
+    """
+    # Grab demo files folder content
+    demo_files = os.listdir(DEMO_FILES_DIR)
+
+    # Check if running on local host
+    is_localhost = request.remote_addr == '127.0.0.1'
+
+    return render_template(
+        'index.html',
+        is_localhost=is_localhost,
+        demo_files=demo_files,
+        yaml_info=yaml_data,
+    )
 
 
 # Retrieve session info, ie: Weather and Car Set up

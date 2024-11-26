@@ -1,5 +1,6 @@
 # Folders
 __pycache__/
+demo_files/
 env/
 uploads/
 venv/

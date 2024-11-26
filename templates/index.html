@@ -80,7 +80,13 @@
                     <div class="col-md-6">
                         <select class="form-select" name="demofile" id="demofile">
                             {% for file in demo_files %}
-                                <option value="{{ file }}">{{ file }}</option>
+                                {% set demo_file_name = file.split("_") %}
+
+                                {% set vehicle = demo_file_name[0].replace("-"," ") %}
+                                {% set circuit = demo_file_name[1].replace("-"," ") %}
+                                {% set event_type = demo_file_name[2].replace("-"," ") %}
+
+                                <option value="{{ file }}">{{ vehicle }} @ {{ circuit }} [{{ event_type }}]</option>
                             {% endfor %}
                         </select>
                     </div>

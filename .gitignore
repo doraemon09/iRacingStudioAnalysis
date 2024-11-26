@@ -7,3 +7,4 @@ venv/
 
 # Files
 *.pyc
+*.pem

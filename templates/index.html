@@ -65,6 +65,17 @@
                         >
                     </div>
                 </form>
+
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        <p
+                            data-en="{{ yaml_info['General']['Footnote']['Upload']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Footnote']['Upload']['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Footnote']['Upload']['Label']['en'] }}
+                        </p>
+                    </div>
+                </div>
             {% else %}
                 <div class="row my-2">
                     <div class="col-md-12">
@@ -76,6 +87,7 @@
                         </p>
                     </div>
                 </div>
+
                 <form class="row my-2" method="post" enctype="multipart/form-data">
                     <div class="col-md-6">
                         <select class="form-select" name="demofile" id="demofile">
@@ -100,18 +112,18 @@
                         >
                     </div>
                 </form>
-            {% endif %}
 
-            <div class="row my-2">
-                <div class="col-md-12">
-                    <p
-                        data-en="{{ yaml_info['General']['Footnote']['Upload']['Label']['en'] }}"
-                        data-jp="{{ yaml_info['General']['Footnote']['Upload']['Label']['jp'] }}"
-                    >
-                        {{ yaml_info['General']['Footnote']['Upload']['Label']['en'] }}
-                    </p>
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        <p
+                            data-en="{{ yaml_info['General']['Footnote']['Demo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['General']['Footnote']['Demo']['Label']['jp'] }}"
+                        >
+                            {{ yaml_info['General']['Footnote']['Demo']['Label']['en'] }}
+                        </p>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </body>
 </html>

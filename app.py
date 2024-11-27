@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import werkzeug.utils
 import os
+import sys
 import yaml
 import pandas as pd
 import numpy as np
@@ -32,26 +33,12 @@ def allowed_file(filename):
 # Route for upload form
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    # Check if user is on local machine
+    is_localhost = request.host == '127.0.0.1:5001'
+
     if request.method == 'POST':
-        # demo / upload flags
-        is_demo_file = 0
-        is_upload_file = 0
-
-        # Check if demo file was used
-        demofile = request.form.get('demofile')
-
-        if demofile:
-            is_demo_file = 1
-            is_upload_file = 0
-
-            # Assign to file variables
-            this_file_name = demofile
-            this_folder_path = DEMO_FILES_DIR
-
-        if not is_demo_file:
-            is_demo_file = 0
-            is_upload_file = 1
-
+        # 1 = Upload
+        if is_localhost:
             # Process upload file
             if 'uploadfile' not in request.files:
                 return "No file uploaded!"
@@ -59,16 +46,22 @@ def upload_file():
             # Assign to file variable
             this_file_name = request.files['uploadfile'].filename
             this_folder_path = app.config['UPLOAD_FOLDER']
+        # 0 = Demo
+        else:
+            # Assign to file variables
+            this_file_name = request.form.get('demofile')
+            this_folder_path = DEMO_FILES_DIR
 
         if allowed_file(this_file_name):
             # Clean up file name
-            this_file_name = werkzeug.utils.secure_filename(this_file_name)
+            if is_localhost:
+                this_file_name = werkzeug.utils.secure_filename(this_file_name)
 
             # Set file path
             this_file_path = os.path.join(this_folder_path, this_file_name)
 
             try:
-                if is_upload_file:
+                if is_localhost:
                     request.files['uploadfile'].save(this_file_path)
 
                 # Session Info | gets obj
@@ -101,11 +94,8 @@ def upload_file():
         Else
     """
     # Grab demo files folder content
-    demo_files = os.listdir(DEMO_FILES_DIR)
-
-    # Manual flag
-    # is_localhost = request.remote_addr == '127.0.0.1'
-    is_localhost = 1
+    if not is_localhost:
+        demo_files = os.listdir(DEMO_FILES_DIR)
 
     return render_template(
         'index.html',
@@ -421,6 +411,13 @@ app.jinja_env.filters['round'] = round_filter
 
 # ====================
 if __name__ == "__main__":
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    app.run(debug=True, port=5001)
-    # app.run(host='0.0.0.0', port=5000)
+    # Must run with the following argument on local machine
+    # to distinguish local or remote server
+    # ie: `python app.py --localhost`
+    is_localhost = '--localhost' in sys.argv
+
+    if is_localhost:
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+        app.run(debug=True, port=5001)
+    else:
+        app.run(host='0.0.0.0', port=5000)

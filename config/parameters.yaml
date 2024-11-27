@@ -5,12 +5,12 @@ General:
     Intro:
         Demo:
             Label:
-                en: "Select a demo session and click \"Load\" to start."
-                jp: "デモセッションを選択し、[ロード] をクリックして開始します。"
+                en: "Choose a demo session and click \"Load\" to begin."
+                jp: "デモセッションを選択し、「読み込み」をクリックして開始してください。"
         Upload:
             Label:
-                en: "Upload iRacing telemetry file (.ibt) to start your analysis. Telemetry files are located in \\Documents\\iRacing\\Telemetry\\ folder."
-                jp: "iRacingテレメトリーファイル（.ibt）をアップロードして下さい。テレメトリ ファイルは \\Documents\\iRacing\\Telemetry\\ フォルダーにあります。"
+                en: "Upload your iRacing telemetry file (.ibt) to begin the analysis. The telemetry files can be found in the \\Documents\\iRacing\\Telemetry\\ folder."
+                jp: "分析を開始するには、iRacingのテレメトリーファイル（.ibt）をアップロードしてください。テレメトリーファイルは \\Documents\\iRacing\\Telemetry\\ フォルダ内にあります。"
 
     Button:
         Charts:

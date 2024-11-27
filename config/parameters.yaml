@@ -51,12 +51,12 @@ General:
     Footnote:
         Demo:
             Label:
-                en: "The upload functionality is exclusively available for use on a local machine. You can access the source code on <a href=\"https://github.com/doraemon09/iRacingStudioAnalysis.git\" target=\"_blank\">GitHub</a>."
-                jp: "アップロード機能はローカルマシンでのみ利用可能です。ソースコードは<a href=\"https://github.com/doraemon09/iRacingStudioAnalysis.git\" target=\"_blank\">GitHub</a>でご確認いただけます。"
+                en: "Alternatively, if you'd like to test with your own telemetry, you can find the code <a href=\"https://github.com/doraemon09/iRacingStudioAnalysis\" target=\"_blank\">here</a> to run it on your own machine, including the upload function."
+                jp: "または、独自のテレメトリを使ってテストしたい場合は、アップロード機能を含むコードを<a href=\"https://github.com/doraemon09/iRacingStudioAnalysis\" target=\"_blank\">こちら</a>で取得して、自分のマシンで実行できます。"
         Upload:
             Label:
-                en: "Explore the demo version <a href=\"http://13.52.127.109\" target=\"_blank\">here</a>."
-                jp: "デモバージョンは<a href=\"http://13.52.127.109\" target=\"_blank\">こちら</a>でご覧いただけます。"
+                en: "Or explore the demo version <a href=\"http://13.52.127.109\" target=\"_blank\">here</a>."
+                jp: "または、<a href=\"http://13.52.127.109\" target=\"_blank\">こちら</a>でデモバージョンを試すこともできます。"
 
     Language:
         en:

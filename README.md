@@ -48,7 +48,7 @@ pip install pyirsdk
 ### 4. Start the Application
 Once everything is installed and configured, you can start the Flask development server by running:
 ```bash
-python app.py
+python app.py --localhost
 ```
 By default, the server will be accessible at `http://127.0.0.1:5001/` in your browser.
 
@@ -109,7 +109,7 @@ pip install pyirsdk
 ### 4. アプリケーションの起動
 すべてのインストールと設定が完了したら、以下のコマンドでFlask開発サーバーを起動できます：
 ```bash
-python app.py
+python app.py --localhost
 ```
 デフォルトでは、サーバーはブラウザで `http://127.0.0.1:5001/` にアクセスすることで利用可能です。
 

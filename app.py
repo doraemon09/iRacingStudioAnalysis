@@ -94,6 +94,7 @@ def upload_file():
         Else
     """
     # Grab demo files folder content
+    demo_files = ""
     if not is_localhost:
         demo_files = os.listdir(DEMO_FILES_DIR)
 

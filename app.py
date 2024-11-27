@@ -103,8 +103,9 @@ def upload_file():
     # Grab demo files folder content
     demo_files = os.listdir(DEMO_FILES_DIR)
 
-    # Check if running on local host
-    is_localhost = request.remote_addr == '127.0.0.1'
+    # Manual flag
+    # is_localhost = request.remote_addr == '127.0.0.1'
+    is_localhost = 1
 
     return render_template(
         'index.html',
@@ -422,3 +423,4 @@ app.jinja_env.filters['round'] = round_filter
 if __name__ == "__main__":
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     app.run(debug=True)
+    # app.run(host='0.0.0.0', port=5000)

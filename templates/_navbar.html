@@ -41,14 +41,8 @@
                 {% endif %}
 
                 {% for key in yaml_info['General']['Language'] %}
-                    <button class="btn btn-light" onclick="switchLanguage('{{ key }}')">
+                    <button class="btn btn-outline-light" onclick="switchLanguage('{{ key }}')">
                         <span class="{{ yaml_info['General']['Language'][key]['Icon'] }}"></span>
-                        <span
-                            data-en="{{ yaml_info['General']['Language'][key]['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Language'][key]['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Language'][key]['Label']['en'] }}
-                        </span>
                     </button>
                 {% endfor %}
 

@@ -46,7 +46,7 @@
 
             {% if is_localhost %}
                 <div class="row my-2">
-                    <div class="col-md-12">
+                    <div class="col-md-auto">
                         <p
                             data-en="{{ yaml_info['General']['Intro']['Upload']['Label']['en'] }}"
                             data-jp="{{ yaml_info['General']['Intro']['Upload']['Label']['jp'] }}"
@@ -57,10 +57,10 @@
                 </div>
 
                 <form id="upload-demo-form" class="row my-2" method="post" enctype="multipart/form-data">
-                    <div class="col-md-6">
+                    <div class="col-md-auto">
                         <input class="form-control" type="file" name="uploadfile" accept=".ibt">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-auto">
                         <button id="upload-demo-submit" class="btn btn-primary" type="submit">
                             <span
                                 id="upload-demo-spinner"
@@ -79,7 +79,7 @@
                 </form>
 
                 <div class="row my-2 mt-3">
-                    <div class="col-md-12">
+                    <div class="col-md-auto">
                         <p
                             data-en="{{ yaml_info['General']['Footnote']['Upload']['Label']['en'] }}"
                             data-jp="{{ yaml_info['General']['Footnote']['Upload']['Label']['jp'] }}"
@@ -90,7 +90,7 @@
                 </div>
             {% else %}
                 <div class="row my-2">
-                    <div class="col-md-12">
+                    <div class="col-md-auto">
                         <p
                             data-en="{{ yaml_info['General']['Intro']['Demo']['Label']['en'] }}"
                             data-jp="{{ yaml_info['General']['Intro']['Demo']['Label']['jp'] }}"
@@ -101,7 +101,7 @@
                 </div>
 
                 <form id="upload-demo-form" class="row my-2" method="post" enctype="multipart/form-data">
-                    <div class="col-md-6">
+                    <div class="col-md-auto">
                         <select class="form-select" name="demofile" id="demofile">
                             {% for file in demo_files %}
                                 {% set demo_file_name = file.split("_") %}
@@ -114,7 +114,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-auto">
                         <button id="upload-demo-submit" class="btn btn-primary" type="submit">
                             <span
                                 id="upload-demo-spinner"
@@ -133,7 +133,7 @@
                 </form>
 
                 <div class="row my-2 mt-3">
-                    <div class="col-md-12">
+                    <div class="col-md-auto">
                         <p
                             data-en="{{ yaml_info['General']['Footnote']['Demo']['Label']['en'] }}"
                             data-jp="{{ yaml_info['General']['Footnote']['Demo']['Label']['jp'] }}"

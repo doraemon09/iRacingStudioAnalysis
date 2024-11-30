@@ -23,17 +23,22 @@ General:
                 en: "Load"
                 jp: "読み込み"
 
+        Home:
+            Icon: "fa fa-house"
+
         Laps:
             Label:
                 en: "Laps"
                 jp: "ラップ"
 
         Session:
+            Icon: "fa fa-info"
             Label:
                 en: "Session Info"
                 jp: "セッション情報"
 
         Telemetry:
+            Icon: "fa fa-chart-line"
             Label:
                 en: "Telemetry Data"
                 jp: "テレメトリーデータ"

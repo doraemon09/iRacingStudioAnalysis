@@ -33,13 +33,14 @@
         <!-- Content -->
         <div class="container-fluid">
             <div class="row my-2">
-                <div class="col-md-12">
-                    <h1
-                        data-en="{{ yaml_info['General']['Title']['Label']['en'] }}"
-                        data-jp="{{ yaml_info['General']['Title']['Label']['jp'] }}"
+                <div class="col-md-auto">
+                    <p
+                        class="alert alert-warning"
+                        data-en="{{ yaml_info['General']['Caution']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Caution']['Label']['jp'] }}"
                     >
-                        {{ yaml_info['General']['Title']['Label']['en'] }}
-                    </h1>
+                        {{ yaml_info['General']['Caution']['Label']['en'] }}
+                    </p>
                 </div>
             </div>
 

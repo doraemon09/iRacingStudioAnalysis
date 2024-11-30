@@ -5,12 +5,12 @@ General:
     Intro:
         Demo:
             Label:
-                en: "Choose a demo session and click \"Load\" to begin."
+                en: "Choose a demo session and click \"Load\" to begin. Please note that due to the large size of the telemetry file, loading may take some time or might not be successful in all cases."
                 jp: "デモセッションを選択し、「読み込み」をクリックして開始してください。"
         Upload:
             Label:
                 en: "Upload your iRacing telemetry file (.ibt) to begin the analysis. The telemetry files can be found in the \\Documents\\iRacing\\Telemetry\\ folder."
-                jp: "分析を開始するには、iRacingのテレメトリーファイル（.ibt）をアップロードしてください。テレメトリーファイルは \\Documents\\iRacing\\Telemetry\\ フォルダ内にあります。"
+                jp: "分析を開始するには、iRacingのテレメトリファイル（.ibt）をアップロードしてください。テレメトリーファイルは \\Documents\\iRacing\\Telemetry\\ フォルダ内にあります。"
 
     Button:
         Charts:
@@ -52,6 +52,11 @@ General:
             Label:
                 en: "Upload"
                 jp: "アップロード"
+
+    Caution:
+        Label:
+            en: "Please note that due to the large size of the telemetry file, loading may take some time or might not be successful in all cases."
+            jp: "テレメトリファイルのサイズが大きいため、読み込みに時間がかかる場合や、正常に読み込めない場合があることをご了承ください。"
 
     Footnote:
         Demo:
@@ -2270,7 +2275,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "0=disk based telemetry file not being written 1=being written"
-                    jp: "0 = ディスクベースのテレメトリ ファイルが書き込まれていない 1 = 書き込まれている"
+                    jp: "0 = ディスクベースのテレメトリファイルが書き込まれていない 1 = 書き込まれている"
 
             IsDiskLoggingEnabled:
                 Unit: ""

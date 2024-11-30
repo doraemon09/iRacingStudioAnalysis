@@ -27,7 +27,11 @@ function hideSections(section_list) {
 // Session Info section
 function showSessionData() {
     document.getElementById('session_data').style.display = 'block';
-    document.getElementById('telemetry_data').style.display = 'none';
+
+    // Check if exists
+    if(document.getElementById('telemetry_data')) {
+        document.getElementById('telemetry_data').style.display = 'none';
+    };
 
     // Hide all session sections
     hideSections(session_sections)
@@ -49,7 +53,11 @@ function showSessionSection(section) {
 // Telemetry Info section
 function showTelemetryData() {
     document.getElementById('telemetry_data').style.display = 'block';
-    document.getElementById('session_data').style.display = 'none';
+
+    // Check if exists
+    if(document.getElementById('session_data')) {
+        document.getElementById('session_data').style.display = 'none';
+    };
 
     // Hide all telemetry sections
     hideSections(telemetry_sections)
@@ -97,8 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide loading spinner
         document.getElementById('spinner-container').style.display = 'none';
 
-        // Show telemetry section on load by default
-        showTelemetryData();
+        // If exists, show telemetry section on load by default
+        if(document.getElementById('telemetry_data')) {
+            showTelemetryData();
+        } else {
+            showSessionData();
+        }
 
         // Turn the table into a DataTable
         $('table').DataTable({

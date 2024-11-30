@@ -24,7 +24,7 @@ General:
                 jp: "読み込み"
 
         Home:
-            Icon: "fa fa-house"
+            Icon: "fa-solid fa-house"
 
         Laps:
             Label:
@@ -32,13 +32,13 @@ General:
                 jp: "ラップ"
 
         Session:
-            Icon: "fa fa-info"
+            Icon: "fa-solid fa-circle-info"
             Label:
                 en: "Session Info"
                 jp: "セッション情報"
 
         Telemetry:
-            Icon: "fa fa-chart-line"
+            Icon: "fa-solid fa-chart-line"
             Label:
                 en: "Telemetry Data"
                 jp: "テレメトリーデータ"

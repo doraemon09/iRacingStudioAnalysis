@@ -10,33 +10,15 @@
                     {{ yaml_info['General']['Title']['Label']['en'] }}
                 </span>
 
-                {% if session_info is defined or chart_info is defined %}
-                    <span class="h5 pe-2 align-middle">
-                        [{{ session_info['WeekendInfo']['EventType'] }}]
-                        [{{ session_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}]
-                        [{{ session_info['WeekendInfo']['TrackDisplayName'] }}]
-                    </span>
-                {% endif %}
-
                 {% if chart_info is defined %}
                     <button class="btn btn-outline-info" onclick="showTelemetryData()">
-                        <span
-                            data-en="{{ yaml_info['General']['Button']['Telemetry']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Button']['Telemetry']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Button']['Telemetry']['Label']['en'] }}
-                        </span>
+                        <span class="{{ yaml_info['General']['Button']['Telemetry']['Icon'] }}"></span>
                     </button>
                 {% endif %}
 
                 {% if session_info is defined %}
                     <button class="btn btn-outline-info" onclick="showSessionData()">
-                        <span
-                            data-en="{{ yaml_info['General']['Button']['Session']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Button']['Session']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Button']['Session']['Label']['en'] }}
-                        </span>
+                        <span class="{{ yaml_info['General']['Button']['Session']['Icon'] }}"></span>
                     </button>
                 {% endif %}
 
@@ -47,13 +29,8 @@
                 {% endfor %}
 
                 {% if session_info is defined or chart_info is defined %}
-                    <a
-                        class="btn btn-primary"
-                        href="{{ url_for('upload_file') }}"
-                        data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
-                        data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
-                    >
-                        {{ yaml_info['General']['Button']['Upload']['Label']['en'] }}
+                    <a class="btn btn-outline-primary" href="{{ url_for('upload_file') }}">
+                        <span class="{{ yaml_info['General']['Button']['Home']['Icon'] }}"></span>
                     </a>
                 {% endif %}
             </div>

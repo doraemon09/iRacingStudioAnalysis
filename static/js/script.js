@@ -8,12 +8,12 @@ function switchLanguage(language) {
     localStorage.setItem('preferredLanguage', language);
 
     // Update content display per selected language
-    const elements = document.querySelectorAll('[data-en][data-jp]');
-    elements.forEach(element => {
-        if (element.tagName.toLowerCase() === 'input' && element.type.toLowerCase() === 'submit') {
-            element.value = element.getAttribute(`data-${language}`);
+    const languages = document.querySelectorAll('[data-en][data-jp]');
+    languages.forEach(this_language => {
+        if (this_language.tagName.toLowerCase() === 'input' && this_language.type.toLowerCase() === 'submit') {
+            this_language.value = this_language.getAttribute(`data-${language}`);
         } else {
-            element.innerHTML = element.getAttribute(`data-${language}`);
+            this_language.innerHTML = this_language.getAttribute(`data-${language}`);
         };
     });
 };

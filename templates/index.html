@@ -51,22 +51,29 @@
                     </div>
                 </div>
 
-                <form class="row my-2" method="post" enctype="multipart/form-data">
+                <form id="upload-demo-form" class="row my-2" method="post" enctype="multipart/form-data">
                     <div class="col-md-6">
                         <input class="form-control" type="file" name="uploadfile" accept=".ibt">
                     </div>
                     <div class="col-md-6">
-                        <input
-                            class="btn btn-primary"
-                            type="submit"
-                            data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
-                            value="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
-                        >
+                        <button id="upload-demo-submit" class="btn btn-primary" type="submit">
+                            <span
+                                id="upload-demo-spinner"
+                                class="spinner-border spinner-border-sm d-none"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                            <span
+                                data-en="{{ yaml_info['General']['Button']['Upload']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Button']['Upload']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Button']['Upload']['Label']['en'] }}
+                            </span>
+                        </button>
                     </div>
                 </form>
 
-                <div class="row my-2">
+                <div class="row my-2 mt-3">
                     <div class="col-md-12">
                         <p
                             data-en="{{ yaml_info['General']['Footnote']['Upload']['Label']['en'] }}"
@@ -88,7 +95,7 @@
                     </div>
                 </div>
 
-                <form class="row my-2" method="post" enctype="multipart/form-data">
+                <form id="upload-demo-form" class="row my-2" method="post" enctype="multipart/form-data">
                     <div class="col-md-6">
                         <select class="form-select" name="demofile" id="demofile">
                             {% for file in demo_files %}
@@ -103,17 +110,24 @@
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <input
-                            class="btn btn-primary"
-                            type="submit"
-                            data-en="{{ yaml_info['General']['Button']['Demo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Button']['Demo']['Label']['jp'] }}"
-                            value="{{ yaml_info['General']['Button']['Demo']['Label']['en'] }}"
-                        >
+                        <button id="upload-demo-submit" class="btn btn-primary" type="submit">
+                            <span
+                                id="upload-demo-spinner"
+                                class="spinner-border spinner-border-sm d-none"
+                                role="status"
+                                aria-hidden="true"
+                            ></span>
+                            <span
+                                data-en="{{ yaml_info['General']['Button']['Demo']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Button']['Demo']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Button']['Demo']['Label']['en'] }}
+                            </span>
+                        </button>
                     </div>
                 </form>
 
-                <div class="row my-2">
+                <div class="row my-2 mt-3">
                     <div class="col-md-12">
                         <p
                             data-en="{{ yaml_info['General']['Footnote']['Demo']['Label']['en'] }}"

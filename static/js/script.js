@@ -73,6 +73,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'en';
     switchLanguage(preferredLanguage);
 
+    // Look for index page
+    const index_page = document.getElementById('index');
+
+    if (index_page) {
+        const this_form = document.getElementById('upload-demo-form');
+        const this_submit = document.getElementById('upload-demo-submit');
+        const this_spinner = document.getElementById('upload-demo-spinner');
+
+        this_form.addEventListener('submit', function(event) {
+            // Disable sbumit button and show the spinner
+            this_submit.setAttribute('disabled', true);
+            this_spinner.classList.remove('d-none'); // Removes `display:none`
+
+            //event.preventDefault();
+        });
+    };
+
     // Look for display page
     const display_page = document.getElementById('display');
 

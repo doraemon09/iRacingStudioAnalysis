@@ -54,9 +54,13 @@
         </div>
 
         <!-- Session Data -->
-        {% include '_session.html' %}
+        {% if session_info is defined %}
+            {% include '_session.html' %}
+        {% endif %}
 
         <!-- Telemetry Data -->
-        {% include '_telemetry.html' %}
+        {% if chart_info is defined %}
+            {% include '_telemetry.html' %}
+        {% endif %}
     </body>
 </html>

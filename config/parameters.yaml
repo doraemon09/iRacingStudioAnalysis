@@ -112,6 +112,18 @@ Session:
         Label:
             en: "Qualify Results"
             jp: "予選結果"
+    CameraInfo:
+        Label:
+            en: "Camera"
+            jp: "カメラ"
+    RadioInfo:
+        Label:
+            en: "Radio"
+            jp: "無線"
+    DriverInfo:
+        Label:
+            en: "Driver"
+            jp: "ドライバー"
     SplitTimeInfo:
         Label:
             en: "Split Time"
@@ -120,18 +132,6 @@ Session:
         Label:
             en: "Car Setup"
             jp: "セットアップ"
-    DriverInfo:
-        Label:
-            en: "Driver"
-            jp: "ドライバー"
-    RadioInfo:
-        Label:
-            en: "Radio"
-            jp: "無線"
-    CameraInfo:
-        Label:
-            en: "Camera"
-            jp: "カメラ"
 
 # ========================================
 # Telemetry ==============================

@@ -76,10 +76,22 @@ function showTelemetrySection(section) {
     this_section.style.display = 'block';
 };
 
-// Load preferred language on page load
+// Check orientation on mobile
+function checkOrientation() {
+    document.getElementById('orientation-warning').style.display = 'none';
+
+    // Width < Height = Landscape
+    if(window.innerWidth < window.innerHeight) {
+        document.getElementById('orientation-warning').style.display = 'block';
+    };
+};
+
+// On page load
 document.addEventListener('DOMContentLoaded', () => {
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'en';
     switchLanguage(preferredLanguage);
+
+    checkOrientation();
 
     // Look for index page
     const index_page = document.getElementById('index');
@@ -119,4 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "order": [], // Disable default sort onload
         });
     };
+});
+
+// On resize
+window.addEventListener('resize', () => {
+    checkOrientation();
 });

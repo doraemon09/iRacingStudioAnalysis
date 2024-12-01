@@ -81,6 +81,11 @@ General:
                 en: "Japanese"
                 jp: "日本語"
 
+    Orientation:
+        Label:
+            en: "For the best experience, please view this site in portrait mode."
+            jp: "このサイトを最適にご利用いただくには、ポートレートモード（縦向き）でご覧ください。"
+
     Title:
         Label:
             en: "iRacing Studio Analysis"

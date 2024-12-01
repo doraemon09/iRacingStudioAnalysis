@@ -32,6 +32,18 @@
 
         <!-- Content -->
         <div class="container-fluid">
+            <div class="row my-2" id="orientation-warning" style="display: none;">
+                <div class="col-md-auto">
+                    <p
+                        class="alert alert-warning"
+                        data-en="{{ yaml_info['General']['Orientation']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Orientation']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Orientation']['Label']['en'] }}
+                    </p>
+                </div>
+            </div>
+
             <div class="row my-2">
                 <div class="col-md-auto">
                     <p

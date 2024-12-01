@@ -100,10 +100,10 @@ General:
 # Session ================================
 # ========================================
 Session:
-    WeatherInfo:
+    WeekendInfo:
         Label:
-            en: "Weather"
-            jp: "気象"
+            en: "Weekend"
+            jp: "週末"
     SessionInfo:
         Label:
             en: "Session"

@@ -1,5 +1,5 @@
 // Global var
-let session_sections = ['WeatherInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
+let session_sections = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
 let telemetry_sections = ['Charts', 'Laps', 'TrackMaps'];
 
 // Languages
@@ -36,7 +36,7 @@ function showSessionData() {
     // Hide all session sections
     hideSections(session_sections)
 
-    const default_section = document.getElementById('WeatherInfo');
+    const default_section = document.getElementById('WeekendInfo');
     default_section.style.display = 'block';
 };
 

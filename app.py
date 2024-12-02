@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-from datetime import datetime
 import werkzeug.utils
 import os
 import sys
@@ -72,46 +71,30 @@ def upload_file():
                     # Session Info | gets dict
                     session_data = get_session_data(this_file_path)
 
-                    """
-                    # Dump data into txt file
-                    this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
-
-                    this_output1 = f"session_data_{this_datetime}.txt"
-
-                    with open(this_output1, "w") as txt_file:
-                        # Use repr() to output raw dictionary string
-                        txt_file.write(repr(session_data))
-                    """
-
                     # Telemetry Info | gets dataframe
                     telemetry_data = get_telemetry_data(this_file_path)
 
                     # Process selected lap related data | gets dictionary
                     lap_data = process_lap_data(telemetry_data)
 
-                    """
-                    # Dump data into txt file
-                    this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
-
-                    this_output2 = f"lap_data_{this_datetime}.txt"
-
-                    with open(this_output2, "w") as txt_file:
-                        # Use repr() to output raw dictionary string
-                        txt_file.write(repr(lap_data))
-                    """
-
                     # Split sector data
                     sector_data = process_sector_data(session_data, lap_data)
 
                     """
                     # Dump data into txt file
-                    this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
+                    this_output = this_file_name.rsplit('.', 1)[0] + '.txt'
 
-                    this_output3 = f"sector_data_{this_datetime}.txt"
-
-                    with open(this_output3, "w") as txt_file:
+                    with open(this_output, "w") as txt_file:
                         # Use repr() to output raw dictionary string
-                        txt_file.write(repr(sector_data))
+                        txt_file.write(
+                            "{'Session_Data': "
+                            + repr(session_data)
+                            + ", 'Lap_Data': "
+                            + repr(lap_data)
+                            + ", 'Sector_Data': "
+                            + repr(sector_data)
+                            + "}"
+                        )
                     """
                 else:
                     with open(this_file_path, 'r', encoding='utf-8') as dict_file:

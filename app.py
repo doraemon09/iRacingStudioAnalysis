@@ -72,29 +72,63 @@ def upload_file():
                     # Session Info | gets dict
                     session_data = get_session_data(this_file_path)
 
+                    """
+                    # Dump data into txt file
+                    this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
+
+                    this_output1 = f"session_data_{this_datetime}.txt"
+
+                    with open(this_output1, "w") as txt_file:
+                        # Use repr() to output raw dictionary string
+                        txt_file.write(repr(session_data))
+                    """
+
                     # Telemetry Info | gets dataframe
                     telemetry_data = get_telemetry_data(this_file_path)
 
                     # Process selected lap related data | gets dictionary
                     lap_data = process_lap_data(telemetry_data)
 
+                    """
+                    # Dump data into txt file
+                    this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
+
+                    this_output2 = f"lap_data_{this_datetime}.txt"
+
+                    with open(this_output2, "w") as txt_file:
+                        # Use repr() to output raw dictionary string
+                        txt_file.write(repr(lap_data))
+                    """
+
                     # Split sector data
                     sector_data = process_sector_data(session_data, lap_data)
+
+                    """
+                    # Dump data into txt file
+                    this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
+
+                    this_output3 = f"sector_data_{this_datetime}.txt"
+
+                    with open(this_output3, "w") as txt_file:
+                        # Use repr() to output raw dictionary string
+                        txt_file.write(repr(sector_data))
+                    """
                 else:
                     with open(this_file_path, 'r', encoding='utf-8') as dict_file:
-                        demo_data = ast.literal_eval(dict_file.read())
+                        #demo_data = ast.literal_eval(dict_file.read())
+                        demo_data = eval(dict_file.read())
                         session_data = demo_data['Session_Data']
-                        lap_data = ""
-                        sector_data = ""
+                        lap_data = demo_data['Lap_Data']
+                        sector_data = demo_data['Sector_Data']
 
                 return render_template(
                     'display.html',
-                    session_info=session_data,
-                    #telemetry_info=telemetry_data.to_dict(orient='records'),
-                    lap_info=lap_data['lap_data'],
                     chart_info=lap_data['chart_data'],
+                    lap_info=lap_data['lap_data'],
+                    session_info=session_data,
                     split_sector_info=sector_data['split_sector_data'],
                     split_time_info=sector_data['split_time_data'],
+                    #telemetry_info=telemetry_data.to_dict(orient='records'),
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -140,17 +174,6 @@ def get_session_data(filepath):
                 # Which should not happen to begine with
                 info_dict[header] = {}
                 print(f"Error retrieving data for {header}: {err}")
-
-        """
-        # Dump data into txt file
-        this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
-
-        this_output = f"sessioninfo_{this_datetime}.txt"
-
-        with open(this_output, "w") as txt_file:
-            # Use repr() to output raw dictionary string
-            txt_file.write(repr(info_dict))
-        """
 
         return info_dict
     except Exception as err:
@@ -336,85 +359,89 @@ def process_lap_data(ibt_telemetry_data):
             'chart_data': chart_dict,
         }
     except Exception as err:
-        print(f"Error processing telemetry info: {err}")
+        print(f"Error processing lap data: {err}")
         return []
 
 
 # Lap Sectors
 def process_sector_data(session, lap):
-    """
-    Set up data for sector/split lap times
-    """
-    split_time_dict = {}
+    try:
+        """
+        Set up data for sector/split lap times
+        """
+        split_time_dict = {}
 
-    for idx in range(len(lap['lap_data'])):
-        try:
-            # Inline loop to calculate the split time
-            lap_sector_times = [
-                lap['lap_data'][idx]['LapTime'] * info['SectorStartPct']
-                for info in session['SplitTimeInfo']['Sectors']
-            ]
+        for idx in range(len(lap['lap_data'])):
+            try:
+                # Inline loop to calculate the split time
+                lap_sector_times = [
+                    lap['lap_data'][idx]['LapTime'] * info['SectorStartPct']
+                    for info in session['SplitTimeInfo']['Sectors']
+                ]
 
-            split_time_dict[idx] = {
-                'LapNum': lap['lap_data'][idx]['LapNum'],
-                'LapTime': lap['lap_data'][idx]['LapTime'],
-                'LapSectorTimes': lap_sector_times
-            }
-        except Exception as err:
-            # Set to empty if error
-            split_time_dict = {}
-            print(f"Error retrieving data: {err}")
+                split_time_dict[idx] = {
+                    'LapNum': lap['lap_data'][idx]['LapNum'],
+                    'LapTime': lap['lap_data'][idx]['LapTime'],
+                    'LapSectorTimes': lap_sector_times
+                }
+            except Exception as err:
+                # Set to empty if error
+                split_time_dict = {}
+                print(f"Error retrieving data: {err}")
 
-    """
-    Set up sector data for track map
-    """
-    split_sector_percents = []
-    split_sector_points = []
-    split_sector_colors = []
-    split_sector_lats = []
-    split_sector_lons = []
+        """
+        Set up sector data for track map
+        """
+        split_sector_percents = []
+        split_sector_points = []
+        split_sector_colors = []
+        split_sector_lats = []
+        split_sector_lons = []
 
-    split_sector_dict = {}
+        split_sector_dict = {}
 
-    colors = [
-        'rgb(159, 226, 191)', 'rgb(255, 127, 80)',
-        'rgb(64, 224, 208)', 'rgb(189, 183, 107)',
-        'rgb(204, 204, 255)', 'rgb(255, 191, 0)',
-        'rgb(255, 182, 193)', 'rgb(100, 149, 237)',
-    ]
+        colors = [
+            'rgb(159, 226, 191)', 'rgb(255, 127, 80)',
+            'rgb(64, 224, 208)', 'rgb(189, 183, 107)',
+            'rgb(204, 204, 255)', 'rgb(255, 191, 0)',
+            'rgb(255, 182, 193)', 'rgb(100, 149, 237)',
+        ]
 
-    # Gather all the sectors and the percentage values
-    for sector in session['SplitTimeInfo']['Sectors']:
-        split_sector_percents.append(sector['SectorStartPct'])
+        # Gather all the sectors and the percentage values
+        for sector in session['SplitTimeInfo']['Sectors']:
+            split_sector_percents.append(sector['SectorStartPct'])
 
-    # Find lat/lon estimates by multiplying the list length
-    # and use that list position to retrieve the coordinates
-    for percent in split_sector_percents:
-        split_sector_points.append(round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent))
-        split_sector_colors.extend(colors)
+        # Find lat/lon estimates by multiplying the list length
+        # and use that list position to retrieve the coordinates
+        for percent in split_sector_percents:
+            split_sector_points.append(round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent))
+            split_sector_colors.extend(colors)
 
-        split_sector_lats.append(
-            lap['chart_data'][1]['GPSLatitudeRefLap']
-            [round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent)]
-        )
-        split_sector_lons.append(
-            lap['chart_data'][1]['GPSLongitudeRefLap']
-            [round(len(lap['chart_data'][1]['GPSLongitudeRefLap']) * percent)]
-        )
+            split_sector_lats.append(
+                lap['chart_data'][1]['GPSLatitudeRefLap']
+                [round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent)]
+            )
+            split_sector_lons.append(
+                lap['chart_data'][1]['GPSLongitudeRefLap']
+                [round(len(lap['chart_data'][1]['GPSLongitudeRefLap']) * percent)]
+            )
 
-    split_sector_dict['SplitSectors'] = {
-        # 'SectorNum': len(split_sector_percents),
-        'Percentages': split_sector_percents,
-        'SectorPoints': split_sector_points,
-        'SectorColors': split_sector_colors,
-        'Latitude': split_sector_lats,
-        'Longitude': split_sector_lons,
-    }
+        split_sector_dict['SplitSectors'] = {
+            # 'SectorNum': len(split_sector_percents),
+            'Percentages': split_sector_percents,
+            'SectorPoints': split_sector_points,
+            'SectorColors': split_sector_colors,
+            'Latitude': split_sector_lats,
+            'Longitude': split_sector_lons,
+        }
 
-    return {
-        'split_time_data': split_time_dict,
-        'split_sector_data': split_sector_dict,
-    }
+        return {
+            'split_time_data': split_time_dict,
+            'split_sector_data': split_sector_dict,
+        }
+    except Exception as err:
+        print(f"Error processing sector data: {err}")
+        return []
 
 
 """

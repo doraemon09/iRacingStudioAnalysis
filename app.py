@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
+from datetime import datetime
 import werkzeug.utils
 import os
 import sys
 import yaml
 import pandas as pd
 import numpy as np
-from datetime import datetime
+import ast
 import irsdk
 
 
@@ -16,7 +17,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
 DEMO_FILES_DIR = 'static/demo_files'
 
-# Load YAML with utf-8 encoding for Japanese characters
+# Load YAML with utf-8 encoding
 with open('config/parameters.yaml', 'r', encoding='utf-8') as yaml_file:
     yaml_data = yaml.safe_load(yaml_file)
 
@@ -53,7 +54,9 @@ def upload_file():
             this_file_name = request.form.get('demofile')
             this_folder_path = DEMO_FILES_DIR
 
-        if allowed_file(this_file_name):
+        # Check allowed file on localhost
+        # Demo files are pre-defined therefore can be bypassed
+        if (is_localhost and allowed_file(this_file_name)) or not is_localhost:
             if is_localhost:
                 # Clean up file name
                 this_file_name = werkzeug.utils.secure_filename(this_file_name)
@@ -66,17 +69,23 @@ def upload_file():
                     # Save upload file to directory
                     request.files['uploadfile'].save(this_file_path)
 
-                # Session Info | gets dict
-                session_data = get_session_data(this_file_path)
+                    # Session Info | gets dict
+                    session_data = get_session_data(this_file_path)
 
-                # Telemetry Info | gets dataframe
-                telemetry_data = get_telemetry_data(this_file_path)
+                    # Telemetry Info | gets dataframe
+                    telemetry_data = get_telemetry_data(this_file_path)
 
-                # Process selected lap related data | gets dictionary
-                lap_data = process_lap_data(telemetry_data)
+                    # Process selected lap related data | gets dictionary
+                    lap_data = process_lap_data(telemetry_data)
 
-                # Split sector data
-                sector_data = process_sector_data(session_data, lap_data)
+                    # Split sector data
+                    sector_data = process_sector_data(session_data, lap_data)
+                else:
+                    with open(this_file_path, 'r', encoding='utf-8') as dict_file:
+                        demo_data = ast.literal_eval(dict_file.read())
+                        session_data = demo_data['Session_Data']
+                        lap_data = ""
+                        sector_data = ""
 
                 return render_template(
                     'display.html',

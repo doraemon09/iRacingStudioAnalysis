@@ -5,6 +5,7 @@ import sys
 import yaml
 import pandas as pd
 import numpy as np
+from datetime import datetime
 import irsdk
 
 
@@ -53,8 +54,8 @@ def upload_file():
             this_folder_path = DEMO_FILES_DIR
 
         if allowed_file(this_file_name):
-            # Clean up file name
             if is_localhost:
+                # Clean up file name
                 this_file_name = werkzeug.utils.secure_filename(this_file_name)
 
             # Set file path
@@ -62,9 +63,10 @@ def upload_file():
 
             try:
                 if is_localhost:
+                    # Save upload file to directory
                     request.files['uploadfile'].save(this_file_path)
 
-                # Session Info | gets obj
+                # Session Info | gets dict
                 session_data = get_session_data(this_file_path)
 
                 # Telemetry Info | gets dataframe
@@ -79,7 +81,7 @@ def upload_file():
                 return render_template(
                     'display.html',
                     session_info=session_data,
-                    # telemetry_info=telemetry_data.to_dict(orient='records'),
+                    #telemetry_info=telemetry_data.to_dict(orient='records'),
                     lap_info=lap_data['lap_data'],
                     chart_info=lap_data['chart_data'],
                     split_sector_info=sector_data['split_sector_data'],
@@ -115,7 +117,33 @@ def get_session_data(filepath):
         # Read uploaded file
         ibt_session_data.startup(test_file=filepath)
 
-        return ibt_session_data
+        # Parse into readable data
+        info_to_process = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo']
+
+        info_dict = {}
+
+        for header in info_to_process:
+            try:
+                # Assigned retrieved data set
+                info_dict[header] = ibt_session_data[header]
+            except Exception as err:
+                # Set to empty if header is not found in ibt_session_data
+                # Which should not happen to begine with
+                info_dict[header] = {}
+                print(f"Error retrieving data for {header}: {err}")
+
+        """
+        # Dump data into txt file
+        this_datetime = datetime.now().strftime("%Y%m%d-%H%M%S")
+
+        this_output = f"sessioninfo_{this_datetime}.txt"
+
+        with open(this_output, "w") as txt_file:
+            # Use repr() to output raw dictionary string
+            txt_file.write(repr(info_dict))
+        """
+
+        return info_dict
     except Exception as err:
         return f"Error reading file: {err}"
 

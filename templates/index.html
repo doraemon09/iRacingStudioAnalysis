@@ -114,15 +114,15 @@
 
                 <form id="upload-demo-form" class="row my-2" method="post" enctype="multipart/form-data">
                     <div class="col-md-auto">
-                        <select class="form-select" name="demofile" id="demofile">
-                            {% for file in demo_files %}
-                                {% set demo_file_name = file.split("_") %}
+                        <select class="form-select" name="demo_name" id="demo_name">
+                            {% for demo in demo_names %}
+                                {% set name = demo.split("_") %}
 
-                                {% set vehicle = demo_file_name[0].replace("-"," ") %}
-                                {% set circuit = demo_file_name[1].replace("-"," ") %}
-                                {% set event_type = demo_file_name[2].replace("-"," ") %}
+                                {% set vehicle = name[0].replace("-"," ") %}
+                                {% set circuit = name[1].replace("-"," ") %}
+                                {% set event_type = name[2].replace("-"," ") %}
 
-                                <option value="{{ file }}">{{ vehicle }} @ {{ circuit }} [{{ event_type }}]</option>
+                                <option value="{{ demo }}">{{ vehicle }} @ {{ circuit }} [{{ event_type }}]</option>
                             {% endfor %}
                         </select>
                     </div>

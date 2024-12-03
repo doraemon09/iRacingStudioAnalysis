@@ -70,7 +70,7 @@
 
                 <form id="upload-demo-form" class="row my-2" method="post" enctype="multipart/form-data">
                     <div class="col-md-6">
-                        <input class="form-control" type="file" name="uploadfile" accept=".ibt">
+                        <input class="form-control" type="file" name="upload_file" accept=".ibt">
                     </div>
                     <div class="col-md-auto">
                         <button id="upload-demo-submit" class="btn btn-primary" type="submit">
@@ -114,15 +114,15 @@
 
                 <form id="upload-demo-form" class="row my-2" method="post" enctype="multipart/form-data">
                     <div class="col-md-auto">
-                        <select class="form-select" name="demo_name" id="demo_name">
-                            {% for demo in demo_names %}
-                                {% set name = demo.split("_") %}
+                        <select class="form-select" name="demo_file" id="demo_file">
+                            {% for file in demo_files %}
+                                {% set name = file.split("_") %}
 
                                 {% set vehicle = name[0].replace("-"," ") %}
                                 {% set circuit = name[1].replace("-"," ") %}
                                 {% set event_type = name[2].replace("-"," ") %}
 
-                                <option value="{{ demo }}">{{ vehicle }} @ {{ circuit }} [{{ event_type }}]</option>
+                                <option value="{{ file }}">{{ vehicle }} @ {{ circuit }} [{{ event_type }}]</option>
                             {% endfor %}
                         </select>
                     </div>

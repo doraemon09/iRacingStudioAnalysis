@@ -43,16 +43,16 @@ def upload_file():
         # 1 = Upload
         if is_localhost:
             # Process upload file
-            if 'uploadfile' not in request.files:
+            if 'upload_file' not in request.files:
                 return "No file uploaded!"
 
             # Assign to file variable
-            this_file_name = request.files['uploadfile'].filename
+            this_file_name = request.files['upload_file'].filename
             this_folder_path = app.config['UPLOAD_FOLDER']
         # 0 = Demo
         else:
             # Assign to file variables
-            this_file_name = request.form.get('demo_name')
+            this_file_name = request.form.get('demo_file')
 
         # Check allowed file on localhost
         # Demo files are pre-defined therefore can be bypassed
@@ -67,7 +67,7 @@ def upload_file():
             try:
                 if is_localhost:
                     # Save upload file to directory
-                    request.files['uploadfile'].save(this_file_path)
+                    request.files['upload_file'].save(this_file_path)
 
                     # Session Info | gets dict
                     session_data = get_session_data(this_file_path)
@@ -139,7 +139,7 @@ def upload_file():
     """
         Else
     """
-    demo_names = ""
+    demo_files = []
 
     if not is_localhost:
         # Connect to db for demo name list
@@ -147,14 +147,14 @@ def upload_file():
         cursor = this_db.cursor()
         cursor.execute('SELECT name FROM telemetry')
 
-        demo_names = [row[0] for row in cursor.fetchall()]
+        demo_files = [row[0] for row in cursor.fetchall()]
 
         this_db.close()
 
     return render_template(
         'index.html',
         is_localhost=is_localhost,
-        demo_names=demo_names,
+        demo_files=demo_files,
         yaml_info=yaml_data,
     )
 

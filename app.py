@@ -12,18 +12,18 @@ import werkzeug.utils
 # Initialize Flash app
 app = Flask(__name__)
 
-# Set upload file folder
-app.config['UPLOAD_FOLDER'] = 'uploads'
-
-# SQLite db
-DATABASE = 'iRacingStudioAnalysis.db'
-
 # Load YAML with utf-8 encoding
 with open('config/parameters.yaml', 'r', encoding='utf-8') as yaml_file:
     yaml_data = yaml.safe_load(yaml_file)
 
+# Set upload file folder
+app.config['UPLOAD_FOLDER'] = yaml_data['Config']['Upload']['Folder']
+
+# SQLite db
+DATABASE = yaml_data['Config']['Database']['Path']
+
 # Set allowed file extensions
-ALLOWED_FILE_EXTENSIONS = {'ibt'}
+ALLOWED_FILE_EXTENSIONS = { yaml_data['Config']['Upload']['Extensions'] }
 
 
 # Check for file extension on uploaded file
@@ -130,7 +130,6 @@ def upload_file():
                     session_info=session_data,
                     split_sector_info=sector_data['split_sector_data'],
                     split_time_info=sector_data['split_time_data'],
-                    #telemetry_info=telemetry_data.to_dict(orient='records'),
                     yaml_info=yaml_data,
                 )
             except Exception as err:

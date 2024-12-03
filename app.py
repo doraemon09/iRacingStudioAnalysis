@@ -1,20 +1,22 @@
 from flask import Flask, render_template, request, redirect, url_for
-import werkzeug.utils
+import irsdk
+import numpy as np
 import os
+import pandas as pd
+import sqlite3
 import sys
 import yaml
-import pandas as pd
-import numpy as np
-import ast
-import irsdk
+import werkzeug.utils
 
 
 # Initialize Flash app
 app = Flask(__name__)
 
-# Set upload and demo file folders
+# Set upload file folder
 app.config['UPLOAD_FOLDER'] = 'uploads'
-DEMO_FILES_DIR = 'static/demo_files'
+
+# SQLite db
+DATABASE = 'iRacingStudioAnalysis.db'
 
 # Load YAML with utf-8 encoding
 with open('config/parameters.yaml', 'r', encoding='utf-8') as yaml_file:
@@ -50,8 +52,7 @@ def upload_file():
         # 0 = Demo
         else:
             # Assign to file variables
-            this_file_name = request.form.get('demofile')
-            this_folder_path = DEMO_FILES_DIR
+            this_file_name = request.form.get('demo_name')
 
         # Check allowed file on localhost
         # Demo files are pre-defined therefore can be bypassed
@@ -60,8 +61,8 @@ def upload_file():
                 # Clean up file name
                 this_file_name = werkzeug.utils.secure_filename(this_file_name)
 
-            # Set file path
-            this_file_path = os.path.join(this_folder_path, this_file_name)
+                # Set file path
+                this_file_path = os.path.join(this_folder_path, this_file_name)
 
             try:
                 if is_localhost:
@@ -70,6 +71,8 @@ def upload_file():
 
                     # Session Info | gets dict
                     session_data = get_session_data(this_file_path)
+
+                    print(type(session_data))
 
                     # Telemetry Info | gets dataframe
                     telemetry_data = get_telemetry_data(this_file_path)
@@ -82,27 +85,43 @@ def upload_file():
 
                     """
                     # Dump data into txt file
-                    this_output = this_file_name.rsplit('.', 1)[0] + '.txt'
+                    this_chart_data = this_file_name.rsplit('.', 1)[0] + '_chart_data.txt'
+                    this_lap_data = this_file_name.rsplit('.', 1)[0] + '_lap_data.txt'
+                    this_session_data = this_file_name.rsplit('.', 1)[0] + '_session_data.txt'
+                    this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
+                    this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
 
-                    with open(this_output, "w") as txt_file:
-                        # Use repr() to output raw dictionary string
-                        txt_file.write(
-                            "{'Session_Data': "
-                            + repr(session_data)
-                            + ", 'Lap_Data': "
-                            + repr(lap_data)
-                            + ", 'Sector_Data': "
-                            + repr(sector_data)
-                            + "}"
-                        )
+                    with open(this_chart_data, "w") as txt_file:
+                        txt_file.write(repr(lap_data['chart_data']))
+                    with open(this_lap_data, "w") as txt_file:
+                        txt_file.write(repr(lap_data['lap_data']))
+                    with open(this_session_data, "w") as txt_file:
+                        txt_file.write(repr(session_data))
+                    with open(this_split_sector_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['split_sector_data']))
+                    with open(this_split_time_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['split_time_data']))
                     """
                 else:
-                    with open(this_file_path, 'r', encoding='utf-8') as dict_file:
-                        #demo_data = ast.literal_eval(dict_file.read())
-                        demo_data = eval(dict_file.read())
-                        session_data = demo_data['Session_Data']
-                        lap_data = demo_data['Lap_Data']
-                        sector_data = demo_data['Sector_Data']
+                    this_db = sqlite3.connect(DATABASE)
+                    this_db.row_factory = sqlite3.Row # Convert rows into dictionary-like objects
+                    cursor = this_db.cursor()
+                    cursor.execute('SELECT * FROM telemetry WHERE name = ?', (this_file_name,))
+
+                    this_demo = cursor.fetchone()
+
+                    # Assign with eval() to convert str to dict
+                    lap_data = {
+                        'chart_data': eval(this_demo['chart_data']),
+                        'lap_data': eval(this_demo['lap_data']),
+                    }
+                    session_data = eval(this_demo['session_data'])
+                    sector_data = {
+                        'split_sector_data': eval(this_demo['split_sector_data']),
+                        'split_time_data': eval(this_demo['split_time_data']),
+                    }
+
+                    this_db.close()
 
                 return render_template(
                     'display.html',
@@ -121,15 +140,22 @@ def upload_file():
     """
         Else
     """
-    # Grab demo files folder content
-    demo_files = ""
+    demo_names = ""
+
     if not is_localhost:
-        demo_files = os.listdir(DEMO_FILES_DIR)
+        # Connect to db for demo name list
+        this_db = sqlite3.connect(DATABASE)
+        cursor = this_db.cursor()
+        cursor.execute('SELECT name FROM telemetry')
+
+        demo_names = [row[0] for row in cursor.fetchall()]
+
+        this_db.close()
 
     return render_template(
         'index.html',
         is_localhost=is_localhost,
-        demo_files=demo_files,
+        demo_names=demo_names,
         yaml_info=yaml_data,
     )
 

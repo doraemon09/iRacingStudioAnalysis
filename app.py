@@ -72,8 +72,6 @@ def upload_file():
                     # Session Info | gets dict
                     session_data = get_session_data(this_file_path)
 
-                    print(type(session_data))
-
                     # Telemetry Info | gets dataframe
                     telemetry_data = get_telemetry_data(this_file_path)
 

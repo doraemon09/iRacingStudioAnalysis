@@ -65,8 +65,8 @@
                     <tr>
                         <th scope="col">Lap No.</th>
                         <th scope="col">Lap Time</th>
-                        {% for split in range(1, split_time_info[0]['LapSectorTimes'] | length) %}
-                            <th scope="col">Sector {{ split }}</th>
+                        {% for sector in range(split_time_info[split_time_info.keys() | list | first]['LapSectorTimes'] | length) %}
+                            <th scope="col">Sector {{ sector + 1 }}</th>
                         {% endfor %}
                     </tr>
                 </thead>
@@ -75,7 +75,7 @@
                         <tr>
                             <th scope="row">{{ idx }}</th>
                             <td>{{ split_time_info[idx]['LapTime'] | timeformat }}</td>
-                            {% for time in range(1, split_time_info[idx]['LapSectorTimes'] | length) %}
+                            {% for time in range(split_time_info[idx]['LapSectorTimes'] | length) %}
                                 <td>{{ split_time_info[idx]['LapSectorTimes'][time] | timeformat }}</td>
                             {% endfor %}
                         </tr>

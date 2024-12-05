@@ -16,8 +16,9 @@ app = Flask(__name__)
 with open('config/parameters.yaml', 'r', encoding='utf-8') as yaml_file:
     yaml_data = yaml.safe_load(yaml_file)
 
-# Set upload file folder
+# Set file folders
 app.config['UPLOAD_FOLDER'] = yaml_data['Config']['Upload']['Folder']
+#DEMO_FILES_DIR = yaml_data['Config']['Demo']['Folder']
 
 # SQLite db
 DATABASE = yaml_data['Config']['Database']['Path']
@@ -53,6 +54,7 @@ def upload_file():
         else:
             # Assign to file variables
             this_file_name = request.form.get('demo_file')
+            #this_folder_path = DEMO_FILES_DIR
 
         # Check allowed file on localhost
         # Demo files are pre-defined therefore can be bypassed
@@ -64,72 +66,79 @@ def upload_file():
                 # Set file path
                 this_file_path = os.path.join(this_folder_path, this_file_name)
 
+            # TRY
+            if is_localhost:
+                # Save upload file to directory
+                request.files['upload_file'].save(this_file_path)
+
+                # Session Info | gets dict
+                session_data = get_session_data(this_file_path)
+
+                # Telemetry Info | gets dataframe
+                telemetry_data = get_telemetry_data(this_file_path)
+
+                # Process selected lap related data | gets dictionary
+                lap_data = process_lap_data(telemetry_data)
+
+                # Split sector data
+                sector_data = process_sector_data(session_data, lap_data)
+
+                """
+                # Dump data into txt file
+                this_chart_data = this_file_name.rsplit('.', 1)[0] + '_chart_data.txt'
+                this_lap_data = this_file_name.rsplit('.', 1)[0] + '_lap_data.txt'
+                this_session_data = this_file_name.rsplit('.', 1)[0] + '_session_data.txt'
+                this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
+                this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
+
+                with open(this_chart_data, "w") as txt_file:
+                    txt_file.write(repr(lap_data['chart_data']))
+                with open(this_lap_data, "w") as txt_file:
+                    txt_file.write(repr(lap_data['lap_data']))
+                with open(this_session_data, "w") as txt_file:
+                    txt_file.write(repr(session_data))
+                with open(this_split_sector_data, "w") as txt_file:
+                    txt_file.write(repr(sector_data['split_sector_data']))
+                with open(this_split_time_data, "w") as txt_file:
+                    txt_file.write(repr(sector_data['split_time_data']))
+                """
+            else:
+                # Connect to SQLite
+                this_db = sqlite3.connect(DATABASE)
+
+                # Convert rows into dictionary-like objects
+                this_db.row_factory = sqlite3.Row
+
+                # Interact with db via cursor() object
+                cursor = this_db.cursor()
+                cursor.execute('SELECT * FROM telemetry WHERE name = ?', (this_file_name,))
+
+                this_demo = cursor.fetchone()
+
+                # Assign with eval() to convert str to dict
+                lap_data = {
+                    'chart_data': eval(this_demo['chart_data']),
+                    'lap_data': eval(this_demo['lap_data']),
+                }
+                session_data = eval(this_demo['session_data'])
+                sector_data = {
+                    'split_sector_data': eval(this_demo['split_sector_data']),
+                    'split_time_data': eval(this_demo['split_time_data']),
+                }
+
+                this_db.close()
+
+            return render_template(
+                'display.html',
+                chart_info=lap_data['chart_data'],
+                lap_info=lap_data['lap_data'],
+                session_info=session_data,
+                split_sector_info=sector_data['split_sector_data'],
+                split_time_info=sector_data['split_time_data'],
+                yaml_info=yaml_data,
+            )
             try:
-                if is_localhost:
-                    # Save upload file to directory
-                    request.files['upload_file'].save(this_file_path)
-
-                    # Session Info | gets dict
-                    session_data = get_session_data(this_file_path)
-
-                    # Telemetry Info | gets dataframe
-                    telemetry_data = get_telemetry_data(this_file_path)
-
-                    # Process selected lap related data | gets dictionary
-                    lap_data = process_lap_data(telemetry_data)
-
-                    # Split sector data
-                    sector_data = process_sector_data(session_data, lap_data)
-
-                    """
-                    # Dump data into txt file
-                    this_chart_data = this_file_name.rsplit('.', 1)[0] + '_chart_data.txt'
-                    this_lap_data = this_file_name.rsplit('.', 1)[0] + '_lap_data.txt'
-                    this_session_data = this_file_name.rsplit('.', 1)[0] + '_session_data.txt'
-                    this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
-                    this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
-
-                    with open(this_chart_data, "w") as txt_file:
-                        txt_file.write(repr(lap_data['chart_data']))
-                    with open(this_lap_data, "w") as txt_file:
-                        txt_file.write(repr(lap_data['lap_data']))
-                    with open(this_session_data, "w") as txt_file:
-                        txt_file.write(repr(session_data))
-                    with open(this_split_sector_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['split_sector_data']))
-                    with open(this_split_time_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['split_time_data']))
-                    """
-                else:
-                    this_db = sqlite3.connect(DATABASE)
-                    this_db.row_factory = sqlite3.Row # Convert rows into dictionary-like objects
-                    cursor = this_db.cursor()
-                    cursor.execute('SELECT * FROM telemetry WHERE name = ?', (this_file_name,))
-
-                    this_demo = cursor.fetchone()
-
-                    # Assign with eval() to convert str to dict
-                    lap_data = {
-                        'chart_data': eval(this_demo['chart_data']),
-                        'lap_data': eval(this_demo['lap_data']),
-                    }
-                    session_data = eval(this_demo['session_data'])
-                    sector_data = {
-                        'split_sector_data': eval(this_demo['split_sector_data']),
-                        'split_time_data': eval(this_demo['split_time_data']),
-                    }
-
-                    this_db.close()
-
-                return render_template(
-                    'display.html',
-                    chart_info=lap_data['chart_data'],
-                    lap_info=lap_data['lap_data'],
-                    session_info=session_data,
-                    split_sector_info=sector_data['split_sector_data'],
-                    split_time_info=sector_data['split_time_data'],
-                    yaml_info=yaml_data,
-                )
+                print('hi')
             except Exception as err:
                 return f"Error processing file: {err}"
         else:
@@ -140,6 +149,9 @@ def upload_file():
     demo_files = []
 
     if not is_localhost:
+        """
+        demo_files = os.listdir(DEMO_FILES_DIR)
+        """
         # Connect to db for demo name list
         this_db = sqlite3.connect(DATABASE)
         cursor = this_db.cursor()
@@ -152,7 +164,7 @@ def upload_file():
     return render_template(
         'index.html',
         is_localhost=is_localhost,
-        demo_files=demo_files,
+        demo_files=sorted(demo_files),
         yaml_info=yaml_data,
     )
 
@@ -281,6 +293,10 @@ def process_lap_data(ibt_telemetry_data):
         laps_valid = lap_dataframe['LapNum'].iloc[1:-1]  # Excluding the first and last lap
         lap_times_valid = lap_dataframe[lap_dataframe['LapNum'].isin(laps_valid)]
 
+        # Find top N fastest laps
+        laps_top2 = lap_times_valid.nsmallest(2,"LapTime")
+        laps_top3 = lap_times_valid.nsmallest(3,"LapTime")
+
         # Find best/worst lap
         lap_best = lap_times_valid['LapTime'].idxmin()
         lap_worst = lap_times_valid['LapTime'].idxmax()
@@ -323,9 +339,7 @@ def process_lap_data(ibt_telemetry_data):
         # Reference lap
         lap_reference_dataframe = main_dataframe[main_dataframe['Lap'] == lap_best][main_dataframe.columns.tolist()]
 
-        for lap in main_dataframe['Lap'].unique():
-            if lap == lap_time_best or lap == 0 or lap == main_dataframe['Lap'].max():
-               continue # Skipping best + first + last lap
+        for lap in laps_top2['LapNum'].values.tolist():
             chart_dataframe = main_dataframe[main_dataframe['Lap'] == lap][main_dataframe.columns.tolist()]
 
             lap_interpolated_speeds = np.interp(
@@ -361,8 +375,8 @@ def process_lap_data(ibt_telemetry_data):
             }
 
         return {
-            'lap_data': lap_dataframe.to_dict(orient='records'),
             'chart_data': chart_dict,
+            'lap_data': lap_dataframe.to_dict(orient='records'),
         }
     except Exception as err:
         print(f"Error processing lap data: {err}")
@@ -371,11 +385,13 @@ def process_lap_data(ibt_telemetry_data):
 
 # Lap Sectors
 def process_sector_data(session, lap):
+    """
+    Set up data for sector/split lap times
+    """
     try:
-        """
-        Set up data for sector/split lap times
-        """
         split_time_dict = {}
+
+        first_key = next(iter(lap['chart_data']))
 
         for idx in range(len(lap['lap_data'])):
             try:
@@ -420,16 +436,16 @@ def process_sector_data(session, lap):
         # Find lat/lon estimates by multiplying the list length
         # and use that list position to retrieve the coordinates
         for percent in split_sector_percents:
-            split_sector_points.append(round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent))
+            split_sector_points.append(round(len(lap['chart_data'][first_key]['GPSLatitudeRefLap']) * percent))
             split_sector_colors.extend(colors)
 
             split_sector_lats.append(
-                lap['chart_data'][1]['GPSLatitudeRefLap']
-                [round(len(lap['chart_data'][1]['GPSLatitudeRefLap']) * percent)]
+                lap['chart_data'][first_key]['GPSLatitudeRefLap']
+                [round(len(lap['chart_data'][first_key]['GPSLatitudeRefLap']) * percent)]
             )
             split_sector_lons.append(
-                lap['chart_data'][1]['GPSLongitudeRefLap']
-                [round(len(lap['chart_data'][1]['GPSLongitudeRefLap']) * percent)]
+                lap['chart_data'][first_key]['GPSLongitudeRefLap']
+                [round(len(lap['chart_data'][first_key]['GPSLongitudeRefLap']) * percent)]
             )
 
         split_sector_dict['SplitSectors'] = {
@@ -442,8 +458,8 @@ def process_sector_data(session, lap):
         }
 
         return {
-            'split_time_data': split_time_dict,
             'split_sector_data': split_sector_dict,
+            'split_time_data': split_time_dict,
         }
     except Exception as err:
         print(f"Error processing sector data: {err}")

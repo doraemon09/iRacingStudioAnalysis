@@ -4,6 +4,7 @@
             <div class="col-6">
                 <div id="chartTrackMap"></div>
             </div>
+
             <script>
                 $(document).ready(function() {
                     /*
@@ -15,8 +16,8 @@
                     const track_config = "{{ session_info['WeekendInfo']['TrackConfigName'] }}";
                     const vehicle = "{{ session_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
 
-                    const latitudes = {{ chart_info[1]['GPSLatitudeRefLap'] | tojson }};
-                    const longitudes = {{ chart_info[1]['GPSLongitudeRefLap'] | tojson }};
+                    const latitudes = {{ chart_info[chart_info.keys() | list | first]['GPSLatitudeRefLap'] | tojson }};
+                    const longitudes = {{ chart_info[chart_info.keys() | list | first]['GPSLongitudeRefLap'] | tojson }};
 
                     const latitude_start = latitudes[0];
                     const longitude_start = longitudes[0]
@@ -26,10 +27,10 @@
 
                     // Since both GPS Lat/Lon are data from reference lap aka Best Lap
                     // sensor from best lap will need to be used to match
-                    const speeds = {{ chart_info[chart_info[1]['LapBest']]['Speed'] | tojson }};
-                    const rpms = {{ chart_info[chart_info[1]['LapBest']]['RPM'] | tojson }};
-                    const gears = {{ chart_info[chart_info[1]['LapBest']]['Gear'] | tojson }};
-                    const laptimes = {{ chart_info[chart_info[1]['LapBest']]['LapTime'] | tojson }};
+                    const speeds = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['Speed'] | tojson }};
+                    const rpms = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['RPM'] | tojson }};
+                    const gears = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['Gear'] | tojson }};
+                    const laptimes = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['LapTime'] | tojson }};
 
                     // Convert and clean up
                     const speeds_kmh = speeds.map(speed => (speed * 3.6).toFixed(2));

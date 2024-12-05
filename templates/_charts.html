@@ -23,7 +23,7 @@
                             y: {{ data['LapTimeDelta'] | tojson }},
                             mode: 'lines',
                             name: 'Lap {{ lap }}',
-                            visible: {% if loop.index == data['LapBest'] or loop.index == data['LapWorst'] %} true {% else %} 'legendonly' {% endif %},
+                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
@@ -58,7 +58,7 @@
                             y: {{ data['SpeedDelta'] | tojson }},
                             mode: 'lines',
                             name: 'Lap {{ lap }}',
-                            visible: {% if loop.index == data['LapBest'] or loop.index == data['LapWorst'] %} true {% else %} 'legendonly' {% endif %},
+                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 

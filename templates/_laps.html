@@ -18,7 +18,7 @@
                         <tr>
                             <th scope="row">{{ idx.LapNum }}</th>
                             <td
-                                {% if idx.IsBestLap or idx.IsWorstLap %}
+                                {% if idx.IsBestLap %}
                                     class="table-{% if idx.IsBestLap %}success{% endif %} fw-bold"
                                     style="border-color:revert;"
                                 {% endif %}
@@ -28,7 +28,7 @@
                             <td>{{ idx.DeltaToBestLap | round(3) }}</td>
                             <td>{{ idx.DeltaToBestLapPercent | round() }}</td>
                             <td
-                                {% if idx.IsBestLapDist or idx.IsWorstLapDist %}
+                                {% if idx.IsBestLapDist %}
                                     class="table-{% if idx.IsBestLapDist %}success{% endif %} fw-bold"
                                     style="border-color:revert;"
                                 {% endif %}
@@ -36,16 +36,16 @@
                                 {{ idx.LapDistance | to_km }}
                             </td>
                             <td
-                                {% if idx.IsBestMaxSpeed or idx.IsWorstMaxSpeed %}
-                                    class="table-{% if idx.IsBestMaxSpeed %}success{% elif idx.IsWorstMaxSpeed %}danger{% endif %} fw-bold"
+                                {% if idx.IsBestMaxSpeed %}
+                                    class="table-{% if idx.IsBestMaxSpeed %}success{% endif %} fw-bold"
                                     style="border-color:revert;"
                                 {% endif %}
                             >
                                 {{ idx.SpeedMax | round(3) }}
                             </td>
                             <td
-                                {% if idx.IsBestAvgSpeed or idx.IsWorstAvgSpeed %}
-                                    class="table-{% if idx.IsBestAvgSpeed %}success{% elif idx.IsWorstAvgSpeed %}danger{% endif %} fw-bold"
+                                {% if idx.IsBestAvgSpeed %}
+                                    class="table-{% if idx.IsBestAvgSpeed %}success{% endif %} fw-bold"
                                     style="border-color:revert;"
                                 {% endif %}
                             >

@@ -66,79 +66,77 @@ def upload_file():
                 # Set file path
                 this_file_path = os.path.join(this_folder_path, this_file_name)
 
-            # TRY
-            if is_localhost:
-                # Save upload file to directory
-                request.files['upload_file'].save(this_file_path)
-
-                # Session Info | gets dict
-                session_data = get_session_data(this_file_path)
-
-                # Telemetry Info | gets dataframe
-                telemetry_data = get_telemetry_data(this_file_path)
-
-                # Process selected lap related data | gets dictionary
-                lap_data = process_lap_data(telemetry_data)
-
-                # Split sector data
-                sector_data = process_sector_data(session_data, lap_data)
-
-                """
-                # Dump data into txt file
-                this_chart_data = this_file_name.rsplit('.', 1)[0] + '_chart_data.txt'
-                this_lap_data = this_file_name.rsplit('.', 1)[0] + '_lap_data.txt'
-                this_session_data = this_file_name.rsplit('.', 1)[0] + '_session_data.txt'
-                this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
-                this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
-
-                with open(this_chart_data, "w") as txt_file:
-                    txt_file.write(repr(lap_data['chart_data']))
-                with open(this_lap_data, "w") as txt_file:
-                    txt_file.write(repr(lap_data['lap_data']))
-                with open(this_session_data, "w") as txt_file:
-                    txt_file.write(repr(session_data))
-                with open(this_split_sector_data, "w") as txt_file:
-                    txt_file.write(repr(sector_data['split_sector_data']))
-                with open(this_split_time_data, "w") as txt_file:
-                    txt_file.write(repr(sector_data['split_time_data']))
-                """
-            else:
-                # Connect to SQLite
-                this_db = sqlite3.connect(DATABASE)
-
-                # Convert rows into dictionary-like objects
-                this_db.row_factory = sqlite3.Row
-
-                # Interact with db via cursor() object
-                cursor = this_db.cursor()
-                cursor.execute('SELECT * FROM telemetry WHERE name = ?', (this_file_name,))
-
-                this_demo = cursor.fetchone()
-
-                # Assign with eval() to convert str to dict
-                lap_data = {
-                    'chart_data': eval(this_demo['chart_data']),
-                    'lap_data': eval(this_demo['lap_data']),
-                }
-                session_data = eval(this_demo['session_data'])
-                sector_data = {
-                    'split_sector_data': eval(this_demo['split_sector_data']),
-                    'split_time_data': eval(this_demo['split_time_data']),
-                }
-
-                this_db.close()
-
-            return render_template(
-                'display.html',
-                chart_info=lap_data['chart_data'],
-                lap_info=lap_data['lap_data'],
-                session_info=session_data,
-                split_sector_info=sector_data['split_sector_data'],
-                split_time_info=sector_data['split_time_data'],
-                yaml_info=yaml_data,
-            )
             try:
-                print('hi')
+                if is_localhost:
+                    # Save upload file to directory
+                    request.files['upload_file'].save(this_file_path)
+
+                    # Session Info | gets dict
+                    session_data = get_session_data(this_file_path)
+
+                    # Telemetry Info | gets dataframe
+                    telemetry_data = get_telemetry_data(this_file_path)
+
+                    # Process selected lap related data | gets dictionary
+                    lap_data = process_lap_data(telemetry_data)
+
+                    # Split sector data
+                    sector_data = process_sector_data(session_data, lap_data)
+
+                    """
+                    # Dump data into txt file
+                    this_chart_data = this_file_name.rsplit('.', 1)[0] + '_chart_data.txt'
+                    this_lap_data = this_file_name.rsplit('.', 1)[0] + '_lap_data.txt'
+                    this_session_data = this_file_name.rsplit('.', 1)[0] + '_session_data.txt'
+                    this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
+                    this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
+
+                    with open(this_chart_data, "w") as txt_file:
+                        txt_file.write(repr(lap_data['chart_data']))
+                    with open(this_lap_data, "w") as txt_file:
+                        txt_file.write(repr(lap_data['lap_data']))
+                    with open(this_session_data, "w") as txt_file:
+                        txt_file.write(repr(session_data))
+                    with open(this_split_sector_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['split_sector_data']))
+                    with open(this_split_time_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['split_time_data']))
+                    """
+                else:
+                    # Connect to SQLite
+                    this_db = sqlite3.connect(DATABASE)
+
+                    # Convert rows into dictionary-like objects
+                    this_db.row_factory = sqlite3.Row
+
+                    # Interact with db via cursor() object
+                    cursor = this_db.cursor()
+                    cursor.execute('SELECT * FROM telemetry WHERE name = ?', (this_file_name,))
+
+                    this_demo = cursor.fetchone()
+
+                    # Assign with eval() to convert str to dict
+                    lap_data = {
+                        'chart_data': eval(this_demo['chart_data']),
+                        'lap_data': eval(this_demo['lap_data']),
+                    }
+                    session_data = eval(this_demo['session_data'])
+                    sector_data = {
+                        'split_sector_data': eval(this_demo['split_sector_data']),
+                        'split_time_data': eval(this_demo['split_time_data']),
+                    }
+
+                    this_db.close()
+
+                return render_template(
+                    'display.html',
+                    chart_info=lap_data['chart_data'],
+                    lap_info=lap_data['lap_data'],
+                    session_info=session_data,
+                    split_sector_info=sector_data['split_sector_data'],
+                    split_time_info=sector_data['split_time_data'],
+                    yaml_info=yaml_data,
+                )
             except Exception as err:
                 return f"Error processing file: {err}"
         else:
@@ -393,13 +391,15 @@ def process_sector_data(session, lap):
 
     try:
         for idx in range(len(lap['lap_data'])):
-            previous_section_pct = 0
+            previous_section_pct = 1
             lap_sector_times = []
 
-            for info in session['SplitTimeInfo']['Sectors']:
-                sector_time = lap['lap_data'][idx]['LapTime'] * (info['SectorStartPct'] - previous_section_pct)
-                lap_sector_times.append(sector_time)
-                previous_section_pct = info['SectorStartPct']
+            for sector in reversed(session['SplitTimeInfo']['Sectors']):
+                sector_time = lap['lap_data'][idx]['LapTime'] * (previous_section_pct - sector['SectorStartPct'])
+
+                # Prepend/Insert at index 0
+                lap_sector_times.insert(0, sector_time)
+                previous_section_pct = sector['SectorStartPct']
 
             split_time_dict[idx] = {
                 'LapNum': lap['lap_data'][idx]['LapNum'],
@@ -454,10 +454,9 @@ def process_sector_data(session, lap):
             )
 
         split_sector_dict['SplitSectors'] = {
-            # 'SectorNum': len(split_sector_percents),
             'Percentages': split_sector_percents,
             'SectorPoints': split_sector_points,
-            'SectorColors': split_sector_colors,
+            'SectorColors': split_sector_colors[:len(session['SplitTimeInfo']['Sectors'])],
             'Latitude': split_sector_lats,
             'Longitude': split_sector_lons,
         }

@@ -10,7 +10,7 @@
                     {{ yaml_info['General']['Title']['Label']['en'] }}
                 </span>
 
-                {% if chart_info is defined %}
+                {% if split_sector_info is defined %}
                     <button class="btn btn-outline-info" onclick="showTelemetryData()">
                         <span class="{{ yaml_info['General']['Button']['Telemetry']['Icon'] }}"></span>
                     </button>
@@ -28,7 +28,7 @@
                     </button>
                 {% endfor %}
 
-                {% if session_info is defined or chart_info is defined %}
+                {% if session_info is defined or split_sector_info is defined %}
                     <a class="btn btn-outline-primary" href="{{ url_for('upload_file') }}">
                         <span class="{{ yaml_info['General']['Button']['Home']['Icon'] }}"></span>
                     </a>

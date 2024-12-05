@@ -1,6 +1,6 @@
 // Global var
 let session_sections = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
-let telemetry_sections = ['Charts', 'Laps', 'TrackMaps'];
+let telemetry_sections = ['Laps', 'Charts', 'TrackMaps'];
 
 // Languages
 function switchLanguage(language) {
@@ -62,7 +62,7 @@ function showTelemetryData() {
     // Hide all telemetry sections
     hideSections(telemetry_sections)
 
-    const default_section = document.getElementById('Charts');
+    const default_section = document.getElementById('Laps');
     default_section.style.display = 'block';
 };
 

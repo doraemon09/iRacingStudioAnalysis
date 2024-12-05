@@ -149,9 +149,8 @@ def upload_file():
     demo_files = []
 
     if not is_localhost:
-        """
-        demo_files = os.listdir(DEMO_FILES_DIR)
-        """
+        #demo_files = os.listdir(DEMO_FILES_DIR)
+
         # Connect to db for demo name list
         this_db = sqlite3.connect(DATABASE)
         cursor = this_db.cursor()
@@ -299,10 +298,10 @@ def process_lap_data(ibt_telemetry_data):
 
         # Find best/worst lap
         lap_best = lap_times_valid['LapTime'].idxmin()
-        lap_worst = lap_times_valid['LapTime'].idxmax()
+        #lap_worst = lap_times_valid['LapTime'].idxmax()
 
         lap_time_best = lap_times_valid['LapTime'].min()
-        lap_time_worst = lap_times_valid['LapTime'].max()
+        #lap_time_worst = lap_times_valid['LapTime'].max()
 
         # Find shortest/longest distance
         lap_distance_shortest = lap_times_valid['LapDistance'].min()
@@ -320,13 +319,13 @@ def process_lap_data(ibt_telemetry_data):
 
         # Returns 0/1
         lap_dataframe['IsBestLap'] = lap_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_best else 0)
-        lap_dataframe['IsWorstLap'] = lap_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_worst else 0)
+        #lap_dataframe['IsWorstLap'] = lap_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_worst else 0)
         lap_dataframe['IsBestLapDist'] = lap_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_shortest else 0)
-        lap_dataframe['IsWorstLapDist'] = lap_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_longest else 0)
+        #lap_dataframe['IsWorstLapDist'] = lap_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_longest else 0)
         lap_dataframe['IsBestMaxSpeed'] = lap_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_highest else 0)
-        lap_dataframe['IsWorstMaxSpeed'] = lap_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_lowest else 0)
+        #lap_dataframe['IsWorstMaxSpeed'] = lap_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_lowest else 0)
         lap_dataframe['IsBestAvgSpeed'] = lap_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_highest else 0)
-        lap_dataframe['IsWorstAvgSpeed'] = lap_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_lowest else 0)
+        #lap_dataframe['IsWorstAvgSpeed'] = lap_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_lowest else 0)
 
         # Second run of replace missing data values (NaN) with 0
         lap_dataframe.fillna(0, inplace=True)
@@ -368,7 +367,7 @@ def process_lap_data(ibt_telemetry_data):
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),
                 'LapBest': lap_best.tolist(), # Single value
-                'LapWorst': lap_worst.tolist(), # Single value
+                #'LapWorst': lap_worst.tolist(), # Single value
                 'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
                 'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
                 'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
@@ -388,47 +387,53 @@ def process_sector_data(session, lap):
     """
     Set up data for sector/split lap times
     """
+    split_time_dict = {}
+
+    first_key = next(iter(lap['chart_data']))
+
     try:
-        split_time_dict = {}
-
-        first_key = next(iter(lap['chart_data']))
-
         for idx in range(len(lap['lap_data'])):
-            try:
-                # Inline loop to calculate the split time
-                lap_sector_times = [
-                    lap['lap_data'][idx]['LapTime'] * info['SectorStartPct']
-                    for info in session['SplitTimeInfo']['Sectors']
-                ]
+            previous_section_pct = 0
+            lap_sector_times = []
 
-                split_time_dict[idx] = {
-                    'LapNum': lap['lap_data'][idx]['LapNum'],
-                    'LapTime': lap['lap_data'][idx]['LapTime'],
-                    'LapSectorTimes': lap_sector_times
-                }
-            except Exception as err:
-                # Set to empty if error
-                split_time_dict = {}
-                print(f"Error retrieving data: {err}")
+            for info in session['SplitTimeInfo']['Sectors']:
+                sector_time = lap['lap_data'][idx]['LapTime'] * (info['SectorStartPct'] - previous_section_pct)
+                lap_sector_times.append(sector_time)
+                previous_section_pct = info['SectorStartPct']
 
-        """
-        Set up sector data for track map
-        """
-        split_sector_percents = []
-        split_sector_points = []
-        split_sector_colors = []
-        split_sector_lats = []
-        split_sector_lons = []
+            split_time_dict[idx] = {
+                'LapNum': lap['lap_data'][idx]['LapNum'],
+                'LapTime': lap['lap_data'][idx]['LapTime'],
+                'LapSectorTimes': lap_sector_times
+            }
+    except Exception as err:
+        # Set to empty if error
+        split_time_dict = {}
+        print(f"Error retrieving data: {err}")
 
-        split_sector_dict = {}
+    """
+    Set up sector data for track map
+    """
+    split_sector_percents = []
+    split_sector_points = []
+    split_sector_colors = []
+    split_sector_lats = []
+    split_sector_lons = []
 
-        colors = [
-            'rgb(159, 226, 191)', 'rgb(255, 127, 80)',
-            'rgb(64, 224, 208)', 'rgb(189, 183, 107)',
-            'rgb(204, 204, 255)', 'rgb(255, 191, 0)',
-            'rgb(255, 182, 193)', 'rgb(100, 149, 237)',
-        ]
+    split_sector_dict = {}
 
+    colors = [
+        'rgb(159, 226, 191)',
+        'rgb(255, 127, 80)',
+        'rgb(64, 224, 208)',
+        'rgb(189, 183, 107)',
+        'rgb(204, 204, 255)',
+        'rgb(255, 191, 0)',
+        'rgb(255, 182, 193)',
+        'rgb(100, 149, 237)',
+    ]
+
+    try:
         # Gather all the sectors and the percentage values
         for sector in session['SplitTimeInfo']['Sectors']:
             split_sector_percents.append(sector['SectorStartPct'])

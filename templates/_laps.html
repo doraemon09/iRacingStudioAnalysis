@@ -19,7 +19,7 @@
                             <th scope="row">{{ idx.LapNum }}</th>
                             <td
                                 {% if idx.IsBestLap or idx.IsWorstLap %}
-                                    class="table-{% if idx.IsBestLap %}success{% elif idx.IsWorstLap %}danger{% endif %} fw-bold"
+                                    class="table-{% if idx.IsBestLap %}success{% endif %} fw-bold"
                                     style="border-color:revert;"
                                 {% endif %}
                             >
@@ -29,7 +29,7 @@
                             <td>{{ idx.DeltaToBestLapPercent | round() }}</td>
                             <td
                                 {% if idx.IsBestLapDist or idx.IsWorstLapDist %}
-                                    class="table-{% if idx.IsBestLapDist %}success{% elif idx.IsWorstLapDist %}danger{% endif %} fw-bold"
+                                    class="table-{% if idx.IsBestLapDist %}success{% endif %} fw-bold"
                                     style="border-color:revert;"
                                 {% endif %}
                             >

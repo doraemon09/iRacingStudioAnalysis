@@ -9,6 +9,10 @@ Config:
         Extensions: "ibt"
         Folder: "uploads"
 
+    Demo:
+        Extentions: "txt"
+        Folder: "static/demo_files"
+
 # ========================================
 # General ================================
 # ========================================

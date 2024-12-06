@@ -21,7 +21,7 @@
                             <td
                                 {% if idx.IsBestLap %}
                                     class="table-{% if idx.IsBestLap %}success{% endif %} fw-bold"
-                                    style="border-color:revert;"
+                                    style="border-color:revert; background-color: violet;"
                                 {% endif %}
                             >
                                 {{ idx.LapTime | laptimeformat }}
@@ -31,7 +31,7 @@
                             <td
                                 {% if idx.IsBestLapDist %}
                                     class="table-{% if idx.IsBestLapDist %}success{% endif %} fw-bold"
-                                    style="border-color:revert;"
+                                    style="border-color:revert; background-color: violet;"
                                 {% endif %}
                             >
                                 {{ idx.LapDistance | to_km }}
@@ -39,7 +39,7 @@
                             <td
                                 {% if idx.IsBestMaxSpeed %}
                                     class="table-{% if idx.IsBestMaxSpeed %}success{% endif %} fw-bold"
-                                    style="border-color:revert;"
+                                    style="border-color:revert; background-color: violet;"
                                 {% endif %}
                             >
                                 {{ idx.SpeedMax | round(3) }}
@@ -47,7 +47,7 @@
                             <td
                                 {% if idx.IsBestAvgSpeed %}
                                     class="table-{% if idx.IsBestAvgSpeed %}success{% endif %} fw-bold"
-                                    style="border-color:revert;"
+                                    style="border-color:revert; background-color: violet;"
                                 {% endif %}
                             >
                                 {{ idx.SpeedAvg | round(3) }}
@@ -82,7 +82,15 @@
                             <th scope="row">{{ idx }}</th>
                             <td>{{ split_time_info[idx]['LapTime'] | laptimeformat }}</td>
                             {% for time in range(split_time_info[idx]['LapSectorTimes'] | length) %}
-                                <td>{{ split_time_info[idx]['LapSectorTimes'][time] | laptimeformat }}</td>
+                                {% set this_split_time = split_time_info[idx]['LapSectorTimes'][time] %}
+                                <td
+                                    {% if this_split_time == split_report_info['BestSectorTimes'][time] %}
+                                        class="table-success fw-bold"
+                                        style="border-color:revert; background-color: violet;"
+                                    {% endif %}
+                                >
+                                    {{ this_split_time | laptimeformat }}
+                                </td>
                             {% endfor %}
                         </tr>
                     {% endfor %}

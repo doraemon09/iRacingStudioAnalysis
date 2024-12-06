@@ -34,15 +34,6 @@
         <!-- Navbar -->
         {% include '_navbar.html' %}
 
-        <!-- Load Spinner -->
-        <div id="spinner-container" class="container-fluid">
-            <div class="row my-2">
-                <div class="col-md-12">
-                    <span  class="spinner-border ml-auto" role="status" aria-hidden="true"></span>
-                </div>
-            </div>
-        </div>
-
         <div class="container-fluid">
             <div class="row my-2" id="orientation-warning" style="display: none;">
                 <div class="col-md-auto">
@@ -61,6 +52,15 @@
                     <button class="btn btn-secondary">{{ session_info['WeekendInfo']['EventType'] }}</button>
                     <button class="btn btn-secondary">{{ session_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}</button>
                     <button class="btn btn-secondary">{{ session_info['WeekendInfo']['TrackDisplayName'] }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load Spinner -->
+        <div id="spinner-container" class="container-fluid">
+            <div class="row my-2">
+                <div class="col-md-12">
+                    <span  class="spinner-border ml-auto" role="status" aria-hidden="true"></span>
                 </div>
             </div>
         </div>

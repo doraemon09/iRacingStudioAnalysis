@@ -286,13 +286,34 @@ def process_lap_data(ibt_telemetry_data):
         # Replace missing data values (NaN) with 0
         lap_dataframe.fillna(0, inplace=True)
 
-        # Exclude the first and last laps for best lap calculation
-        laps_valid = lap_dataframe['LapNum'].iloc[1:-1]  # Excluding the first and last lap
-        lap_times_valid = lap_dataframe[lap_dataframe['LapNum'].isin(laps_valid)]
+        # Find valid laps if laps are +/- 10% of best lap
+        temp_laps_valid_1 = lap_dataframe['LapNum'].iloc[1:-1]  # Excluding the first and last lap
+        temp_lap_times_valid_1 = lap_dataframe[lap_dataframe['LapNum'].isin(temp_laps_valid_1)]
+        temp_lap_time_best_1 = temp_lap_times_valid_1['LapTime'].min()
 
-        # Find top N fastest laps
-        laps_top2 = lap_times_valid.nsmallest(2,"LapTime")
-        laps_top3 = lap_times_valid.nsmallest(3,"LapTime")
+        # Set upper/lower
+        temp_lower_bound_1 = temp_lap_time_best_1 * 0.90
+        temp_upper_bound_1 = temp_lap_time_best_1 * 1.10
+
+        temp_laps_valid_2 = lap_dataframe[
+            (lap_dataframe['LapTime'] >= temp_lower_bound_1) & (lap_dataframe['LapTime'] <= temp_upper_bound_1)
+        ]
+
+        # Run it again to ensure actual best lap is captured, particularly for test sessions.
+        temp_lap_times_valid_2 = lap_dataframe[lap_dataframe['LapNum'].isin(temp_laps_valid_2['LapNum'])]
+        temp_lap_time_best_2 = temp_lap_times_valid_2['LapTime'].min()
+
+        # Set upper/lower
+        temp_lower_bound_2 = temp_lap_time_best_2 * 0.90
+        temp_upper_bound_2 = temp_lap_time_best_2 * 1.10
+
+        temp_laps_valid_2 = lap_dataframe[
+            (lap_dataframe['LapTime'] >= temp_lower_bound_2) & (lap_dataframe['LapTime'] <= temp_upper_bound_2)
+        ]
+
+        # Valid laps and lap times
+        laps_valid = temp_laps_valid_2['LapNum']
+        lap_times_valid = lap_dataframe[lap_dataframe['LapNum'].isin(laps_valid)]
 
         # Find best/worst lap
         lap_best = lap_times_valid['LapTime'].idxmin()
@@ -300,6 +321,10 @@ def process_lap_data(ibt_telemetry_data):
 
         lap_time_best = lap_times_valid['LapTime'].min()
         #lap_time_worst = lap_times_valid['LapTime'].max()
+
+        # Find top N fastest laps
+        laps_top2 = lap_times_valid.nsmallest(2,"LapTime")
+        laps_top3 = lap_times_valid.nsmallest(3,"LapTime")
 
         # Find shortest/longest distance
         lap_distance_shortest = lap_times_valid['LapDistance'].min()

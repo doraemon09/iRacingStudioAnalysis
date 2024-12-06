@@ -88,6 +88,7 @@ def upload_file():
                     this_chart_data = this_file_name.rsplit('.', 1)[0] + '_chart_data.txt'
                     this_lap_data = this_file_name.rsplit('.', 1)[0] + '_lap_data.txt'
                     this_session_data = this_file_name.rsplit('.', 1)[0] + '_session_data.txt'
+                    this_split_report_data = this_file_name.rsplit('.', 1)[0] + '_split_report_data.txt'
                     this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
                     this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
 
@@ -97,6 +98,8 @@ def upload_file():
                         txt_file.write(repr(lap_data['lap_data']))
                     with open(this_session_data, "w") as txt_file:
                         txt_file.write(repr(session_data))
+                    with open(this_split_report_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['split_report_data']))
                     with open(this_split_sector_data, "w") as txt_file:
                         txt_file.write(repr(sector_data['split_sector_data']))
                     with open(this_split_time_data, "w") as txt_file:
@@ -122,6 +125,7 @@ def upload_file():
                     }
                     session_data = eval(this_demo['session_data'])
                     sector_data = {
+                        'split_report_data': eval(this_demo['split_report_data']),
                         'split_sector_data': eval(this_demo['split_sector_data']),
                         'split_time_data': eval(this_demo['split_time_data']),
                     }
@@ -133,6 +137,7 @@ def upload_file():
                     chart_info=lap_data['chart_data'],
                     lap_info=lap_data['lap_data'],
                     session_info=session_data,
+                    split_report_info=sector_data['split_report_data'],
                     split_sector_info=sector_data['split_sector_data'],
                     split_time_info=sector_data['split_time_data'],
                     yaml_info=yaml_data,
@@ -286,17 +291,18 @@ def process_lap_data(ibt_telemetry_data):
         # Replace missing data values (NaN) with 0
         lap_dataframe.fillna(0, inplace=True)
 
-        # Find valid laps if laps are +/- 10% of best lap
+        # Find valid laps if laps are +/- 15% of best lap
         temp_laps_valid_1 = lap_dataframe['LapNum'].iloc[1:-1]  # Excluding the first and last lap
         temp_lap_times_valid_1 = lap_dataframe[lap_dataframe['LapNum'].isin(temp_laps_valid_1)]
         temp_lap_time_best_1 = temp_lap_times_valid_1['LapTime'].min()
 
         # Set upper/lower
-        temp_lower_bound_1 = temp_lap_time_best_1 * 0.90
-        temp_upper_bound_1 = temp_lap_time_best_1 * 1.10
+        temp_lower_bound_1 = temp_lap_time_best_1 * 0.85
+        temp_upper_bound_1 = temp_lap_time_best_1 * 1.15
 
         temp_laps_valid_2 = lap_dataframe[
-            (lap_dataframe['LapTime'] >= temp_lower_bound_1) & (lap_dataframe['LapTime'] <= temp_upper_bound_1)
+            ((lap_dataframe['LapTime'] >= temp_lower_bound_1) & (lap_dataframe['LapTime'] <= temp_upper_bound_1))
+            & (lap_dataframe.index > 0) # Exclude Lap 0 / out lap
         ]
 
         # Run it again to ensure actual best lap is captured, particularly for test sessions.
@@ -304,11 +310,12 @@ def process_lap_data(ibt_telemetry_data):
         temp_lap_time_best_2 = temp_lap_times_valid_2['LapTime'].min()
 
         # Set upper/lower
-        temp_lower_bound_2 = temp_lap_time_best_2 * 0.90
-        temp_upper_bound_2 = temp_lap_time_best_2 * 1.10
+        temp_lower_bound_2 = temp_lap_time_best_2 * 0.85
+        temp_upper_bound_2 = temp_lap_time_best_2 * 1.15
 
         temp_laps_valid_2 = lap_dataframe[
-            (lap_dataframe['LapTime'] >= temp_lower_bound_2) & (lap_dataframe['LapTime'] <= temp_upper_bound_2)
+            ((lap_dataframe['LapTime'] >= temp_lower_bound_2) & (lap_dataframe['LapTime'] <= temp_upper_bound_2))
+            & (lap_dataframe.index > 0) # Exclude Lap 0 / out lap
         ]
 
         # Valid laps and lap times
@@ -390,6 +397,7 @@ def process_lap_data(ibt_telemetry_data):
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),
                 'LapBest': lap_best.tolist(), # Single value
+                'LapsValid': laps_valid.tolist(),
                 #'LapWorst': lap_worst.tolist(), # Single value
                 'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
                 'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
@@ -413,12 +421,14 @@ def process_sector_data(session, lap):
     split_time_dict = {}
 
     first_key = next(iter(lap['chart_data']))
+    laps_valid = lap['chart_data'][first_key]['LapsValid']
 
     try:
         for idx in range(len(lap['lap_data'])):
             previous_section_pct = 1
             lap_sector_times = []
 
+            # Calculate sector times off lap time
             for sector in reversed(session['SplitTimeInfo']['Sectors']):
                 sector_time = lap['lap_data'][idx]['LapTime'] * (previous_section_pct - sector['SectorStartPct'])
 
@@ -431,6 +441,24 @@ def process_sector_data(session, lap):
                 'LapTime': lap['lap_data'][idx]['LapTime'],
                 'LapSectorTimes': lap_sector_times
             }
+
+        # Initialize variable
+        best_sector_times = [float('inf')] * len(session['SplitTimeInfo']['Sectors'])
+
+        for this_lap in split_time_dict.values():
+            if this_lap['LapNum'] in laps_valid:
+                sector_times = this_lap['LapSectorTimes']
+                for idx in range(len(session['SplitTimeInfo']['Sectors'])):
+                    best_sector_times[idx] = min(best_sector_times[idx], sector_times[idx])
+
+        theoretical_best_lap = sum(best_sector_times)
+        estimated_lap_time = session['DriverInfo']['DriverCarEstLapTime']
+
+        split_report = {
+            'BestSectorTimes': best_sector_times,
+            'TheoreticalBestLap': theoretical_best_lap,
+            'EstimatedLapTime': estimated_lap_time,
+        }
     except Exception as err:
         # Set to empty if error
         split_time_dict = {}
@@ -487,6 +515,7 @@ def process_sector_data(session, lap):
         }
 
         return {
+            'split_report_data': split_report,
             'split_sector_data': split_sector_dict,
             'split_time_data': split_time_dict,
         }
@@ -498,8 +527,8 @@ def process_sector_data(session, lap):
 """
     Custom jinja2 filters
 """
-@app.template_filter('timeformat')
-def timeformat(seconds):
+@app.template_filter('laptimeformat')
+def laptimeformat(seconds):
     mins = int(seconds // 60)
     secs = int(seconds % 60)
     millisecs = round((seconds % 1) * 1000)

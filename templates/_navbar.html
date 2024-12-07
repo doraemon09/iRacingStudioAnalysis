@@ -10,15 +10,15 @@
                     {{ yaml_info['General']['Title']['Label']['en'] }}
                 </span>
 
-                {% if split_sector_info is defined %}
+                {% if sectors_info is defined %}
                     <button class="btn btn-outline-info" onclick="showTelemetryData()">
                         <span class="{{ yaml_info['General']['Button']['Telemetry']['Icon'] }}"></span>
                     </button>
                 {% endif %}
 
-                {% if session_info is defined %}
-                    <button class="btn btn-outline-info" onclick="showSessionData()">
-                        <span class="{{ yaml_info['General']['Button']['Session']['Icon'] }}"></span>
+                {% if static_info is defined %}
+                    <button class="btn btn-outline-info" onclick="showStaticData()">
+                        <span class="{{ yaml_info['General']['Button']['Static']['Icon'] }}"></span>
                     </button>
                 {% endif %}
 
@@ -28,7 +28,7 @@
                     </button>
                 {% endfor %}
 
-                {% if session_info is defined or split_sector_info is defined %}
+                {% if static_info is defined or sectors_info is defined %}
                     <a class="btn btn-outline-primary" href="{{ url_for('upload_file') }}">
                         <span class="{{ yaml_info['General']['Button']['Home']['Icon'] }}"></span>
                     </a>

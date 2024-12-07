@@ -46,10 +46,10 @@ General:
                 en: "Laps"
                 jp: "ラップ"
 
-        Session:
+        Static:
             Icon: "fa-solid fa-circle-info"
             Label:
-                en: "Session Info"
+                en: "Static Info"
                 jp: "セッション情報"
 
         Telemetry:
@@ -112,9 +112,9 @@ General:
             jp: "値"
 
 # ========================================
-# Session ================================
+# Static =================================
 # ========================================
-Session:
+Static:
     WeekendInfo:
         Label:
             en: "Weekend"
@@ -141,8 +141,8 @@ Session:
             jp: "ドライバー"
     SplitTimeInfo:
         Label:
-            en: "Split Time"
-            jp: "スプリット・タイム"
+            en: "Sectors"
+            jp: "セクター"
     CarSetup:
         Label:
             en: "Car Setup"

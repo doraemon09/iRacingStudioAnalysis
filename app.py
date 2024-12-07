@@ -71,39 +71,42 @@ def upload_file():
                     # Save upload file to directory
                     request.files['upload_file'].save(this_file_path)
 
-                    # Session Info | gets dict
-                    session_data = get_session_data(this_file_path)
+                    # Static Info | gets dict
+                    static_data = get_static_data(this_file_path)
 
                     # Telemetry Info | gets dataframe
                     telemetry_data = get_telemetry_data(this_file_path)
 
                     # Process selected lap related data | gets dictionary
-                    lap_data = process_lap_data(telemetry_data)
+                    session_data = process_session_data(telemetry_data)
 
-                    # Split sector data
-                    sector_data = process_sector_data(session_data, lap_data)
+                    # Sectors data
+                    sectors_data = process_sectors_data(static_data, session_data)
 
                     """
                     # Dump data into txt file
-                    this_chart_data = this_file_name.rsplit('.', 1)[0] + '_chart_data.txt'
-                    this_lap_data = this_file_name.rsplit('.', 1)[0] + '_lap_data.txt'
-                    this_session_data = this_file_name.rsplit('.', 1)[0] + '_session_data.txt'
+                    this_charts_data = this_file_name.rsplit('.', 1)[0] + '_charts_data.txt'
+                    this_laps_data = this_file_name.rsplit('.', 1)[0] + '_laps_data.txt'
+                    this_laps_report_data = this_file_name.rsplit('.', 1)[0] + '_laps_report_data.txt'
+                    this_static_data = this_file_name.rsplit('.', 1)[0] + '_static_data.txt'
                     this_split_report_data = this_file_name.rsplit('.', 1)[0] + '_split_report_data.txt'
                     this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
                     this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
 
                     with open(this_chart_data, "w") as txt_file:
-                        txt_file.write(repr(lap_data['chart_data']))
-                    with open(this_lap_data, "w") as txt_file:
-                        txt_file.write(repr(lap_data['lap_data']))
-                    with open(this_session_data, "w") as txt_file:
-                        txt_file.write(repr(session_data))
+                        txt_file.write(repr(laps_data['charts_data']))
+                    with open(this_laps_data, "w") as txt_file:
+                        txt_file.write(repr(laps_data['laps_data']))
+                    with open(this_laps_report_data, "w") as txt_file:
+                        txt_file.write(repr(laps_data['laps_report_data']))
+                    with open(this_static_data, "w") as txt_file:
+                        txt_file.write(repr(static_data))
                     with open(this_split_report_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['split_report_data']))
+                        txt_file.write(repr(sectors_data['sectors_report_data']))
                     with open(this_split_sector_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['split_sector_data']))
+                        txt_file.write(repr(sectors_data['sectors_data']))
                     with open(this_split_time_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['split_time_data']))
+                        txt_file.write(repr(sectors_data['sector_times_data']))
                     """
                 else:
                     # Connect to SQLite
@@ -119,29 +122,29 @@ def upload_file():
                     this_demo = cursor.fetchone()
 
                     # Assign with eval() to convert str to dict
-                    lap_data = {
-                        'chart_data': eval(this_demo['chart_data']),
-                        'lap_data': eval(this_demo['lap_data']),
+                    session_data = {
+                        'charts_data': eval(this_demo['charts_data']),
+                        'laps_data': eval(this_demo['laps_data']),
                         'laps_report_data': eval(this_demo['laps_report_data']),
                     }
-                    session_data = eval(this_demo['session_data'])
-                    sector_data = {
-                        'split_report_data': eval(this_demo['split_report_data']),
-                        'split_sector_data': eval(this_demo['split_sector_data']),
-                        'split_time_data': eval(this_demo['split_time_data']),
+                    sectors_data = {
+                        'sector_times_data': eval(this_demo['sector_times_data']),
+                        'sectors_data': eval(this_demo['sectors_data']),
+                        'sectors_report_data': eval(this_demo['sectors_report_data']),
                     }
+                    static_data = eval(this_demo['static_data'])
 
                     this_db.close()
 
                 return render_template(
                     'display.html',
-                    chart_info=lap_data['chart_data'],
-                    lap_info=lap_data['lap_data'],
-                    laps_report_info=lap_data['laps_report_data'],
-                    session_info=session_data,
-                    split_report_info=sector_data['split_report_data'],
-                    split_sector_info=sector_data['split_sector_data'],
-                    split_time_info=sector_data['split_time_data'],
+                    charts_info=session_data['charts_data'],
+                    laps_info=session_data['laps_data'],
+                    laps_report_info=session_data['laps_report_data'],
+                    sector_times_info=sectors_data['sector_times_data'],
+                    sectors_info=sectors_data['sectors_data'],
+                    sectors_report_info=sectors_data['sectors_report_data'],
+                    static_info=static_data,
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -173,14 +176,14 @@ def upload_file():
     )
 
 
-# Retrieve session info, ie: Weather and Car Set up
-def get_session_data(filepath):
+# Retrieve static info, ie: Weather and Car Set up
+def get_static_data(filepath):
     try:
-        # Use IRSDK class for session info
-        ibt_session_data = irsdk.IRSDK()
+        # Use IRSDK class for static info
+        ibt_static_data = irsdk.IRSDK()
 
         # Read uploaded file
-        ibt_session_data.startup(test_file=filepath)
+        ibt_static_data.startup(test_file=filepath)
 
         # Parse into readable data
         info_to_process = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo']
@@ -190,9 +193,9 @@ def get_session_data(filepath):
         for header in info_to_process:
             try:
                 # Assigned retrieved data set
-                info_dict[header] = ibt_session_data[header]
+                info_dict[header] = ibt_static_data[header]
             except Exception as err:
-                # Set to empty if header is not found in ibt_session_data
+                # Set to empty if header is not found in ibt_static_data
                 # Which should not happen to begine with
                 info_dict[header] = {}
                 print(f"Error retrieving data for {header}: {err}")
@@ -249,7 +252,7 @@ def process_ibt_telemetry_data(ibt_telemetry_data):
 
 
 # Lap data
-def process_lap_data(ibt_telemetry_data):
+def process_session_data(ibt_telemetry_data):
     try:
         fields_to_process = ['Brake', 'Gear', 'Lap', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
 
@@ -282,7 +285,7 @@ def process_lap_data(ibt_telemetry_data):
         speed_avg = main_dataframe.groupby('Lap')['Time'].mean()
 
         # Build dataframe with lap time and other lap info
-        lap_dataframe = pd.DataFrame({
+        laps_dataframe = pd.DataFrame({
             'LapNum': lap_times.index,
             'LapTime': lap_times.values,
             'LapDistance': lap_distances.values,
@@ -291,82 +294,82 @@ def process_lap_data(ibt_telemetry_data):
         })
 
         # Replace missing data values (NaN) with 0
-        lap_dataframe.fillna(0, inplace=True)
+        laps_dataframe.fillna(0, inplace=True)
 
         # Find valid laps if laps are +/- 15% of best lap
-        temp_laps_valid_1 = lap_dataframe['LapNum'].iloc[1:-1]  # Excluding the first and last lap
-        temp_lap_times_valid_1 = lap_dataframe[lap_dataframe['LapNum'].isin(temp_laps_valid_1)]
+        temp_laps_valid_1 = laps_dataframe['LapNum'].iloc[1:-1]  # Excluding the first and last lap
+        temp_lap_times_valid_1 = laps_dataframe[laps_dataframe['LapNum'].isin(temp_laps_valid_1)]
         temp_lap_time_best_1 = temp_lap_times_valid_1['LapTime'].min()
 
         # Set upper/lower
         temp_lower_bound_1 = temp_lap_time_best_1 * 0.85
         temp_upper_bound_1 = temp_lap_time_best_1 * 1.15
 
-        temp_laps_valid_2 = lap_dataframe[
-            ((lap_dataframe['LapTime'] >= temp_lower_bound_1) & (lap_dataframe['LapTime'] <= temp_upper_bound_1))
-            & (lap_dataframe.index > 0) # Exclude Lap 0 / out lap
+        temp_laps_valid_2 = laps_dataframe[
+            ((laps_dataframe['LapTime'] >= temp_lower_bound_1) & (laps_dataframe['LapTime'] <= temp_upper_bound_1))
+            & (laps_dataframe.index > 0) # Exclude Lap 0 / out lap
         ]
 
         # Run it again to ensure actual best lap is captured, particularly for test sessions.
-        temp_lap_times_valid_2 = lap_dataframe[lap_dataframe['LapNum'].isin(temp_laps_valid_2['LapNum'])]
+        temp_lap_times_valid_2 = laps_dataframe[laps_dataframe['LapNum'].isin(temp_laps_valid_2['LapNum'])]
         temp_lap_time_best_2 = temp_lap_times_valid_2['LapTime'].min()
 
         # Set upper/lower
         temp_lower_bound_2 = temp_lap_time_best_2 * 0.85
         temp_upper_bound_2 = temp_lap_time_best_2 * 1.15
 
-        temp_laps_valid_2 = lap_dataframe[
-            ((lap_dataframe['LapTime'] >= temp_lower_bound_2) & (lap_dataframe['LapTime'] <= temp_upper_bound_2))
-            & (lap_dataframe.index > 0) # Exclude Lap 0 / out lap
+        temp_laps_valid_2 = laps_dataframe[
+            ((laps_dataframe['LapTime'] >= temp_lower_bound_2) & (laps_dataframe['LapTime'] <= temp_upper_bound_2))
+            & (laps_dataframe.index > 0) # Exclude Lap 0 / out lap
         ]
 
         # Valid laps and lap times
-        laps_valid = temp_laps_valid_2['LapNum']
-        lap_times_valid = lap_dataframe[lap_dataframe['LapNum'].isin(laps_valid)]
+        valid_laps = temp_laps_valid_2['LapNum']
+        valid_lap_times = laps_dataframe[laps_dataframe['LapNum'].isin(valid_laps)]
 
         # Find best laps
         lap_nums_to_report = 2
 
-        laps_best = lap_times_valid.nsmallest(lap_nums_to_report,"LapTime") # Fastest N laps
+        laps_best = valid_lap_times.nsmallest(lap_nums_to_report,"LapTime") # Fastest N laps
         lap_best = laps_best['LapNum'].iloc[0]
         lap_time_best = laps_best['LapTime'].iloc[0]
 
         # Find shortest/longest distance
-        lap_distance_shortest = lap_times_valid['LapDistance'].min()
+        lap_distance_shortest = valid_lap_times['LapDistance'].min()
 
         # Find higest/lowest on both max and avg speed
-        speed_max_highest = lap_times_valid['SpeedMax'].max()
-        speed_avg_highest = lap_times_valid['SpeedAvg'].max()
+        speed_max_highest = valid_lap_times['SpeedMax'].max()
+        speed_avg_highest = valid_lap_times['SpeedAvg'].max()
 
         # Find delta to best lap
-        lap_dataframe['DeltaToBestLap'] = lap_dataframe['LapTime'] - lap_time_best
-        lap_dataframe['DeltaToBestLapPercent'] = ((lap_dataframe['LapTime'] - lap_time_best) / lap_time_best) * 100
+        laps_dataframe['DeltaToBestLap'] = laps_dataframe['LapTime'] - lap_time_best
+        laps_dataframe['DeltaToBestLapPercent'] = ((laps_dataframe['LapTime'] - lap_time_best) / lap_time_best) * 100
 
         """# Returns 0/1
-        lap_dataframe['IsBestLap'] = lap_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_best else 0)
-        lap_dataframe['IsBestLapDist'] = lap_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_shortest else 0)
-        lap_dataframe['IsBestMaxSpeed'] = lap_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_highest else 0)
-        lap_dataframe['IsBestAvgSpeed'] = lap_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_highest else 0)"""
+        laps_dataframe['IsBestLap'] = laps_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_best else 0)
+        laps_dataframe['IsBestLapDist'] = laps_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_shortest else 0)
+        laps_dataframe['IsBestMaxSpeed'] = laps_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_highest else 0)
+        laps_dataframe['IsBestAvgSpeed'] = laps_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_highest else 0)"""
 
         # Second run of replace missing data values (NaN) with 0
-        lap_dataframe.fillna(0, inplace=True)
+        laps_dataframe.fillna(0, inplace=True)
 
         """
         Set up laps report
         """
         laps_report = {
-            'ValidLaps': lap_times_valid['LapNum'].values.tolist(),
-            'TopLaps': lap_times_valid.nsmallest(lap_nums_to_report,"LapTime")['LapNum'].values.tolist(),
-            'TopLapTimes': lap_times_valid.nsmallest(lap_nums_to_report,"LapTime")['LapTime'].values.tolist(),
-            'TopLapDistances': lap_times_valid.nsmallest(lap_nums_to_report,"LapDistance")['LapDistance'].values.tolist(),
-            'TopMaxSpeeds': lap_times_valid.nlargest(lap_nums_to_report,"SpeedMax")['SpeedMax'].values.tolist(),
-            'TopAvgSpeeds': lap_times_valid.nlargest(lap_nums_to_report,"SpeedAvg")['SpeedAvg'].values.tolist(),
+            'ValidLaps': valid_lap_times['LapNum'].values.tolist(),
+            'TopLaps': valid_lap_times.nsmallest(lap_nums_to_report,"LapTime")['LapNum'].values.tolist(),
+            'TopLapTimes': valid_lap_times.nsmallest(lap_nums_to_report,"LapTime")['LapTime'].values.tolist(),
+            'TopLapDistances': valid_lap_times.nsmallest(lap_nums_to_report,"LapDistance")['LapDistance'].values.tolist(),
+            'TopMaxSpeeds': valid_lap_times.nlargest(lap_nums_to_report,"SpeedMax")['SpeedMax'].values.tolist(),
+            'TopAvgSpeeds': valid_lap_times.nlargest(lap_nums_to_report,"SpeedAvg")['SpeedAvg'].values.tolist(),
         }
 
         """
         Set up data for charts
         """
-        chart_dict = {}
+        charts_dict = {}
 
         # Reference lap
         lap_reference_dataframe = main_dataframe[main_dataframe['Lap'] == lap_best][main_dataframe.columns.tolist()]
@@ -389,7 +392,7 @@ def process_lap_data(ibt_telemetry_data):
             delta_speeds = lap_interpolated_speeds - lap_reference_dataframe['Speed'].values
             delta_laptimes = lap_interpolated_laptimes - lap_reference_dataframe['Time'].values
 
-            chart_dict[lap] = {
+            charts_dict[lap] = {
                 'LapTime': chart_dataframe['Time'].values.tolist(),
                 'Brake': chart_dataframe['Brake'].values.tolist(),
                 'Throttle': chart_dataframe['Throttle'].values.tolist(),
@@ -405,8 +408,8 @@ def process_lap_data(ibt_telemetry_data):
             }
 
         return {
-            'chart_data': chart_dict,
-            'lap_data': lap_dataframe.to_dict(orient='records'),
+            'charts_data': charts_dict,
+            'laps_data': laps_dataframe.to_dict(orient='records'),
             'laps_report_data': laps_report,
         }
     except Exception as err:
@@ -415,67 +418,67 @@ def process_lap_data(ibt_telemetry_data):
 
 
 # Lap Sectors
-def process_sector_data(session, lap):
+def process_sectors_data(static_data, session_data):
     """
     Set up data for sector/split lap times
     """
-    split_time_dict = {}
+    sector_times_dict = {}
 
-    laps_valid = lap['laps_report_data']['ValidLaps']
+    valid_laps = session_data['laps_report_data']['ValidLaps']
 
     try:
-        for idx in range(len(lap['lap_data'])):
+        for idx in range(len(session_data['laps_data'])):
             previous_section_pct = 1
             lap_sector_times = []
 
             # Calculate sector times off lap time
-            for sector in reversed(session['SplitTimeInfo']['Sectors']):
-                sector_time = lap['lap_data'][idx]['LapTime'] * (previous_section_pct - sector['SectorStartPct'])
+            for sector in reversed(static_data['SplitTimeInfo']['Sectors']):
+                sector_time = session_data['laps_data'][idx]['LapTime'] * (previous_section_pct - sector['SectorStartPct'])
 
                 # Prepend/Insert at index 0
                 lap_sector_times.insert(0, sector_time)
                 previous_section_pct = sector['SectorStartPct']
 
-            split_time_dict[idx] = {
-                'LapNum': lap['lap_data'][idx]['LapNum'],
-                'LapTime': lap['lap_data'][idx]['LapTime'],
+            sector_times_dict[idx] = {
+                'LapNum': session_data['laps_data'][idx]['LapNum'],
+                'LapTime': session_data['laps_data'][idx]['LapTime'],
                 'LapSectorTimes': lap_sector_times
             }
 
         # Initialize variable
-        best_sector_times = [float('inf')] * len(session['SplitTimeInfo']['Sectors'])
+        best_sector_times = [float('inf')] * len(static_data['SplitTimeInfo']['Sectors'])
 
-        for this_lap in split_time_dict.values():
-            if this_lap['LapNum'] in laps_valid:
+        for this_lap in sector_times_dict.values():
+            if this_lap['LapNum'] in valid_laps:
                 sector_times = this_lap['LapSectorTimes']
-                for idx in range(len(session['SplitTimeInfo']['Sectors'])):
+                for idx in range(len(static_data['SplitTimeInfo']['Sectors'])):
                     best_sector_times[idx] = min(best_sector_times[idx], sector_times[idx])
 
         theoretical_best_lap = sum(best_sector_times)
-        estimated_lap_time = session['DriverInfo']['DriverCarEstLapTime']
+        estimated_lap_time = static_data['DriverInfo']['DriverCarEstLapTime']
 
-        split_report = {
+        sectors_report = {
             'BestSectorTimes': best_sector_times,
             'TheoreticalBestLap': theoretical_best_lap,
             'EstimatedLapTime': estimated_lap_time,
         }
     except Exception as err:
         # Set to empty if error
-        split_time_dict = {}
+        sector_times_dict = {}
         print(f"Error retrieving data: {err}")
 
     """
     Set up sector data for track map
     """
-    first_key = next(iter(lap['chart_data']))
+    first_key = next(iter(session_data['charts_data']))
 
-    split_sector_percents = []
-    split_sector_points = []
-    split_sector_colors = []
-    split_sector_lats = []
-    split_sector_lons = []
+    sector_percents = []
+    sector_points = []
+    sector_colors = []
+    sector_lats = []
+    sector_lons = []
 
-    split_sector_dict = {}
+    sectors_dict = {}
 
     colors = [
         'rgb(159, 226, 191)',
@@ -490,36 +493,36 @@ def process_sector_data(session, lap):
 
     try:
         # Gather all the sectors and the percentage values
-        for sector in session['SplitTimeInfo']['Sectors']:
-            split_sector_percents.append(sector['SectorStartPct'])
+        for sector in static_data['SplitTimeInfo']['Sectors']:
+            sector_percents.append(sector['SectorStartPct'])
 
         # Find lat/lon estimates by multiplying the list length
         # and use that list position to retrieve the coordinates
-        for percent in split_sector_percents:
-            split_sector_points.append(round(len(lap['chart_data'][first_key]['GPSLatitudeRefLap']) * percent))
-            split_sector_colors.extend(colors)
+        for percent in sector_percents:
+            sector_points.append(round(len(session_data['charts_data'][first_key]['GPSLatitudeRefLap']) * percent))
+            sector_colors.extend(colors)
 
-            split_sector_lats.append(
-                lap['chart_data'][first_key]['GPSLatitudeRefLap']
-                [round(len(lap['chart_data'][first_key]['GPSLatitudeRefLap']) * percent)]
+            sector_lats.append(
+                session_data['charts_data'][first_key]['GPSLatitudeRefLap']
+                [round(len(session_data['charts_data'][first_key]['GPSLatitudeRefLap']) * percent)]
             )
-            split_sector_lons.append(
-                lap['chart_data'][first_key]['GPSLongitudeRefLap']
-                [round(len(lap['chart_data'][first_key]['GPSLongitudeRefLap']) * percent)]
+            sector_lons.append(
+                session_data['charts_data'][first_key]['GPSLongitudeRefLap']
+                [round(len(session_data['charts_data'][first_key]['GPSLongitudeRefLap']) * percent)]
             )
 
-        split_sector_dict['SplitSectors'] = {
-            'Percentages': split_sector_percents,
-            'SectorPoints': split_sector_points,
-            'SectorColors': split_sector_colors[:len(session['SplitTimeInfo']['Sectors'])],
-            'Latitude': split_sector_lats,
-            'Longitude': split_sector_lons,
+        sectors_dict['Sectors'] = {
+            'Percentages': sector_percents,
+            'SectorPoints': sector_points,
+            'SectorColors': sector_colors[:len(static_data['SplitTimeInfo']['Sectors'])],
+            'Latitude': sector_lats,
+            'Longitude': sector_lons,
         }
 
         return {
-            'split_report_data': split_report,
-            'split_sector_data': split_sector_dict,
-            'split_time_data': split_time_dict,
+            'sectors_report_data': sectors_report,
+            'sectors_data': sectors_dict,
+            'sector_times_data': sector_times_dict,
         }
     except Exception as err:
         print(f"Error processing sector data: {err}")

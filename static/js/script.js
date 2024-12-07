@@ -1,5 +1,5 @@
 // Global var
-let session_sections = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
+let static_sections = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
 let telemetry_sections = ['Laps', 'Charts', 'TrackMaps'];
 
 // Languages
@@ -24,26 +24,26 @@ function hideSections(section_list) {
     });
 };
 
-// Session Info section
-function showSessionData() {
-    document.getElementById('session_data').style.display = 'block';
+// Static Info section
+function showStaticData() {
+    document.getElementById('static_data').style.display = 'block';
 
     // Check if exists
     if(document.getElementById('telemetry_data')) {
         document.getElementById('telemetry_data').style.display = 'none';
     };
 
-    // Hide all session sections
-    hideSections(session_sections)
+    // Hide all static sections
+    hideSections(static_sections)
 
     const default_section = document.getElementById('WeekendInfo');
     default_section.style.display = 'block';
 };
 
-// Session Info buttons
-function showSessionSection(section) {
-    // Hide all session sections
-    hideSections(session_sections)
+// Static Info buttons
+function showStaticSection(section) {
+    // Hide all static sections
+    hideSections(static_sections)
 
     // Show selected section
     const this_section = document.getElementById(section);
@@ -55,8 +55,8 @@ function showTelemetryData() {
     document.getElementById('telemetry_data').style.display = 'block';
 
     // Check if exists
-    if(document.getElementById('session_data')) {
-        document.getElementById('session_data').style.display = 'none';
+    if(document.getElementById('static_data')) {
+        document.getElementById('static_data').style.display = 'none';
     };
 
     // Hide all telemetry sections
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if(document.getElementById('telemetry_data')) {
             showTelemetryData();
         } else {
-            showSessionData();
+            showStaticData();
         }
 
         // Turn the table into a DataTable

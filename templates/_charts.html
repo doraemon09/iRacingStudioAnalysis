@@ -17,7 +17,7 @@
                     */
                     var chartDeltaLapTime_traces = [];
 
-                    {% for lap, data in chart_info.items() %}
+                    {% for lap, data in charts_info.items() %}
                         chartDeltaLapTime_traces.push({
                             x: {{ data['DistanceRefLap'] | tojson }},
                             y: {{ data['LapTimeDelta'] | tojson }},
@@ -52,7 +52,7 @@
                     */
                     var chartDeltaSpeed_traces = [];
 
-                    {% for lap, data in chart_info.items() %}
+                    {% for lap, data in charts_info.items() %}
                         chartDeltaSpeed_traces.push({
                             x: {{ data['DistanceRefLap'] | tojson }},
                             y: {{ data['SpeedDelta'] | tojson }},
@@ -137,7 +137,7 @@
                     */
                     var chartBrakeThrottle_traces = [];
 
-                    {% for lap, data in chart_info.items() %}
+                    {% for lap, data in charts_info.items() %}
                         chartBrakeThrottle_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['Throttle'] | tojson }},
@@ -148,7 +148,7 @@
                         });
                     {% endfor %}
 
-                    {% for lap, data in chart_info.items() %}
+                    {% for lap, data in charts_info.items() %}
                         chartBrakeThrottle_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['Brake'] | tojson }},
@@ -196,7 +196,7 @@
                     */
                     var chartSpeedRpm_traces = [];
 
-                    {% for lap, data in chart_info.items() %}
+                    {% for lap, data in charts_info.items() %}
                         chartSpeedRpm_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['Speed'] | tojson }},
@@ -207,7 +207,7 @@
                         });
                     {% endfor %}
 
-                    {% for lap, data in chart_info.items() %}
+                    {% for lap, data in charts_info.items() %}
                         chartSpeedRpm_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['RPM'] | tojson }},

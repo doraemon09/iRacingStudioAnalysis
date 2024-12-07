@@ -1,13 +1,13 @@
-<div id="session_data" class="container-fluid" style="display: none;">
+<div id="static_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
         <div class="col-md-12">
-            {% for key in yaml_info['Session'] %}
-                <button class="btn btn-info" onclick="showSessionSection('{{ key }}')">
+            {% for key in yaml_info['Static'] %}
+                <button class="btn btn-info" onclick="showStaticSection('{{ key }}')">
                     <span
-                        data-en="{{ yaml_info['Session'][key]['Label']['en'] }}"
-                        data-jp="{{ yaml_info['Session'][key]['Label']['jp'] }}"
+                        data-en="{{ yaml_info['Static'][key]['Label']['en'] }}"
+                        data-jp="{{ yaml_info['Static'][key]['Label']['jp'] }}"
                     >
-                        {{ yaml_info['Session'][key]['Label']['en'] }}
+                        {{ yaml_info['Static'][key]['Label']['en'] }}
                     </span>
                 </button>
             {% endfor %}
@@ -21,10 +21,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['WeekendInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['WeekendInfo']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['WeekendInfo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['WeekendInfo']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['WeekendInfo']['Label']['en'] }}
+                            {{ yaml_info['Static']['WeekendInfo']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -35,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for weekend, info in session_info['WeekendInfo'].items() %}
+                    {% for weekend, info in static_info['WeekendInfo'].items() %}
                         <tr>
                             <th scope="row">{{ weekend }}</th>
                             {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
@@ -56,17 +56,17 @@
         </div>
     </div>
 
-    <!-- Session Info -->
+    <!-- Static Info -->
     <div id="SessionInfo" class="row my-2" style="display: none;">
         <div class="col-md-12">
             <table class="table table-hover">
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['SessionInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['SessionInfo']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['SessionInfo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['SessionInfo']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['SessionInfo']['Label']['en'] }}
+                            {{ yaml_info['Static']['SessionInfo']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -77,8 +77,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for session_info in session_info['SessionInfo']['Sessions'] %}
-                        {% for session, info in session_info.items() %}
+                    {% for static_info in static_info['SessionInfo']['Sessions'] %}
+                        {% for session, info in static_info.items() %}
                             <tr>
                                 <th scope="row">{{ session }}</th>
                                 {% if info is sequence and info|length == 1 %} <!-- use 'sequence' to check if list/tuple -->
@@ -109,10 +109,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['QualifyResultsInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['QualifyResultsInfo']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['QualifyResultsInfo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['QualifyResultsInfo']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['QualifyResultsInfo']['Label']['en'] }}
+                            {{ yaml_info['Static']['QualifyResultsInfo']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -123,7 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for qualify in session_info['QualifyResultsInfo']['Results'] %}
+                    {% for qualify in static_info['QualifyResultsInfo']['Results'] %}
                         <tr>
                             <th scope="row">Position {{ qualify['Position'] }}</th>
                                 <td>
@@ -147,10 +147,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['SplitTimeInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['SplitTimeInfo']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['SplitTimeInfo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['SplitTimeInfo']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['SplitTimeInfo']['Label']['en'] }}
+                            {{ yaml_info['Static']['SplitTimeInfo']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -161,7 +161,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for split_time in session_info['SplitTimeInfo']['Sectors'] %}
+                    {% for split_time in static_info['SplitTimeInfo']['Sectors'] %}
                         {% for sector, info in split_time.items() %}
                             <tr>
                                 <th scope="row">{{ sector }}</th>
@@ -181,10 +181,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['CarSetup']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['CarSetup']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['CarSetup']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['CarSetup']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['CarSetup']['Label']['en'] }}
+                            {{ yaml_info['Static']['CarSetup']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -195,7 +195,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for setup, info in session_info['CarSetup'].items() %}
+                    {% for setup, info in static_info['CarSetup'].items() %}
                         <tr>
                             <th scope="row">{{ setup }}</th>
                             {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
@@ -234,10 +234,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['DriverInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['DriverInfo']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['DriverInfo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['DriverInfo']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['DriverInfo']['Label']['en'] }}
+                            {{ yaml_info['Static']['DriverInfo']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -248,7 +248,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for driver, info in session_info['DriverInfo'].items() %}
+                    {% for driver, info in static_info['DriverInfo'].items() %}
                         {% if driver == 'Drivers' %}
                             {% for info_options in info %}
                                 <tr>
@@ -286,10 +286,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['RadioInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['RadioInfo']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['RadioInfo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['RadioInfo']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['RadioInfo']['Label']['en'] }}
+                            {{ yaml_info['Static']['RadioInfo']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -300,7 +300,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for radio, info in session_info['RadioInfo'].items() %}
+                    {% for radio, info in static_info['RadioInfo'].items() %}
                         <tr>
                             <th scope="row">{{ radio }}</th>
                             <td>
@@ -343,10 +343,10 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col"
-                            data-en="{{ yaml_info['Session']['CameraInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Session']['CameraInfo']['Label']['jp'] }}"
+                            data-en="{{ yaml_info['Static']['CameraInfo']['Label']['en'] }}"
+                            data-jp="{{ yaml_info['Static']['CameraInfo']['Label']['jp'] }}"
                         >
-                            {{ yaml_info['Session']['CameraInfo']['Label']['en'] }}
+                            {{ yaml_info['Static']['CameraInfo']['Label']['en'] }}
                         </th>
                         <th scope="col"
                             data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
@@ -357,7 +357,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for camera in session_info['CameraInfo']['Groups'] %}
+                    {% for camera in static_info['CameraInfo']['Groups'] %}
                         <tr>
                             <th scope="row">Group {{ camera['GroupNum'] }}</th>
                             <td>

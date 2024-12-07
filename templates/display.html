@@ -49,9 +49,9 @@
 
             <div class="row my-2">
                 <div class="col-md-12">
-                    <button class="btn btn-secondary">{{ session_info['WeekendInfo']['EventType'] }}</button>
-                    <button class="btn btn-secondary">{{ session_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}</button>
-                    <button class="btn btn-secondary">{{ session_info['WeekendInfo']['TrackDisplayName'] }}</button>
+                    <button class="btn btn-secondary">{{ static_info['WeekendInfo']['EventType'] }}</button>
+                    <button class="btn btn-secondary">{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}</button>
+                    <button class="btn btn-secondary">{{ static_info['WeekendInfo']['TrackDisplayName'] }}</button>
                 </div>
             </div>
         </div>
@@ -65,13 +65,13 @@
             </div>
         </div>
 
-        <!-- Session Data -->
-        {% if session_info is defined %}
+        <!-- Static Data -->
+        {% if static_info is defined %}
             {% include '_session.html' %}
         {% endif %}
 
         <!-- Telemetry Data -->
-        {% if split_sector_info is defined %}
+        {% if sectors_info is defined %}
             {% include '_telemetry.html' %}
         {% endif %}
     </body>

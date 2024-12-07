@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for idx in lap_info %}
+                    {% for idx in laps_info %}
                         <tr>
                             <th scope="row">{{ idx.LapNum }}</th>
                             <td
@@ -62,8 +62,8 @@
     <div class="row my-2">
         <h3>Sector Times</h3>
         <div class="col-md-6">
-            <span class="btn btn-secondary">Theoretical Best Lap Time: {{ split_report_info['TheoreticalBestLap'] | laptimeformat }}</span>
-            <span class="btn btn-secondary">Vehical Simulated Lap Time: {{ split_report_info['EstimatedLapTime'] | laptimeformat }}</span>
+            <span class="btn btn-secondary">Theoretical Best Lap Time: {{ sectors_report_info['TheoreticalBestLap'] | laptimeformat }}</span>
+            <span class="btn btn-secondary">Vehical Simulated Lap Time: {{ sectors_report_info['EstimatedLapTime'] | laptimeformat }}</span>
         </div>
         <div class="col-md-12 my-2">
             <table class="table table-hover">
@@ -71,20 +71,20 @@
                     <tr>
                         <th scope="col">Lap No.</th>
                         <th scope="col">Lap Time</th>
-                        {% for sector in range(split_time_info[split_time_info.keys() | list | first]['LapSectorTimes'] | length) %}
+                        {% for sector in range(sector_times_info[sector_times_info.keys() | list | first]['LapSectorTimes'] | length) %}
                             <th scope="col">Sector {{ sector + 1 }}</th>
                         {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
-                    {% for idx in split_time_info %}
+                    {% for idx in sector_times_info %}
                         <tr>
                             <th scope="row">{{ idx }}</th>
-                            <td>{{ split_time_info[idx]['LapTime'] | laptimeformat }}</td>
-                            {% for time in range(split_time_info[idx]['LapSectorTimes'] | length) %}
-                                {% set this_split_time = split_time_info[idx]['LapSectorTimes'][time] %}
+                            <td>{{ sector_times_info[idx]['LapTime'] | laptimeformat }}</td>
+                            {% for time in range(sector_times_info[idx]['LapSectorTimes'] | length) %}
+                                {% set this_split_time = sector_times_info[idx]['LapSectorTimes'][time] %}
                                 <td
-                                    {% if this_split_time == split_report_info['BestSectorTimes'][time] %}
+                                    {% if this_split_time == sectors_report_info['BestSectorTimes'][time] %}
                                         class="table-success fw-bold"
                                         style="border-color:revert; background-color: violet;"
                                     {% endif %}

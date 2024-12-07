@@ -30,7 +30,7 @@
                                 {{ idx.LapTime | laptimeformat }}
                             </td>
                             <td>{{ idx.DeltaToBestLap | round(3) }}</td>
-                            <td>{{ idx.DeltaToBestLapPercent | round() }}</td>
+                            <td>{{ idx.DeltaToBestLapPercent | round(2) }}</td>
                             <td
                                 {% if idx.LapDistance == laps_report_info['TopLapDistances'][0] %}
                                     class="table-success fw-bold"

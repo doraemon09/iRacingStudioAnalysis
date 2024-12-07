@@ -88,25 +88,25 @@ def upload_file():
                     this_charts_data = this_file_name.rsplit('.', 1)[0] + '_charts_data.txt'
                     this_laps_data = this_file_name.rsplit('.', 1)[0] + '_laps_data.txt'
                     this_laps_report_data = this_file_name.rsplit('.', 1)[0] + '_laps_report_data.txt'
+                    this_sector_times_data = this_file_name.rsplit('.', 1)[0] + '_sector_times_data.txt'
+                    this_sectors_data = this_file_name.rsplit('.', 1)[0] + '_sectors_data.txt'
+                    this_sectors_report_data = this_file_name.rsplit('.', 1)[0] + '_sectors_report_data.txt'
                     this_static_data = this_file_name.rsplit('.', 1)[0] + '_static_data.txt'
-                    this_split_report_data = this_file_name.rsplit('.', 1)[0] + '_split_report_data.txt'
-                    this_split_sector_data = this_file_name.rsplit('.', 1)[0] + '_split_sector_data.txt'
-                    this_split_time_data = this_file_name.rsplit('.', 1)[0] + '_split_time_data.txt'
 
-                    with open(this_chart_data, "w") as txt_file:
-                        txt_file.write(repr(laps_data['charts_data']))
+                    with open(this_charts_data, "w") as txt_file:
+                        txt_file.write(repr(session_data['charts_data']))
                     with open(this_laps_data, "w") as txt_file:
-                        txt_file.write(repr(laps_data['laps_data']))
+                        txt_file.write(repr(session_data['laps_data']))
                     with open(this_laps_report_data, "w") as txt_file:
-                        txt_file.write(repr(laps_data['laps_report_data']))
+                        txt_file.write(repr(session_data['laps_report_data']))
+                    with open(this_sector_times_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['sector_times_data']))
+                    with open(this_sectors_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['sectors_data']))
+                    with open(this_sectors_report_data, "w") as txt_file:
+                        txt_file.write(repr(sector_data['sectors_report_data']))
                     with open(this_static_data, "w") as txt_file:
                         txt_file.write(repr(static_data))
-                    with open(this_split_report_data, "w") as txt_file:
-                        txt_file.write(repr(sectors_data['sectors_report_data']))
-                    with open(this_split_sector_data, "w") as txt_file:
-                        txt_file.write(repr(sectors_data['sectors_data']))
-                    with open(this_split_time_data, "w") as txt_file:
-                        txt_file.write(repr(sectors_data['sector_times_data']))
                     """
                 else:
                     # Connect to SQLite

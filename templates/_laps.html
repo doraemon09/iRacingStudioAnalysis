@@ -19,9 +19,12 @@
                         <tr>
                             <th scope="row">{{ idx.LapNum }}</th>
                             <td
-                                {% if idx.IsBestLap %}
-                                    class="table-{% if idx.IsBestLap %}success{% endif %} fw-bold"
-                                    style="border-color:revert; background-color: violet;"
+                                {% if idx.LapNum == laps_report_info['TopLaps'][0] %}
+                                    class="table-success fw-bold"
+                                    style="border-color: revert;"
+                                {% elif idx.LapNum == laps_report_info['TopLaps'][1] %}
+                                    class="table-warning fw-bold"
+                                    style="border-color: revert;"
                                 {% endif %}
                             >
                                 {{ idx.LapTime | laptimeformat }}
@@ -29,25 +32,34 @@
                             <td>{{ idx.DeltaToBestLap | round(3) }}</td>
                             <td>{{ idx.DeltaToBestLapPercent | round() }}</td>
                             <td
-                                {% if idx.IsBestLapDist %}
-                                    class="table-{% if idx.IsBestLapDist %}success{% endif %} fw-bold"
-                                    style="border-color:revert; background-color: violet;"
+                                {% if idx.LapDistance == laps_report_info['TopLapDistances'][0] %}
+                                    class="table-success fw-bold"
+                                    style="border-color: revert;"
+                                {% elif idx.LapDistance == laps_report_info['TopLapDistances'][1] %}
+                                    class="table-warning fw-bold"
+                                    style="border-color: revert;"
                                 {% endif %}
                             >
                                 {{ idx.LapDistance | to_km }}
                             </td>
                             <td
-                                {% if idx.IsBestMaxSpeed %}
-                                    class="table-{% if idx.IsBestMaxSpeed %}success{% endif %} fw-bold"
-                                    style="border-color:revert; background-color: violet;"
+                                {% if idx.SpeedMax == laps_report_info['TopMaxSpeeds'][0] %}
+                                    class="table-success fw-bold"
+                                    style="border-color: revert;"
+                                {% elif idx.SpeedMax == laps_report_info['TopMaxSpeeds'][1] %}
+                                    class="table-warning fw-bold"
+                                    style="border-color: revert;"
                                 {% endif %}
                             >
                                 {{ idx.SpeedMax | round(3) }}
                             </td>
                             <td
-                                {% if idx.IsBestAvgSpeed %}
-                                    class="table-{% if idx.IsBestAvgSpeed %}success{% endif %} fw-bold"
-                                    style="border-color:revert; background-color: violet;"
+                                {% if idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][0] %}
+                                    class="table-success fw-bold"
+                                    style="border-color: revert;"
+                                {% elif idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][1] %}
+                                    class="table-warning fw-bold"
+                                    style="border-color: revert;"
                                 {% endif %}
                             >
                                 {{ idx.SpeedAvg | round(3) }}
@@ -86,7 +98,7 @@
                                 <td
                                     {% if this_split_time == sectors_report_info['BestSectorTimes'][time] %}
                                         class="table-success fw-bold"
-                                        style="border-color:revert; background-color: violet;"
+                                        style="border-color: revert;"
                                     {% endif %}
                                 >
                                     {{ this_split_time | laptimeformat }}

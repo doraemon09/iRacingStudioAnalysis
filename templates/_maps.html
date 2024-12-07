@@ -12,8 +12,6 @@
                         GPS: Track Map
                         =========================
                     */
-                    const track_name = "{{ static_info['WeekendInfo']['TrackDisplayName'] }}";
-                    const track_config = "{{ static_info['WeekendInfo']['TrackConfigName'] }}";
                     const vehicle = "{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
 
                     const latitudes = {{ charts_info[charts_info.keys() | list | first]['GPSLatitudeRefLap'] | tojson }};
@@ -137,11 +135,10 @@
                             text: speeds_kmh.slice(sector_start, sector_end),
                             customdata: sector_custom_data,
                             hovertemplate:
-                                '%{customdata[3]}<br>' +
-                                '%{text} km/h<br>' +
-                                '%{customdata[0]} mph<br>' +
-                                '%{customdata[1]} revs/min<br>' +
-                                'Gear: %{customdata[2]}',
+                                '⏱️ %{customdata[3]}<br>' +
+                                '🏎️ %{text} km/h | %{customdata[0]} mph<br>' +
+                                '💨 %{customdata[1]} revs/min<br>' +
+                                '⚙️ %{customdata[2]}',
                             line: {
                                 color: '{{ sectors_info['Sectors']['SectorColors'][idx] }}',
                                 width: 5,
@@ -203,7 +200,7 @@
                     var map_layout = {
                         autosize: true,
                         showlegend: false,
-                        title: track_name + '<br>' + track_config,
+                        title: 'Information by Sectors',
                         geo: {
                             center: {
                                 lat: center_lat,

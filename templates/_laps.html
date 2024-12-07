@@ -95,14 +95,14 @@
                                 <th scope="row">{{ idx }}</th>
                                 <td>{{ sector_times_info[idx]['LapTime'] | laptimeformat }}</td>
                                 {% for time in range(sector_times_info[idx]['LapSectorTimes'] | length) %}
-                                    {% set this_split_time = sector_times_info[idx]['LapSectorTimes'][time] %}
+                                    {% set this_sector_time = sector_times_info[idx]['LapSectorTimes'][time] %}
                                     <td
-                                        {% if this_split_time == sectors_report_info['BestSectorTimes'][time] %}
+                                        {% if this_sector_time == sectors_report_info['BestSectorTimes'][time] %}
                                             class="table-success fw-bold"
                                             style="border-color: revert;"
                                         {% endif %}
                                     >
-                                        {{ this_split_time | laptimeformat }}
+                                        {{ this_sector_time | laptimeformat }}
                                     </td>
                                 {% endfor %}
                             </tr>

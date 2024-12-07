@@ -540,7 +540,7 @@ def to_km(meters):
     return round(meters / 1000, 5)
 
 
-def round_filter(value, decimals=2):
+def round_filter(value, decimals=0):
     try:
         return round(value, decimals)
     except Exception as err:

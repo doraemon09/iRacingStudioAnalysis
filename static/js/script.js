@@ -18,6 +18,7 @@ function switchLanguage(language) {
     });
 };
 
+// Hide sections
 function hideSections(section_list) {
     section_list.forEach(section => {
         document.getElementById(section).style.display = 'none';
@@ -106,6 +107,15 @@ function checkOrientation() {
     if(window.innerWidth < window.innerHeight) {
         document.getElementById('orientation-warning').style.display = 'block';
     };
+};
+
+// Format lap time
+function lapTimeFormat(laptime_seconds) {
+    const minutes = Math.floor(laptime_seconds / 60);
+    const seconds = Math.floor(laptime_seconds % 60);
+    const milliseconds = Math.round((laptime_seconds % 1) * 1000);
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
 };
 
 // On page load

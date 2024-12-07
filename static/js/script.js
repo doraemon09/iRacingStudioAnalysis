@@ -77,7 +77,7 @@ function showTelemetrySection(section) {
     this_section.style.display = 'block';
 
     if(section === 'Charts') {
-        const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedRpm'];
+        const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedGear'];
 
         this_charts.forEach(id => {
             Plotly.relayout(id, {

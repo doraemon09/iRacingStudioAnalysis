@@ -1,113 +1,115 @@
 <div id="Laps" class="row my-2" style="display: none;">
-    <div class="row my-2">
-        <h3>Lap Times</h3>
-        <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Lap No.</th>
-                        <th scope="col">Lap Time</th>
-                        <th scope="col">Delta (s)</th>
-                        <th scope="col">Delta (%)</th>
-                        <th scope="col">Lap Distance (km)</th>
-                        <th scope="col">Speed (kph, Max)</th>
-                        <th scope="col">Speed (kph, Avg)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for idx in laps_info %}
+    <div class="col-md-12">
+        <div class="row my-2">
+            <h3>Lap Times</h3>
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="row">{{ idx.LapNum }}</th>
-                            <td
-                                {% if idx.LapNum == laps_report_info['TopLaps'][0] %}
-                                    class="table-success fw-bold"
-                                    style="border-color: revert;"
-                                {% elif idx.LapNum == laps_report_info['TopLaps'][1] %}
-                                    class="table-warning fw-bold"
-                                    style="border-color: revert;"
-                                {% endif %}
-                            >
-                                {{ idx.LapTime | laptimeformat }}
-                            </td>
-                            <td>{{ idx.DeltaToBestLap | round(3) }}</td>
-                            <td>{{ idx.DeltaToBestLapPercent | round(2) }}</td>
-                            <td
-                                {% if idx.LapDistance == laps_report_info['TopLapDistances'][0] %}
-                                    class="table-success fw-bold"
-                                    style="border-color: revert;"
-                                {% elif idx.LapDistance == laps_report_info['TopLapDistances'][1] %}
-                                    class="table-warning fw-bold"
-                                    style="border-color: revert;"
-                                {% endif %}
-                            >
-                                {{ idx.LapDistance | to_km }}
-                            </td>
-                            <td
-                                {% if idx.SpeedMax == laps_report_info['TopMaxSpeeds'][0] %}
-                                    class="table-success fw-bold"
-                                    style="border-color: revert;"
-                                {% elif idx.SpeedMax == laps_report_info['TopMaxSpeeds'][1] %}
-                                    class="table-warning fw-bold"
-                                    style="border-color: revert;"
-                                {% endif %}
-                            >
-                                {{ idx.SpeedMax | round(3) }}
-                            </td>
-                            <td
-                                {% if idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][0] %}
-                                    class="table-success fw-bold"
-                                    style="border-color: revert;"
-                                {% elif idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][1] %}
-                                    class="table-warning fw-bold"
-                                    style="border-color: revert;"
-                                {% endif %}
-                            >
-                                {{ idx.SpeedAvg | round(3) }}
-                            </td>
+                            <th scope="col">Lap No.</th>
+                            <th scope="col">Lap Time</th>
+                            <th scope="col">Delta (s)</th>
+                            <th scope="col">Delta (%)</th>
+                            <th scope="col">Lap Distance (km)</th>
+                            <th scope="col">Speed (kph, Max)</th>
+                            <th scope="col">Speed (kph, Avg)</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="row my-2">
-        <h3>Sector Times</h3>
-        <div class="col-md-6">
-            <span class="btn btn-secondary">Theoretical Best Lap Time: {{ sectors_report_info['TheoreticalBestLap'] | laptimeformat }}</span>
-            <span class="btn btn-secondary">Vehical Simulated Lap Time: {{ sectors_report_info['EstimatedLapTime'] | laptimeformat }}</span>
-        </div>
-        <div class="col-md-12 my-2">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col">Lap No.</th>
-                        <th scope="col">Lap Time</th>
-                        {% for sector in range(sector_times_info[sector_times_info.keys() | list | first]['LapSectorTimes'] | length) %}
-                            <th scope="col">Sector {{ sector + 1 }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for idx in sector_times_info %}
-                        <tr>
-                            <th scope="row">{{ idx }}</th>
-                            <td>{{ sector_times_info[idx]['LapTime'] | laptimeformat }}</td>
-                            {% for time in range(sector_times_info[idx]['LapSectorTimes'] | length) %}
-                                {% set this_split_time = sector_times_info[idx]['LapSectorTimes'][time] %}
+                    </thead>
+                    <tbody>
+                        {% for idx in laps_info %}
+                            <tr>
+                                <th scope="row">{{ idx.LapNum }}</th>
                                 <td
-                                    {% if this_split_time == sectors_report_info['BestSectorTimes'][time] %}
+                                    {% if idx.LapNum == laps_report_info['TopLaps'][0] %}
                                         class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% elif idx.LapNum == laps_report_info['TopLaps'][1] %}
+                                        class="table-warning fw-bold"
                                         style="border-color: revert;"
                                     {% endif %}
                                 >
-                                    {{ this_split_time | laptimeformat }}
+                                    {{ idx.LapTime | laptimeformat }}
                                 </td>
+                                <td>{{ idx.DeltaToBestLap | round(3) }}</td>
+                                <td>{{ idx.DeltaToBestLapPercent | round(2) }}</td>
+                                <td
+                                    {% if idx.LapDistance == laps_report_info['TopLapDistances'][0] %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% elif idx.LapDistance == laps_report_info['TopLapDistances'][1] %}
+                                        class="table-warning fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ idx.LapDistance | to_km }}
+                                </td>
+                                <td
+                                    {% if idx.SpeedMax == laps_report_info['TopMaxSpeeds'][0] %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% elif idx.SpeedMax == laps_report_info['TopMaxSpeeds'][1] %}
+                                        class="table-warning fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ idx.SpeedMax | round(3) }}
+                                </td>
+                                <td
+                                    {% if idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][0] %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% elif idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][1] %}
+                                        class="table-warning fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ idx.SpeedAvg | round(3) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row my-2">
+            <h3>Sector Times</h3>
+            <div class="col-md-6">
+                <span class="btn btn-secondary">Theoretical Best Lap Time: {{ sectors_report_info['TheoreticalBestLap'] | laptimeformat }}</span>
+                <span class="btn btn-secondary">Vehical Simulated Lap Time: {{ sectors_report_info['EstimatedLapTime'] | laptimeformat }}</span>
+            </div>
+            <div class="col-md-12 my-2">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Lap No.</th>
+                            <th scope="col">Lap Time</th>
+                            {% for sector in range(sector_times_info[sector_times_info.keys() | list | first]['LapSectorTimes'] | length) %}
+                                <th scope="col">Sector {{ sector + 1 }}</th>
                             {% endfor %}
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for idx in sector_times_info %}
+                            <tr>
+                                <th scope="row">{{ idx }}</th>
+                                <td>{{ sector_times_info[idx]['LapTime'] | laptimeformat }}</td>
+                                {% for time in range(sector_times_info[idx]['LapSectorTimes'] | length) %}
+                                    {% set this_split_time = sector_times_info[idx]['LapSectorTimes'][time] %}
+                                    <td
+                                        {% if this_split_time == sectors_report_info['BestSectorTimes'][time] %}
+                                            class="table-success fw-bold"
+                                            style="border-color: revert;"
+                                        {% endif %}
+                                    >
+                                        {{ this_split_time | laptimeformat }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

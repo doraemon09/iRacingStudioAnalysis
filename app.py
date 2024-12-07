@@ -374,8 +374,8 @@ def process_session_data(ibt_telemetry_data):
         lap_reference_dataframe = main_dataframe[main_dataframe['Lap'] == lap_best][main_dataframe.columns.tolist()]
 
         reference_lap = {
-            'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
-            'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
+            'Latitude': lap_reference_dataframe['Lat'].values.tolist(),
+            'Longitude': lap_reference_dataframe['Lon'].values.tolist(),
         }
 
         for lap in laps_best['LapNum'].values.tolist():
@@ -504,16 +504,16 @@ def process_sectors_data(static_data, session_data):
         # Find lat/lon estimates by multiplying the list length
         # and use that list position to retrieve the coordinates
         for percent in sector_percents:
-            sector_points.append(round(len(session_data['reference_lap_data']['GPSLatitudeRefLap']) * percent))
+            sector_points.append(round(len(session_data['reference_lap_data']['Latitude']) * percent))
             sector_colors.extend(colors)
 
             sector_lats.append(
-                session_data['reference_lap_data']['GPSLatitudeRefLap']
-                [round(len(session_data['reference_lap_data']['GPSLatitudeRefLap']) * percent)]
+                session_data['reference_lap_data']['Latitude']
+                [round(len(session_data['reference_lap_data']['Latitude']) * percent)]
             )
             sector_lons.append(
-                session_data['reference_lap_data']['GPSLongitudeRefLap']
-                [round(len(session_data['reference_lap_data']['GPSLongitudeRefLap']) * percent)]
+                session_data['reference_lap_data']['Longitude']
+                [round(len(session_data['reference_lap_data']['Longitude']) * percent)]
             )
 
         sectors_dict['Sectors'] = {

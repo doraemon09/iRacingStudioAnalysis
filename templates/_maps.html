@@ -14,8 +14,8 @@
                     */
                     const vehicle = "{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
 
-                    const latitudes = {{ reference_lap_info['GPSLatitudeRefLap'] | tojson }};
-                    const longitudes = {{ reference_lap_info['GPSLongitudeRefLap'] | tojson }};
+                    const latitudes = {{ reference_lap_info['Latitude'] | tojson }};
+                    const longitudes = {{ reference_lap_info['Longitude'] | tojson }};
 
                     const latitude_start = latitudes[0];
                     const longitude_start = longitudes[0]

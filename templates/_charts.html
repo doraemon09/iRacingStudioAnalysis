@@ -166,7 +166,7 @@
                 <div id="chartBrakeThrottle"></div>
             </div>
             <div class="col-6">
-                <div id="chartSpeedRpm"></div>
+                <div id="chartSpeedGear"></div>
             </div>
 
             <!-- Ployly chart -->
@@ -180,23 +180,31 @@
                     var chartBrakeThrottle_traces = [];
 
                     {% for lap, data in charts_info.items() %}
+                        var throttle_cleaned = {{ data['Throttle'] | tojson }}.map(throttle => throttle.toFixed(3));
+
                         chartBrakeThrottle_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['Throttle'] | tojson }},
                             yaxis: 'y1',
                             mode: 'lines',
                             name: 'L{{ lap }} Throttle',
+                            customdata: throttle_cleaned,
+                            hovertemplate: '🟢 %{customdata}&nbsp;',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
                     {% for lap, data in charts_info.items() %}
+                        var brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => brake.toFixed(3));
+
                         chartBrakeThrottle_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['Brake'] | tojson }},
                             yaxis: 'y2',
                             mode: 'lines',
                             name: 'L{{ lap }} Brake',
+                            customdata: brake_cleaned,
+                            hovertemplate: '🔴 %{customdata}&nbsp;',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
@@ -233,37 +241,46 @@
 
                     /*
                         =========================
-                        Speed and RPM
+                        Speed and Gear
                         =========================
                     */
-                    var chartSpeedRpm_traces = [];
+                    var chartSpeedGear_traces = [];
 
                     {% for lap, data in charts_info.items() %}
-                        chartSpeedRpm_traces.push({
+                        var speeds_cleaned = {{ data['Speed'] | tojson }}.map(speed => (speed * 3.6).toFixed(2));
+
+                        chartSpeedGear_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['Speed'] | tojson }},
                             yaxis: 'y1',
                             mode: 'lines',
                             name: 'L{{ lap }} Speed',
+                            customdata: speeds_cleaned,
+                            hovertemplate: '🏎️ %{customdata} km/h',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
                     {% for lap, data in charts_info.items() %}
-                        chartSpeedRpm_traces.push({
+                        chartSpeedGear_traces.push({
                             x: {{ data['Distance'] | tojson }},
-                            y: {{ data['RPM'] | tojson }},
+                            y: {{ data['Gear'] | tojson }},
                             yaxis: 'y2',
-                            mode: 'lines',
-                            name: 'L{{ lap }} RPM',
+                            mode: 'markers',
+                            marker: {
+                                size: 4,
+                                symbol: 'circle',
+                            },
+                            name: 'L{{ lap }} Gear',
+                            hovertemplate: '⚙️ %{y}&nbsp;',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
-                    var chartSpeedRpm_layout = {
+                    var chartSpeedGear_layout = {
                         autosize: true,
                         showlegend: true,
-                        title: 'Speed and RPM',
+                        title: 'Speed and Gears',
                         xaxis: {
                             title: 'Distance (m)',
                         },
@@ -273,8 +290,9 @@
                             overlaying: 'y2'
                         },
                         yaxis2: {
-                            title: 'RPM (revs/min)',
+                            title: 'Gear',
                             side: 'right',
+                            dtick: 1,
                         },
                         legend: {
                             x: 1.1,
@@ -285,34 +303,34 @@
                     };
 
                     Plotly.newPlot(
-                        'chartSpeedRpm',
-                        chartSpeedRpm_traces,
-                        chartSpeedRpm_layout,
+                        'chartSpeedGear',
+                        chartSpeedGear_traces,
+                        chartSpeedGear_layout,
                     );
 
                     /*
                         =========================
-                        Sync hover on Brake/Throttle and Speed/RPM
+                        Sync hover on Brake/Throttle and Speed/Gear
                         =========================
                     */
                     var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
-                    var chartSpeedRpm = document.getElementById('chartSpeedRpm');
+                    var chartSpeedGear = document.getElementById('chartSpeedGear');
 
                     chartBrakeThrottle.on('plotly_hover', function(data) {
                         var curveNumber = data.points[0].curveNumber;
                         var pointIndex = data.points[0].pointIndex;
 
-                        Plotly.Fx.hover('chartSpeedRpm', [{
+                        Plotly.Fx.hover('chartSpeedGear', [{
                             curveNumber: curveNumber, // match lap trace
                             pointNumber: pointIndex, // match point within the lap trace
                         }]);
                     });
 
                     chartBrakeThrottle.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartSpeedRpm');
+                        Plotly.Fx.unhover('chartSpeedGear');
                     });
 
-                    chartSpeedRpm.on('plotly_hover', function(data) {
+                    chartSpeedGear.on('plotly_hover', function(data) {
                         var curveNumber = data.points[0].curveNumber;
                         var pointIndex = data.points[0].pointIndex;
 
@@ -322,7 +340,7 @@
                         }]);
                     });
 
-                    chartSpeedRpm.on('plotly_unhover', function(data) {
+                    chartSpeedGear.on('plotly_unhover', function(data) {
                         Plotly.Fx.unhover('chartBrakeThrottle');
                     });
                 });

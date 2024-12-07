@@ -77,11 +77,11 @@ def upload_file():
                     # Telemetry Info | gets dataframe
                     telemetry_data = get_telemetry_data(this_file_path)
 
-                    # Process selected lap related data | gets dictionary
+                    # Process selected lap related data | gets dict
                     session_data = process_session_data(telemetry_data)
 
-                    # Sectors data
-                    sectors_data = process_sectors_data(static_data, session_data)
+                    # Sector data | gets dict
+                    sector_data = process_sectors_data(static_data, session_data)
 
                     """
                     # Dump data into txt file
@@ -127,7 +127,7 @@ def upload_file():
                         'laps_data': eval(this_demo['laps_data']),
                         'laps_report_data': eval(this_demo['laps_report_data']),
                     }
-                    sectors_data = {
+                    sector_data = {
                         'sector_times_data': eval(this_demo['sector_times_data']),
                         'sectors_data': eval(this_demo['sectors_data']),
                         'sectors_report_data': eval(this_demo['sectors_report_data']),
@@ -141,9 +141,9 @@ def upload_file():
                     charts_info=session_data['charts_data'],
                     laps_info=session_data['laps_data'],
                     laps_report_info=session_data['laps_report_data'],
-                    sector_times_info=sectors_data['sector_times_data'],
-                    sectors_info=sectors_data['sectors_data'],
-                    sectors_report_info=sectors_data['sectors_report_data'],
+                    sector_times_info=sector_data['sector_times_data'],
+                    sectors_info=sector_data['sectors_data'],
+                    sectors_report_info=sector_data['sectors_report_data'],
                     static_info=static_data,
                     yaml_info=yaml_data,
                 )

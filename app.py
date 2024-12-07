@@ -122,6 +122,7 @@ def upload_file():
                     lap_data = {
                         'chart_data': eval(this_demo['chart_data']),
                         'lap_data': eval(this_demo['lap_data']),
+                        'laps_report_data': eval(this_demo['laps_report_data']),
                     }
                     session_data = eval(this_demo['session_data'])
                     sector_data = {
@@ -136,6 +137,7 @@ def upload_file():
                     'display.html',
                     chart_info=lap_data['chart_data'],
                     lap_info=lap_data['lap_data'],
+                    laps_report_info=lap_data['laps_report_data'],
                     session_info=session_data,
                     split_report_info=sector_data['split_report_data'],
                     split_sector_info=sector_data['split_sector_data'],
@@ -322,43 +324,44 @@ def process_lap_data(ibt_telemetry_data):
         laps_valid = temp_laps_valid_2['LapNum']
         lap_times_valid = lap_dataframe[lap_dataframe['LapNum'].isin(laps_valid)]
 
-        # Find best/worst lap
-        lap_best = lap_times_valid['LapTime'].idxmin()
-        #lap_worst = lap_times_valid['LapTime'].idxmax()
+        # Find best laps
+        lap_nums_to_report = 2
 
-        lap_time_best = lap_times_valid['LapTime'].min()
-        #lap_time_worst = lap_times_valid['LapTime'].max()
-
-        # Find top N fastest laps
-        laps_top2 = lap_times_valid.nsmallest(2,"LapTime")
-        laps_top3 = lap_times_valid.nsmallest(3,"LapTime")
+        laps_best = lap_times_valid.nsmallest(lap_nums_to_report,"LapTime") # Fastest N laps
+        lap_best = laps_best['LapNum'].iloc[0]
+        lap_time_best = laps_best['LapTime'].iloc[0]
 
         # Find shortest/longest distance
         lap_distance_shortest = lap_times_valid['LapDistance'].min()
-        lap_distance_longest = lap_times_valid['LapDistance'].max()
 
         # Find higest/lowest on both max and avg speed
         speed_max_highest = lap_times_valid['SpeedMax'].max()
-        speed_max_lowest = lap_times_valid['SpeedMax'].min()
         speed_avg_highest = lap_times_valid['SpeedAvg'].max()
-        speed_avg_lowest = lap_times_valid['SpeedAvg'].min()
 
         # Find delta to best lap
         lap_dataframe['DeltaToBestLap'] = lap_dataframe['LapTime'] - lap_time_best
         lap_dataframe['DeltaToBestLapPercent'] = ((lap_dataframe['LapTime'] - lap_time_best) / lap_time_best) * 100
 
-        # Returns 0/1
+        """# Returns 0/1
         lap_dataframe['IsBestLap'] = lap_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_best else 0)
-        #lap_dataframe['IsWorstLap'] = lap_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_worst else 0)
         lap_dataframe['IsBestLapDist'] = lap_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_shortest else 0)
-        #lap_dataframe['IsWorstLapDist'] = lap_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_longest else 0)
         lap_dataframe['IsBestMaxSpeed'] = lap_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_highest else 0)
-        #lap_dataframe['IsWorstMaxSpeed'] = lap_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_lowest else 0)
-        lap_dataframe['IsBestAvgSpeed'] = lap_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_highest else 0)
-        #lap_dataframe['IsWorstAvgSpeed'] = lap_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_lowest else 0)
+        lap_dataframe['IsBestAvgSpeed'] = lap_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_highest else 0)"""
 
         # Second run of replace missing data values (NaN) with 0
         lap_dataframe.fillna(0, inplace=True)
+
+        """
+        Set up laps report
+        """
+        laps_report = {
+            'ValidLaps': lap_times_valid['LapNum'].values.tolist(),
+            'TopLaps': lap_times_valid.nsmallest(lap_nums_to_report,"LapTime")['LapNum'].values.tolist(),
+            'TopLapTimes': lap_times_valid.nsmallest(lap_nums_to_report,"LapTime")['LapTime'].values.tolist(),
+            'TopLapDistances': lap_times_valid.nsmallest(lap_nums_to_report,"LapDistance")['LapDistance'].values.tolist(),
+            'TopMaxSpeeds': lap_times_valid.nlargest(lap_nums_to_report,"SpeedMax")['SpeedMax'].values.tolist(),
+            'TopAvgSpeeds': lap_times_valid.nlargest(lap_nums_to_report,"SpeedAvg")['SpeedAvg'].values.tolist(),
+        }
 
         """
         Set up data for charts
@@ -368,7 +371,7 @@ def process_lap_data(ibt_telemetry_data):
         # Reference lap
         lap_reference_dataframe = main_dataframe[main_dataframe['Lap'] == lap_best][main_dataframe.columns.tolist()]
 
-        for lap in laps_top2['LapNum'].values.tolist():
+        for lap in laps_best['LapNum'].values.tolist():
             chart_dataframe = main_dataframe[main_dataframe['Lap'] == lap][main_dataframe.columns.tolist()]
 
             lap_interpolated_speeds = np.interp(
@@ -396,9 +399,6 @@ def process_lap_data(ibt_telemetry_data):
                 'Distance': chart_dataframe['LapDist'].values.tolist(),
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),
-                'LapBest': lap_best.tolist(), # Single value
-                'LapsValid': laps_valid.tolist(),
-                #'LapWorst': lap_worst.tolist(), # Single value
                 'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
                 'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
                 'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
@@ -407,6 +407,7 @@ def process_lap_data(ibt_telemetry_data):
         return {
             'chart_data': chart_dict,
             'lap_data': lap_dataframe.to_dict(orient='records'),
+            'laps_report_data': laps_report,
         }
     except Exception as err:
         print(f"Error processing lap data: {err}")
@@ -420,8 +421,7 @@ def process_sector_data(session, lap):
     """
     split_time_dict = {}
 
-    first_key = next(iter(lap['chart_data']))
-    laps_valid = lap['chart_data'][first_key]['LapsValid']
+    laps_valid = lap['laps_report_data']['ValidLaps']
 
     try:
         for idx in range(len(lap['lap_data'])):
@@ -467,6 +467,8 @@ def process_sector_data(session, lap):
     """
     Set up sector data for track map
     """
+    first_key = next(iter(lap['chart_data']))
+
     split_sector_percents = []
     split_sector_points = []
     split_sector_colors = []

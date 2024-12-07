@@ -88,6 +88,7 @@ def upload_file():
                     this_charts_data = this_file_name.rsplit('.', 1)[0] + '_charts_data.txt'
                     this_laps_data = this_file_name.rsplit('.', 1)[0] + '_laps_data.txt'
                     this_laps_report_data = this_file_name.rsplit('.', 1)[0] + '_laps_report_data.txt'
+                    this_reference_lap_data = this_file_name.rsplit('.', 1)[0] + '_reference_lap_data.txt'
                     this_sector_times_data = this_file_name.rsplit('.', 1)[0] + '_sector_times_data.txt'
                     this_sectors_data = this_file_name.rsplit('.', 1)[0] + '_sectors_data.txt'
                     this_sectors_report_data = this_file_name.rsplit('.', 1)[0] + '_sectors_report_data.txt'
@@ -99,6 +100,8 @@ def upload_file():
                         txt_file.write(repr(session_data['laps_data']))
                     with open(this_laps_report_data, "w") as txt_file:
                         txt_file.write(repr(session_data['laps_report_data']))
+                    with open(this_reference_lap_data, "w") as txt_file:
+                        txt_file.write(repr(session_data['reference_lap_data']))
                     with open(this_sector_times_data, "w") as txt_file:
                         txt_file.write(repr(sector_data['sector_times_data']))
                     with open(this_sectors_data, "w") as txt_file:
@@ -126,6 +129,7 @@ def upload_file():
                         'charts_data': eval(this_demo['charts_data']),
                         'laps_data': eval(this_demo['laps_data']),
                         'laps_report_data': eval(this_demo['laps_report_data']),
+                        'reference_lap_data': eval(this_demo['reference_lap_data']),
                     }
                     sector_data = {
                         'sector_times_data': eval(this_demo['sector_times_data']),
@@ -141,6 +145,7 @@ def upload_file():
                     charts_info=session_data['charts_data'],
                     laps_info=session_data['laps_data'],
                     laps_report_info=session_data['laps_report_data'],
+                    reference_lap_info=session_data['reference_lap_data'],
                     sector_times_info=sector_data['sector_times_data'],
                     sectors_info=sector_data['sectors_data'],
                     sectors_report_info=sector_data['sectors_report_data'],
@@ -368,6 +373,11 @@ def process_session_data(ibt_telemetry_data):
         # Reference lap
         lap_reference_dataframe = main_dataframe[main_dataframe['Lap'] == lap_best][main_dataframe.columns.tolist()]
 
+        reference_lap = {
+            'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
+            'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
+        }
+
         for lap in laps_best['LapNum'].values.tolist():
             chart_dataframe = main_dataframe[main_dataframe['Lap'] == lap][main_dataframe.columns.tolist()]
 
@@ -397,14 +407,15 @@ def process_session_data(ibt_telemetry_data):
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),
                 #'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
-                'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
-                'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
+                #'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
+                #'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
             }
 
         return {
             'charts_data': charts_dict,
             'laps_data': laps_dataframe.to_dict(orient='records'),
             'laps_report_data': laps_report,
+            'reference_lap_data': reference_lap,
         }
     except Exception as err:
         print(f"Error processing lap data: {err}")
@@ -493,16 +504,16 @@ def process_sectors_data(static_data, session_data):
         # Find lat/lon estimates by multiplying the list length
         # and use that list position to retrieve the coordinates
         for percent in sector_percents:
-            sector_points.append(round(len(session_data['charts_data'][first_key]['GPSLatitudeRefLap']) * percent))
+            sector_points.append(round(len(session_data['reference_lap_data']['GPSLatitudeRefLap']) * percent))
             sector_colors.extend(colors)
 
             sector_lats.append(
-                session_data['charts_data'][first_key]['GPSLatitudeRefLap']
-                [round(len(session_data['charts_data'][first_key]['GPSLatitudeRefLap']) * percent)]
+                session_data['reference_lap_data']['GPSLatitudeRefLap']
+                [round(len(session_data['reference_lap_data']['GPSLatitudeRefLap']) * percent)]
             )
             sector_lons.append(
-                session_data['charts_data'][first_key]['GPSLongitudeRefLap']
-                [round(len(session_data['charts_data'][first_key]['GPSLongitudeRefLap']) * percent)]
+                session_data['reference_lap_data']['GPSLongitudeRefLap']
+                [round(len(session_data['reference_lap_data']['GPSLongitudeRefLap']) * percent)]
             )
 
         sectors_dict['Sectors'] = {

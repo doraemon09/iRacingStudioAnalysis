@@ -74,6 +74,28 @@ function showTelemetrySection(section) {
     // Show selected section
     const this_section = document.getElementById(section);
     this_section.style.display = 'block';
+
+    if(section === 'Charts') {
+        const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedRpm'];
+
+        this_charts.forEach(id => {
+            Plotly.relayout(id, {
+                'xaxis.autorange': true,
+                'yaxis.autorange': true,
+            });
+        });
+    };
+
+    if(section === 'TrackMaps') {
+        const this_maps = ['mapSectors'];
+
+        this_maps.forEach(id => {
+            Plotly.relayout(id, {
+                'xaxis.autorange': true,
+                'yaxis.autorange': true,
+            });
+        });
+    };
 };
 
 // Check orientation on mobile

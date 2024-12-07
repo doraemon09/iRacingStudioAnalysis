@@ -396,7 +396,7 @@ def process_session_data(ibt_telemetry_data):
                 'Distance': chart_dataframe['LapDist'].values.tolist(),
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),
-                'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
+                #'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
                 'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
                 'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
             }

@@ -19,7 +19,7 @@
 
                     {% for lap, data in charts_info.items() %}
                         chartDeltaLapTime_traces.push({
-                            x: {{ data['DistanceRefLap'] | tojson }},
+                            x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
                             y: {{ data['LapTimeDelta'] | tojson }},
                             mode: 'lines',
                             name: 'Lap {{ lap }}',
@@ -54,7 +54,7 @@
 
                     {% for lap, data in charts_info.items() %}
                         chartDeltaSpeed_traces.push({
-                            x: {{ data['DistanceRefLap'] | tojson }},
+                            x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
                             y: {{ data['SpeedDelta'] | tojson }},
                             mode: 'lines',
                             name: 'Lap {{ lap }}',

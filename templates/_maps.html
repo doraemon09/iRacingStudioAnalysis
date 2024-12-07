@@ -27,10 +27,10 @@
 
                     // Since both GPS Lat/Lon are data from reference lap aka Best Lap
                     // sensor from best lap will need to be used to match
-                    const speeds = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['Speed'] | tojson }};
-                    const rpms = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['RPM'] | tojson }};
-                    const gears = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['Gear'] | tojson }};
-                    const laptimes = {{ chart_info[chart_info[chart_info.keys() | list | first]['LapBest']]['LapTime'] | tojson }};
+                    const speeds = {{ chart_info[laps_report_info['TopLaps'][0]]['Speed'] | tojson }};
+                    const rpms = {{ chart_info[laps_report_info['TopLaps'][0]]['RPM'] | tojson }};
+                    const gears = {{ chart_info[laps_report_info['TopLaps'][0]]['Gear'] | tojson }};
+                    const laptimes = {{ chart_info[laps_report_info['TopLaps'][0]]['LapTime'] | tojson }};
 
                     // Convert and clean up
                     const speeds_kmh = speeds.map(speed => (speed * 3.6).toFixed(2));

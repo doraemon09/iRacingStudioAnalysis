@@ -345,12 +345,6 @@ def process_session_data(ibt_telemetry_data):
         laps_dataframe['DeltaToBestLap'] = laps_dataframe['LapTime'] - lap_time_best
         laps_dataframe['DeltaToBestLapPercent'] = ((laps_dataframe['LapTime'] - lap_time_best) / lap_time_best) * 100
 
-        """# Returns 0/1
-        laps_dataframe['IsBestLap'] = laps_dataframe['LapTime'].apply(lambda x: 1 if x == lap_time_best else 0)
-        laps_dataframe['IsBestLapDist'] = laps_dataframe['LapDistance'].apply(lambda x: 1 if x == lap_distance_shortest else 0)
-        laps_dataframe['IsBestMaxSpeed'] = laps_dataframe['SpeedMax'].apply(lambda x: 1 if x == speed_max_highest else 0)
-        laps_dataframe['IsBestAvgSpeed'] = laps_dataframe['SpeedAvg'].apply(lambda x: 1 if x == speed_avg_highest else 0)"""
-
         # Second run of replace missing data values (NaN) with 0
         laps_dataframe.fillna(0, inplace=True)
 

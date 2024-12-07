@@ -17,15 +17,36 @@
                     */
                     var chartDeltaLapTime_traces = [];
 
-                    {% for lap, data in charts_info.items() %}
+                    // Show message when 1 lap only
+                    // therefore no data to compare with
+                    {% if (charts_info | length) == 1 %}
                         chartDeltaLapTime_traces.push({
-                            x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
-                            y: {{ data['LapTimeDelta'] | tojson }},
-                            mode: 'lines',
-                            name: 'Lap {{ lap }}',
-                            //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            x: [0.5],
+                            y: [0.5],
+                            mode: 'text',
+                            text: ['No Data Available'],
+                            textfont: {
+                                size: 20,
+                                color: 'red',
+                            },
+                            hoverinfo: 'none',
+                            showlegend: false,
                         });
-                    {% endfor %}
+                    {% else %}
+                        {% for lap, data in charts_info.items() %}
+                            var laptimes_cleaned = {{ data['LapTime'] | tojson }}.map(lapTimeFormat);
+
+                            chartDeltaLapTime_traces.push({
+                                x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
+                                y: {{ data['LapTimeDelta'] | tojson }},
+                                mode: 'lines',
+                                name: 'Lap {{ lap }}',
+                                customdata: laptimes_cleaned,
+                                hovertemplate: '⏱️ %{customdata}',
+                                //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
+                    {% endif %}
 
                     var chartDeltaLapTime_layout = {
                         autosize: true,
@@ -52,15 +73,36 @@
                     */
                     var chartDeltaSpeed_traces = [];
 
-                    {% for lap, data in charts_info.items() %}
+                    // Show message when 1 lap only
+                    // therefore no data to compare with
+                    {% if (charts_info | length) == 1 %}
                         chartDeltaSpeed_traces.push({
-                            x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
-                            y: {{ data['SpeedDelta'] | tojson }},
-                            mode: 'lines',
-                            name: 'Lap {{ lap }}',
-                            //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            x: [0.5],
+                            y: [0.5],
+                            mode: 'text',
+                            text: ['No Data Available'],
+                            textfont: {
+                                size: 20,
+                                color: 'red',
+                            },
+                            hoverinfo: 'none',
+                            showlegend: false,
                         });
-                    {% endfor %}
+                    {% else %}
+                        {% for lap, data in charts_info.items() %}
+                            var speeds_cleaned = {{ data['Speed'] | tojson }}.map(speed => (speed * 3.6).toFixed(2));
+
+                            chartDeltaSpeed_traces.push({
+                                x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
+                                y: {{ data['SpeedDelta'] | tojson }},
+                                mode: 'lines',
+                                name: 'Lap {{ lap }}',
+                                customdata: speeds_cleaned,
+                                hovertemplate: '🏎️ %{customdata} km/h',
+                                //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            });
+                        {% endfor %}
+                    {% endif %}
 
                     var chartDeltaSpeed_layout = {
                         autosize: true,

@@ -39,15 +39,7 @@
                         if (gear === -1) return 'R';
                         return gear.toString();
                     });
-                    const laptimes_cleaned = laptimes.map(laptime => {
-                        const minutes = Math.floor(laptime / 60);
-                        const seconds = Math.floor(laptime % 60);
-                        const milliseconds = Math.round((laptime % 1) * 1000);
-
-                        const laptime_formatted = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
-
-                        return laptime_formatted;
-                    });
+                    const laptimes_cleaned = laptimes.map(lapTimeFormat);
 
                     // Combine latitudes and longitudes into a GeoJSON format for Turf.js
                     const points = latitudes.map((lat, index) => ({

@@ -23,7 +23,7 @@
                             y: {{ data['LapTimeDelta'] | tojson }},
                             mode: 'lines',
                             name: 'Lap {{ lap }}',
-                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
@@ -58,7 +58,7 @@
                             y: {{ data['SpeedDelta'] | tojson }},
                             mode: 'lines',
                             name: 'Lap {{ lap }}',
-                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
@@ -144,7 +144,7 @@
                             yaxis: 'y1',
                             mode: 'lines',
                             name: 'L{{ lap }} Throttle',
-                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
@@ -155,7 +155,7 @@
                             yaxis: 'y2',
                             mode: 'lines',
                             name: 'L{{ lap }} Brake',
-                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
@@ -203,7 +203,7 @@
                             yaxis: 'y1',
                             mode: 'lines',
                             name: 'L{{ lap }} Speed',
-                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 
@@ -214,7 +214,7 @@
                             yaxis: 'y2',
                             mode: 'lines',
                             name: 'L{{ lap }} RPM',
-                            visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
 

@@ -1,3 +1,4 @@
+import copy
 from flask import Flask, render_template, request, redirect, url_for
 import irsdk
 import numpy as np
@@ -437,7 +438,8 @@ def process_sectors_data(static_data, session_data):
     ref_lap_distance = session_data['z_dataframe'][session_data['z_dataframe']['Lap'] == best_lap]['LapDist']
 
     # Duplicate dict to be used to set up start/end position values for each sector
-    ref_sectors = static_data['SplitTimeInfo']
+    # without affecting the original dict/data
+    ref_sectors = copy.deepcopy(static_data['SplitTimeInfo'])
 
     # Calculate start / end points for each sector based on reference lap distance
     for sector in ref_sectors['Sectors']:

@@ -96,6 +96,11 @@ General:
                 en: "Japanese"
                 jp: "日本語"
 
+    Mobile:
+        Label:
+            en: "This site is highly interactive and is best experienced on a desktop for full functionality and optimal viewing."
+            jp: "このサイトには多くのインタラクティブな要素があり、完全な機能と最適な表示を楽しむにはデスクトップでの利用をお勧めします。"
+
     Orientation:
         Label:
             en: "For the best experience, please view this site in portrait mode."

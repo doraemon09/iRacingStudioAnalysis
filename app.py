@@ -416,6 +416,7 @@ def process_session_data(ibt_telemetry_data):
             'laps_data': laps_dataframe.to_dict(orient='records'),
             'laps_report_data': laps_report,
             'reference_lap_data': reference_lap,
+            'z_dataframe': main_dataframe, # Internal use
         }
     except Exception as err:
         print(f"Error processing lap data: {err}")
@@ -425,24 +426,54 @@ def process_session_data(ibt_telemetry_data):
 # Lap Sectors
 def process_sectors_data(static_data, session_data):
     """
-    Set up data for sector/split lap times
+    Set up data for sector lap times
     """
     sector_times_dict = {}
 
     valid_laps = session_data['laps_report_data']['ValidLaps']
+    best_lap = valid_laps[0]
+
+    # Use best lap as reference lap to set start/end sector positions
+    ref_lap_distance = session_data['z_dataframe'][session_data['z_dataframe']['Lap'] == best_lap]['LapDist']
+
+    # Duplicate dict to be used to set up start/end position values for each sector
+    ref_sectors = static_data['SplitTimeInfo']
+
+    # Calculate start / end points for each sector based on reference lap distance
+    for sector in ref_sectors['Sectors']:
+        this_position = round(len(ref_lap_distance) * sector['SectorStartPct'])
+        sector['StartPosition'] = ref_lap_distance.iloc[this_position] if this_position > 0 else 0
+        sector['EndPosition'] = float('inf')
+
+    for idx in range(len(ref_sectors['Sectors']) - 1):
+        current_position = ref_sectors['Sectors'][idx]
+        next_position = ref_sectors['Sectors'][idx + 1]
+        current_position['EndPosition'] = next_position['StartPosition']
 
     try:
         for idx in range(len(session_data['laps_data'])):
-            previous_section_pct = 1
-            lap_sector_times = []
+            # Initialize list with 0 for diff() will be used for calculation
+            this_sector_times = [0]
 
-            # Calculate sector times off lap time
-            for sector in reversed(static_data['SplitTimeInfo']['Sectors']):
-                sector_time = session_data['laps_data'][idx]['LapTime'] * (previous_section_pct - sector['SectorStartPct'])
+            # Drop the first row in case it starts from 0
+            this_lap_dataframe = session_data['z_dataframe'][session_data['z_dataframe']['Lap'] == idx].iloc[1:]
 
-                # Prepend/Insert at index 0
-                lap_sector_times.insert(0, sector_time)
-                previous_section_pct = sector['SectorStartPct']
+            for sector in ref_sectors['Sectors']:
+                # Check if distance value falls between sector start/end positions
+                this_sector = this_lap_dataframe[(this_lap_dataframe['LapDist'] >= sector['StartPosition']) & (this_lap_dataframe['LapDist'] < sector['EndPosition'])]
+
+                # Assign 0 if returns empty, else assign last lap time of the sector
+                this_lap_time = this_sector['Time'].iloc[-1] if not this_sector.empty else 0
+
+                # Append lap time to list
+                this_sector_times.append(this_lap_time)
+
+            # Use diff() to calculate difference between consecutive elements
+            # Returns 1 less element
+            sector_differences = np.diff(this_sector_times)
+
+            # Convert back to list
+            lap_sector_times = sector_differences.tolist()
 
             sector_times_dict[idx] = {
                 'LapNum': session_data['laps_data'][idx]['LapNum'],
@@ -450,7 +481,8 @@ def process_sectors_data(static_data, session_data):
                 'LapSectorTimes': lap_sector_times
             }
 
-        # Initialize variable
+        # Initialize list with a position infinity value as placeholder
+        # then multiplied by number of sectors to complete the list of placeholders
         best_sector_times = [float('inf')] * len(static_data['SplitTimeInfo']['Sectors'])
 
         for this_lap in sector_times_dict.values():

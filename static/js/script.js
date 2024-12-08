@@ -79,8 +79,8 @@ function showTelemetrySection(section) {
     if(section === 'Charts') {
         const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedGear'];
 
-        this_charts.forEach(id => {
-            Plotly.relayout(id, {
+        this_charts.forEach(chart => {
+            Plotly.relayout(chart, {
                 'xaxis.autorange': true,
                 'yaxis.autorange': true,
             });
@@ -90,8 +90,8 @@ function showTelemetrySection(section) {
     if(section === 'TrackMaps') {
         const this_maps = ['mapSectors'];
 
-        this_maps.forEach(id => {
-            Plotly.relayout(id, {
+        this_maps.forEach(map => {
+            Plotly.relayout(map, {
                 'xaxis.autorange': true,
                 'yaxis.autorange': true,
             });
@@ -103,9 +103,9 @@ function showTelemetrySection(section) {
 function checkMobile() {
     document.getElementById('mobile-warning').style.display = 'none';
 
-    is_Mobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    is_mobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-    if(is_Mobile) {
+    if(is_mobile) {
         document.getElementById('mobile-warning').style.display = 'block';
     };
 };

@@ -101,8 +101,14 @@ function showTelemetrySection(section) {
 
 // Check if user is on mobile
 function checkMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
+    document.getElementById('mobile-warning').style.display = 'none';
+
+    is_Mobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    if(is_Mobile) {
+        document.getElementById('mobile-warning').style.display = 'block';
+    };
+};
 
 // Check orientation on mobile
 function checkOrientation() {
@@ -130,9 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     checkOrientation();
 
-    if(checkMobile()) {
-        document.getElementById('mobile-warning').style.display = 'block';
-    }
+    checkMobile();
 
     // Look for index page
     const index_page = document.getElementById('index');

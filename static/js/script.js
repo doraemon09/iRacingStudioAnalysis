@@ -99,6 +99,11 @@ function showTelemetrySection(section) {
     };
 };
 
+// Check if user is on mobile
+function checkMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 // Check orientation on mobile
 function checkOrientation() {
     document.getElementById('orientation-warning').style.display = 'none';
@@ -124,6 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
     switchLanguage(preferredLanguage);
 
     checkOrientation();
+
+    if(checkMobile()) {
+        document.getElementById('mobile-warning').style.display = 'block';
+    }
 
     // Look for index page
     const index_page = document.getElementById('index');

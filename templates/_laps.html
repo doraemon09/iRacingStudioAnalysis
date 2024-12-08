@@ -93,13 +93,20 @@
                         {% for idx in sector_times_info %}
                             <tr>
                                 <th scope="row">{{ idx }}</th>
-                                <td>{{ sector_times_info[idx]['LapTime'] | laptimeformat }}</td>
+                                <td
+                                    {% if idx == laps_report_info['TopLaps'][0] %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ sector_times_info[idx]['LapTime'] | laptimeformat }}
+                                </td>
                                 {% for time in range(sector_times_info[idx]['LapSectorTimes'] | length) %}
                                     {% set this_sector_time = sector_times_info[idx]['LapSectorTimes'][time] %}
                                     <td
                                         {% if this_sector_time == sectors_report_info['BestSectorTimes'][time] %}
                                             class="table-success fw-bold"
-                                            style="border-color: revert;"
+                                            style="border-color: revert; background-color: violet;"
                                         {% endif %}
                                     >
                                         {{ this_sector_time | laptimeformat }}

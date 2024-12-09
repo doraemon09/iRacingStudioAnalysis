@@ -134,10 +134,6 @@ General:
             Label:
                 en: "Live"
                 jp: "ライブ"
-        Sensor:
-            Label:
-                en: "Sensor"
-                jp: "センサー"
         Unit:
             Label:
                 en: "Unit"

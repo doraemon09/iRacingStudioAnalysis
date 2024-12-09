@@ -1,0 +1,53 @@
+<div id="sensor_data" class="container-fluid" style="display: none;">
+    <div class="row my-2">
+        <div class="col-md-12">
+            {% for key in yaml_info['Telemetry'] %}
+                <button class="btn btn-info" onclick="showSensorSection('{{ key }}')">
+                    <span
+                        data-en="{{ yaml_info['Telemetry'][key]['Label']['en'] }}"
+                        data-jp="{{ yaml_info['Telemetry'][key]['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['Telemetry'][key]['Label']['en'] }}
+                    </span>
+                </button>
+            {% endfor %}
+        </div>
+    </div>
+
+    {% for key in yaml_info['Telemetry'] %}
+        <div id="{{ key }}" class="row my-2" style="display: none;">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Sensor</th>
+                            <th scope="col">Unit</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Disk</th>
+                            <th scope="col">Live</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for property in yaml_info['Telemetry'][key]['Property'] %}
+                            <tr>
+                                <th scope="row">{{ property }}</th>
+                                <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Unit'] }}</td>
+                                <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Type'] }}</td>
+                                <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Disk'] }}</td>
+                                <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Live'] }}</td>
+                                <td
+                                    data-en="{{ yaml_info['Telemetry'][key]['Property'][property]['Description']['en'] }}"
+                                    data-jp="{{ yaml_info['Telemetry'][key]['Property'][property]['Description']['jp'] }}"
+                                >
+                                    {{ yaml_info['Telemetry'][key]['Property'][property]['Description']['en'] }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+

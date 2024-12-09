@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
         $('table').DataTable({
             lengthMenu: [ 5, 10, 15, 20, 25 ],
             pageLength: 15,
-            "order": [], // Disable default sort onload
+            'order': [], // Disable default sort onload
         });
     };
 });

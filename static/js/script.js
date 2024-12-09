@@ -91,10 +91,14 @@ function showTelemetrySection(section) {
         const this_maps = ['mapSectors'];
 
         this_maps.forEach(map => {
+            var this_width = document.getElementById('mapSectors').offsetWidth;
+            var this_height = document.getElementById('mapSectors').offsetWidth * 0.75;
+
             Plotly.relayout(map, {
-                'xaxis.autorange': true,
-                'yaxis.autorange': true,
+                'width': this_width,
+                'height': this_height,
             });
+
         });
     };
 };

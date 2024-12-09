@@ -117,10 +117,39 @@ General:
             en: "iRacing Studio Analysis"
             jp: "iRacingスタジオアナリシス"
 
-    Value:
-        Label:
-            en: "Value"
-            jp: "値"
+    Table:
+        Description:
+            Label:
+                en: "Description"
+                jp: "説明"
+        Disk:
+            Label:
+                en: "Disk"
+                jp: "ディスク"
+        Field:
+            Label:
+                en: "Field"
+                jp: "フィールド"
+        Live:
+            Label:
+                en: "Live"
+                jp: "ライブ"
+        Sensor:
+            Label:
+                en: "Sensor"
+                jp: "センサー"
+        Unit:
+            Label:
+                en: "Unit"
+                jp: "単位"
+        Type:
+            Label:
+                en: "Type"
+                jp: "タイプ"
+        Value:
+            Label:
+                en: "Value"
+                jp: "値"
 
 # ========================================
 # Static =================================

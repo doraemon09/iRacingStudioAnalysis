@@ -118,6 +118,14 @@ General:
             jp: "iRacingスタジオアナリシス"
 
     Table:
+        DeltaPct:
+            Label:
+                en: "Delta (%)"
+                jp: "デルタ (%)"
+        DeltaSecs:
+            Label:
+                en: "Delta (s)"
+                jp: "デルタ (秒)"
         Description:
             Label:
                 en: "Description"
@@ -130,10 +138,50 @@ General:
             Label:
                 en: "Field"
                 jp: "フィールド"
+        LapDistanceKm:
+            Label:
+                en: "Distance (km)"
+                jp: "ラップ距離 (km)"
+        LapNum:
+            Label:
+                en: "Lap No."
+                jp: "ラップ番号"
+        LapTime:
+            Label:
+                en: "Time"
+                jp: "タイム"
+        LapTimes:
+            Label:
+                en: "Lap Times"
+                jp: "ラップタイム"
         Live:
             Label:
                 en: "Live"
                 jp: "ライブ"
+        Sector:
+            Label:
+                en: "Sector"
+                jp: "セクター"
+        SectorTimes:
+            Label:
+                en: "Sector Times"
+                jp: "セクタータイム"
+        SimulatedLapTime:
+            Label:
+                en: "Vehicle Simulated Lap Time"
+                jp: "車両シミュレーションラップタイム"
+        SpeedKphAvg:
+            Label:
+                en: "Speed (kph, Avg)"
+                jp: "速度 (km/h, 平均)"
+        SpeedKphMax:
+            Label:
+                en: "Speed (kph, Max)"
+                jp: "速度 (km/h, 最大)"
+        TheoreticalBestLap:
+            Label:
+                en: "Theoretical Best Lap Time"
+                jp: "理論上のベストラップタイム"
         Unit:
             Label:
                 en: "Unit"

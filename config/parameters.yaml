@@ -46,6 +46,12 @@ General:
                 en: "Laps"
                 jp: "ラップ"
 
+        Sensors:
+            Icon: "fa-solid fa-rectangle-list"
+            Label:
+                en: "Sensors"
+                jp: "センサー"
+
         Static:
             Icon: "fa-solid fa-circle-info"
             Label:

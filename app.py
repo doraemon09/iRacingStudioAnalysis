@@ -494,12 +494,12 @@ def process_sectors_data(static_data, session_data):
                     best_sector_times[idx] = min(best_sector_times[idx], sector_times[idx])
 
         theoretical_best_lap = sum(best_sector_times)
-        estimated_lap_time = static_data['DriverInfo']['DriverCarEstLapTime']
+        simulated_lap_time = static_data['DriverInfo']['DriverCarEstLapTime']
 
         sectors_report = {
             'BestSectorTimes': best_sector_times,
             'TheoreticalBestLap': theoretical_best_lap,
-            'EstimatedLapTime': estimated_lap_time,
+            'SimulatedLapTime': simulated_lap_time,
         }
     except Exception as err:
         # Set to empty if error

@@ -1,18 +1,58 @@
 <div id="Laps" class="row my-2" style="display: none;">
     <div class="col-md-12">
         <div class="row my-2">
-            <h3>Lap Times</h3>
+            <h3
+                data-en="{{ yaml_info['General']['Table']['LapTimes']['Label']['en'] }}"
+                data-jp="{{ yaml_info['General']['Table']['LapTimes']['Label']['jp'] }}"
+            >
+                {{ yaml_info['General']['Table']['LapTimes']['Label']['en'] }}
+            </h3>
             <div class="col-md-12">
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col">Lap No.</th>
-                            <th scope="col">Lap Time</th>
-                            <th scope="col">Delta (s)</th>
-                            <th scope="col">Delta (%)</th>
-                            <th scope="col">Lap Distance (km)</th>
-                            <th scope="col">Speed (kph, Max)</th>
-                            <th scope="col">Speed (kph, Avg)</th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['LapNum']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['LapNum']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['LapNum']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['LapTime']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['LapTime']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['LapTime']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['DeltaSecs']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['DeltaSecs']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['DeltaSecs']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['DeltaPct']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['DeltaPct']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['DeltaPct']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['LapDistanceKm']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['LapDistanceKm']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['LapDistanceKm']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['SpeedKphMax']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['SpeedKphMax']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['SpeedKphMax']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['SpeedKphAvg']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['SpeedKphAvg']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['SpeedKphAvg']['Label']['en'] }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,19 +113,56 @@
         </div>
 
         <div class="row my-2">
-            <h3>Sector Times</h3>
+            <h3
+                data-en="{{ yaml_info['General']['Table']['SectorTimes']['Label']['en'] }}"
+                data-jp="{{ yaml_info['General']['Table']['SectorTimes']['Label']['jp'] }}"
+            >
+                {{ yaml_info['General']['Table']['SectorTimes']['Label']['en'] }}
+            </h3>
             <div class="col-md-auto">
-                <span class="btn btn-secondary">Theoretical Best Lap Time: {{ sectors_report_info['TheoreticalBestLap'] | laptimeformat }}</span>
-                <span class="btn btn-secondary">Vehical Simulated Lap Time: {{ sectors_report_info['EstimatedLapTime'] | laptimeformat }}</span>
+                <span class="btn btn-secondary">
+                    <span
+                        data-en="{{ yaml_info['General']['Table']['TheoreticalBestLap']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Table']['TheoreticalBestLap']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Table']['TheoreticalBestLap']['Label']['en'] }}
+                    </span>: {{ sectors_report_info['TheoreticalBestLap'] | laptimeformat }}
+                </span>
+                <span class="btn btn-secondary">
+                    <span
+                        data-en="{{ yaml_info['General']['Table']['SimulatedLapTime']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Table']['SimulatedLapTime']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Table']['SimulatedLapTime']['Label']['en'] }}
+                    </span>: {{ sectors_report_info['SimulatedLapTime'] | laptimeformat }}
+                </span>
             </div>
             <div class="col-md-12 my-2">
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col">Lap No.</th>
-                            <th scope="col">Lap Time</th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['LapNum']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['LapNum']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['LapNum']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['LapTime']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['LapTime']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['LapTime']['Label']['en'] }}
+                            </th>
                             {% for sector in range(sector_times_info[sector_times_info.keys() | list | first]['LapSectorTimes'] | length) %}
-                                <th scope="col">Sector {{ sector + 1 }}</th>
+                                <th scope="col">
+                                    <span
+                                        data-en="{{ yaml_info['General']['Table']['Sector']['Label']['en'] }}"
+                                        data-jp="{{ yaml_info['General']['Table']['Sector']['Label']['jp'] }}"
+                                    >
+                                        {{ yaml_info['General']['Table']['Sector']['Label']['en'] }}
+                                    </span>
+                                    {{ sector + 1 }}
+                                </th>
                             {% endfor %}
                         </tr>
                     </thead>

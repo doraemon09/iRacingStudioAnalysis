@@ -170,7 +170,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Number of team drivers who have run a stint"
-                    jp: "これまでに走行したドライバー数"
+                    jp: "これまでに走行したチームドライバーの数"
 
             DCLapStatus:
                 Unit: ""
@@ -179,7 +179,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Status of driver change lap requirements"
-                    jp: "ドライバー交代ラップステータス"
+                    jp: "ドライバー交代ラップの要件ステータス"
 
             Lap:
                 Unit: ""
@@ -197,7 +197,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Players best lap number"
-                    jp: "ベストラップ番号"
+                    jp: "プレイヤーのベストラップ番号"
 
             LapBestLapTime:
                 Unit: "s"
@@ -206,7 +206,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Players best lap time"
-                    jp: "ベストラップタイム"
+                    jp: "プレイヤーのベストラップタイム"
 
             LapBestNLapLap:
                 Unit: ""
@@ -215,7 +215,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Player last lap in best N average lap time"
-                    jp: "ベストNラップの最後のラップ番号"
+                    jp: "プレイヤーのベストNラップ平均の最後のラップ"
 
             LapBestNLapTime:
                 Unit: "s"
@@ -224,7 +224,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Player best N average lap time"
-                    jp: "ベストNラップ平均タイム"
+                    jp: "プレイヤーのベストNラップ平均タイム"
 
             LapCurrentLapTime:
                 Unit: "s"
@@ -233,7 +233,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Estimate of players current lap time as shown in F3 box"
-                    jp: "現在のラップタイムの推定値（F3ボックスに表示される値）"
+                    jp: "プレイヤーの現在のラップタイムの推定値（F3ボックスに表示される値）"
 
             LapDeltaToBestLap:
                 Unit: "s"
@@ -242,7 +242,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for best lap"
-                    jp: "ベストラップとのタイム差"
+                    jp: "ベストラップとのデルタタイム"
 
             LapDeltaToBestLap_DD:
                 Unit: "s/s"
@@ -251,7 +251,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Rate of change of delta time for best lap"
-                    jp: "ベストラップとのタイム差の変化率"
+                    jp: "ベストラップとのデルタタイムの変化率"
 
             LapDeltaToBestLap_OK:
                 Unit: ""
@@ -260,7 +260,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for best lap is valid"
-                    jp: "ベストラップとのタイム差が有効"
+                    jp: "ベストラップとのデルタタイムが有効"
 
             LapDeltaToOptimalLap:
                 Unit: "s"
@@ -269,7 +269,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for optimal lap"
-                    jp: "オプティマルラップとのタイム差"
+                    jp: "オプティマルラップとのデルタタイム"
 
             LapDeltaToOptimalLap_DD:
                 Unit: "s/s"
@@ -278,7 +278,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Rate of change of delta time for optimal lap"
-                    jp: "オプティマルラップとのタイム差の変化率"
+                    jp: "オプティマルラップとのデルタタイムの変化率"
 
             LapDeltaToOptimalLap_OK:
                 Unit: ""
@@ -287,7 +287,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for optimal lap is valid"
-                    jp: "オプティマルラップとのタイム差が有効"
+                    jp: "オプティマルラップとのデルタタイムが有効"
 
             LapDeltaToSessionBestLap:
                 Unit: "s"
@@ -296,7 +296,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for session best lap"
-                    jp: "セッションベストラップとのタイム差"
+                    jp: "セッションベストラップとのデルタタイム"
 
             LapDeltaToSessionBestLap_DD:
                 Unit: "s/s"
@@ -305,7 +305,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Rate of change of delta time for session best lap"
-                    jp: "セッションベストラップとのタイム差の変化率"
+                    jp: "セッションベストラップとのデルタタイムの変化率"
 
             LapDeltaToSessionBestLap_OK:
                 Unit: ""
@@ -314,7 +314,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for session best lap is valid"
-                    jp: "セッションベストラップとのタイム差が有効"
+                    jp: "セッションベストラップとのデルタタイムが有効"
 
             LapDeltaToSessionLastlLap:
                 Unit: "s"
@@ -323,7 +323,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for session last lap"
-                    jp: "セッションラストラップとのタイム差"
+                    jp: "セッションラストラップとのデルタタイム"
 
             LapDeltaToSessionLastlLap_DD:
                 Unit: "s/s"
@@ -332,7 +332,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Rate of change of delta time for session last lap"
-                    jp: "セッションラストラップとのタイム差の変化率"
+                    jp: "セッションラストラップとのデルタタイムの変化率"
 
             LapDeltaToSessionLastlLap_OK:
                 Unit: ""
@@ -341,7 +341,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for session last lap is valid"
-                    jp: "セッションラストラップとのタイム差が有効"
+                    jp: "セッションラストラップとのデルタタイムが有効"
 
             LapDeltaToSessionOptimalLap:
                 Unit: "s"
@@ -350,7 +350,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for session optimal lap"
-                    jp: "セッションオプティマルラップとのタイム差"
+                    jp: "セッションオプティマルラップとのデルタタイム"
 
             LapDeltaToSessionOptimalLap_DD:
                 Unit: "s/s"
@@ -359,7 +359,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Rate of change of delta time for session optimal lap"
-                    jp: "セッションオプティマルラップとのタイム差の変化率"
+                    jp: "セッションオプティマルラップとのデルタタイムの変化率"
 
             LapDeltaToSessionOptimalLap_OK:
                 Unit: ""
@@ -368,7 +368,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Delta time for session optimal lap is valid"
-                    jp: "セッションオプティマルラップとのタイム差が有効"
+                    jp: "セッションオプティマルラップとのデルタタイムが有効"
 
             LapDist:
                 Unit: "m"
@@ -377,7 +377,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Meters traveled from S/F this lap"
-                    jp: "現在のラップの走行距離"
+                    jp: "今ラップでのS/Fからの走行距離"
 
             LapDistPct:
                 Unit: "%"
@@ -386,7 +386,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Percentage distance around lap"
-                    jp: "現在のラップの進行度"
+                    jp: "ラップ周回の進行率"
 
             LapLasNLapSeq:
                 Unit: ""
@@ -395,7 +395,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Player num consecutive clean laps completed for N average"
-                    jp: "ベストNラップの連続ラップ数"
+                    jp: "プレイヤーのベストNラップ平均のために完了した連続クリーンラップ数"
 
             LapLastLapTime:
                 Unit: "s"
@@ -404,7 +404,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Players last lap time"
-                    jp: "前回のラップタイム"
+                    jp: "プレイヤーの前回のラップタイム"
 
             LapLastNLapTime:
                 Unit: "s"
@@ -413,7 +413,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Player last N average lap time"
-                    jp: "直近Nラップの平均ラップタイム"
+                    jp: "プレイヤーの直近Nラップ平均タイム"
 
             PlayerCarClassPosition:
                 Unit: ""
@@ -422,7 +422,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Players class position in race"
-                    jp: "クラス内順位"
+                    jp: "レース内のプレイヤーのクラス順位"
 
             PlayerCarPosition:
                 Unit: ""
@@ -431,7 +431,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Players position in race"
-                    jp: "全体順位"
+                    jp: "レース内のプレイヤーの順位"
 
             RaceLaps:
                 Unit: ""
@@ -440,7 +440,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Laps completed in race"
-                    jp: "レースの総ラップ数"
+                    jp: "レースで完了したラップ数"
 
     # Vehicle ========================================
     Vehicle:
@@ -455,7 +455,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "0=brake released to 1=max pedal force"
-                    jp: "ブレーキペダル"
+                    jp: "0=ブレーキ解放、1=最大ペダル圧"
 
             BrakeRaw:
                 Unit: "%"
@@ -464,7 +464,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Raw brake input 0=brake released to 1=max pedal force"
-                    jp: "生ブレーキ入力"
+                    jp: "生ブレーキ入力 0=ブレーキ解放、1=最大ペダル圧"
 
             Clutch:
                 Unit: "%"
@@ -473,7 +473,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "0=disengaged to 1=fully engaged"
-                    jp: "クラッチペダル"
+                    jp: "0=解除、1=完全に接続"
 
             EngineWarnings:
                 Unit: "irsdk_EngineWarnings"
@@ -482,7 +482,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Bitfield for warning lights"
-                    jp: "エンジン警告灯"
+                    jp: "警告灯のビットフィールド"
 
             FuelLevel:
                 Unit: "l"
@@ -491,7 +491,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Liters of fuel remaining"
-                    jp: "燃料残量"
+                    jp: "残り燃料リットル"
 
             FuelLevelPct:
                 Unit: "%"
@@ -500,7 +500,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Percent fuel remaining"
-                    jp: "燃料残量パーセンテージ"
+                    jp: "残り燃料パーセンテージ"
 
             FuelPress:
                 Unit: "bar"
@@ -518,7 +518,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine fuel used instantaneous"
-                    jp: "エンジン燃料消費率"
+                    jp: "エンジン燃料消費量（瞬時）"
 
             Gear:
                 Unit: ""
@@ -527,7 +527,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "-1=reverse 0=neutral 1..n=current gear"
-                    jp: "ギア"
+                    jp: "-1=リバース、0=ニュートラル、1..n=現在のギア"
 
             ManifoldPress:
                 Unit: "bar"
@@ -536,7 +536,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine manifold pressure"
-                    jp: "マニホールド圧力"
+                    jp: "エンジンマニホールド圧力"
 
             OilLevel:
                 Unit: "l"
@@ -545,7 +545,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine oil level"
-                    jp: "オイルレベル"
+                    jp: "エンジンオイルレベル"
 
             OilPress:
                 Unit: "bar"
@@ -554,7 +554,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine oil pressure"
-                    jp: "オイル圧力"
+                    jp: "エンジンオイル圧力"
 
             OilTemp:
                 Unit: "C"
@@ -563,7 +563,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine oil temperature"
-                    jp: "オイル温度"
+                    jp: "エンジンオイル温度"
 
             RPM:
                 Unit: "revs/min"
@@ -581,7 +581,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RPM of shifter grinding noise"
-                    jp: "ギアシフトノイズRPM"
+                    jp: "ギアシフトノイズの回転数"
 
             ShiftIndicatorPct:
                 Unit: "%"
@@ -590,7 +590,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "DEPRECATED use DriverCarSLBlinkRPM instead"
-                    jp: "シフトインジケーターパーセンテージ (非推奨)"
+                    jp: "非推奨：DriverCarSLBlinkRPMを使用"
 
             ShiftPowerPct:
                 Unit: "%"
@@ -599,7 +599,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Friction torque applied to gears when shifting or grinding"
-                    jp: "シフトパワーパーセンテージ"
+                    jp: "シフトやギアの摩耗時に適用される摩擦トルク"
 
             Speed:
                 Unit: "m/s"
@@ -608,7 +608,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "GPS vehicle speed"
-                    jp: "車速"
+                    jp: "GPS車速"
 
             SteeringWheelAngle:
                 Unit: "rad"
@@ -617,7 +617,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Steering wheel angle"
-                    jp: "ステアリングホイール角度"
+                    jp: "ステアリングホイールの角度"
 
             SteeringWheelAngleMax:
                 Unit: "rad"
@@ -626,7 +626,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Steering wheel max angle"
-                    jp: "ステアリングホイール最大角度"
+                    jp: "ステアリングホイールの最大角度"
 
             SteeringWheelPctDamper:
                 Unit: "%"
@@ -671,7 +671,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Peak torque mapping to direct input units for FFB"
-                    jp: "フォースフィードバックピークトルク"
+                    jp: "フォースフィードバックのピークトルク（入力単位へのマッピング）"
 
             SteeringWheelTorque:
                 Unit: "N*m"
@@ -680,7 +680,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Output torque on steering shaft"
-                    jp: "ステアリングシャフト出力トルク"
+                    jp: "ステアリングシャフトの出力トルク"
 
             Throttle:
                 Unit: "%"
@@ -707,7 +707,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine voltage"
-                    jp: "電圧"
+                    jp: "エンジン電圧"
 
             WaterLevel:
                 Unit: "l"
@@ -716,7 +716,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine coolant level"
-                    jp: "ウォーターレベル"
+                    jp: "エンジン冷却水レベル"
 
             WaterTemp:
                 Unit: "C"
@@ -725,7 +725,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Engine coolant temp"
-                    jp: "ウォーター温度"
+                    jp: "エンジン冷却水温度"
 
     # Garage | Car Setup Parameters ========================================
     Garage:
@@ -920,7 +920,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "In car traction control adjustment"
-                    jp: "インカトラクションコントロール調整"
+                    jp: "インカートラクションコントロール調整"
 
             dcTractionControl2:
                 Unit: ""
@@ -929,7 +929,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "In car traction control 2 adjustment"
-                    jp: "インカトラクションコントロール2調整"
+                    jp: "インカートラクションコントロール2調整"
 
             dcTractionControlToggle:
                 Unit: ""
@@ -938,7 +938,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "In car traction control active"
-                    jp: "インカトラクションコントロールアクティブ"
+                    jp: "インカートラクションコントロールアクティブ"
 
             dcWeightJackerLeft:
                 Unit: ""
@@ -983,7 +983,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop front flap adjustment"
-                    jp: "ピットストップ フロントノーズ調整"
+                    jp: "ピットストップ フロントフラップ調整"
 
             dpFUFangleIndex:
                 Unit: ""
@@ -1001,7 +1001,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop front wing adjustment"
-                    jp: "ピットストップ フロントウィング角度調整"
+                    jp: "ピットストップ フロントウィング調整"
 
             dpFWingIndex:
                 Unit: ""
@@ -1010,7 +1010,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop front wing adjustment"
-                    jp: "ピットストップ フロントウィング調整"
+                    jp: "ピットストップ フロントウィング角度調整"
 
             dpLrWedgeAdj:
                 Unit: ""
@@ -1028,7 +1028,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop power steering adjustment"
-                    jp: "ピットストップパワステ調整"
+                    jp: "ピットストップ パワーステアリング調整"
 
             dpQtape:
                 Unit: ""
@@ -1037,7 +1037,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop qtape adjustment"
-                    jp: "ピットストップQテープ調整"
+                    jp: "ピットストップ Qテープ調整"
 
             dpRBarSetting:
                 Unit: ""
@@ -1046,7 +1046,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop rear bar adjustment"
-                    jp: "ピットストップリアバー調整"
+                    jp: "ピットストップ リアバー調整"
 
             dpRFTruckarmP1Dz:
                 Unit: ""
@@ -1055,7 +1055,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop rftruckarmP1Dz adjustment"
-                    jp: "ピットストップRFトラックアームP1Dz調整"
+                    jp: "ピットストップ rftruckarmP1Dz調整"
 
             dpRRDamperPerchOffsetm:
                 Unit: ""
@@ -1064,7 +1064,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop right rear dampter perch offset adjustment"
-                    jp: "ピットストップ右リアダンパーパーチオフセット調整"
+                    jp: "ピットストップ 右リアダンパーパーチオフセット調整"
 
             dpRrPerchOffsetm:
                 Unit: ""
@@ -1073,7 +1073,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop right rear spring offset adjustment"
-                    jp: "ピットストップ右リアスプリングオフセット調整"
+                    jp: "ピットストップ 右リアスプリングオフセット調整"
 
             dpRrWedgeAdj:
                 Unit: ""
@@ -1082,7 +1082,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop rr spring offset adjustment"
-                    jp: "ピットストップRRスプリングオフセット調整"
+                    jp: "ピットストップ RRスプリングオフセット調整"
 
             dpRWingAngle:
                 Unit: ""
@@ -1091,7 +1091,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop rear wing adjustment"
-                    jp: "ピットストップリアウィング角度調整"
+                    jp: "ピットストップ リアウィング調整"
 
             dpRWingIndex:
                 Unit: ""
@@ -1100,7 +1100,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop rear wing adjustment"
-                    jp: "ピットストップリアウィング調整"
+                    jp: "ピットストップ リアウィング角度調整"
 
             dpRWingSetting:
                 Unit: ""
@@ -1118,7 +1118,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop truckarmP1Dz adjustment"
-                    jp: "ピットストップトラックアームP1Dz調整"
+                    jp: "ピットストップ truckarmP1Dz調整"
 
             dpWedgeAdj:
                 Unit: ""
@@ -1127,7 +1127,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitstop wedge adjustment"
-                    jp: "ピットストップウェッジ調整"
+                    jp: "ピットストップ ウェッジ調整"
 
             LFbrakeLinePress:
                 Unit: "bar"
@@ -1145,7 +1145,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LF tire cold pressure as set in the garage"
-                    jp: "LFタイヤコールド圧力"
+                    jp: "LFタイヤコールド圧力（ガレージ設定値）"
 
             LFpressure:
                 Unit: "kPa"
@@ -1199,7 +1199,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LF tire left carcass temperature"
-                    jp: "LFタイヤ左カーカス温度"
+                    jp: "LFタイヤ左側カーカス温度"
 
             LFtempCM:
                 Unit: "C"
@@ -1217,7 +1217,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LF tire right carcass temperature"
-                    jp: "LFタイヤ右カーカス温度"
+                    jp: "LFタイヤ右側カーカス温度"
 
             LFtempL:
                 Unit: "C"
@@ -1253,7 +1253,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LF tire left percent tread remaining"
-                    jp: "LFタイヤ左側残り溝深さ"
+                    jp: "LFタイヤ左側残りトレッド（溝深さ）パーセンテージ"
 
             LFwearM:
                 Unit: "%"
@@ -1262,7 +1262,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LF tire middle percent tread remaining"
-                    jp: "LFタイヤ中央残り溝深さ"
+                    jp: "LFタイヤ中央残りトレッド（溝深さ）パーセンテージ"
 
             LFwearR:
                 Unit: "%"
@@ -1271,7 +1271,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LF tire right percent tread remaining"
-                    jp: "LFタイヤ右側残り溝深さ"
+                    jp: "LFタイヤ右側残りトレッド（溝深さ）パーセンテージ"
 
             LRbrakeLinePress:
                 Unit: "bar"
@@ -1289,7 +1289,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LR tire cold pressure as set in the garage"
-                    jp: "LRタイヤコールド圧力"
+                    jp: "LRタイヤコールド圧力（ガレージ設定値）"
 
             LRpressure:
                 Unit: "kPa"
@@ -1397,7 +1397,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LR tire left percent tread remaining"
-                    jp: "LRタイヤ左側残り溝深さ"
+                    jp: "LRタイヤ左側残りトレッド（溝深さ）パーセンテージ"
 
             LRwearM:
                 Unit: "%"
@@ -1406,7 +1406,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LR tire middle percent tread remaining"
-                    jp: "LRタイヤ中央残り溝深さ"
+                    jp: "LRタイヤ中央残りトレッド（溝深さ）パーセンテージ"
 
             LRwearR:
                 Unit: "%"
@@ -1415,7 +1415,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "LR tire right percent tread remaining"
-                    jp: "LRタイヤ右側残り溝深さ"
+                    jp: "LRタイヤ右側残りトレッド（溝深さ）パーセンテージ"
 
             RFbrakeLinePress:
                 Unit: "bar"
@@ -1433,7 +1433,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RF tire cold pressure as set in the garage"
-                    jp: "RFタイヤコールド圧力"
+                    jp: "RFタイヤコールド圧力（ガレージ設定値）"
 
             RFpressure:
                 Unit: "kPa"
@@ -1541,7 +1541,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RF tire left percent tread remaining"
-                    jp: "RFタイヤ左側残り溝深さ"
+                    jp: "RFタイヤ左側残りトレッド（溝深さ）パーセンテージ"
 
             RFwearM:
                 Unit: "%"
@@ -1550,7 +1550,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RF tire middle percent tread remaining"
-                    jp: "RFタイヤ中央残り溝深さ"
+                    jp: "RFタイヤ中央残りトレッド（溝深さ）パーセンテージ"
 
             RFwearR:
                 Unit: "%"
@@ -1559,7 +1559,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RF tire right percent tread remaining"
-                    jp: "RFタイヤ右側残り溝深さ"
+                    jp: "RFタイヤ右側残りトレッド（溝深さ）パーセンテージ"
 
             RRbrakeLinePress:
                 Unit: "bar"
@@ -1567,7 +1567,7 @@ Telemetry:
                 Disk: 1
                 Live: 1
                 Description:
-                    en: "R brake line pressure"
+                    en: "RR brake line pressure"
                     jp: "RRブレーキライン圧力"
 
             RRcoldPressure:
@@ -1577,7 +1577,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RR tire cold pressure as set in the garage"
-                    jp: "RRタイヤコールド圧力"
+                    jp: "RRタイヤコールド圧力（ガレージ設定値）"
 
             RRpressure:
                 Unit: "kPa"
@@ -1685,7 +1685,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RR tire left percent tread remaining"
-                    jp: "RRタイヤ左側残り溝深さ"
+                    jp: "RRタイヤ左側残りトレッド（溝深さ）パーセンテージ"
 
             RRwearM:
                 Unit: "%"
@@ -1694,7 +1694,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RR tire middle percent tread remaining"
-                    jp: "RRタイヤ中央残り溝深さ"
+                    jp: "RRタイヤ中央残りトレッド（溝深さ）パーセンテージ"
 
             RRwearR:
                 Unit: "%"
@@ -1703,7 +1703,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "RR tire right percent tread remaining"
-                    jp: "RRタイヤ右側残り溝深さ"
+                    jp: "RRタイヤ右側残りトレッド（溝深さ）パーセンテージ"
 
     # Pitstop ========================================
     Pitstop:
@@ -1718,7 +1718,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Time left for optional repairs if repairs are active"
-                    jp: "修理がアクティブな場合、オプションの修理に残された時間"
+                    jp: "修理がアクティブな場合、オプション修理に残された時間"
 
             PitRepairLeft:
                 Unit: "s"
@@ -1754,7 +1754,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pit service left front tire pressure"
-                    jp: "ピットサービス左フロントタイヤ空気圧"
+                    jp: "ピットサービス左フロントタイヤ圧力"
 
             PitSvLRP:
                 Unit: "kPa"
@@ -1763,7 +1763,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pit service left rear tire pressure"
-                    jp: "ピットサービス左後輪タイヤ空気圧"
+                    jp: "ピットサービス左リアタイヤ圧力"
 
             PitSvRFP:
                 Unit: "kPa"
@@ -1772,7 +1772,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pit service right front tire pressure"
-                    jp: "ピットサービス右フロントタイヤ空気圧"
+                    jp: "ピットサービス右フロントタイヤ圧力"
 
             PitSvRRP:
                 Unit: "kPa"
@@ -1781,13 +1781,13 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pit service right rear tire pressure"
-                    jp: "ピットサービス右後輪タイヤ空気圧"
+                    jp: "ピットサービス右リアタイヤ圧力"
 
     # Positioning ========================================
     Positioning:
         Label:
             en: "Positioning"
-            jp: "ポジショニング"
+            jp: "ポジショニング（位置情報）"
         Property:
             Alt:
                 Unit: "m"
@@ -1805,7 +1805,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Latitude in decimal degrees"
-                    jp: "緯度（十進度）"
+                    jp: "緯度（十進法）"
 
             LatAccel:
                 Unit: "m/s^2"
@@ -1814,7 +1814,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Lateral acceleration (including gravity)"
-                    jp: "横方向加速度（重力を含む）"
+                    jp: "横加速度（重力を含む）"
 
             Lon:
                 Unit: "deg"
@@ -1823,7 +1823,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Longitude in decimal degrees"
-                    jp: "経度（十進度）"
+                    jp: "経度（十進法）"
 
             LongAccel:
                 Unit: "m/s^2"
@@ -1832,7 +1832,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Longitudinal acceleration (including gravity)"
-                    jp: "縦方向の加速度（重力を含む）"
+                    jp: "縦加速度（重力を含む）"
 
             Pitch:
                 Unit: "rad"
@@ -1841,7 +1841,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Pitch orientation"
-                    jp: "ピッチの方向"
+                    jp: "ピッチ方向"
 
             PitchRate:
                 Unit: "rad/s"
@@ -1877,7 +1877,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "X velocity"
-                    jp: "X速度"
+                    jp: "X軸速度"
 
             VelocityY:
                 Unit: "m/s"
@@ -1886,7 +1886,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Y velocity"
-                    jp: "Y 方向速度"
+                    jp: "Y軸速度"
 
             VelocityZ:
                 Unit: "m/s"
@@ -1895,7 +1895,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Z velocity"
-                    jp: "Z 方向速度"
+                    jp: "Z軸速度"
 
             VertAccel:
                 Unit: "m/s^2"
@@ -1904,7 +1904,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Vertical acceleration (including gravity)"
-                    jp: "垂直加速度（重力含む）"
+                    jp: "垂直加速度（重力を含む）"
 
             Yaw:
                 Unit: "rad"
@@ -1955,7 +1955,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Laps left till session ends"
-                    jp: "セッション残りラップ数"
+                    jp: "セッション終了までの残りラップ数"
 
             SessionNum:
                 Unit: ""
@@ -1982,7 +1982,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Seconds since session start"
-                    jp: "セッション開始からの経過時間"
+                    jp: "セッション開始からの経過秒数"
 
             SessionTimeRemain:
                 Unit: "s"
@@ -1991,7 +1991,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Seconds left till session ends"
-                    jp: "セッション終了までの残り時間"
+                    jp: "セッション終了までの残り秒数"
 
             SessionUniqueID:
                 Unit: ""
@@ -2006,7 +2006,7 @@ Telemetry:
     Weather:
         Label:
             en: "Weather"
-            jp: "気象"
+            jp: "天候"
         Property:
             AirDensity:
                 Unit: "kg/m^3"
@@ -2096,7 +2096,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Wind direction at start/finish line"
-                    jp: "スタート/フィニッシュラインの風向"
+                    jp: "スタート/フィニッシュラインの風向き"
 
             WindVel:
                 Unit: "m/s"
@@ -2120,7 +2120,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "The car index of the current person speaking on the radio"
-                    jp: "現在の発言者の車インデックス"
+                    jp: "現在の発言者の車両インデックス"
 
             RadioTransmitFrequencyIdx:
                 Unit: ""
@@ -2153,7 +2153,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Integer replay frame number (60 per second)"
-                    jp: "リプレイフレーム番号"
+                    jp: "リプレイフレーム番号（毎秒60フレーム）"
 
             ReplayFrameNumEnd:
                 Unit: ""
@@ -2162,7 +2162,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Integer replay frame number from end of tape"
-                    jp: "リプレイ終了フレーム番号"
+                    jp: "テープの最後からのリプレイフレーム番号"
 
             ReplayPlaySlowMotion:
                 Unit: ""
@@ -2171,7 +2171,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "0=not slow motion 1=replay is in slow motion"
-                    jp: "スローモーション再生"
+                    jp: "0=スローモーションでない、 1=リプレイはスローモーション"
 
             ReplayPlaySpeed:
                 Unit: ""
@@ -2255,7 +2255,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Percent of available tim bg thread took with a 1 sec avg"
-                    jp: "平均 1 秒で BG スレッドが消費した利用可能な時間の割合"
+                    jp: "平均1秒でBGスレッドが消費した利用可能な時間の割合"
 
             DisplayUnits:
                 Unit: ""
@@ -2264,7 +2264,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Default units for the user interface 0 = english 1 = metric"
-                    jp: "ユーザー インターフェイスのデフォルトの単位 0 = イギリス 1 = メートル法"
+                    jp: "ユーザーインターフェイスのデフォルト単位 0 = イギリス 1 = メートル法"
 
             DriverMarker:
                 Unit: ""
@@ -2282,7 +2282,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Indicate action the reset key will take 0 enter 1 exit 2 reset"
-                    jp: "リセットキーが実行するアクションを示します 0 入力 1 終了 2 リセット"
+                    jp: "リセットキーが実行するアクションを示す 0 = 入力 1 = 終了 2 = リセット"
 
             FrameRate:
                 Unit: "fps"
@@ -2291,7 +2291,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Average frames per second"
-                    jp: 1秒あたりの平均フレーム数"
+                    jp: "1秒あたりの平均フレーム数"
 
             IsDiskLoggingActive:
                 Unit: ""
@@ -2309,7 +2309,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "0=disk based telemetry turned off 1=turned on"
-                    jp: "0=ディスクベースのテレメトリがオフ 1=オン"
+                    jp: "0 = ディスクベースのテレメトリがオフ 1 = オン"
 
             IsInGarage:
                 Unit: ""
@@ -2318,7 +2318,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "1=Car in garage physics running"
-                    jp: "1=ガレージ内の車が物理演算を実行中"
+                    jp: "1 = ガレージ内の車が物理演算を実行中"
 
             IsOnTrack:
                 Unit: ""
@@ -2327,7 +2327,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "1=Car on track physics running with player in car"
-                    jp: "1=車がトラック上で物理走行し、プレイヤーが車内にいる"
+                    jp: "1 = 車がトラック上で物理走行し、プレイヤーが車内にいる"
 
             IsOnTrackCar:
                 Unit: ""
@@ -2336,7 +2336,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "1=Car on track physics running"
-                    jp: "1=車がコース上で物理的に動作中"
+                    jp: "1 = 車がコース上で物理的に動作中"
 
             IsReplayPlaying:
                 Unit: ""
@@ -2345,7 +2345,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "0=replay not playing 1=replay playing"
-                    jp: "0=リプレイを再生していない 1=リプレイを再生中"
+                    jp: "0 = リプレイを再生していない 1 = リプレイを再生中"
 
             OnPitRoad:
                 Unit: ""
@@ -2354,7 +2354,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Is the player car on pit road between the cones"
-                    jp: "プレイヤーの車はピットロードのコーンの間にあります"
+                    jp: "プレイヤーの車はピットロードのコーンの間にありますか？"
 
     # CarIdx Parameters ========================================
     CarIdx:
@@ -2369,7 +2369,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Cars class position in race by car index"
-                    jp: "カーインデックスによるクラス内順位"
+                    jp: "カーインデックスによるレース内のクラス順位"
 
             CarIdxEstTime:
                 Unit: "s"
@@ -2387,7 +2387,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Race time behind leader or fastest lap time otherwise"
-                    jp: "リーダーとのタイム差または最速ラップタイム"
+                    jp: "リーダーとのタイム差、または最速ラップタイム（それ以外の場合）"
 
             CarIdxGear:
                 Unit: ""
@@ -2396,7 +2396,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "-1=reverse 0=neutral 1..n=current gear by car index"
-                    jp: "カーインデックスによるギア"
+                    jp: "-1 = リバース 0 = ニュートラル 1..n = 現在のギア（カーインデックス）"
 
             CarIdxLap:
                 Unit: ""

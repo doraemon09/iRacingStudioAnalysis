@@ -16,6 +16,12 @@
                     </button>
                 {% endif %}
 
+                {% if static_info is defined or sectors_info is defined %}
+                    <button class="btn btn-outline-info" onclick="showSensorData()">
+                        <span class="{{ yaml_info['General']['Button']['Sensors']['Icon'] }}"></span>
+                    </button>
+                {% endif %}
+
                 {% if static_info is defined %}
                     <button class="btn btn-outline-info" onclick="showStaticData()">
                         <span class="{{ yaml_info['General']['Button']['Static']['Icon'] }}"></span>

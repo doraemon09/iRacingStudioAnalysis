@@ -17,77 +17,39 @@
     <!-- Weekend Info -->
     <div id="WeekendInfo" class="row my-2" style="display: none;">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['WeekendInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['WeekendInfo']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['WeekendInfo']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for weekend, info in static_info['WeekendInfo'].items() %}
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['WeekendInfo']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['WeekendInfo']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['WeekendInfo']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="row">{{ weekend }}</th>
-                            {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
-                                <td>
-                                    <ul>
-                                        {% for info_options, info_value in info.items() %}
-                                            <li>{{ info_options }}: {{ info_value }}</li>
-                                        {% endfor%}
-                                    </ul>
-                                </td>
-                            {% else %}
-                                <td>{{ info }}</td>
-                            {% endif %}
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Static Info -->
-    <div id="SessionInfo" class="row my-2" style="display: none;">
-        <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['SessionInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['SessionInfo']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['SessionInfo']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for static_info in static_info['SessionInfo']['Sessions'] %}
-                        {% for session, info in static_info.items() %}
+                    </thead>
+                    <tbody>
+                        {% for weekend, info in static_info['WeekendInfo'].items() %}
                             <tr>
-                                <th scope="row">{{ session }}</th>
-                                {% if info is sequence and info|length == 1 %} <!-- use 'sequence' to check if list/tuple -->
+                                <th scope="row">{{ weekend }}</th>
+                                {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
                                     <td>
                                         <ul>
-                                            {% for info_options in info %}
-                                                {% for idx, val in info_options.items() %}
-                                                    <li>{{ idx }}: {{ val }}</li>
-                                                {% endfor %}
+                                            {% for info_options, info_value in info.items() %}
+                                                <li>{{ info_options }}: {{ info_value }}</li>
                                             {% endfor%}
                                         </ul>
                                     </td>
@@ -96,294 +58,396 @@
                                 {% endif %}
                             </tr>
                         {% endfor %}
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Static Info -->
+    <div id="SessionInfo" class="row my-2" style="display: none;">
+        <div class="col-md-12">
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['SessionInfo']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['SessionInfo']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['SessionInfo']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for static_info in static_info['SessionInfo']['Sessions'] %}
+                            {% for session, info in static_info.items() %}
+                                <tr>
+                                    <th scope="row">{{ session }}</th>
+                                    {% if info is sequence and info|length == 1 %} <!-- use 'sequence' to check if list/tuple -->
+                                        <td>
+                                            <ul>
+                                                {% for info_options in info %}
+                                                    {% for idx, val in info_options.items() %}
+                                                        <li>{{ idx }}: {{ val }}</li>
+                                                    {% endfor %}
+                                                {% endfor%}
+                                            </ul>
+                                        </td>
+                                    {% else %}
+                                        <td>{{ info }}</td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Qualify Results Info -->
     <div id="QualifyResultsInfo" class="row my-2" style="display: none;">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['QualifyResultsInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['QualifyResultsInfo']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['QualifyResultsInfo']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for qualify in static_info['QualifyResultsInfo']['Results'] %}
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['QualifyResultsInfo']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['QualifyResultsInfo']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['QualifyResultsInfo']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="row">Position {{ qualify['Position'] }}</th>
-                                <td>
-                                    <ul>
-                                        {% for qualify_options, qualify_values in qualify.items() %}
-                                            <li>{{ qualify_options }}: {{ qualify_values }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </td>
-                            </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for qualify in static_info['QualifyResultsInfo']['Results'] %}
+                            <tr>
+                                <th scope="row">Position {{ qualify['Position'] }}</th>
+                                    <td>
+                                        <ul>
+                                            {% for qualify_options, qualify_values in qualify.items() %}
+                                                <li>{{ qualify_options }}: {{ qualify_values }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Split Time Info -->
     <div id="SplitTimeInfo" class="row my-2" style="display: none;">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['SplitTimeInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['SplitTimeInfo']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['SplitTimeInfo']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for split_time in static_info['SplitTimeInfo']['Sectors'] %}
-                        {% for sector, info in split_time.items() %}
-                            <tr>
-                                <th scope="row">{{ sector }}</th>
-                                <td>{{ info }}</td>
-                            </tr>
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['SplitTimeInfo']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['SplitTimeInfo']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['SplitTimeInfo']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for split_time in static_info['SplitTimeInfo']['Sectors'] %}
+                            {% for sector, info in split_time.items() %}
+                                <tr>
+                                    <th scope="row">{{ sector }}</th>
+                                    <td>{{ info }}</td>
+                                </tr>
+                            {% endfor %}
                         {% endfor %}
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Car Setup -->
     <div id="CarSetup" class="row my-2" style="display: none;">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['CarSetup']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['CarSetup']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['CarSetup']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for setup, info in static_info['CarSetup'].items() %}
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['CarSetup']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['CarSetup']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['CarSetup']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="row">{{ setup }}</th>
-                            {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
-                                <td>
-                                    <ul>
-                                        {% for info_options, info_value in info.items() %}
-                                            {% if info_value is mapping %} <!-- use 'mapping' to check if dictionary -->
-                                                <li>
-                                                    {{ info_options }}
-                                                    <ul>
-                                                        {% for sub_options, sub_value in info_value.items() %}
-                                                            <li>{{ sub_options }}: {{ sub_value }}</li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </li>
-                                            {% else %}
-                                                <li>{{ info_options }}: {{ info_value }}</li>
-                                            {% endif %}
-                                        {% endfor%}
-                                    </ul>
-                                </td>
-                            {% else %}
-                                <td>{{ info }}</td>
-                            {% endif %}
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for setup, info in static_info['CarSetup'].items() %}
+                            <tr>
+                                <th scope="row">{{ setup }}</th>
+                                {% if info is mapping %} <!-- use 'mapping' to check if dictionary -->
+                                    <td>
+                                        <ul>
+                                            {% for info_options, info_value in info.items() %}
+                                                {% if info_value is mapping %} <!-- use 'mapping' to check if dictionary -->
+                                                    <li>
+                                                        {{ info_options }}
+                                                        <ul>
+                                                            {% for sub_options, sub_value in info_value.items() %}
+                                                                <li>{{ sub_options }}: {{ sub_value }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                {% else %}
+                                                    <li>{{ info_options }}: {{ info_value }}</li>
+                                                {% endif %}
+                                            {% endfor%}
+                                        </ul>
+                                    </td>
+                                {% else %}
+                                    <td>{{ info }}</td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Driver Info -->
     <div id="DriverInfo" class="row my-2" style="display: none;">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['DriverInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['DriverInfo']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['DriverInfo']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for driver, info in static_info['DriverInfo'].items() %}
-                        {% if driver == 'Drivers' %}
-                            {% for info_options in info %}
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['DriverInfo']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['DriverInfo']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['DriverInfo']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for driver, info in static_info['DriverInfo'].items() %}
+                            {% if driver == 'Drivers' %}
+                                {% for info_options in info %}
+                                    <tr>
+                                        <th scope="row">
+                                            Driver
+                                            {{ info_options['CarIdx'] }} -
+                                            {{ info_options['UserName'] }}
+                                            {% if info_options['CarIsAI'] %}(AI){% endif %}
+                                        </th>
+                                        <td>
+                                            <ul>
+                                                {% for sub_options, sub_values in info_options.items() %}
+                                                    <li>{{ sub_options }}: {{ sub_values }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
                                 <tr>
-                                    <th scope="row">
-                                        Driver
-                                        {{ info_options['CarIdx'] }} -
-                                        {{ info_options['UserName'] }}
-                                        {% if info_options['CarIsAI'] %}(AI){% endif %}
-                                    </th>
-                                    <td>
-                                        <ul>
-                                            {% for sub_options, sub_values in info_options.items() %}
-                                                <li>{{ sub_options }}: {{ sub_values }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    </td>
+                                    <th scope="row">{{ driver }}</th>
+                                    <td>{{ info }}</td>
                                 </tr>
-                            {% endfor %}
-                        {% else %}
-                            <tr>
-                                <th scope="row">{{ driver }}</th>
-                                <td>{{ info }}</td>
-                            </tr>
-                        {% endif%}
-                    {% endfor %}
-                </tbody>
-            </table>
+                            {% endif%}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Radio Info -->
     <div id="RadioInfo" class="row my-2" style="display: none;">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['RadioInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['RadioInfo']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['RadioInfo']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for radio, info in static_info['RadioInfo'].items() %}
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['RadioInfo']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['RadioInfo']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['WeekendInfo']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="row">{{ radio }}</th>
-                            <td>
-                                {% if info[0] is mapping %}
-                                    <ul>
-                                        {% for sub_info_values in info %}
-                                            {% for sub_options, sub_values in sub_info_values.items() %}
-                                                <li>
-                                                    {{ sub_options }}:
-                                                    {% if sub_values[0] is mapping %}
-                                                        {% for info_sub_values in sub_values %}
-                                                            {% for sub_options2, sub_values2 in info_sub_values.items() %}
-                                                                <ul>
-                                                                    <li>{{ sub_options2 }}: {{ sub_values2 }}</li>
-                                                                </ul>
-                                                            {% endfor %}
-                                                        {% endfor %}
-                                                    {% else %}
-                                                        {{ sub_values }}
-                                                    {% endif %}
-                                                </li>
-                                            {% endfor %}
-                                        {% endfor %}
-                                    </ul>
-                                {% else %}
-                                    {{ info }}
-                                {% endif %}
-                            </td>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for radio, info in static_info['RadioInfo'].items() %}
+                            <tr>
+                                <th scope="row">{{ radio }}</th>
+                                <td>
+                                    {% if info[0] is mapping %}
+                                        <ul>
+                                            {% for sub_info_values in info %}
+                                                {% for sub_options, sub_values in sub_info_values.items() %}
+                                                    <li>
+                                                        {{ sub_options }}:
+                                                        {% if sub_values[0] is mapping %}
+                                                            {% for info_sub_values in sub_values %}
+                                                                {% for sub_options2, sub_values2 in info_sub_values.items() %}
+                                                                    <ul>
+                                                                        <li>{{ sub_options2 }}: {{ sub_values2 }}</li>
+                                                                    </ul>
+                                                                {% endfor %}
+                                                            {% endfor %}
+                                                        {% else %}
+                                                            {{ sub_values }}
+                                                        {% endif %}
+                                                    </li>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        {{ info }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Camera Info -->
     <div id="CameraInfo" class="row my-2" style="display: none;">
         <div class="col-md-12">
-            <table class="table table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th scope="col"
-                            data-en="{{ yaml_info['Static']['CameraInfo']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['Static']['CameraInfo']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['Static']['CameraInfo']['Label']['en'] }}
-                        </th>
-                        <th scope="col"
-                            data-en="{{ yaml_info['General']['Value']['Label']['en'] }}"
-                            data-jp="{{ yaml_info['General']['Value']['Label']['jp'] }}"
-                        >
-                            {{ yaml_info['General']['Value']['Label']['en'] }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for camera in static_info['CameraInfo']['Groups'] %}
+            <div class="row my-2">
+                <h3 scope="col"
+                    data-en="{{ yaml_info['Static']['CameraInfo']['Label']['en'] }}"
+                    data-jp="{{ yaml_info['Static']['CameraInfo']['Label']['jp'] }}"
+                >
+                    {{ yaml_info['Static']['CameraInfo']['Label']['en'] }}
+                </h3>
+                <table class="table table-hover">
+                    <thead class="table-dark">
                         <tr>
-                            <th scope="row">Group {{ camera['GroupNum'] }}</th>
-                            <td>
-                                <ul>
-                                    {% for info_options, info_values in camera.items() %}
-                                        <li>
-                                            {{ info_options }}:
-                                            {% if info_values[0] is mapping %}
-                                                <ul>
-                                                    {% for info_sub_values in info_values %}
-                                                        {% for sub_options, sub_values in info_sub_values.items() %}
-                                                            <li>{{ sub_options }}: {{ sub_values }}</li>
-                                                        {% endfor %}
-                                                    {% endfor %}
-                                                </ul>
-                                            {% else %}
-                                                {{ info_values }}
-                                            {% endif %}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Field']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Field']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Field']['Label']['en'] }}
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Value']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Value']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Value']['Label']['en'] }}
+                            </th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for camera in static_info['CameraInfo']['Groups'] %}
+                            <tr>
+                                <th scope="row">Group {{ camera['GroupNum'] }}</th>
+                                <td>
+                                    <ul>
+                                        {% for info_options, info_values in camera.items() %}
+                                            <li>
+                                                {{ info_options }}:
+                                                {% if info_values[0] is mapping %}
+                                                    <ul>
+                                                        {% for info_sub_values in info_values %}
+                                                            {% for sub_options, sub_values in info_sub_values.items() %}
+                                                                <li>{{ sub_options }}: {{ sub_values }}</li>
+                                                            {% endfor %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% else %}
+                                                    {{ info_values }}
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

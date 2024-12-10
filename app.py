@@ -265,7 +265,7 @@ def process_ibt_telemetry_data(ibt_telemetry_data):
 # Lap data
 def process_session_data(ibt_telemetry_data):
     try:
-        fields_to_process = ['Brake', 'Gear', 'Lap', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
+        fields_to_process = ['Brake', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
 
         # Data is in 60Hz
         data_hz = 60
@@ -288,10 +288,10 @@ def process_session_data(ibt_telemetry_data):
         # Calculate cumulative lap time based on the 60Hz sampling frequency (1/60 seconds between each sample)
         main_dataframe['Time'] = main_dataframe.groupby('Lap').cumcount() / data_hz
 
-        # Calculate lap times by subtracting the first time value in each lap group from the last
-        lap_times = main_dataframe.groupby('Lap')['Time'].max() - main_dataframe.groupby('Lap')['Time'].min()
+        # Find lap times by taking the maximum lap time value within each lap
+        lap_times = main_dataframe.groupby('Lap')['Time'].max()
 
-        # Calculate total lap distance by taking the maximum distance value within each lap
+        # Find total lap distance by taking the maximum distance value within each lap
         lap_distances = main_dataframe.groupby('Lap')['LapDist'].max()
 
         # Find max and avg speed per lap

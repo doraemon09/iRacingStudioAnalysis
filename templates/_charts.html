@@ -104,7 +104,7 @@
                                 mode: 'lines',
                                 name: 'Lap {{ lap }}',
                                 customdata: speeds_kmh,
-                                hovertemplate: '🏎️ %{customdata} km/h',
+                                hovertemplate: '🏎️ %{customdata} kph',
                                 //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
                             });
                         {% endfor %}
@@ -261,7 +261,7 @@
                             yaxis: 'y1',
                             mode: 'lines',
                             name: 'L{{ lap }} Speed',
-                            hovertemplate: '🏎️ %{y} km/h',
+                            hovertemplate: '🏎️ %{y} kph',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
                     {% endfor %}
@@ -290,7 +290,7 @@
                             title: 'Distance (m)',
                         },
                         yaxis: {
-                            title: 'Speed (km/h)',
+                            title: 'Speed (kph)',
                             side: 'left',
                             overlaying: 'y2'
                         },

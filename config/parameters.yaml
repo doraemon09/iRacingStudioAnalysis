@@ -32,43 +32,38 @@ General:
             Label:
                 en: "Charts"
                 jp: "グラフ"
-
         Demo:
             Label:
                 en: "Load"
                 jp: "読み込み"
-
         Home:
             Icon: "fa-solid fa-house"
-
+            Label:
+                en: ""
+                jp: ""
         Laps:
             Label:
                 en: "Laps"
                 jp: "ラップ"
-
         Sensors:
             Icon: "fa-solid fa-rectangle-list"
             Label:
                 en: "Sensors"
                 jp: "センサー"
-
         Static:
             Icon: "fa-solid fa-circle-info"
             Label:
                 en: "Static Info"
                 jp: "セッション情報"
-
         Telemetry:
             Icon: "fa-solid fa-chart-line"
             Label:
                 en: "Telemetry Data"
                 jp: "テレメトリーデータ"
-
         TrackMaps:
             Label:
                 en: "Track Maps"
                 jp: "サーキットマップ"
-
         Upload:
             Label:
                 en: "Upload"
@@ -118,14 +113,22 @@ General:
             jp: "iRacingスタジオアナリシス"
 
     Table:
-        DeltaPct:
+        Avg:
             Label:
-                en: "Delta (%)"
-                jp: "デルタ (%)"
-        DeltaSecs:
+                en: "Avg"
+                jp: "平均"
+        Brake:
             Label:
-                en: "Delta (s)"
-                jp: "デルタ (秒)"
+                en: "Brake"
+                jp: "ブレーキ"
+        Coast:
+            Label:
+                en: "Coast"
+                jp: "コースト"
+        Delta:
+            Label:
+                en: "Delta"
+                jp: "デルタ"
         Description:
             Label:
                 en: "Description"
@@ -134,54 +137,58 @@ General:
             Label:
                 en: "Disk"
                 jp: "ディスク"
+        Distance:
+            Label:
+                en: "Distance"
+                jp: "距離"
         Field:
             Label:
                 en: "Field"
                 jp: "フィールド"
-        LapDistanceKm:
+        Lap:
             Label:
-                en: "Distance (km)"
-                jp: "ラップ距離 (km)"
-        LapNum:
-            Label:
-                en: "Lap No."
-                jp: "ラップ番号"
-        LapTime:
-            Label:
-                en: "Time"
-                jp: "タイム"
-        LapTimes:
-            Label:
-                en: "Lap Times"
-                jp: "ラップタイム"
+                en: "Lap"
+                jp: "ラップ"
         Live:
             Label:
                 en: "Live"
                 jp: "ライブ"
+        Max:
+            Label:
+                en: "Max"
+                jp: "最大"
+        Number:
+            Label:
+                en: "No."
+                jp: "番号"
+        Secs:
+            Label:
+                en: "s"
+                jp: "秒"
         Sector:
             Label:
                 en: "Sector"
                 jp: "セクター"
-        SectorTimes:
-            Label:
-                en: "Sector Times"
-                jp: "セクタータイム"
         SimulatedLapTime:
             Label:
                 en: "Vehicle Simulated Lap Time"
                 jp: "車両シミュレーションラップタイム"
-        SpeedKphAvg:
+        Speed:
             Label:
-                en: "Speed (kph, Avg)"
-                jp: "速度 (km/h, 平均)"
-        SpeedKphMax:
-            Label:
-                en: "Speed (kph, Max)"
-                jp: "速度 (km/h, 最大)"
+                en: "Speed"
+                jp: "速度"
         TheoreticalBestLap:
             Label:
                 en: "Theoretical Best Lap Time"
                 jp: "理論上のベストラップタイム"
+        Throttle:
+            Label:
+                en: "Throttle"
+                jp: "スロットル"
+        Time:
+            Label:
+                en: "Time"
+                jp: "タイム"
         Unit:
             Label:
                 en: "Unit"

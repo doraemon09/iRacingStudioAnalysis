@@ -2541,130 +2541,130 @@ Telemetry:
                     jp: "カーインデックスによるトラックサーフェスタイプ"
 
 # ========================================
-# irsdk_ Units ===========================
+# irsdkUnits ===========================
 # ========================================
-irskd_units:
+irskdUnits:
     irsdk_EngineWarnings:
-        Name: "irsdk_waterTempWarning"
-        Value: 0x0001
-        Name: "irsdk_fuelPressureWarning"
-        Value: 0x0002
-        Name: "irsdk_oilPressureWarning"
-        Value: 0x0004
-        Name: "irsdk_engineStalled"
-        Value: 0x0008
-        Name: "irsdk_pitSpeedLimiter"
-        Value: 0x0010
-        Name: "irsdk_revLimiterActive"
-        Value: 0x0020
+        "0x0001":
+            Value: "irsdk_waterTempWarning"
+        "0x0002":
+            Value: "irsdk_fuelPressureWarning"
+        "0x0004":
+            Value: "irsdk_oilPressureWarning"
+        "0x0008":
+            Value: "irsdk_engineStalled"
+        "0x0010":
+            Value: "irsdk_pitSpeedLimiter"
+        "0x0020":
+            Value: "irsdk_revLimiterActive"
     irsdk_Flags:
-        Name: "irsdk_checkered"
-        Value: 0x00000001
-        Name: "irsdk_white"
-        Value: 0x00000002
-        Name: "irsdk_green"
-        Value: 0x00000004
-        Name: "irsdk_yellow"
-        Value: 0x00000008
-        Name: "irsdk_red"
-        Value: 0x00000010
-        Name: "irsdk_blue"
-        Value: 0x00000020
-        Name: "irsdk_debris"
-        Value: 0x00000040
-        Name: "irsdk_crossed"
-        Value: 0x00000080
-        Name: "irsdk_yellowWaving"
-        Value: 0x00000100
-        Name: "irsdk_oneLapToGreen"
-        Value: 0x00000200
-        Name: "irsdk_greenHeld"
-        Value: 0x00000400
-        Name: "irsdk_tenToGo"
-        Value: 0x00000800
-        Name: "irsdk_fiveToGo"
-        Value: 0x00001000
-        Name: "irsdk_randomWaving"
-        Value: 0x00002000
-        Name: "irsdk_caution"
-        Value: 0x00004000
-        Name: "irsdk_cautionWaving"
-        Value: 0x00008000
-        Name: "irsdk_black"
-        Value: 0x00010000
-        Name: "irsdk_disqualify"
-        Value: 0x00020000
-        Name: "irsdk_servicible"
-        Value: 0x00040000
-        Name: "irsdk_furled"
-        Value: 0x00080000
-        Name: "irsdk_repair"
-        Value: 0x00100000
-        Name: "irsdk_startHidden"
-        Value: 0x10000000
-        Name: "irsdk_startReady"
-        Value: 0x20000000
-        Name: "irsdk_startSet"
-        Value: 0x40000000
-        Name: "irsdk_startGo"
-        Value: 0x80000000
+        "0x00000001":
+            Value: "irsdk_checkered"
+        "0x00000002":
+            Value: "irsdk_white"
+        "0x00000004":
+            Value: "irsdk_green"
+        "0x00000008":
+            Value: "irsdk_yellow"
+        "0x00000010":
+            Value: "irsdk_red"
+        "0x00000020":
+            Value: "irsdk_blue"
+        "0x00000040":
+            Value: "irsdk_debris"
+        "0x00000080":
+            Value: "irsdk_crossed"
+        "0x00000100":
+            Value: "irsdk_yellowWaving"
+        "0x00000200":
+            Value: "irsdk_oneLapToGreen"
+        "0x00000400":
+            Value: "irsdk_greenHeld"
+        "0x00000800":
+            Value: "irsdk_tenToGo"
+        "0x00001000":
+            Value: "irsdk_fiveToGo"
+        "0x00002000":
+            Value: "irsdk_randomWaving"
+        "0x00004000":
+            Value: "irsdk_caution"
+        "0x00008000":
+            Value: "irsdk_cautionWaving"
+        "0x00010000":
+            Value: "irsdk_black"
+        "0x00020000":
+            Value: "irsdk_disqualify"
+        "0x00040000":
+            Value: "irsdk_servicible"
+        "0x00080000":
+            Value: "irsdk_furled"
+        "0x00100000":
+            Value: "irsdk_repair"
+        "0x10000000":
+            Value: "irsdk_startHidden"
+        "0x20000000":
+            Value: "irsdk_startReady"
+        "0x40000000":
+            Value: "irsdk_startSet"
+        "0x80000000":
+            Value: "irsdk_startGo"
     irsdk_CameraState:
-        Name: "irsdk_IsSessionScreen"
-        Value: 0x0001
-        Name: "irsdk_IsScenicActive"
-        Value: 0x0002
-        Name: "irsdk_CamToolActive"
-        Value: 0x0004
-        Name: "irsdk_UIHidden"
-        Value: 0x0008
-        Name: "irsdk_UseAutoShotSelection"
-        Value: 0x0010
-        Name: "irsdk_UseTemporaryEdits"
-        Value: 0x0020
-        Name: "irsdk_UseKeyAcceleration"
-        Value: 0x0040
-        Name: "irsdk_UseKey10xAcceleration"
-        Value: 0x0080
-        Name: "irsdk_UseMouseAimMode"
-        Value: 0x0100
+        "0x0001":
+            Value: "irsdk_IsSessionScreen"
+        "0x0002":
+            Value: "irsdk_IsScenicActive"
+        "0x0004":
+            Value: "irsdk_CamToolActive"
+        "0x0008":
+            Value: "irsdk_UIHidden"
+        "0x0010":
+            Value: "irsdk_UseAutoShotSelection"
+        "0x0020":
+            Value: "irsdk_UseTemporaryEdits"
+        "0x0040":
+            Value: "irsdk_UseKeyAcceleration"
+        "0x0080":
+            Value: "irsdk_UseKey10xAcceleration"
+        "0x0100":
+            Value: "irsdk_UseMouseAimMode"
     irsdk_PitSvFlags:
-        Name: "irsdk_LFTireChange"
-        Value: 0x0001
-        Name: "irsdk_RFTireChange"
-        Value: 0x0002
-        Name: "irsdk_LRTireChange"
-        Value: 0x0004
-        Name: "irsdk_RRTireChange"
-        Value: 0x0008
-        Name: "irsdk_FuelFill"
-        Value: 0x0010
-        Name: "irsdk_WindshieldTearoff"
-        Value: 0x0020
-        Name: "irsdk_FastRepair"
-        Value: 0x0040
+        "0x0001":
+            Value: "irsdk_LFTireChange"
+        "0x0002":
+            Value: "irsdk_RFTireChange"
+        "0x0004":
+            Value: "irsdk_LRTireChange"
+        "0x0008":
+            Value: "irsdk_RRTireChange"
+        "0x0010":
+            Value: "irsdk_FuelFill"
+        "0x0020":
+            Value: "irsdk_WindshieldTearoff"
+        "0x0040":
+            Value: "irsdk_FastRepair"
     irsdk_TrkLoc:
-        Name: "irsdk_NotInWorld"
-        Value: -1
-        Name: "irsdk_OffTrack"
-        Value: 0
-        Name: "irsdk_InPitStall"
-        Value: 1
-        Name: "irsdk_AproachingPits"
-        Value: 2
-        Name: "irsdk_OnTrack"
-        Value: 3
+        "-1":
+            Value: "irsdk_NotInWorld"
+        "0":
+            Value: "irsdk_OffTrack"
+        "1":
+            Value: "irsdk_InPitStall"
+        "2":
+            Value: "irsdk_AproachingPits"
+        "3":
+            Value: "irsdk_OnTrack"
     irsdk_SessionState:
-        Name: "irsdk_StateInvalid"
-        Value: 0
-        Name: "irsdk_StateGetInCar"
-        Value: 1
-        Name: "irsdk_StateWarmup"
-        Value: 2
-        Name: "irsdk_StateParadeLaps"
-        Value: 3
-        Name: "irsdk_StateRacing"
-        Value: 4
-        Name: "irsdk_StateCheckered"
-        Value: 5
-        Name: "irsdk_StateCoolDown"
-        Value: 6
+        "0":
+            Value: "irsdk_StateInvalid"
+        "1":
+            Value: "irsdk_StateGetInCar"
+        "2":
+            Value: "irsdk_StateWarmup"
+        "3":
+            Value: "irsdk_StateParadeLaps"
+        "4":
+            Value: "irsdk_StateRacing"
+        "5":
+            Value: "irsdk_StateCheckered"
+        "6":
+            Value: "irsdk_StateCoolDown"

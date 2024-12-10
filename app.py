@@ -509,8 +509,8 @@ def process_sectors_data(static_data, session_data):
             # Returns 1 less element
             sector_differences = np.diff(this_sector_times)
 
-            # Convert back to list
-            lap_sector_times = sector_differences.tolist()
+            # Convert back to list and replace negative values with 0
+            lap_sector_times = [max(0, diff) for diff in sector_differences]
 
             sector_times_dict[idx] = {
                 'LapNum': session_data['laps_data'][idx]['LapNum'],

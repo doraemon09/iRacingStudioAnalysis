@@ -7,7 +7,7 @@
 .collapsible .icon {
     transition: transform 0.2s; /* for smooth rotation */
 }
-.collapsible .collapsed .icon:before {
+.collapsible.collapsed .icon:before {
     content: '\f0fe'; /* Unicode for `fa-square-plus` icon */
 }
 .collapsible:not(.collapsed) .icon:before {

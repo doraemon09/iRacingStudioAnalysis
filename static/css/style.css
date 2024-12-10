@@ -1,3 +1,15 @@
+/* === ===*/
 .dataTable thead tr th {
     width: auto !important;
+}
+
+/* === ===*/
+.collapsible .icon {
+    transition: transform 0.2s; /* for smooth rotation */
+}
+.collapsible .collapsed .icon:before {
+    content: '\f0fe'; /* Unicode for `fa-square-plus` icon */
+}
+.collapsible:not(.collapsed) .icon:before {
+    content: '\f146'; /* Unicode for `fa-square-minus` icon */
 }

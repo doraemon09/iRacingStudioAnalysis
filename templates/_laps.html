@@ -195,5 +195,34 @@
                 </table>
             </div>
         </div>
+
+        <div class="row my-2">
+            <h3>Throttle / Brake / Coast Times</h3>
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Lap No.</th>
+                            <th scope="col">Throttle (&ge; 90%)</th>
+                            <th scope="col">Throttle (1% &le; T &lt; 90%)</th>
+                            <th scope="col">Brake (&ge; 90%)</th>
+                            <th scope="col">Brake (1% &le; B &lt; 90%)</th>
+                            <th scope="col">Coast (1% &lt; T &amp; 1% &lt; B)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for idx in range(throttle_brake_coast_times_info | length) %}
+                            <tr>
+                                <th scope="row">{{ idx }}</th>
+                                <td>{{ throttle_brake_coast_times_info[idx]['ThrottleFull'] | laptimeformat }}</td>
+                                <td>{{ throttle_brake_coast_times_info[idx]['ThrottlePartial'] | laptimeformat }}</td>
+                                <td>{{ throttle_brake_coast_times_info[idx]['BrakeFull'] | laptimeformat }}</td>
+                                <td>{{ throttle_brake_coast_times_info[idx]['BrakePartial'] | laptimeformat }}</td>
+                                <td>{{ throttle_brake_coast_times_info[idx]['Coast'] | laptimeformat }}</td>
+                            </tr>
+                        {% endfor %}
+                </table>
+            </div>
+        </div>
     </div>
 </div>

@@ -69,7 +69,28 @@
                             {% for property in yaml_info['Telemetry'][key]['Property'] %}
                                 <tr>
                                     <th scope="row">{{ property }}</th>
-                                    <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Unit'] }}</td>
+                                    <td>
+                                        {{ yaml_info['Telemetry'][key]['Property'][property]['Unit'] }}
+                                        {% if yaml_info['Telemetry'][key]['Property'][property]['Unit'][0:6] == 'irsdk_' %}
+                                            {% set this_irsdk = yaml_info['Telemetry'][key]['Property'][property]['Unit'] %}
+                                            <span
+                                                class="collapsible collapsed"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapse_{{ this_irsdk }}"
+                                                aria-expanded="false"
+                                                aria-controls="collapse_{{ this_irsdk }}"
+                                            >
+                                                <span class="icon fa-regular fa-square-plus"></span>
+                                            </span>
+                                            <div class="collapse" id="collapse_{{ this_irsdk }}">
+                                                <div class="card card-body">
+                                                    {% for irsdk in yaml_info['irskdUnits'][this_irsdk] %}
+                                                        <div>{{ irsdk }} = {{ yaml_info['irskdUnits'][this_irsdk][irsdk]['Value'] }}</div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </td>
                                     <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Type'] }}</td>
                                     <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Disk'] }}</td>
                                     <td>{{ yaml_info['Telemetry'][key]['Property'][property]['Live'] }}</td>

@@ -10,7 +10,7 @@
                     {{ yaml_info['General']['Title']['Label']['en'] }}
                 </span>
 
-                <span class="d-block d-sm-inline-block">
+                <span {% if static_info is defined or sectors_info is defined %}class="d-block d-sm-inline-block"{% endif %}>
                     {% if sectors_info is defined %}
                         <button class="btn btn-outline-info" onclick="showTelemetryData()">
                             <span class="{{ yaml_info['General']['Button']['Telemetry']['Icon'] }}"></span>

@@ -94,6 +94,7 @@ def upload_file():
                     this_sectors_data = this_file_name.rsplit('.', 1)[0] + '_sectors_data.txt'
                     this_sectors_report_data = this_file_name.rsplit('.', 1)[0] + '_sectors_report_data.txt'
                     this_static_data = this_file_name.rsplit('.', 1)[0] + '_static_data.txt'
+                    this_throttle_brake_coast_times_data = this_file_name.rsplit('.', 1)[0] + '_throttle_brake_coast_times_data.txt'
 
                     with open(this_charts_data, "w") as txt_file:
                         txt_file.write(repr(session_data['charts_data']))
@@ -111,6 +112,8 @@ def upload_file():
                         txt_file.write(repr(sector_data['sectors_report_data']))
                     with open(this_static_data, "w") as txt_file:
                         txt_file.write(repr(static_data))
+                    with open(this_throttle_brake_coast_times_data, "w") as txt_file:
+                        txt_file.write(repr(throttle_brake_coast_times_data))
                     """
                 else:
                     # Connect to SQLite
@@ -131,6 +134,7 @@ def upload_file():
                         'laps_data': eval(this_demo['laps_data']),
                         'laps_report_data': eval(this_demo['laps_report_data']),
                         'reference_lap_data': eval(this_demo['reference_lap_data']),
+                        'throttle_brake_coast_times_data': eval(this_demo['throttle_brake_coast_times_data']),
                     }
                     sector_data = {
                         'sector_times_data': eval(this_demo['sector_times_data']),
@@ -151,6 +155,7 @@ def upload_file():
                     sectors_info=sector_data['sectors_data'],
                     sectors_report_info=sector_data['sectors_report_data'],
                     static_info=static_data,
+                    throttle_brake_coast_times_info=session_data['throttle_brake_coast_times_data'],
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -262,6 +267,9 @@ def process_session_data(ibt_telemetry_data):
     try:
         fields_to_process = ['Brake', 'Gear', 'Lap', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
 
+        # Data is in 60Hz
+        data_hz = 60
+
         main_dict = {}
 
         for header in fields_to_process:
@@ -278,7 +286,7 @@ def process_session_data(ibt_telemetry_data):
         main_dataframe = pd.DataFrame(main_dict)
 
         # Calculate cumulative lap time based on the 60Hz sampling frequency (1/60 seconds between each sample)
-        main_dataframe['Time'] = main_dataframe.groupby('Lap').cumcount() / 60
+        main_dataframe['Time'] = main_dataframe.groupby('Lap').cumcount() / data_hz
 
         # Calculate lap times by subtracting the first time value in each lap group from the last
         lap_times = main_dataframe.groupby('Lap')['Time'].max() - main_dataframe.groupby('Lap')['Time'].min()
@@ -367,6 +375,32 @@ def process_session_data(ibt_telemetry_data):
         }
 
         """
+        Set up throttle / brake / coast times report
+        """
+        throttle_brake_coast_times_dict = {}
+        throttle_partial_max_pct = 0.90
+        throttle_partial_min_pct = 0.01
+        brake_partial_max_pct = 0.90
+        brake_partial_min_pct = 0.01
+
+        for lap in main_dataframe['Lap'].unique():
+            this_lap = main_dataframe[main_dataframe['Lap'] == lap]
+
+            throttle_full = this_lap[this_lap['Throttle'] >= throttle_partial_max_pct].shape[0] / 60
+            throttle_partial = this_lap[(this_lap['Throttle'] >= throttle_partial_min_pct) & (this_lap['Throttle'] < throttle_partial_max_pct)].shape[0] / 60
+            brake_full = this_lap[this_lap['Brake'] >= brake_partial_max_pct].shape[0] / 60
+            brake_partial = this_lap[(this_lap['Brake'] >= brake_partial_min_pct) & (this_lap['Brake'] < brake_partial_max_pct)].shape[0] / 60
+            coast = this_lap[(this_lap['Throttle'] < throttle_partial_min_pct) & (this_lap['Brake'] < brake_partial_min_pct)].shape[0] / 60
+
+            throttle_brake_coast_times_dict[lap] = {
+                'ThrottleFull': throttle_full,
+                'ThrottlePartial': throttle_partial,
+                'BrakeFull': brake_full,
+                'BrakePartial': brake_partial,
+                'Coast': coast,
+            }
+
+        """
         Set up data for charts
         """
         charts_dict = {}
@@ -417,6 +451,7 @@ def process_session_data(ibt_telemetry_data):
             'laps_data': laps_dataframe.to_dict(orient='records'),
             'laps_report_data': laps_report,
             'reference_lap_data': reference_lap,
+            'throttle_brake_coast_times_data': throttle_brake_coast_times_dict,
             'z_dataframe': main_dataframe, # Internal use
         }
     except Exception as err:

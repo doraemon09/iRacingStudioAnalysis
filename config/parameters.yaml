@@ -2146,7 +2146,7 @@ Telemetry:
                 Live: 1
                 Description:
                     en: "Skies (0=clear/1=p cloudy/2=m cloudy/3=overcast)"
-                    jp: "空の状態 (0=晴れ/1=部分的に曇り/2=曇り/3=曇り)"
+                    jp: "空の状態 (0=晴れ/1=部分的に曇り/2=ほぼ曇り/3=曇り)"
 
             TrackTemp:
                 Unit: "C"

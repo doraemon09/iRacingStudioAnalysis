@@ -113,7 +113,7 @@ def upload_file():
                     with open(this_static_data, "w") as txt_file:
                         txt_file.write(repr(static_data))
                     with open(this_throttle_brake_coast_times_data, "w") as txt_file:
-                        txt_file.write(repr(throttle_brake_coast_times_data))
+                        txt_file.write(repr(session_data['throttle_brake_coast_times_data']))
                     """
                 else:
                     # Connect to SQLite

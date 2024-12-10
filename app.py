@@ -197,7 +197,7 @@ def get_static_data(filepath):
         ibt_static_data.startup(test_file=filepath)
 
         # Parse into readable data
-        info_to_process = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo']
+        info_to_process = yaml_data['Static'].keys()
 
         info_dict = {}
 

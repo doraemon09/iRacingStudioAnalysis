@@ -105,8 +105,15 @@ def upload_file():
                     # Sector data | gets dict
                     sector_data = process_sectors_data(static_data, session_data)
 
-                    # Unlisted sensors | gets dict
+                    # Unlisted sensors | gets list
                     unlisted_sensors_data = process_unlisted_sensors_data(telemetry_data)
+
+                    """
+                    # Dump data into csv with tab as delimiter
+                    #this_columns = ['Lap', 'SteeringWheelAngle', 'SteeringWheelAngleMax', 'SteeringWheelPctTorque', 'SteeringWheelPctTorqueSign', 'SteeringWheelPctTorqueSignStops', 'SteeringWheelPctIntensity', 'SteeringWheelPctSmoothing', 'SteeringWheelPctDamper', 'SteeringWheelLimiter', 'SteeringWheelMaxForceNm', 'SteeringWheelUseLinear', 'SteeringWheelTorque']
+                    this_columns = ['Lap', 'FuelLevel', 'FuelPress', 'FuelUsePerHour', 'FuelLevelPct', 'dpFuelAddKg', 'dpFuelAutoFillEnabled', 'dpFuelAutoFillActive', 'dpFuelFill', 'PitSvFuel']
+                    telemetry_data.to_csv('telemetry.csv', columns=this_columns, sep='\t', index=False)
+                    """
 
                     """
                     # Dump data into txt file
@@ -297,7 +304,7 @@ def process_ibt_telemetry_data(ibt_telemetry_data):
 # Lap data
 def process_session_data(ibt_telemetry_data):
     try:
-        fields_to_process = ['Brake', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
+        fields_to_process = ['Brake', 'FuelLevel', 'FuelUsePerHour', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
 
         # Data is in 60Hz
         data_hz = 60
@@ -507,6 +514,8 @@ def process_session_data(ibt_telemetry_data):
                 'Speed': chart_dataframe['Speed'].values.tolist(),
                 'RPM': chart_dataframe['RPM'].values.tolist(),
                 'Gear': chart_dataframe['Gear'].values.tolist(),
+                'FuelLevel': chart_dataframe['FuelLevel'].values.tolist(),
+                'FuelUsePerHour': chart_dataframe['FuelUsePerHour'].values.tolist(),
                 'Distance': chart_dataframe['LapDist'].values.tolist(),
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),

@@ -7,7 +7,7 @@
             >
                 {{ yaml_info['General']['Table']['Lap']['Label']['en'] }} {{ yaml_info['General']['Table']['Time']['Label']['en'] }}s
             </h3>
-            <div class="col-md-12">
+            <div class="col-md-12 my-2">
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr>
@@ -209,7 +209,7 @@
                 {{ yaml_info['General']['Table']['Coast']['Label']['en'] }}
                 {{ yaml_info['General']['Table']['Time']['Label']['en'] }}s
             </h3>
-            <div class="col-md-12">
+            <div class="col-md-12 my-2">
                 <table class="table table-hover">
                     <thead class="table-dark">
                         <tr>
@@ -324,6 +324,60 @@
                                 </td>
                             </tr>
                         {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="row my-2">
+            <h3
+                data-en="{{ yaml_info['General']['Table']['Fuel']['Label']['en'] }} {{ yaml_info['General']['Table']['Usage']['Label']['en'] }}"
+                data-jp="{{ yaml_info['General']['Table']['Fuel']['Label']['jp'] }}{{ yaml_info['General']['Table']['Usage']['Label']['jp'] }}"
+            >
+                {{ yaml_info['General']['Table']['Fuel']['Label']['en'] }} {{ yaml_info['General']['Table']['Usage']['Label']['en'] }}
+            </h3>
+            <div class="col-md-12 d-flex flex-wrap gap-1">
+                <span class="btn btn-secondary">
+                    <span
+                        data-en="{{ yaml_info['General']['Table']['Max']['Label']['en'] }} {{ yaml_info['General']['Table']['Fuel']['Label']['en'] }}"
+                        data-jp="{{ yaml_info['General']['Table']['Max']['Label']['jp'] }}{{ yaml_info['General']['Table']['Fuel']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Table']['Max']['Label']['en'] }} {{ yaml_info['General']['Table']['Fuel']['Label']['en'] }}
+                    </span>: {{ static_info['DriverInfo']['DriverCarFuelMaxLtr'] }}
+                    <span
+                        data-en="{{ yaml_info['General']['Table']['Liter']['Label']['en'] }}s"
+                        data-jp="{{ yaml_info['General']['Table']['Liter']['Label']['jp'] }}"
+                    >
+                        {{ yaml_info['General']['Table']['Liter']['Label']['en'] }}s
+                    </span>
+                </span>
+            </div>
+            <div class="col-md-12 my-2">
+                <table class="table table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Table']['Lap']['Label']['en'] }}"
+                                data-jp="{{ yaml_info['General']['Table']['Lap']['Label']['jp'] }}"
+                            >
+                                {{ yaml_info['General']['Table']['Lap']['Label']['en'] }}
+                            </th>
+                            <th scope="col">Fuel (l)</th>
+                            <th scope="col">Used (l)</th>
+                            <th scope="col">Level (%)</th>
+                            <th scope="col">Hourly (kg/h, Avg)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for idx in range(fuel_usage_report_info['Usage'] | length) %}
+                            <tr>
+                                <th scope="row">{{ idx }}</th>
+                                <td>{{ fuel_usage_report_info['Usage'][idx]['Level'] | round(3) }}</td>
+                                <td>{{ fuel_usage_report_info['Usage'][idx]['Used'] | round(3) }}</td>
+                                <td>{{ fuel_usage_report_info['Usage'][idx]['LevelPct'] | round(3) }}</td>
+                                <td>{{ fuel_usage_report_info['Usage'][idx]['UsePerHourAvg'] | round(3) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         </div>

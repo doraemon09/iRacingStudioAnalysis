@@ -64,6 +64,10 @@ General:
             Label:
                 en: "Track Maps"
                 jp: "サーキットマップ"
+        Unlisted:
+            Label:
+                en: "Unlisted"
+                jp: "未掲載"
         Upload:
             Label:
                 en: "Upload"

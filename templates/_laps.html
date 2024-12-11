@@ -365,16 +365,19 @@
                             <th scope="col">Used (l)</th>
                             <th scope="col">Level (%)</th>
                             <th scope="col">Hourly (kg/h, Avg)</th>
+                            <th scope="col">Hourly (l/h, Avg)</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for idx in range(fuel_usage_report_info['Usage'] | length) %}
+                            {% set UsePerHourAvg_literhour = fuel_usage_report_info['Usage'][idx]['UsePerHourAvg'] / static_info['DriverInfo']['DriverCarFuelKgPerLtr'] %}
                             <tr>
                                 <th scope="row">{{ idx }}</th>
                                 <td>{{ fuel_usage_report_info['Usage'][idx]['Level'] | round(3) }}</td>
                                 <td>{{ fuel_usage_report_info['Usage'][idx]['Used'] | round(3) }}</td>
                                 <td>{{ fuel_usage_report_info['Usage'][idx]['LevelPct'] | round(3) }}</td>
                                 <td>{{ fuel_usage_report_info['Usage'][idx]['UsePerHourAvg'] | round(3) }}</td>
+                                <td>{{ UsePerHourAvg_literhour | round(3) }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

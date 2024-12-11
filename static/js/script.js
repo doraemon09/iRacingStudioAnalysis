@@ -117,6 +117,8 @@ function showTelemetrySection(section) {
     this_section.style.display = 'block';
 
     if(section === 'Charts') {
+        chart_hover_sync();
+
         const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedGear', 'chartSpeedFuelUsage', 'chartSteeringAngleTorque'];
 
         this_charts.forEach(chart => {
@@ -171,6 +173,141 @@ function lapTimeFormat(laptime_seconds) {
     const milliseconds = Math.round((laptime_seconds % 1) * 1000);
 
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
+};
+
+// Sync charts on hover
+function chart_hover_sync() {
+    /*
+        =========================
+        Sync hover on Lap Time & Speed delta charts
+        =========================
+    */
+    var chartDeltaLapTime = document.getElementById('chartDeltaLapTime');
+    var chartDeltaSpeed = document.getElementById('chartDeltaSpeed');
+
+    chartDeltaLapTime.on('plotly_hover', function(data) {
+        var { curveNumber, pointIndex } = data.points[0];
+
+        Plotly.Fx.hover('chartDeltaSpeed', [{
+            curveNumber: curveNumber, // match lap trace
+            pointNumber: pointIndex, // match point within the lap trace
+        }]);
+    });
+
+    chartDeltaLapTime.on('plotly_unhover', function(data) {
+        Plotly.Fx.unhover('chartDeltaSpeed');
+    });
+
+    chartDeltaSpeed.on('plotly_hover', function(data) {
+        var { curveNumber, pointIndex } = data.points[0];
+
+        Plotly.Fx.hover('chartDeltaLapTime', [{
+            curveNumber: curveNumber,   // match trace
+            pointNumber: pointIndex,    // match point within the trace
+        }]);
+    });
+
+    chartDeltaSpeed.on('plotly_unhover', function(data) {
+        Plotly.Fx.unhover('chartDeltaLapTime');
+    });
+
+    /*
+        =========================
+        Sync hover on Brake/Throttle & Speed/Gear & Speed/Fuel Usage & Steering Angle/Torque
+        =========================
+    */
+    var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
+    var chartSpeedFuelUsage = document.getElementById('chartSpeedFuelUsage');
+    var chartSpeedGear = document.getElementById('chartSpeedGear');
+    var chartSteeringAngleTorque = document.getElementById('chartSteeringAngleTorque');
+
+    // chartBrakeThrottle
+    chartBrakeThrottle.on('plotly_hover', function(data) {
+        var { curveNumber, pointIndex } = data.points[0];
+
+        const connect_charts = ['chartSpeedFuelUsage', 'chartSpeedGear', 'chartSteeringAngleTorque']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.hover(chart, [{
+                curveNumber: curveNumber,   // match trace
+                pointNumber: pointIndex,    // match point within the trace
+            }]);
+        });
+    });
+
+    chartBrakeThrottle.on('plotly_unhover', function(data) {
+        const connect_charts = ['chartSpeedFuelUsage', 'chartSpeedGear', 'chartSteeringAngleTorque']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.unhover(chart);
+        });
+    });
+
+    // chartSpeedFuelUsage
+    chartSpeedFuelUsage.on('plotly_hover', function(data) {
+        var { curveNumber, pointIndex } = data.points[0];
+
+        const connect_charts = ['chartBrakeThrottle', 'chartSpeedGear', 'chartSteeringAngleTorque']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.hover(chart, [{
+                curveNumber: curveNumber,   // match trace
+                pointNumber: pointIndex,    // match point within the trace
+            }]);
+        });
+    });
+
+    chartSpeedFuelUsage.on('plotly_unhover', function(data) {
+        const connect_charts = ['chartBrakeThrottle', 'chartSpeedGear', 'chartSteeringAngleTorque']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.unhover(chart);
+        });
+    });
+
+    // chartSpeedGear
+    chartSpeedGear.on('plotly_hover', function(data) {
+        var { curveNumber, pointIndex } = data.points[0];
+
+        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSteeringAngleTorque']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.hover(chart, [{
+                curveNumber: curveNumber,   // match trace
+                pointNumber: pointIndex,    // match point within the trace
+            }]);
+        });
+    });
+
+    chartSpeedGear.on('plotly_unhover', function(data) {
+        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSteeringAngleTorque']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.unhover(chart);
+        });
+    });
+
+    // chartSteeringAngleTorque
+    chartSteeringAngleTorque.on('plotly_hover', function(data) {
+        var { curveNumber, pointIndex } = data.points[0];
+
+        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSpeedGear']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.hover(chart, [{
+                curveNumber: curveNumber,   // match trace
+                pointNumber: pointIndex,    // match point within the trace
+            }]);
+        });
+    });
+
+    chartSteeringAngleTorque.on('plotly_unhover', function(data) {
+        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSpeedGear']
+
+        connect_charts.forEach(chart => {
+            Plotly.Fx.unhover(chart);
+        });
+    });
 };
 
 // On page load

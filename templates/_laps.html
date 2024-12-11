@@ -180,8 +180,9 @@
                                 </td>
                                 {% for time in range(sector_times_info[idx]['LapSectorTimes'] | length) %}
                                     {% set this_sector_time = sector_times_info[idx]['LapSectorTimes'][time] %}
+                                    {% set best_sector_time = sectors_report_info['BestSectorTimes'][time] %}
                                     <td
-                                        {% if this_sector_time == sectors_report_info['BestSectorTimes'][time] %}
+                                        {% if this_sector_time == best_sector_time %}
                                             class="table-success fw-bold"
                                             style="border-color: revert; background-color: violet;"
                                         {% endif %}

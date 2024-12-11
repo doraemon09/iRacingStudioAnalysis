@@ -105,6 +105,9 @@ def upload_file():
                     # Sector data | gets dict
                     sector_data = process_sectors_data(static_data, session_data)
 
+                    # Unlisted sensors | gets dict
+                    unlisted_sensors_data = process_unlisted_sensors_data(telemetry_data)
+
                     """
                     # Dump data into txt file
                     this_charts_data = this_file_name.rsplit('.', 1)[0] + '_charts_data.txt'
@@ -116,6 +119,7 @@ def upload_file():
                     this_sectors_report_data = this_file_name.rsplit('.', 1)[0] + '_sectors_report_data.txt'
                     this_static_data = this_file_name.rsplit('.', 1)[0] + '_static_data.txt'
                     this_throttle_brake_coast_report_data = this_file_name.rsplit('.', 1)[0] + '_throttle_brake_coast_report_data.txt'
+                    this_unlisted_sensors_data = this_file_name.rsplit('.', 1)[0] + '_unlisted_sensors_data.txt'
                     this_weather_report_data = this_file_name.rsplit('.', 1)[0] + '_weather_report_data.txt'
 
                     with open(this_charts_data, "w") as txt_file:
@@ -136,6 +140,8 @@ def upload_file():
                         txt_file.write(repr(static_data))
                     with open(this_throttle_brake_coast_report_data, "w") as txt_file:
                         txt_file.write(repr(session_data['throttle_brake_coast_report_data']))
+                    with open(this_unlisted_sensors_data, "w") as txt_file:
+                        txt_file.write(repr(session_data['unlisted_sensors_data']))
                     with open(this_weather_report_data, "w") as txt_file:
                         txt_file.write(repr(session_data['weather_report_data']))
                     """
@@ -167,6 +173,7 @@ def upload_file():
                         'sectors_report_data': eval(this_demo['sectors_report_data']),
                     }
                     static_data = eval(this_demo['static_data'])
+                    unlisted_sensors_data = eval(this_demo['unlisted_sensors_data'])
 
                     this_db.close()
 
@@ -181,6 +188,7 @@ def upload_file():
                     sectors_report_info=sector_data['sectors_report_data'],
                     static_info=static_data,
                     throttle_brake_coast_report_info=session_data['throttle_brake_coast_report_data'],
+                    unlisted_sensors_info=unlisted_sensors_data,
                     weather_report_info=session_data['weather_report_data'],
                     yaml_info=yaml_data,
                 )
@@ -250,9 +258,9 @@ def get_telemetry_data(filepath):
         ibt_telemetry_data.open(filepath)
 
         # Store data into a dataframe
-        telemetry_info = process_ibt_telemetry_data(ibt_telemetry_data)
+        this_telemetry_dataframe = process_ibt_telemetry_data(ibt_telemetry_data)
 
-        return telemetry_info
+        return this_telemetry_dataframe
     except Exception as err:
         return f"Error reading file: {err}"
 
@@ -660,6 +668,20 @@ def process_sectors_data(static_data, session_data):
     except Exception as err:
         print(f"Error processing sector data: {err}")
         return []
+
+
+# Unlisted sensors
+def process_unlisted_sensors_data(telemetry_data):
+    # Retrieve all header names from file
+    unlisted = telemetry_data.columns.tolist()
+
+    for key in yaml_data['Telemetry']:
+        this_list = list(yaml_data['Telemetry'][key]['Property'].keys())
+
+        # Compare and keep mis-matches
+        unlisted = [sensor for sensor in unlisted if sensor not in this_list]
+
+    return unlisted
 
 
 """

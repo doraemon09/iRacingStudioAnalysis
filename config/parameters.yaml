@@ -149,10 +149,18 @@ General:
             Label:
                 en: "Field"
                 jp: "フィールド"
+        Fuel:
+            Label:
+                en: "Fuel"
+                jp: "燃料"
         Lap:
             Label:
                 en: "Lap"
                 jp: "ラップ"
+        Liter:
+            Label:
+                en: "Liter"
+                jp: "リットル"
         Live:
             Label:
                 en: "Live"
@@ -197,6 +205,10 @@ General:
             Label:
                 en: "Unit"
                 jp: "単位"
+        Usage:
+            Label:
+                en: "Usage"
+                jp: "使用量"
         Type:
             Label:
                 en: "Type"

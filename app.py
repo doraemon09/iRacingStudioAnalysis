@@ -187,6 +187,7 @@ def upload_file():
                 return render_template(
                     'display.html',
                     charts_info=session_data['charts_data'],
+                    fuel_usage_report_info=session_data['fuel_usage_report_data'],
                     laps_info=session_data['laps_data'],
                     laps_report_info=session_data['laps_report_data'],
                     reference_lap_info=session_data['reference_lap_data'],
@@ -305,7 +306,7 @@ def process_ibt_telemetry_data(ibt_telemetry_data):
 def process_session_data(ibt_telemetry_data):
     try:
         fields_to_process = [
-            'Brake', 'FuelUsePerHour', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist',
+            'Brake', 'FuelLevel', 'FuelLevelPct', 'FuelUsePerHour', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist',
             'Lat', 'Lon', 'RPM', 'Speed', 'SteeringWheelAngle', 'SteeringWheelTorque', 'Throttle'
         ]
 
@@ -457,6 +458,39 @@ def process_session_data(ibt_telemetry_data):
             'Times': tbc_times_dict,
         }
 
+        # Initialize dict with a negative infinity value as placeholder
+        best_tbc_times = {key: -float('inf') for key in tbc_times_dict[main_dataframe['Lap'].iloc[0]]}
+
+        for this_lap in range(len(tbc_times_dict)):
+            if this_lap in valid_laps:
+                this_dict = tbc_times_dict[this_lap]
+                for key in this_dict:
+                    best_tbc_times[key] = max(best_tbc_times[key], this_dict[key])
+
+        throttle_brake_coast_report = {
+            'BestTimes': best_tbc_times,
+            'Times': tbc_times_dict,
+        }
+
+        """
+        Set up fuel usage report
+        """
+        fuel_usage_dict = {}
+
+        for lap in main_dataframe['Lap'].unique():
+            this_lap = main_dataframe[main_dataframe['Lap'] == lap]
+
+            fuel_usage_dict[lap] = {
+                'Level': this_lap['FuelLevel'].iloc[0],
+                'LevelPct': this_lap['FuelLevelPct'].iloc[0] * 100,
+                'Used': this_lap['FuelLevel'].iloc[0] - this_lap['FuelLevel'].iloc[-1],
+                'UsePerHourAvg': this_lap['FuelUsePerHour'].mean(),
+            }
+
+        fuel_usage_report = {
+            'Usage': fuel_usage_dict,
+        }
+
         """
         Set up weather report
         """
@@ -527,6 +561,7 @@ def process_session_data(ibt_telemetry_data):
 
         return {
             'charts_data': charts_dict,
+            'fuel_usage_report_data': fuel_usage_report,
             'laps_data': laps_dataframe.to_dict(orient='records'),
             'laps_report_data': laps_report,
             'reference_lap_data': reference_lap,

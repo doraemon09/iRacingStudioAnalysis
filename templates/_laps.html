@@ -266,14 +266,61 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for idx in range(throttle_brake_coast_times_info | length) %}
+                        {% for idx in range(throttle_brake_coast_report_info['Times'] | length) %}
+                            {% set this_throttle_full = throttle_brake_coast_report_info['Times'][idx]['ThrottleFull'] %}
+                            {% set this_throttle_partial = throttle_brake_coast_report_info['Times'][idx]['ThrottlePartial'] %}
+                            {% set this_brake_full = throttle_brake_coast_report_info['Times'][idx]['BrakeFull'] %}
+                            {% set this_brake_partial = throttle_brake_coast_report_info['Times'][idx]['BrakePartial'] %}
+                            {% set this_coast = throttle_brake_coast_report_info['Times'][idx]['Coast'] %}
+
+                            {% set best_throttle_full = throttle_brake_coast_report_info['BestTimes']['ThrottleFull'] %}
+                            {% set best_throttle_partial = throttle_brake_coast_report_info['BestTimes']['ThrottlePartial'] %}
+                            {% set best_brake_full = throttle_brake_coast_report_info['BestTimes']['BrakeFull'] %}
+                            {% set best_brake_partial = throttle_brake_coast_report_info['BestTimes']['BrakePartial'] %}
+                            {% set best_coast = throttle_brake_coast_report_info['BestTimes']['Coast'] %}
+
                             <tr>
                                 <th scope="row">{{ idx }}</th>
-                                <td>{{ throttle_brake_coast_times_info[idx]['ThrottleFull'] | laptimeformat }}</td>
-                                <td>{{ throttle_brake_coast_times_info[idx]['ThrottlePartial'] | laptimeformat }}</td>
-                                <td>{{ throttle_brake_coast_times_info[idx]['BrakeFull'] | laptimeformat }}</td>
-                                <td>{{ throttle_brake_coast_times_info[idx]['BrakePartial'] | laptimeformat }}</td>
-                                <td>{{ throttle_brake_coast_times_info[idx]['Coast'] | laptimeformat }}</td>
+                                <td
+                                    {% if this_throttle_full == best_throttle_full %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_throttle_full | laptimeformat }}
+                                </td>
+                                <td
+                                    {% if this_throttle_partial == best_throttle_partial %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_throttle_partial | laptimeformat }}
+                                </td>
+                                <td
+                                    {% if this_brake_full == best_brake_full %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_brake_full | laptimeformat }}
+                                </td>
+                                <td
+                                    {% if this_brake_partial == best_brake_partial %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_brake_partial | laptimeformat }}
+                                </td>
+                                <td
+                                    {% if this_coast == best_coast %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_coast | laptimeformat }}
+                                </td>
                             </tr>
                         {% endfor %}
                 </table>

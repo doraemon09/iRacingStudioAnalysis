@@ -419,7 +419,7 @@ def process_session_data(ibt_telemetry_data):
         """
         Set up throttle / brake / coast times report
         """
-        throttle_brake_coast_times_dict = {}
+        tbc_times_dict = {}
         throttle_partial_max_pct = 0.90
         throttle_partial_min_pct = 0.01
         brake_partial_max_pct = 0.90
@@ -435,7 +435,7 @@ def process_session_data(ibt_telemetry_data):
             brake_partial = this_lap[(this_lap['Brake'] >= brake_partial_min_pct) & (this_lap['Brake'] < brake_partial_max_pct)].shape[0] / data_hz
             coast = this_lap[(this_lap['Throttle'] < throttle_partial_min_pct) & (this_lap['Brake'] < brake_partial_min_pct)].shape[0] / data_hz
 
-            throttle_brake_coast_times_dict[lap] = {
+            tbc_times_dict[lap] = {
                 'ThrottleFull': throttle_full,
                 'ThrottlePartial': throttle_partial,
                 'BrakeFull': brake_full,
@@ -444,17 +444,17 @@ def process_session_data(ibt_telemetry_data):
             }
 
         # Initialize dict with a negative infinity value as placeholder
-        best_tbc_times = {key: -float('inf') for key in throttle_brake_coast_times_dict[main_dataframe['Lap'].iloc[0]]}
+        best_tbc_times = {key: -float('inf') for key in tbc_times_dict[main_dataframe['Lap'].iloc[0]]}
 
-        for this_lap in range(len(throttle_brake_coast_times_dict)):
+        for this_lap in range(len(tbc_times_dict)):
             if this_lap in valid_laps:
-                this_dict = throttle_brake_coast_times_dict[this_lap]
+                this_dict = tbc_times_dict[this_lap]
                 for key in this_dict:
                     best_tbc_times[key] = max(best_tbc_times[key], this_dict[key])
 
         throttle_brake_coast_report = {
             'BestTimes': best_tbc_times,
-            'Times': throttle_brake_coast_times_dict,
+            'Times': tbc_times_dict,
         }
 
         """

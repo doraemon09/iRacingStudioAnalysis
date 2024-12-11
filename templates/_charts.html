@@ -198,9 +198,7 @@
                             hovertemplate: '🟢 %{customdata}&nbsp;',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
-                    {% endfor %}
 
-                    {% for lap, data in charts_info.items() %}
                         var brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => brake.toFixed(3));
 
                         chartBrakeThrottle_traces.push({
@@ -264,9 +262,7 @@
                             hovertemplate: '🏎️ %{y} kph',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
-                    {% endfor %}
 
-                    {% for lap, data in charts_info.items() %}
                         chartSpeedGear_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['Gear'] | tojson }},
@@ -379,9 +375,7 @@
                             hovertemplate: '🏎️ %{y} kph',
                             visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                         });
-                    {% endfor %}
 
-                    {% for lap, data in charts_info.items() %}
                         chartSpeedFuelUsage_traces.push({
                             x: {{ data['Distance'] | tojson }},
                             y: {{ data['FuelUsePerHour'] | tojson }},

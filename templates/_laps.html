@@ -49,7 +49,7 @@
                             </th>
                             <th scope="col"
                                 data-en="{{ yaml_info['General']['Vocab']['Speed']['Label']['en'] }} (kph, {{ yaml_info['General']['Vocab']['Avg']['Label']['en'] }})"
-                                data-jp="{{ yaml_info['General']['Vocab']['Speed']['Label']['jp'] }} (kph, {{ yaml_info['General']['Vocab']['Avg']['Label']['en'] }})"
+                                data-jp="{{ yaml_info['General']['Vocab']['Speed']['Label']['jp'] }} (kph, {{ yaml_info['General']['Vocab']['Avg']['Label']['jp'] }})"
                             >
                                 {{ yaml_info['General']['Vocab']['Speed']['Label']['en'] }} (kph, {{ yaml_info['General']['Vocab']['Avg']['Label']['en'] }})
                             </th>
@@ -361,11 +361,36 @@
                             >
                                 {{ yaml_info['General']['Vocab']['Lap']['Label']['en'] }}
                             </th>
-                            <th scope="col">Fuel (l)</th>
-                            <th scope="col">Used (l)</th>
-                            <th scope="col">Level (%)</th>
-                            <th scope="col">Hourly (kg/h, Avg)</th>
-                            <th scope="col">Hourly (l/h, Avg)</th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Vocab']['Fuel']['Label']['en'] }} (l)"
+                                data-jp="{{ yaml_info['General']['Vocab']['Fuel']['Label']['jp'] }} ({{ yaml_info['General']['Vocab']['Liter']['Label']['jp'] }})"
+                            >
+                                {{ yaml_info['General']['Vocab']['Fuel']['Label']['en'] }} (l)
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Vocab']['Used']['Label']['en'] }} (l)"
+                                data-jp="{{ yaml_info['General']['Vocab']['Used']['Label']['jp'] }} ({{ yaml_info['General']['Vocab']['Liter']['Label']['jp'] }})"
+                            >
+                                {{ yaml_info['General']['Vocab']['Used']['Label']['en'] }} (l)
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Vocab']['Level']['Label']['en'] }} (%)"
+                                data-jp="{{ yaml_info['General']['Vocab']['Level']['Label']['jp'] }} (%)"
+                            >
+                                {{ yaml_info['General']['Vocab']['Level']['Label']['en'] }} (%)
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Vocab']['Hourly']['Label']['en'] }} (kg/h, {{ yaml_info['General']['Vocab']['Avg']['Label']['en'] }})"
+                                data-jp="{{ yaml_info['General']['Vocab']['Hourly']['Label']['jp'] }} (kg/h, {{ yaml_info['General']['Vocab']['Avg']['Label']['jp'] }})"
+                            >
+                                {{ yaml_info['General']['Vocab']['Hourly']['Label']['en'] }} (kg/h, {{ yaml_info['General']['Vocab']['Avg']['Label']['en'] }})
+                            </th>
+                            <th scope="col"
+                                data-en="{{ yaml_info['General']['Vocab']['Hourly']['Label']['en'] }} (l/h, {{ yaml_info['General']['Vocab']['Avg']['Label']['en'] }})"
+                                data-jp="{{ yaml_info['General']['Vocab']['Hourly']['Label']['jp'] }} (l/h, {{ yaml_info['General']['Vocab']['Avg']['Label']['jp'] }})"
+                            >
+                                {{ yaml_info['General']['Vocab']['Hourly']['Label']['en'] }} (l/h, {{ yaml_info['General']['Vocab']['Avg']['Label']['en'] }})
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

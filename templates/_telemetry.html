@@ -1,13 +1,13 @@
 <div id="telemetry_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
         <div class="col-md-12 d-flex flex-wrap gap-1">
-            {% for key in ['Laps', 'Charts', 'TrackMaps'] %}
+            {% for key in ['Lap', 'Chart', 'TrackMap'] %}
                 <button class="btn btn-info" onclick="showTelemetrySection('{{ key }}')">
                     <span
-                        data-en="{{ yaml_info['General']['Button'][key]['Label']['en'] }}"
-                        data-jp="{{ yaml_info['General']['Button'][key]['Label']['jp'] }}"
+                        data-en="{{ yaml_info['General']['Vocab'][key]['Label']['en'] }}s"
+                        data-jp="{{ yaml_info['General']['Vocab'][key]['Label']['jp'] }}"
                     >
-                        {{ yaml_info['General']['Button'][key]['Label']['en'] }}
+                        {{ yaml_info['General']['Vocab'][key]['Label']['en'] }}s
                     </span>
                 </button>
             {% endfor%}

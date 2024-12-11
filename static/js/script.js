@@ -1,7 +1,7 @@
 // Global var
 const sensor_sections = ['Timing', 'Vehicle', 'Garage', 'Pitstop', 'Positioning', 'Session', 'Weather', 'Radio', 'Replay', 'Camera', 'Miscellaneous', 'CarIdx', 'Unlisted'];
 const static_sections = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
-const telemetry_sections = ['Laps', 'Charts', 'TrackMaps'];
+const telemetry_sections = ['Lap', 'Chart', 'TrackMap'];
 
 // Languages
 function switchLanguage(language) {
@@ -116,7 +116,7 @@ function showTelemetrySection(section) {
     const this_section = document.getElementById(section);
     this_section.style.display = 'block';
 
-    if(section === 'Charts') {
+    if(section === 'Chart') {
         chart_hover_sync();
 
         const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedGear', 'chartSpeedFuelUsage', 'chartSteeringAngleTorque'];
@@ -129,7 +129,7 @@ function showTelemetrySection(section) {
         });
     };
 
-    if(section === 'TrackMaps') {
+    if(section === 'TrackMap') {
         const this_maps = ['mapSectors'];
 
         this_maps.forEach(map => {

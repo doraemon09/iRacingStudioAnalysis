@@ -13,19 +13,19 @@
                 <span {% if static_info is defined or sectors_info is defined %}class="d-block d-sm-inline-block"{% endif %}>
                     {% if sectors_info is defined %}
                         <button class="btn btn-outline-info" onclick="showTelemetryData()">
-                            <span class="{{ yaml_info['General']['Button']['Telemetry']['Icon'] }}"></span>
+                            <span class="{{ yaml_info['General']['Vocab']['Telemetry']['Icon'] }}"></span>
                         </button>
                     {% endif %}
 
                     {% if static_info is defined or sectors_info is defined %}
                         <button class="btn btn-outline-info" onclick="showSensorData()">
-                            <span class="{{ yaml_info['General']['Button']['Sensors']['Icon'] }}"></span>
+                            <span class="{{ yaml_info['General']['Vocab']['Sensor']['Icon'] }}"></span>
                         </button>
                     {% endif %}
 
                     {% if static_info is defined %}
                         <button class="btn btn-outline-info" onclick="showStaticData()">
-                            <span class="{{ yaml_info['General']['Button']['Static']['Icon'] }}"></span>
+                            <span class="{{ yaml_info['General']['Vocab']['Static']['Icon'] }}"></span>
                         </button>
                     {% endif %}
 
@@ -37,7 +37,7 @@
 
                     {% if static_info is defined or sectors_info is defined %}
                         <a class="btn btn-outline-primary" href="{{ url_for('upload_file') }}">
-                            <span class="{{ yaml_info['General']['Button']['Home']['Icon'] }}"></span>
+                            <span class="{{ yaml_info['General']['Vocab']['Home']['Icon'] }}"></span>
                         </a>
                     {% endif %}
                 </span>

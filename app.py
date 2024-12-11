@@ -94,7 +94,7 @@ def upload_file():
                     this_sectors_data = this_file_name.rsplit('.', 1)[0] + '_sectors_data.txt'
                     this_sectors_report_data = this_file_name.rsplit('.', 1)[0] + '_sectors_report_data.txt'
                     this_static_data = this_file_name.rsplit('.', 1)[0] + '_static_data.txt'
-                    this_throttle_brake_coast_times_data = this_file_name.rsplit('.', 1)[0] + '_throttle_brake_coast_times_data.txt'
+                    this_throttle_brake_coast_report_data = this_file_name.rsplit('.', 1)[0] + '_throttle_brake_coast_report_data.txt'
 
                     with open(this_charts_data, "w") as txt_file:
                         txt_file.write(repr(session_data['charts_data']))
@@ -112,8 +112,8 @@ def upload_file():
                         txt_file.write(repr(sector_data['sectors_report_data']))
                     with open(this_static_data, "w") as txt_file:
                         txt_file.write(repr(static_data))
-                    with open(this_throttle_brake_coast_times_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['throttle_brake_coast_times_data']))
+                    with open(this_throttle_brake_coast_report_data, "w") as txt_file:
+                        txt_file.write(repr(session_data['throttle_brake_coast_report_data']))
                     """
                 else:
                     # Connect to SQLite
@@ -134,7 +134,7 @@ def upload_file():
                         'laps_data': eval(this_demo['laps_data']),
                         'laps_report_data': eval(this_demo['laps_report_data']),
                         'reference_lap_data': eval(this_demo['reference_lap_data']),
-                        'throttle_brake_coast_times_data': eval(this_demo['throttle_brake_coast_times_data']),
+                        'throttle_brake_coast_report_data': eval(this_demo['throttle_brake_coast_report_data']),
                     }
                     sector_data = {
                         'sector_times_data': eval(this_demo['sector_times_data']),
@@ -155,7 +155,7 @@ def upload_file():
                     sectors_info=sector_data['sectors_data'],
                     sectors_report_info=sector_data['sectors_report_data'],
                     static_info=static_data,
-                    throttle_brake_coast_times_info=session_data['throttle_brake_coast_times_data'],
+                    throttle_brake_coast_report_info=session_data['throttle_brake_coast_report_data'],
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -386,11 +386,12 @@ def process_session_data(ibt_telemetry_data):
         for lap in main_dataframe['Lap'].unique():
             this_lap = main_dataframe[main_dataframe['Lap'] == lap]
 
-            throttle_full = this_lap[this_lap['Throttle'] >= throttle_partial_max_pct].shape[0] / 60
-            throttle_partial = this_lap[(this_lap['Throttle'] >= throttle_partial_min_pct) & (this_lap['Throttle'] < throttle_partial_max_pct)].shape[0] / 60
-            brake_full = this_lap[this_lap['Brake'] >= brake_partial_max_pct].shape[0] / 60
-            brake_partial = this_lap[(this_lap['Brake'] >= brake_partial_min_pct) & (this_lap['Brake'] < brake_partial_max_pct)].shape[0] / 60
-            coast = this_lap[(this_lap['Throttle'] < throttle_partial_min_pct) & (this_lap['Brake'] < brake_partial_min_pct)].shape[0] / 60
+            # .shape returns a tuple of (number_of_rows, number_of_columns)
+            throttle_full = this_lap[this_lap['Throttle'] >= throttle_partial_max_pct].shape[0] / data_hz
+            throttle_partial = this_lap[(this_lap['Throttle'] >= throttle_partial_min_pct) & (this_lap['Throttle'] < throttle_partial_max_pct)].shape[0] / data_hz
+            brake_full = this_lap[this_lap['Brake'] >= brake_partial_max_pct].shape[0] / data_hz
+            brake_partial = this_lap[(this_lap['Brake'] >= brake_partial_min_pct) & (this_lap['Brake'] < brake_partial_max_pct)].shape[0] / data_hz
+            coast = this_lap[(this_lap['Throttle'] < throttle_partial_min_pct) & (this_lap['Brake'] < brake_partial_min_pct)].shape[0] / data_hz
 
             throttle_brake_coast_times_dict[lap] = {
                 'ThrottleFull': throttle_full,
@@ -399,6 +400,20 @@ def process_session_data(ibt_telemetry_data):
                 'BrakePartial': brake_partial,
                 'Coast': coast,
             }
+
+        # Initialize dict with a negative infinity value as placeholder
+        best_tbc_times = {key: -float('inf') for key in throttle_brake_coast_times_dict[main_dataframe['Lap'].iloc[0]]}
+
+        for this_lap in range(len(throttle_brake_coast_times_dict)):
+            if this_lap in valid_laps:
+                this_dict = throttle_brake_coast_times_dict[this_lap]
+                for key in this_dict:
+                    best_tbc_times[key] = max(best_tbc_times[key], this_dict[key])
+
+        throttle_brake_coast_report = {
+            'BestTimes': best_tbc_times,
+            'Times': throttle_brake_coast_times_dict,
+        }
 
         """
         Set up data for charts
@@ -441,9 +456,6 @@ def process_session_data(ibt_telemetry_data):
                 'Distance': chart_dataframe['LapDist'].values.tolist(),
                 'SpeedDelta': delta_speeds.tolist(),
                 'LapTimeDelta': delta_laptimes.tolist(),
-                #'DistanceRefLap': lap_reference_dataframe['LapDist'].values.tolist(),
-                #'GPSLatitudeRefLap': lap_reference_dataframe['Lat'].values.tolist(),
-                #'GPSLongitudeRefLap': lap_reference_dataframe['Lon'].values.tolist(),
             }
 
         return {
@@ -451,7 +463,7 @@ def process_session_data(ibt_telemetry_data):
             'laps_data': laps_dataframe.to_dict(orient='records'),
             'laps_report_data': laps_report,
             'reference_lap_data': reference_lap,
-            'throttle_brake_coast_times_data': throttle_brake_coast_times_dict,
+            'throttle_brake_coast_report_data': throttle_brake_coast_report,
             'z_dataframe': main_dataframe, # Internal use
         }
     except Exception as err:

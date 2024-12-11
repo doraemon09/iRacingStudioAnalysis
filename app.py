@@ -20,7 +20,6 @@ with open('config/parameters.yaml', 'r', encoding='utf-8') as yaml_file:
 
 # Set file folders
 app.config['UPLOAD_FOLDER'] = yaml_data['Config']['Upload']['Folder']
-#DEMO_FILES_DIR = yaml_data['Config']['Demo']['Folder']
 
 # SQLite db
 DATABASE = yaml_data['Config']['Database']['Path']
@@ -78,7 +77,6 @@ def upload_file():
         else:
             # Assign to file variables
             this_file_name = request.form.get('demo_file')
-            #this_folder_path = DEMO_FILES_DIR
 
         # Check allowed file on localhost
         # Demo files are pre-defined therefore can be bypassed
@@ -196,8 +194,6 @@ def upload_file():
     demo_files = []
 
     if not is_localhost:
-        #demo_files = os.listdir(DEMO_FILES_DIR)
-
         # Connect to db for demo name list
         this_db = sqlite3.connect(DATABASE)
         cursor = this_db.cursor()

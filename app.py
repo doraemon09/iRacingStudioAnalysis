@@ -1,6 +1,7 @@
 import copy
 from flask import Flask, render_template, request, redirect, url_for
 import irsdk
+import math
 import numpy as np
 import os
 import pandas as pd
@@ -33,6 +34,28 @@ def allowed_file(filename):
     if '.' not in filename:
         return False
     return filename.rsplit('.', 1)[1].lower() in ALLOWED_FILE_EXTENSIONS
+
+
+# Radian to compass direction
+def rad_to_direction(rad):
+    this_degrees = rad * (180 / math.pi)
+
+    if 337.5 <= this_degrees or this_degrees < 22.5:
+        return "N"
+    elif 22.5 <= this_degrees < 67.5:
+        return "NE"
+    elif 67.5 <= this_degrees < 112.5:
+        return "E"
+    elif 112.5 <= this_degrees < 157.5:
+        return "SE"
+    elif 157.5 <= this_degrees < 202.5:
+        return "S"
+    elif 202.5 <= this_degrees < 247.5:
+        return "SW"
+    elif 247.5 <= this_degrees < 292.5:
+        return "W"
+    elif 292.5 <= this_degrees < 337.5:
+        return "NW"
 
 
 # Route for upload form
@@ -95,6 +118,7 @@ def upload_file():
                     this_sectors_report_data = this_file_name.rsplit('.', 1)[0] + '_sectors_report_data.txt'
                     this_static_data = this_file_name.rsplit('.', 1)[0] + '_static_data.txt'
                     this_throttle_brake_coast_report_data = this_file_name.rsplit('.', 1)[0] + '_throttle_brake_coast_report_data.txt'
+                    this_weather_report_data = this_file_name.rsplit('.', 1)[0] + '_weather_report_data.txt'
 
                     with open(this_charts_data, "w") as txt_file:
                         txt_file.write(repr(session_data['charts_data']))
@@ -114,6 +138,8 @@ def upload_file():
                         txt_file.write(repr(static_data))
                     with open(this_throttle_brake_coast_report_data, "w") as txt_file:
                         txt_file.write(repr(session_data['throttle_brake_coast_report_data']))
+                    with open(this_weather_report_data, "w") as txt_file:
+                        txt_file.write(repr(session_data['weather_report_data']))
                     """
                 else:
                     # Connect to SQLite
@@ -135,6 +161,7 @@ def upload_file():
                         'laps_report_data': eval(this_demo['laps_report_data']),
                         'reference_lap_data': eval(this_demo['reference_lap_data']),
                         'throttle_brake_coast_report_data': eval(this_demo['throttle_brake_coast_report_data']),
+                        'weather_report_data': eval(this_demo['weather_report_data']),
                     }
                     sector_data = {
                         'sector_times_data': eval(this_demo['sector_times_data']),
@@ -156,6 +183,7 @@ def upload_file():
                     sectors_report_info=sector_data['sectors_report_data'],
                     static_info=static_data,
                     throttle_brake_coast_report_info=session_data['throttle_brake_coast_report_data'],
+                    weather_report_info=session_data['weather_report_data'],
                     yaml_info=yaml_data,
                 )
             except Exception as err:
@@ -416,6 +444,25 @@ def process_session_data(ibt_telemetry_data):
         }
 
         """
+        Set up weather report
+        """
+        weather_report = {
+            'Fog': ibt_telemetry_data['FogLevel'].iloc[0],
+            'Humidity': ibt_telemetry_data['RelativeHumidity'].iloc[0],
+            'IsWet': ibt_telemetry_data['WeatherDeclaredWet'].iloc[0],
+            'Sky': ibt_telemetry_data['Skies'].iloc[0],
+            'Temperature': {
+                'Air': ibt_telemetry_data['AirTemp'].iloc[0],
+                'Crew': ibt_telemetry_data['TrackTempCrew'].iloc[0],
+                'Track': ibt_telemetry_data['TrackTemp'].iloc[0],
+            },
+            'Wind': {
+                'Direction': rad_to_direction(ibt_telemetry_data['WindDir'].iloc[0]),
+                'Velocity': ibt_telemetry_data['WindVel'].iloc[0] * 3.6, # m/s to km/h
+            },
+        }
+
+        """
         Set up data for charts
         """
         charts_dict = {}
@@ -464,6 +511,7 @@ def process_session_data(ibt_telemetry_data):
             'laps_report_data': laps_report,
             'reference_lap_data': reference_lap,
             'throttle_brake_coast_report_data': throttle_brake_coast_report,
+            'weather_report_data': weather_report,
             'z_dataframe': main_dataframe, # Internal use
         }
     except Exception as err:

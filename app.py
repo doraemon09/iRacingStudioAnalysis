@@ -449,12 +449,15 @@ def process_session_data(ibt_telemetry_data):
         weather_report = {
             'Fog': ibt_telemetry_data['FogLevel'].iloc[0],
             'Humidity': ibt_telemetry_data['RelativeHumidity'].iloc[0],
-            'IsWet': ibt_telemetry_data['WeatherDeclaredWet'].iloc[0],
             'Sky': ibt_telemetry_data['Skies'].iloc[0],
             'Temperature': {
                 'Air': ibt_telemetry_data['AirTemp'].iloc[0],
                 'Crew': ibt_telemetry_data['TrackTempCrew'].iloc[0],
                 'Track': ibt_telemetry_data['TrackTemp'].iloc[0],
+            },
+            'Wetness': {
+                'IsWet': ibt_telemetry_data['WeatherDeclaredWet'].iloc[0],
+                'Severity': ibt_telemetry_data['TrackWetness'].iloc[0],
             },
             'Wind': {
                 'Direction': rad_to_direction(ibt_telemetry_data['WindDir'].iloc[0]),

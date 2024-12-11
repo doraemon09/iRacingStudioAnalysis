@@ -304,7 +304,10 @@ def process_ibt_telemetry_data(ibt_telemetry_data):
 # Lap data
 def process_session_data(ibt_telemetry_data):
     try:
-        fields_to_process = ['Brake', 'FuelLevel', 'FuelUsePerHour', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'Throttle']
+        fields_to_process = [
+            'Brake', 'FuelUsePerHour', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist',
+            'Lat', 'Lon', 'RPM', 'Speed', 'SteeringWheelAngle', 'SteeringWheelTorque', 'Throttle'
+        ]
 
         # Data is in 60Hz
         data_hz = 60
@@ -514,7 +517,8 @@ def process_session_data(ibt_telemetry_data):
                 'Speed': chart_dataframe['Speed'].values.tolist(),
                 'RPM': chart_dataframe['RPM'].values.tolist(),
                 'Gear': chart_dataframe['Gear'].values.tolist(),
-                'FuelLevel': chart_dataframe['FuelLevel'].values.tolist(),
+                'SteeringWheelAngle': chart_dataframe['SteeringWheelAngle'].values.tolist(),
+                'SteeringWheelTorque': chart_dataframe['SteeringWheelTorque'].values.tolist(),
                 'FuelUsePerHour': chart_dataframe['FuelUsePerHour'].values.tolist(),
                 'Distance': chart_dataframe['LapDist'].values.tolist(),
                 'SpeedDelta': delta_speeds.tolist(),

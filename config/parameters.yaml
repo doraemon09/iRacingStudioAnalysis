@@ -120,10 +120,18 @@ General:
             Label:
                 en: ""
                 jp: ""
+        Hourly:
+            Label:
+                en: "Hourly"
+                jp: "毎時"
         Lap:
             Label:
                 en: "Lap"
                 jp: "ラップ"
+        Level:
+            Label:
+                en: "Level"
+                jp: "レベル"
         Liter:
             Label:
                 en: "Liter"
@@ -199,6 +207,10 @@ General:
             Label:
                 en: "Upload"
                 jp: "アップロード"
+        Used:
+            Label:
+                en: "Used"
+                jp: "使用済み"
         Usage:
             Label:
                 en: "Usage"

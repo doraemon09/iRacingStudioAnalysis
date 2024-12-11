@@ -127,42 +127,6 @@
                         chartDeltaSpeed_traces,
                         chartDeltaSpeed_layout,
                     );
-
-                    /*
-                        =========================
-                        Sync hover on Lap Time & Speed delta charts
-                        =========================
-                    */
-                    var chartDeltaLapTime = document.getElementById('chartDeltaLapTime');
-                    var chartDeltaSpeed = document.getElementById('chartDeltaSpeed');
-
-                    chartDeltaLapTime.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartDeltaSpeed', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartDeltaLapTime.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartDeltaSpeed');
-                    });
-
-                    chartDeltaSpeed.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartDeltaLapTime', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartDeltaSpeed.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartDeltaLapTime');
-                    });
                 });
             </script>
         </div>
@@ -309,41 +273,6 @@
                         chartSpeedGear_layout,
                     );
 
-                    /*
-                        =========================
-                        Sync hover on Brake/Throttle and Speed/Gear
-                        =========================
-                    */
-                    var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
-                    var chartSpeedGear = document.getElementById('chartSpeedGear');
-
-                    chartBrakeThrottle.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartSpeedGear', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartBrakeThrottle.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartSpeedGear');
-                    });
-
-                    chartSpeedGear.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartBrakeThrottle', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartSpeedGear.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartBrakeThrottle');
-                    });
                 });
             </script>
         </div>
@@ -425,42 +354,6 @@
 
                     /*
                         =========================
-                        Sync hover on Brake/Throttle and Speed/Fuel Usage
-                        =========================
-                    */
-                    var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
-                    var chartSpeedFuelUsage = document.getElementById('chartSpeedFuelUsage');
-
-                    chartBrakeThrottle.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartSpeedFuelUsage', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartBrakeThrottle.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartSpeedFuelUsage');
-                    });
-
-                    chartSpeedFuelUsage.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartBrakeThrottle', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartSpeedFuelUsage.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartBrakeThrottle');
-                    });
-
-                    /*
-                        =========================
                         Steering Angle and Torque
                         =========================
                     */
@@ -523,42 +416,6 @@
                         chartSteeringAngleTorque_traces,
                         chartSteeringAngleTorque_layout,
                     );
-
-                    /*
-                        =========================
-                        Sync hover on Angle/Torque and Speed/Gear
-                        =========================
-                    */
-                    var chartSteeringAngleTorque = document.getElementById('chartSteeringAngleTorque');
-                    var chartSpeedGear = document.getElementById('chartSpeedGear');
-
-                    chartSteeringAngleTorque.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartSpeedGear', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartSteeringAngleTorque.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartSpeedGear');
-                    });
-
-                    chartSpeedGear.on('plotly_hover', function(data) {
-                        var curveNumber = data.points[0].curveNumber;
-                        var pointIndex = data.points[0].pointIndex;
-
-                        Plotly.Fx.hover('chartSteeringAngleTorque', [{
-                            curveNumber: curveNumber, // match lap trace
-                            pointNumber: pointIndex, // match point within the lap trace
-                        }]);
-                    });
-
-                    chartSpeedGear.on('plotly_unhover', function(data) {
-                        Plotly.Fx.unhover('chartSteeringAngleTorque');
-                    });
                 });
             </script>
         </div>

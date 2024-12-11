@@ -351,5 +351,115 @@
                 });
             </script>
         </div>
+
+        <div class="row my-2">
+            <div class="col-md-6 col-12">
+                <div id="chartSpeedFuelUsage"></div>
+            </div>
+
+            <!-- Ployly chart -->
+            <script>
+                $(document).ready(function() {
+                    /*
+                        =========================
+                        Speed and Fuel Usage
+                        =========================
+                    */
+                    var chartSpeedFuelUsage_traces = [];
+
+                    {% for lap, data in charts_info.items() %}
+                        var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * 3.6).toFixed(2));
+
+                        chartSpeedFuelUsage_traces.push({
+                            x: {{ data['Distance'] | tojson }},
+                            y: speeds_kmh,
+                            yaxis: 'y1',
+                            mode: 'lines',
+                            name: 'L{{ lap }} Speed',
+                            hovertemplate: '🏎️ %{y} kph',
+                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    {% for lap, data in charts_info.items() %}
+                        chartSpeedFuelUsage_traces.push({
+                            x: {{ data['Distance'] | tojson }},
+                            y: {{ data['FuelUsePerHour'] | tojson }},
+                            yaxis: 'y2',
+                            mode: 'lines',
+                            name: 'L{{ lap }} Fuel',
+                            hovertemplate: '⛽ %{y} l/h',
+                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+
+                    var chartSpeedFuelUsage_layout = {
+                        autosize: true,
+                        showlegend: true,
+                        title: 'Speed and Fuel Use Per Hour',
+                        xaxis: {
+                            title: 'Distance (m)',
+                        },
+                        yaxis: {
+                            title: 'Speed (kph)',
+                            side: 'left',
+                            overlaying: 'y2'
+                        },
+                        yaxis2: {
+                            title: 'Fuel Use Per Hour (l/h)',
+                            side: 'right',
+                        },
+                        legend: {
+                            x: 1.1,
+                            y: 1,
+                            xanchor: 'left',
+                            yanchor: 'top',
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'chartSpeedFuelUsage',
+                        chartSpeedFuelUsage_traces,
+                        chartSpeedFuelUsage_layout,
+                    );
+
+                    /*
+                        =========================
+                        Sync hover on Brake/Throttle and Speed/Fuel Usage
+                        =========================
+                    */
+                    var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
+                    var chartSpeedFuelUsage = document.getElementById('chartSpeedFuelUsage');
+
+                    chartBrakeThrottle.on('plotly_hover', function(data) {
+                        var curveNumber = data.points[0].curveNumber;
+                        var pointIndex = data.points[0].pointIndex;
+
+                        Plotly.Fx.hover('chartSpeedFuelUsage', [{
+                            curveNumber: curveNumber, // match lap trace
+                            pointNumber: pointIndex, // match point within the lap trace
+                        }]);
+                    });
+
+                    chartBrakeThrottle.on('plotly_unhover', function(data) {
+                        Plotly.Fx.unhover('chartSpeedFuelUsage');
+                    });
+
+                    chartSpeedFuelUsage.on('plotly_hover', function(data) {
+                        var curveNumber = data.points[0].curveNumber;
+                        var pointIndex = data.points[0].pointIndex;
+
+                        Plotly.Fx.hover('chartBrakeThrottle', [{
+                            curveNumber: curveNumber, // match lap trace
+                            pointNumber: pointIndex, // match point within the lap trace
+                        }]);
+                    });
+
+                    chartSpeedFuelUsage.on('plotly_unhover', function(data) {
+                        Plotly.Fx.unhover('chartBrakeThrottle');
+                    });
+                });
+            </script>
+        </div>
     </div>
 </div>

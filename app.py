@@ -487,7 +487,16 @@ def process_session_data(ibt_telemetry_data):
                 'UsePerHourAvg': this_lap['FuelUsePerHour'].mean(),
             }
 
+        # Initialize dict with a negative infinity value as placeholder
+        best_fuel_usage = {key: -float('inf') for key in fuel_usage_dict[main_dataframe['Lap'].iloc[0]]}
+
+        for this_lap in range(len(fuel_usage_dict)):
+            this_dict = fuel_usage_dict[this_lap]
+            for key in this_dict:
+                best_fuel_usage[key] = max(best_fuel_usage[key], this_dict[key])
+
         fuel_usage_report = {
+            'BestUsage': best_fuel_usage,
             'Usage': fuel_usage_dict,
         }
 

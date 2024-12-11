@@ -11,3 +11,4 @@ venv/
 *.pem
 *.txt
 *.db
+*.csv

@@ -395,14 +395,43 @@
                     </thead>
                     <tbody>
                         {% for idx in range(fuel_usage_report_info['Usage'] | length) %}
-                            {% set UsePerHourAvg_literhour = fuel_usage_report_info['Usage'][idx]['UsePerHourAvg'] / static_info['DriverInfo']['DriverCarFuelKgPerLtr'] %}
+                            {% set this_level = fuel_usage_report_info['Usage'][idx]['Level']%}
+                            {% set this_used = fuel_usage_report_info['Usage'][idx]['Used']%}
+                            {% set this_levelpct = fuel_usage_report_info['Usage'][idx]['LevelPct']%}
+                            {% set this_useperhouravg = fuel_usage_report_info['Usage'][idx]['UsePerHourAvg']%}
+                            {% set this_useperhouravg_literhour = fuel_usage_report_info['Usage'][idx]['UsePerHourAvg'] / static_info['DriverInfo']['DriverCarFuelKgPerLtr'] %}
+
+                            {% set best_used = fuel_usage_report_info['BestUsage']['Used'] %}
+                            {% set best_useperhouravg = fuel_usage_report_info['BestUsage']['UsePerHourAvg'] %}
+
                             <tr>
                                 <th scope="row">{{ idx }}</th>
-                                <td>{{ fuel_usage_report_info['Usage'][idx]['Level'] | round(3) }}</td>
-                                <td>{{ fuel_usage_report_info['Usage'][idx]['Used'] | round(3) }}</td>
-                                <td>{{ fuel_usage_report_info['Usage'][idx]['LevelPct'] | round(3) }}</td>
-                                <td>{{ fuel_usage_report_info['Usage'][idx]['UsePerHourAvg'] | round(3) }}</td>
-                                <td>{{ UsePerHourAvg_literhour | round(3) }}</td>
+                                <td>{{ this_level | round(3) }}</td>
+                                <td
+                                    {% if this_used == best_used %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_used | round(3) }}
+                                </td>
+                                <td>{{ this_levelpct | round(3) }}</td>
+                                <td
+                                    {% if this_useperhouravg == best_useperhouravg %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_useperhouravg | round(3) }}
+                                </td>
+                                <td
+                                    {% if this_useperhouravg == best_useperhouravg %}
+                                        class="table-success fw-bold"
+                                        style="border-color: revert;"
+                                    {% endif %}
+                                >
+                                    {{ this_useperhouravg_literhour | round(3) }}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

@@ -67,14 +67,20 @@
                     <button class="btn btn-secondary">{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}</button>
                     <button class="btn btn-secondary">{{ static_info['WeekendInfo']['TrackDisplayName'] }}</button>
                     <button class="btn btn-secondary">
-                        {% if weather_report_info['IsWet'] %}
-                            <i class="fa-solid fa-cloud-showers-heavy"></i>
+                        {% if weather_report_info['Wetness']['IsWet'] %}
+                            {% if weather_report_info['Wetness']['Severity'] in (3,4) %}
+                                <i class="fa-solid fa-cloud-sun-rain"></i>
+                            {% elif weather_report_info['Wetness']['Severity'] == 5 %}
+                                <i class="fa-solid fa-cloud-rain"></i>
+                            {% elif weather_report_info['Wetness']['Severity'] == 6 %}
+                                <i class="fa-solid fa-cloud-showers-heavy"></i>
+                            {% elif weather_report_info['Wetness']['Severity'] == 7 %}
+                                <i class="fa-solid fa-cloud-showers-water"></i>
+                            {% endif %}
                         {% else %}
                             {% if weather_report_info['Sky'] == 0 %}
                                 <i class="fa-solid fa-sun"></i>
-                            {% elif weather_report_info['Sky'] == 1 %}
-                                <i class="fa-solid fa-cloud-sun"></i>
-                            {% elif weather_report_info['Sky'] == 2 %}
+                            {% elif weather_report_info['Sky'] in (1,2) %}
                                 <i class="fa-solid fa-cloud-sun"></i>
                             {% elif weather_report_info['Sky'] == 3 %}
                                 <i class="fa-solid fa-cloud"></i>

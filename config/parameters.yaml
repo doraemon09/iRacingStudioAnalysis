@@ -27,52 +27,6 @@ General:
                 en: "Upload your iRacing telemetry file (.ibt) to begin the analysis. The telemetry files can be found in the \\Documents\\iRacing\\Telemetry\\ folder."
                 jp: "分析を開始するには、iRacingのテレメトリファイル（.ibt）をアップロードしてください。テレメトリーファイルは \\Documents\\iRacing\\Telemetry\\ フォルダ内にあります。"
 
-    Button:
-        Charts:
-            Label:
-                en: "Charts"
-                jp: "グラフ"
-        Demo:
-            Label:
-                en: "Load"
-                jp: "読み込み"
-        Home:
-            Icon: "fa-solid fa-house"
-            Label:
-                en: ""
-                jp: ""
-        Laps:
-            Label:
-                en: "Laps"
-                jp: "ラップ"
-        Sensors:
-            Icon: "fa-solid fa-rectangle-list"
-            Label:
-                en: "Sensors"
-                jp: "センサー"
-        Static:
-            Icon: "fa-solid fa-circle-info"
-            Label:
-                en: "Static Info"
-                jp: "セッション情報"
-        Telemetry:
-            Icon: "fa-solid fa-chart-line"
-            Label:
-                en: "Telemetry Data"
-                jp: "テレメトリーデータ"
-        TrackMaps:
-            Label:
-                en: "Track Maps"
-                jp: "サーキットマップ"
-        Unlisted:
-            Label:
-                en: "Unlisted"
-                jp: "未掲載"
-        Upload:
-            Label:
-                en: "Upload"
-                jp: "アップロード"
-
     Caution:
         Label:
             en: "Please note that due to the large size of the telemetry file, loading may take some time or might not be successful in all cases."
@@ -116,7 +70,7 @@ General:
             en: "iRacing Studio Analysis"
             jp: "iRacingスタジオアナリシス"
 
-    Table:
+    Vocab:
         Avg:
             Label:
                 en: "Avg"
@@ -125,6 +79,10 @@ General:
             Label:
                 en: "Brake"
                 jp: "ブレーキ"
+        Chart:
+            Label:
+                en: "Chart"
+                jp: "グラフ"
         Coast:
             Label:
                 en: "Coast"
@@ -133,6 +91,10 @@ General:
             Label:
                 en: "Delta"
                 jp: "デルタ"
+        Demo:
+            Label:
+                en: "Load"
+                jp: "読み込み"
         Description:
             Label:
                 en: "Description"
@@ -153,6 +115,11 @@ General:
             Label:
                 en: "Fuel"
                 jp: "燃料"
+        Home:
+            Icon: "fa-solid fa-house"
+            Label:
+                en: ""
+                jp: ""
         Lap:
             Label:
                 en: "Lap"
@@ -181,6 +148,11 @@ General:
             Label:
                 en: "Sector"
                 jp: "セクター"
+        Sensor:
+            Icon: "fa-solid fa-rectangle-list"
+            Label:
+                en: "Sensor"
+                jp: "センサー"
         SimulatedLapTime:
             Label:
                 en: "Vehicle Simulated Lap Time"
@@ -189,6 +161,16 @@ General:
             Label:
                 en: "Speed"
                 jp: "速度"
+        Static:
+            Icon: "fa-solid fa-circle-info"
+            Label:
+                en: "Static Info"
+                jp: "セッション情報"
+        Telemetry:
+            Icon: "fa-solid fa-chart-line"
+            Label:
+                en: "Telemetry Data"
+                jp: "テレメトリーデータ"
         TheoreticalBestLap:
             Label:
                 en: "Theoretical Best Lap Time"
@@ -201,10 +183,22 @@ General:
             Label:
                 en: "Time"
                 jp: "タイム"
+        TrackMap:
+            Label:
+                en: "Track Map"
+                jp: "サーキットマップ"
         Unit:
             Label:
                 en: "Unit"
                 jp: "単位"
+        Unlisted:
+            Label:
+                en: "Unlisted"
+                jp: "未掲載"
+        Upload:
+            Label:
+                en: "Upload"
+                jp: "アップロード"
         Usage:
             Label:
                 en: "Usage"

@@ -1,6 +1,6 @@
 <div id="sensor_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
-        <div class="col-md-12">
+        <div class="col-md-12 d-flex flex-wrap gap-1">
             {% for key in yaml_info['Telemetry'] %}
                 <button class="btn btn-info" onclick="showSensorSection('{{ key }}')">
                     <span

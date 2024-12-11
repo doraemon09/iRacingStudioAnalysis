@@ -1,6 +1,6 @@
 <div id="telemetry_data" class="container-fluid" style="display: none;">
     <div class="row my-2">
-        <div class="col-md-12">
+        <div class="col-md-12 d-flex flex-wrap gap-1">
             {% for key in ['Laps', 'Charts', 'TrackMaps'] %}
                 <button class="btn btn-info" onclick="showTelemetrySection('{{ key }}')">
                     <span

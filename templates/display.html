@@ -62,10 +62,30 @@
             </div>
 
             <div class="row my-2">
-                <div class="col-md-12">
+                <div class="col-md-12 d-flex flex-wrap gap-1">
                     <button class="btn btn-secondary">{{ static_info['WeekendInfo']['EventType'] }}</button>
                     <button class="btn btn-secondary">{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}</button>
                     <button class="btn btn-secondary">{{ static_info['WeekendInfo']['TrackDisplayName'] }}</button>
+                    <button class="btn btn-secondary">
+                        {% if weather_report_info['IsWet'] %}
+                            <i class="fa-solid fa-cloud-showers-heavy"></i>
+                        {% else %}
+                            {% if weather_report_info['Sky'] == 0 %}
+                                <i class="fa-solid fa-sun"></i>
+                            {% elif weather_report_info['Sky'] == 1 %}
+                                <i class="fa-solid fa-cloud-sun"></i>
+                            {% elif weather_report_info['Sky'] == 2 %}
+                                <i class="fa-solid fa-cloud-sun"></i>
+                            {% elif weather_report_info['Sky'] == 3 %}
+                                <i class="fa-solid fa-cloud"></i>
+                            {% endif %}
+                        {% endif %}
+                        <i class="fa-solid fa-temperature-half"></i>
+                        {{ weather_report_info['Temperature']['Air'] | round(1) }}&deg;C
+                        <i class="fa-solid fa-wind"></i>
+                        {{ weather_report_info['Wind']['Direction'] | round(1) }}
+                        {{ weather_report_info['Wind']['Velocity'] | round(1) }} km/h
+                    </button>
                 </div>
             </div>
         </div>

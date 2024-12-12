@@ -111,7 +111,8 @@ def upload_file():
                     """
                     # Dump data into csv with tab as delimiter
                     #this_columns = ['Lap', 'SteeringWheelAngle', 'SteeringWheelAngleMax', 'SteeringWheelPctTorque', 'SteeringWheelPctTorqueSign', 'SteeringWheelPctTorqueSignStops', 'SteeringWheelPctIntensity', 'SteeringWheelPctSmoothing', 'SteeringWheelPctDamper', 'SteeringWheelLimiter', 'SteeringWheelMaxForceNm', 'SteeringWheelUseLinear', 'SteeringWheelTorque']
-                    this_columns = ['Lap', 'FuelLevel', 'FuelPress', 'FuelUsePerHour', 'FuelLevelPct', 'dpFuelAddKg', 'dpFuelAutoFillEnabled', 'dpFuelAutoFillActive', 'dpFuelFill', 'PitSvFuel']
+                    #this_columns = ['Lap', 'FuelLevel', 'FuelPress', 'FuelUsePerHour', 'FuelLevelPct', 'dpFuelAddKg', 'dpFuelAutoFillEnabled', 'dpFuelAutoFillActive', 'dpFuelFill', 'PitSvFuel']
+                    this_columns = ['Lap','LRshockDefl','LRshockVel','RRshockDefl','RRshockVel','LFshockDefl','LFshockVel','RFshockDefl','RFshockVel','LFrideHeight','RFrideHeight','LRrideHeight','RRrideHeight']
                     telemetry_data.to_csv('telemetry.csv', columns=this_columns, sep='\t', index=False)
                     """
 
@@ -306,8 +307,11 @@ def process_ibt_telemetry_data(ibt_telemetry_data):
 def process_session_data(ibt_telemetry_data):
     try:
         fields_to_process = [
-            'Brake', 'FuelLevel', 'FuelLevelPct', 'FuelUsePerHour', 'Gear', 'Lap', 'LapCurrentLapTime', 'LapDist',
-            'Lat', 'Lon', 'RPM', 'Speed', 'SteeringWheelAngle', 'SteeringWheelTorque', 'Throttle'
+            'Alt', 'Brake', 'FuelLevel', 'FuelLevelPct', 'FuelUsePerHour', 'Gear', 'Lap', 'LapCurrentLapTime',
+            'LapDist', 'Lat', 'Lon', 'RPM', 'Speed', 'SteeringWheelAngle', 'SteeringWheelTorque', 'Throttle',
+            'LRshockDefl', 'RRshockDefl', 'LFshockDefl', 'RFshockDefl',
+            'LRshockVel', 'RRshockVel', 'LFshockVel', 'RFshockVel',
+            'LFrideHeight', 'RFrideHeight', 'LRrideHeight', 'RRrideHeight',
         ]
 
         # Data is in 60Hz
@@ -523,17 +527,32 @@ def process_session_data(ibt_telemetry_data):
         }
 
         """
-        Set up data for charts
+        Set up reference lap data
         """
-        charts_dict = {}
-
-        # Reference lap
         lap_reference_dataframe = main_dataframe[main_dataframe['Lap'] == lap_best][main_dataframe.columns.tolist()]
 
         reference_lap = {
+            'Altitude': lap_reference_dataframe['Alt'].values.tolist(),
             'Latitude': lap_reference_dataframe['Lat'].values.tolist(),
             'Longitude': lap_reference_dataframe['Lon'].values.tolist(),
+            'LRshockDefl': lap_reference_dataframe['LRshockDefl'].values.tolist(),
+            'RRshockDefl': lap_reference_dataframe['RRshockDefl'].values.tolist(),
+            'LFshockDefl': lap_reference_dataframe['LFshockDefl'].values.tolist(),
+            'RFshockDefl': lap_reference_dataframe['RFshockDefl'].values.tolist(),
+            'LRshockVel': lap_reference_dataframe['LRshockVel'].values.tolist(),
+            'RRshockVel': lap_reference_dataframe['RRshockVel'].values.tolist(),
+            'LFshockVel': lap_reference_dataframe['LFshockVel'].values.tolist(),
+            'RFshockVel': lap_reference_dataframe['RFshockVel'].values.tolist(),
+            'LFrideHeight': lap_reference_dataframe['LFrideHeight'].values.tolist(),
+            'RFrideHeight': lap_reference_dataframe['RFrideHeight'].values.tolist(),
+            'LRrideHeight': lap_reference_dataframe['LRrideHeight'].values.tolist(),
+            'RRrideHeight': lap_reference_dataframe['RRrideHeight'].values.tolist(),
         }
+
+        """
+        Set up data for charts
+        """
+        charts_dict = {}
 
         for lap in laps_best['LapNum'].values.tolist():
             chart_dataframe = main_dataframe[main_dataframe['Lap'] == lap][main_dataframe.columns.tolist()]

@@ -8,14 +8,380 @@
                 {{ yaml_info['General']['Vocab']['TrackMap']['Label']['en'] }}s
             </h3>
             <div class="col-lg-6 col-12">
+                <div id="mapAltLatLon"></div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div id="mapRideHeight"></div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div id="mapShockDeflection"></div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div id="mapShockVelocity"></div>
+            </div>
+            <div class="col-lg-6 col-12">
                 <div id="mapSectors"></div>
             </div>
 
             <script>
                 $(document).ready(function() {
+                    /* Set up defaults */
+                    const longitudes = {{ reference_lap_info['Longitude'] | tojson }};
+                    const latitudes = {{ reference_lap_info['Latitude'] | tojson }};
+                    const altitudes = {{ reference_lap_info['Altitude'] | tojson }};
+
+                    const altitudes_min = Math.min(...altitudes);
+                    const altitudes_max = Math.max(...altitudes);
+                    const altitudes_cleaned = altitudes.map(alt => alt.toFixed(3));
+
+                    // Scaled down to (0-1 * normalize_reduced)
+                    const normalize_reduced = 0.5
+                    const altitudes_normalized = altitudes.map(alt => (alt - altitudes_min) / (altitudes_max - altitudes_min) * normalize_reduced);
+
                     /*
                         =========================
-                        GPS: Track Map
+                        Altitude
+                        =========================
+                    */
+                    const throttle = {{ charts_info[laps_report_info['TopLaps'][0]]['Throttle'] | tojson }};
+                    const brake = {{ charts_info[laps_report_info['TopLaps'][0]]['Brake'] | tojson }};
+
+                    const throttle_cleaned = throttle.map(throttle => (throttle * 100).toFixed(2));
+                    const brake_cleaned = brake.map(brake => (brake * 100).toFixed(2));
+
+                    const mapAltLatLon_customdata = altitudes.map((_, i) => [
+                        altitudes_cleaned[i],
+                        throttle_cleaned[i],
+                        brake_cleaned[i],
+                    ]);
+
+                    var mapAltLatLon_traces = []
+
+                    mapAltLatLon_traces.push({
+                        x: longitudes,
+                        y: latitudes,
+                        z: altitudes_normalized,
+                        type: 'scatter3d',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            color: altitudes,   // Color by altitude
+                            colorscale: 'Viridis',  // Use a color scale
+                            colorbar: {
+                                title: '(m)',
+                            }
+                        },
+                        customdata: mapAltLatLon_customdata,
+                        hovertemplate:
+                            '⛰️ %{customdata[0]} m<br>' +
+                            '🟢 %{customdata[1]} %<br>' +
+                            '🔴 %{customdata[2]} %<br>' +
+                            '<extra></extra>',
+                    });
+
+                    mapAltLatLon_layout = {
+                        title: 'Altitude',
+                        scene: {
+                            xaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            yaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            zaxis: {
+                                title: 'Altitude',
+                                showticklabels: false,
+                                range: [-5, 5],
+                            },
+                            camera: {
+                                eye: {
+                                    x: 1,
+                                    y: 1,
+                                    z: 1,
+                                },
+                            },
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'mapAltLatLon',
+                        mapAltLatLon_traces,
+                        mapAltLatLon_layout,
+                    );
+
+                    /*
+                        =========================
+                        Ride Height
+                        =========================
+                    */
+                    const lfrideheight = {{ reference_lap_info['LFrideHeight'] | tojson }};
+                    const rfrideheight = {{ reference_lap_info['RFrideHeight'] | tojson }};
+                    const lrrideheight = {{ reference_lap_info['LRrideHeight'] | tojson }};
+                    const rrrideheight = {{ reference_lap_info['RRrideHeight'] | tojson }};
+
+                    const lfrideheight_cleaned = lfrideheight.map(lf => (lf * 1000).toFixed(3));
+                    const rfrideheight_cleaned = rfrideheight.map(rf => (rf * 1000).toFixed(3));
+                    const lrrideheight_cleaned = lrrideheight.map(lr => (lr * 1000).toFixed(3));
+                    const rrrideheight_cleaned = rrrideheight.map(rr => (rr * 1000).toFixed(3));
+
+                    let rideheight_avg = lfrideheight.map((value, index) => {
+                        return (value + rfrideheight[index] + lrrideheight[index] + rrrideheight[index]) * 1000 / 4;
+                    });
+
+                    const mapRideHeight_customdata = altitudes.map((_, i) => [
+                        altitudes_cleaned[i],
+                        lfrideheight_cleaned[i],
+                        rfrideheight_cleaned[i],
+                        lrrideheight_cleaned[i],
+                        rrrideheight_cleaned[i],
+                    ]);
+
+                    var mapRideHeight_traces = []
+
+                    mapRideHeight_traces.push({
+                        x: longitudes,
+                        y: latitudes,
+                        z: altitudes_normalized,
+                        type: 'scatter3d',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            color: rideheight_avg,
+                            colorscale: 'YlGnBu',
+                            colorbar: {
+                                title: '(mm, Avg)',
+                            }
+                        },
+                        customdata: mapRideHeight_customdata,
+                        hovertemplate:
+                            '⛰️ %{customdata[0]} m<br>' +
+                            '%{customdata[1]} mm' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[2]} mm' +
+                            '<br>' +
+                            '%{customdata[3]} mm' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[4]} mm' +
+                            '<extra></extra>',
+                    });
+
+                    mapRideHeight_layout = {
+                        title: 'Ride Height',
+                        scene: {
+                            xaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            yaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            zaxis: {
+                                title: 'Ride Height',
+                                showticklabels: false,
+                                range: [-5, 5],
+                            },
+                            camera: {
+                                eye: {
+                                    x: 1,
+                                    y: 1,
+                                    z: 1,
+                                },
+                            },
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'mapRideHeight',
+                        mapRideHeight_traces,
+                        mapRideHeight_layout,
+                    );
+
+                    /*
+                        =========================
+                        Shock Deflection
+                        =========================
+                    */
+                    const lfshockdefl = {{ reference_lap_info['LFshockDefl'] | tojson }};
+                    const rfshockdefl = {{ reference_lap_info['RFshockDefl'] | tojson }};
+                    const lrshockdefl = {{ reference_lap_info['LRshockDefl'] | tojson }};
+                    const rrshockdefl = {{ reference_lap_info['RRshockDefl'] | tojson }};
+
+                    const lfshockdefl_cleaned = lfshockdefl.map(lf => (lf * 1000).toFixed(3));
+                    const rfshockdefl_cleaned = rfshockdefl.map(rf => (rf * 1000).toFixed(3));
+                    const lrshockdefl_cleaned = lrshockdefl.map(lr => (lr * 1000).toFixed(3));
+                    const rrshockdefl_cleaned = rrshockdefl.map(rr => (rr * 1000).toFixed(3));
+
+                    let shockdefl_avg = lfshockdefl.map((value, index) => {
+                        return (value + rfshockdefl[index] + lrshockdefl[index] + rrshockdefl[index]) * 1000 / 4;
+                    });
+
+                    const mapShockDeflection_customdata = altitudes.map((_, i) => [
+                        altitudes_cleaned[i],
+                        lfshockdefl_cleaned[i],
+                        rfshockdefl_cleaned[i],
+                        lrshockdefl_cleaned[i],
+                        rrshockdefl_cleaned[i],
+                    ]);
+
+                    var mapShockDeflection_traces = []
+
+                    mapShockDeflection_traces.push({
+                        x: longitudes,
+                        y: latitudes,
+                        z: altitudes_normalized,
+                        type: 'scatter3d',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            color: shockdefl_avg,
+                            colorscale: 'Plasma',
+                            colorbar: {
+                                title: '(mm, Avg)',
+                            }
+                        },
+                        customdata: mapShockDeflection_customdata,
+                        hovertemplate:
+                            '⛰️ %{customdata[0]} m<br>' +
+                            '%{customdata[1]} mm' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[2]} mm' +
+                            '<br>' +
+                            '%{customdata[3]} mm' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[4]} mm' +
+                            '<extra></extra>',
+                    });
+
+                    mapShockDeflection_layout = {
+                        title: 'Shock Deflection',
+                        scene: {
+                            xaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            yaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            zaxis: {
+                                title: 'Shock Deflection',
+                                showticklabels: false,
+                                range: [-5, 5],
+                            },
+                            camera: {
+                                eye: {
+                                    x: 1,
+                                    y: 1,
+                                    z: 1,
+                                },
+                            },
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'mapShockDeflection',
+                        mapShockDeflection_traces,
+                        mapShockDeflection_layout,
+                    );
+
+                    /*
+                        =========================
+                        Shock Velocity
+                        =========================
+                    */
+                    const lfshockvel = {{ reference_lap_info['LFshockVel'] | tojson }};
+                    const rfshockvel = {{ reference_lap_info['RFshockVel'] | tojson }};
+                    const lrshockvel = {{ reference_lap_info['LRshockVel'] | tojson }};
+                    const rrshockvel = {{ reference_lap_info['RRshockVel'] | tojson }};
+
+                    const lfshockvel_cleaned = lfshockvel.map(lf => (lf * 1000).toFixed(3));
+                    const rfshockvel_cleaned = rfshockvel.map(rf => (rf * 1000).toFixed(3));
+                    const lrshockvel_cleaned = lrshockvel.map(lr => (lr * 1000).toFixed(3));
+                    const rrshockvel_cleaned = rrshockvel.map(rr => (rr * 1000).toFixed(3));
+
+                    let shockvel_avg = lfshockvel.map((value, index) => {
+                        return (value + rfshockvel[index] + lrshockvel[index] + rrshockvel[index]) * 1000 / 4;
+                    });
+
+                    const mapShockVelocity_customdata = altitudes.map((_, i) => [
+                        altitudes_cleaned[i],
+                        formatWithPlus(lfshockvel_cleaned[i]),
+                        formatWithPlus(rfshockvel_cleaned[i]),
+                        formatWithPlus(lrshockvel_cleaned[i]),
+                        formatWithPlus(rrshockvel_cleaned[i]),
+                    ]);
+
+                    var mapShockVelocity_traces = []
+
+                    mapShockVelocity_traces.push({
+                        x: longitudes,
+                        y: latitudes,
+                        z: altitudes_normalized,
+                        type: 'scatter3d',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            color: shockvel_avg,
+                            colorscale: 'RdBu',
+                            colorbar: {
+                                title: '(mm/s, Avg)',
+                            }
+                        },
+                        customdata: mapShockVelocity_customdata,
+                        hovertemplate:
+                            '⛰️ %{customdata[0]} m<br>' +
+                            '%{customdata[1]} mm/s' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[2]} mm/s' +
+                            '<br>' +
+                            '%{customdata[3]} mm/s' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[4]} mm/s' +
+                            '<extra></extra>',
+                    });
+
+                    mapShockVelocity_layout = {
+                        title: 'Shock Velocity',
+                        scene: {
+                            xaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            yaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            zaxis: {
+                                title: 'Shock Velocity',
+                                showticklabels: false,
+                                range: [-5, 5],
+                            },
+                            camera: {
+                                eye: {
+                                    x: 1,
+                                    y: 1,
+                                    z: 1,
+                                },
+                            },
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'mapShockVelocity',
+                        mapShockVelocity_traces,
+                        mapShockVelocity_layout,
+                    );
+                });
+            </script>
+
+            <script>
+                $(document).ready(function() {
+                    /*
+                        =========================
+                        Lap Time / Speed / RPM / Gear
                         =========================
                     */
                     const vehicle = "{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
@@ -31,12 +397,13 @@
 
                     // Since both GPS Lat/Lon are data from reference lap aka Best Lap
                     // sensor from best lap will need to be used to match
+                    const laptimes = {{ charts_info[laps_report_info['TopLaps'][0]]['LapTime'] | tojson }};
                     const speeds = {{ charts_info[laps_report_info['TopLaps'][0]]['Speed'] | tojson }};
                     const rpms = {{ charts_info[laps_report_info['TopLaps'][0]]['RPM'] | tojson }};
                     const gears = {{ charts_info[laps_report_info['TopLaps'][0]]['Gear'] | tojson }};
-                    const laptimes = {{ charts_info[laps_report_info['TopLaps'][0]]['LapTime'] | tojson }};
 
                     // Convert and clean up
+                    const laptimes_cleaned = laptimes.map(lapTimeFormat);
                     const speeds_kmh = speeds.map(speed => (speed * 3.6).toFixed(2));
                     const speeds_mph = speeds.map(speed => (speed * 2.237).toFixed(2));
                     const rpms_cleaned = rpms.map(rpm => Math.round(rpm));
@@ -45,10 +412,9 @@
                         if (gear === -1) return 'R';
                         return gear.toString();
                     });
-                    const laptimes_cleaned = laptimes.map(lapTimeFormat);
 
                     // Combine latitudes and longitudes into a GeoJSON format for Turf.js
-                    const points = latitudes.map((lat, index) => ({
+                    const mapSectors_points = latitudes.map((lat, index) => ({
                         type: 'Feature',
                         geometry: {
                             type: 'Point',
@@ -64,23 +430,18 @@
                         },
                     }));
 
-                    const customData = points.map((point) => [
-                        point.properties.speed_mph,
-                        point.properties.rpm,
-                        point.properties.gear,
-                        point.properties.laptime,
-                    ]);
-
-                    const geoJsonPoints = {
+                    const mapSectors_geoJsonPoints = {
                         type: 'FeatureCollection',
-                        features: points
+                        features: mapSectors_points
                     };
 
                     // Use Turf.js to calculate the bounding box of the points
-                    const bbox = turf.bbox(geoJsonPoints); // [west, south, east, north]
+                    // [west, south, east, north]
+                    const bbox = turf.bbox(mapSectors_geoJsonPoints);
 
                     // Calculate the center (centroid) of the points
-                    const center = turf.center(geoJsonPoints); // returns { type: 'Feature', geometry: { type: 'Point', coordinates: [lon, lat] } }
+                    // returns { type: 'Feature', geometry: { type: 'Point', coordinates: [lon, lat] } }
+                    const center = turf.center(mapSectors_geoJsonPoints);
 
                     // Extract the center coordinates
                     const center_lat = center.geometry.coordinates[1];
@@ -101,7 +462,7 @@
                     ];
 
                     // Define the data trace for the map
-                    var map_traces = [];
+                    var mapSectors_traces = [];
 
                     // Set marker for sectors
                     {% for idx in range(sectors_info['Sectors']['Percentages'] | length) %}
@@ -117,14 +478,14 @@
                         var sector_lon = longitudes.slice(sector_start, sector_end);
                         var sector_speed_kmh = speeds_kmh.slice(sector_start, sector_end);
 
-                        var sector_custom_data = points.slice(sector_start, sector_end).map((point) => [
+                        var sector_custom_data = mapSectors_points.slice(sector_start, sector_end).map((point) => [
+                            point.properties.laptime,
                             point.properties.speed_mph,
                             point.properties.rpm,
                             point.properties.gear,
-                            point.properties.laptime,
                         ]);
 
-                        map_traces.push({
+                        mapSectors_traces.push({
                             type: 'scattergeo',
                             mode: 'lines',
                             name: vehicle,
@@ -133,10 +494,10 @@
                             text: speeds_kmh.slice(sector_start, sector_end),
                             customdata: sector_custom_data,
                             hovertemplate:
-                                '⏱️ %{customdata[3]}<br>' +
-                                '🏎️ %{text} kph | %{customdata[0]} mph<br>' +
-                                '🌪️ %{customdata[1]} revs/min<br>' +
-                                '⚙️ %{customdata[2]}',
+                                '⏱️ %{customdata[0]}<br>' +
+                                '🏎️ %{text} kph | %{customdata[1]} mph<br>' +
+                                '🌪️ %{customdata[2]} revs/min<br>' +
+                                '⚙️ %{customdata[3]}<br>',
                             line: {
                                 color: '{{ sectors_info['Sectors']['SectorColors'][idx] }}',
                                 width: 5,
@@ -146,7 +507,7 @@
 
                     // Start from 1 since sector 0 marker is the same as start
                     {% for idx in range(1,sectors_info['Sectors']['Percentages'] | length) %}
-                        map_traces.push({
+                        mapSectors_traces.push({
                             type: 'scattergeo',
                             mode: 'markers',
                             lat: [{{ sectors_info['Sectors']['Latitude'][idx] }}],
@@ -163,7 +524,7 @@
                     {% endfor %}
 
                     // Add finish point/line to the trace
-                    map_traces.push({
+                    mapSectors_traces.push({
                         type: 'scattergeo',
                         mode: 'markers',
                         lat: [latitude_finish],
@@ -179,7 +540,7 @@
                     });
 
                     // Add start point/line to the trace
-                    map_traces.push({
+                    mapSectors_traces.push({
                         type: 'scattergeo',
                         mode: 'markers',
                         lat: [latitude_start],
@@ -195,10 +556,10 @@
                     });
 
                     // Define the layout for the map, with center, zoom, and bounding box
-                    var map_layout = {
+                    var mapSectors_layout = {
                         autosize: true,
                         showlegend: false,
-                        title: 'Lap Time / Speed / RPM / Gears',
+                        title: 'Sectors: Lap Time / Speed / RPM / Gears',
                         geo: {
                             center: {
                                 lat: center_lat,
@@ -214,9 +575,14 @@
                     };
 
                     // Render the map with Plotly
-                    Plotly.newPlot('mapSectors', map_traces, map_layout);
+                    Plotly.newPlot(
+                        'mapSectors',
+                        mapSectors_traces,
+                        mapSectors_layout
+                    );
                 });
             </script>
         </div>
     </div>
 </div>
+

@@ -130,7 +130,7 @@ function showTelemetrySection(section) {
     };
 
     if(section === 'TrackMap') {
-        const this_maps = ['mapSectors'];
+        const this_maps = ['mapSectors', 'mapAltLatLon', 'mapRideHeight', 'mapShockDeflection', 'mapShockVelocity'];
 
         this_maps.forEach(map => {
             var this_width = document.getElementById('mapSectors').offsetWidth;
@@ -175,11 +175,16 @@ function lapTimeFormat(laptime_seconds) {
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
 };
 
+// Prepend positive number with + sign
+function formatWithPlus(value) {
+    return value > 0 ? `+${value}` : value;
+}
+
 // Sync charts on hover
 function chart_hover_sync() {
     /*
         =========================
-        Sync hover on Lap Time & Speed delta charts
+        Lap Time & Speed delta charts
         =========================
     */
     var chartDeltaLapTime = document.getElementById('chartDeltaLapTime');
@@ -213,7 +218,7 @@ function chart_hover_sync() {
 
     /*
         =========================
-        Sync hover on Brake/Throttle & Speed/Gear & Speed/Fuel Usage & Steering Angle/Torque
+        Brake/Throttle & Speed/Gear & Speed/Fuel Usage & Steering Angle/Torque
         =========================
     */
     var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');

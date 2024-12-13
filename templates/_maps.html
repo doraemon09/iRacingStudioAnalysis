@@ -28,10 +28,21 @@
             <div class="col-lg-6 col-12">
                 <div id="mapSectors"></div>
             </div>
+            <div class="col-lg-6 col-12">
+                <div id="mapSpeed"></div>
+            </div>
 
             <script>
                 $(document).ready(function() {
-                    /* Set up defaults */
+                    /* Set up defaults for 3d maps */
+                    const m_to_mm = 1000;
+                    const kPa_to_psi = 0.14503773773;
+                    const normalize_reduced = 0.5;
+                    const ms_to_kph = 3.6;
+                    const ms_to_mph = 2.237;
+
+                    const speeds = {{ charts_info[laps_report_info['TopLaps'][0]]['Speed'] | tojson }};
+
                     const longitudes = {{ reference_lap_info['Longitude'] | tojson }};
                     const latitudes = {{ reference_lap_info['Latitude'] | tojson }};
                     const altitudes = {{ reference_lap_info['Altitude'] | tojson }};
@@ -40,12 +51,12 @@
                     const altitudes_max = Math.max(...altitudes);
                     const altitudes_cleaned = altitudes.map(alt => alt.toFixed(3));
 
-                    const m_to_mm = 1000;
-                    const kPa_to_psi = 0.14503773773;
-
                     // Scaled down to (0-1 * normalize_reduced)
-                    const normalize_reduced = 0.5
                     const altitudes_normalized = altitudes.map(alt => (alt - altitudes_min) / (altitudes_max - altitudes_min) * normalize_reduced);
+
+                    // m/s to kph and mph
+                    const speeds_kph = speeds.map(speed => (speed * ms_to_kph).toFixed(2));
+                    const speeds_mph = speeds.map(speed => (speed * ms_to_mph).toFixed(2));
 
                     /*
                         =========================
@@ -74,8 +85,8 @@
                         mode: 'markers',
                         marker: {
                             size: 4,
-                            color: altitudes,   // Color by altitude
-                            colorscale: 'Viridis',  // Use a color scale
+                            color: altitudes,
+                            colorscale: 'Viridis',
                             colorbar: {
                                 title: '(m)',
                             }
@@ -159,7 +170,7 @@
                         marker: {
                             size: 4,
                             color: rideheight_avg,
-                            colorscale: 'YlGnBu',
+                            colorscale: 'Viridis',
                             colorbar: {
                                 title: '(mm, Avg)',
                             }
@@ -337,7 +348,7 @@
                         marker: {
                             size: 4,
                             color: shockvel_avg,
-                            colorscale: 'RdBu',
+                            colorscale: 'Plasma',
                             colorbar: {
                                 title: '(mm/s, Avg)',
                             }
@@ -617,6 +628,161 @@
                         mapTireTemperature_traces,
                         mapTireTemperature_layout,
                     );
+
+                    /*
+                        =========================
+                        Speed
+                        =========================
+                    */
+                    const mapSpeed_customdata = altitudes.map((_, i) => [
+                        altitudes_cleaned[i],
+
+                        speeds_kph[i],
+                        speeds_mph[i],
+
+                        throttle_cleaned[i],
+                        brake_cleaned[i],
+
+                        lfrideheight_cleaned[i],
+                        rfrideheight_cleaned[i],
+                        lrrideheight_cleaned[i],
+                        rrrideheight_cleaned[i],
+
+                        lfshockdefl_cleaned[i],
+                        rfshockdefl_cleaned[i],
+                        lrshockdefl_cleaned[i],
+                        rrshockdefl_cleaned[i],
+
+                        formatWithPlus(lfshockvel_cleaned[i]),
+                        formatWithPlus(rfshockvel_cleaned[i]),
+                        formatWithPlus(lrshockvel_cleaned[i]),
+                        formatWithPlus(rrshockvel_cleaned[i]),
+
+                        lfpressure_cleaned[i],
+                        rfpressure_cleaned[i],
+                        lrpressure_cleaned[i],
+                        rrpressure_cleaned[i],
+
+                        lftempl_cleaned[i],
+                        lftempm_cleaned[i],
+                        lftempr_cleaned[i],
+
+                        rftempl_cleaned[i],
+                        rftempm_cleaned[i],
+                        rftempr_cleaned[i],
+
+                        lrtempl_cleaned[i],
+                        lrtempm_cleaned[i],
+                        lrtempr_cleaned[i],
+
+                        rrtempl_cleaned[i],
+                        rrtempm_cleaned[i],
+                        rrtempr_cleaned[i],
+                    ]);
+
+                    var mapSpeed_traces = []
+
+                    mapSpeed_traces.push({
+                        x: longitudes,
+                        y: latitudes,
+                        z: altitudes_normalized,
+                        type: 'scatter3d',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            color: speeds_kph,
+                            colorscale: 'RdBu',
+                            colorbar: {
+                                title: '(kph)',
+                            }
+                        },
+                        customdata: mapSpeed_customdata,
+                        hovertemplate:
+                            '⛰️ %{customdata[0]} m<br>' +
+                            '🏎️ %{customdata[1]} kph | %{customdata[2]} mph<br>' +
+                            '🟢 %{customdata[3]} %<br>' +
+                            '🔴 %{customdata[4]} %' +
+                            '<br><br>' +
+                            'Ride Height<br>' +
+                            '%{customdata[5]} mm' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[6]} mm' +
+                            '<br>' +
+                            '%{customdata[7]} mm' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[8]} mm' +
+                            '<br><br>' +
+                            'Shock Deflection<br>' +
+                            '%{customdata[9]} mm' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[10]} mm' +
+                            '<br>' +
+                            '%{customdata[11]} mm' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[12]} mm' +
+                            '<br><br>' +
+                            'Shock Velocity<br>' +
+                            '%{customdata[13]} mm/s' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[14]} mm/s' +
+                            '<br>' +
+                            '%{customdata[15]} mm/s' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[16]} mm/s' +
+                            '<br><br>' +
+                            'Tire Pressure<br>' +
+                            '%{customdata[17]} psi' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[18]} psi' +
+                            '<br>' +
+                            '%{customdata[19]} psi' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[20]} psi' +
+                            '<br><br>' +
+                            'Tire Temperature<br>' +
+                            '[%{customdata[21]}][%{customdata[22]}][%{customdata[23]}]' +
+                            '⬅️⬆️➡️' +
+                            '[%{customdata[24]}][%{customdata[25]}][%{customdata[26]}]' +
+                            '<br>' +
+                            '[%{customdata[27]}][%{customdata[28]}][%{customdata[29]}]' +
+                            '⬅️⬇️➡️' +
+                            '[%{customdata[30]}][%{customdata[31]}][%{customdata[32]}]' +
+
+                            '<extra></extra>',
+                    });
+
+                    mapSpeed_layout = {
+                        title: 'Speed',
+                        scene: {
+                            xaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            yaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            zaxis: {
+                                title: 'Speed',
+                                showticklabels: false,
+                                range: [-5, 5],
+                            },
+                            camera: {
+                                eye: {
+                                    x: 1,
+                                    y: 1,
+                                    z: 1,
+                                },
+                            },
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'mapSpeed',
+                        mapSpeed_traces,
+                        mapSpeed_layout,
+                    );
+
                 });
             </script>
 
@@ -627,6 +793,9 @@
                         Lap Time / Speed / RPM / Gear
                         =========================
                     */
+                    const ms_to_kph = 3.6;
+                    const ms_to_mph = 2.237;
+
                     const vehicle = "{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
 
                     const latitudes = {{ reference_lap_info['Latitude'] | tojson }};
@@ -647,8 +816,8 @@
 
                     // Convert and clean up
                     const laptimes_cleaned = laptimes.map(lapTimeFormat);
-                    const speeds_kmh = speeds.map(speed => (speed * 3.6).toFixed(2));
-                    const speeds_mph = speeds.map(speed => (speed * 2.237).toFixed(2));
+                    const speeds_kph = speeds.map(speed => (speed * ms_to_kph).toFixed(2));
+                    const speeds_mph = speeds.map(speed => (speed * ms_to_mph).toFixed(2));
                     const rpms_cleaned = rpms.map(rpm => Math.round(rpm));
                     const gears_cleaned = gears.map(gear => {
                         if (gear === 0) return 'N';
@@ -665,7 +834,7 @@
                         },
                         properties: {
                             // Attach data to each point
-                            speed_kmh: speeds_kmh[index],
+                            speed_kph: speeds_kph[index],
                             speed_mph: speeds_mph[index],
                             rpm: rpms_cleaned[index],
                             gear: gears_cleaned[index],
@@ -719,7 +888,7 @@
 
                         var sector_lat = latitudes.slice(sector_start, sector_end);
                         var sector_lon = longitudes.slice(sector_start, sector_end);
-                        var sector_speed_kmh = speeds_kmh.slice(sector_start, sector_end);
+                        var sector_speed_kph = speeds_kph.slice(sector_start, sector_end);
 
                         var sector_custom_data = mapSectors_points.slice(sector_start, sector_end).map((point) => [
                             point.properties.laptime,
@@ -734,7 +903,7 @@
                             name: vehicle,
                             lat: latitudes.slice(sector_start, sector_end),
                             lon: longitudes.slice(sector_start, sector_end),
-                            text: speeds_kmh.slice(sector_start, sector_end),
+                            text: speeds_kph.slice(sector_start, sector_end),
                             customdata: sector_custom_data,
                             hovertemplate:
                                 '⏱️ %{customdata[0]}<br>' +

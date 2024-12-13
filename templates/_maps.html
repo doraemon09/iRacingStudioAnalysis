@@ -790,23 +790,12 @@
                         mapSpeed_layout,
                     );
 
-                });
-            </script>
-
-            <script>
-                $(document).ready(function() {
                     /*
                         =========================
-                        Lap Time / Speed / RPM / Gear
+                        Sectors
                         =========================
                     */
-                    const ms_to_kph = 3.6;
-                    const ms_to_mph = 2.237;
-
                     const vehicle = "{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
-
-                    const latitudes = {{ reference_lap_info['Latitude'] | tojson }};
-                    const longitudes = {{ reference_lap_info['Longitude'] | tojson }};
 
                     const latitude_start = latitudes[0];
                     const longitude_start = longitudes[0]
@@ -817,14 +806,11 @@
                     // Since both GPS Lat/Lon are data from reference lap aka Best Lap
                     // sensor from best lap will need to be used to match
                     const laptimes = {{ charts_info[laps_report_info['TopLaps'][0]]['LapTime'] | tojson }};
-                    const speeds = {{ charts_info[laps_report_info['TopLaps'][0]]['Speed'] | tojson }};
                     const rpms = {{ charts_info[laps_report_info['TopLaps'][0]]['RPM'] | tojson }};
                     const gears = {{ charts_info[laps_report_info['TopLaps'][0]]['Gear'] | tojson }};
 
                     // Convert and clean up
                     const laptimes_cleaned = laptimes.map(lapTimeFormat);
-                    const speeds_kph = speeds.map(speed => (speed * ms_to_kph).toFixed(2));
-                    const speeds_mph = speeds.map(speed => (speed * ms_to_mph).toFixed(2));
                     const rpms_cleaned = rpms.map(rpm => Math.round(rpm));
                     const gears_cleaned = gears.map(gear => {
                         if (gear === 0) return 'N';

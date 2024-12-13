@@ -130,7 +130,7 @@ function showTelemetrySection(section) {
     };
 
     if(section === 'TrackMap') {
-        const this_maps = ['mapSectors', 'mapAltLatLon', 'mapRideHeight', 'mapShockDeflection', 'mapShockVelocity'];
+        const this_maps = ['mapSectors', 'mapAltLatLon', 'mapRideHeight', 'mapShockDeflection', 'mapShockVelocity', 'mapTirePressure', 'mapTireTemperature'];
 
         this_maps.forEach(map => {
             var this_width = document.getElementById('mapSectors').offsetWidth;

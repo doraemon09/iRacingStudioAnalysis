@@ -40,7 +40,7 @@
                 const ms_to_mph = 2.237;
 
                 {% for lap, data in charts_info.items() %}
-                        var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * ms_to_kph).toFixed(2));
+                    var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * ms_to_kph).toFixed(2));
                 {% endfor %}
 
                 /*

@@ -107,56 +107,6 @@ def upload_file():
 
                     # Undocumented sensors | gets list
                     undocumented_sensors_data = process_undocumented_sensors_data(telemetry_data)
-
-                    """
-                    # Dump data into csv with tab as delimiter
-                    #this_columns = ['Lap', 'SteeringWheelAngle', 'SteeringWheelAngleMax', 'SteeringWheelPctTorque', 'SteeringWheelPctTorqueSign', 'SteeringWheelPctTorqueSignStops', 'SteeringWheelPctIntensity', 'SteeringWheelPctSmoothing', 'SteeringWheelPctDamper', 'SteeringWheelLimiter', 'SteeringWheelMaxForceNm', 'SteeringWheelUseLinear', 'SteeringWheelTorque']
-                    #this_columns = ['Lap', 'FuelLevel', 'FuelPress', 'FuelUsePerHour', 'FuelLevelPct', 'dpFuelAddKg', 'dpFuelAutoFillEnabled', 'dpFuelAutoFillActive', 'dpFuelFill', 'PitSvFuel']
-                    #this_columns = ['Lap', 'LRshockDefl','LRshockVel','RRshockDefl','RRshockVel','LFshockDefl','LFshockVel','RFshockDefl','RFshockVel','LFrideHeight','RFrideHeight','LRrideHeight','RRrideHeight']
-                    this_columns = ['Lap', 'RFpressure', 'RFcoldPressure', 'RFtempL', 'RFtempM', 'RFtempR', 'RFtempCL', 'RFtempCM', 'RFtempCR', 'RFwearL', 'RFwearM', 'RFwearR', 'LFpressure', 'LFcoldPressure', 'LFtempL', 'LFtempM', 'LFtempR', 'LFtempCL', 'LFtempCM', 'LFtempCR', 'LFwearL', 'LFwearM', 'LFwearR', 'RRpressure', 'RRcoldPressure', 'RRtempL', 'RRtempM', 'RRtempR', 'RRtempCL', 'RRtempCM', 'RRtempCR', 'RRwearL', 'RRwearM', 'RRwearR', 'LRpressure', 'LRcoldPressure', 'LRtempL', 'LRtempM', 'LRtempR', 'LRtempCL', 'LRtempCM', 'LRtempCR', 'LRwearL', 'LRwearM', 'LRwearR']
-                    telemetry_data.to_csv('telemetry.csv', columns=this_columns, sep='\t', index=False)
-                    """
-
-                    """
-                    # Dump data into txt file
-                    this_charts_data = this_file_name.rsplit('.', 1)[0] + '_charts_data.txt'
-                    this_fuel_usage_report_data = this_file_name.rsplit('.', 1)[0] + '_fuel_usage_report_data.txt'
-                    this_laps_data = this_file_name.rsplit('.', 1)[0] + '_laps_data.txt'
-                    this_laps_report_data = this_file_name.rsplit('.', 1)[0] + '_laps_report_data.txt'
-                    this_reference_lap_data = this_file_name.rsplit('.', 1)[0] + '_reference_lap_data.txt'
-                    this_sector_times_data = this_file_name.rsplit('.', 1)[0] + '_sector_times_data.txt'
-                    this_sectors_data = this_file_name.rsplit('.', 1)[0] + '_sectors_data.txt'
-                    this_sectors_report_data = this_file_name.rsplit('.', 1)[0] + '_sectors_report_data.txt'
-                    this_static_data = this_file_name.rsplit('.', 1)[0] + '_static_data.txt'
-                    this_throttle_brake_coast_report_data = this_file_name.rsplit('.', 1)[0] + '_throttle_brake_coast_report_data.txt'
-                    this_undocumented_sensors_data = this_file_name.rsplit('.', 1)[0] + '_undocumented_sensors_data.txt'
-                    this_weather_report_data = this_file_name.rsplit('.', 1)[0] + '_weather_report_data.txt'
-
-                    with open(this_charts_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['charts_data']))
-                    with open(this_fuel_usage_report_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['fuel_usage_report_data']))
-                    with open(this_laps_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['laps_data']))
-                    with open(this_laps_report_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['laps_report_data']))
-                    with open(this_reference_lap_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['reference_lap_data']))
-                    with open(this_sector_times_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['sector_times_data']))
-                    with open(this_sectors_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['sectors_data']))
-                    with open(this_sectors_report_data, "w") as txt_file:
-                        txt_file.write(repr(sector_data['sectors_report_data']))
-                    with open(this_static_data, "w") as txt_file:
-                        txt_file.write(repr(static_data))
-                    with open(this_throttle_brake_coast_report_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['throttle_brake_coast_report_data']))
-                    with open(this_undocumented_sensors_data, "w") as txt_file:
-                        txt_file.write(repr(undocumented_sensors_data))
-                    with open(this_weather_report_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['weather_report_data']))
-                    """
                 else:
                     # Connect to SQLite
                     this_db = sqlite3.connect(DATABASE)
@@ -166,29 +116,106 @@ def upload_file():
 
                     # Interact with db via cursor() object
                     cursor = this_db.cursor()
-                    cursor.execute('SELECT * FROM telemetry WHERE name = ?', (this_file_name,))
 
-                    this_demo = cursor.fetchone()
+                    # Query `telemetry_reports` table
+                    cursor.execute('SELECT * FROM telemetry_reports WHERE name = ?', (this_file_name,))
+                    report_results = cursor.fetchone()
+
+                    # Query `telemetry_charts` table
+                    cursor.execute('SELECT * FROM telemetry_charts WHERE name = ?', (this_file_name,))
+                    chart_results = cursor.fetchall() # fetchall() returns tuple
+
+                    # Query `telemetry_reference_lap` table
+                    cursor.execute('SELECT * FROM telemetry_reference_lap WHERE name = ?', (this_file_name,))
+                    reference_lap_results = cursor.fetchone()
+
+                    this_db.close()
+
+                    # Rebuild
+                    charts_data = {}
+
+                    for chart in chart_results:
+                        this_lap = chart['lap']
+
+                        charts_data[this_lap] = {
+                            'LapTime': eval(chart['LapTime']),
+                            'Brake': eval(chart['Brake']),
+                            'Throttle': eval(chart['Throttle']),
+                            'Speed': eval(chart['Speed']),
+                            'RPM': eval(chart['RPM']),
+                            'Gear': eval(chart['Gear']),
+                            'SteeringWheelAngle': eval(chart['SteeringWheelAngle']),
+                            'SteeringWheelTorque': eval(chart['SteeringWheelTorque']),
+                            'FuelUsePerHour': eval(chart['FuelUsePerHour']),
+                            'Distance': eval(chart['Distance']),
+                            'SpeedDelta': eval(chart['SpeedDelta']),
+                            'LapTimeDelta': eval(chart['LapTimeDelta']),
+                        }
+
+                    # Rebuild
+                    reference_lap_data = {
+                        'Altitude': eval(reference_lap_results['Altitude']),
+                        'Latitude': eval(reference_lap_results['Latitude']),
+                        'Longitude': eval(reference_lap_results['Longitude']),
+                        #
+                        'LRshockDefl': eval(reference_lap_results['LRshockDefl']),
+                        'RRshockDefl': eval(reference_lap_results['RRshockDefl']),
+                        'LFshockDefl': eval(reference_lap_results['LFshockDefl']),
+                        'RFshockDefl': eval(reference_lap_results['RFshockDefl']),
+                        #
+                        'LRshockVel': eval(reference_lap_results['LRshockVel']),
+                        'RRshockVel': eval(reference_lap_results['RRshockVel']),
+                        'LFshockVel': eval(reference_lap_results['LFshockVel']),
+                        'RFshockVel': eval(reference_lap_results['RFshockVel']),
+                        #
+                        'LFrideHeight': eval(reference_lap_results['LFrideHeight']),
+                        'RFrideHeight': eval(reference_lap_results['RFrideHeight']),
+                        'LRrideHeight': eval(reference_lap_results['LRrideHeight']),
+                        'RRrideHeight': eval(reference_lap_results['RRrideHeight']),
+                        #
+                        'LFcoldPressure': eval(reference_lap_results['LFcoldPressure']),
+                        'RFcoldPressure': eval(reference_lap_results['RFcoldPressure']),
+                        'LRcoldPressure': eval(reference_lap_results['LRcoldPressure']),
+                        'RRcoldPressure': eval(reference_lap_results['RRcoldPressure']),
+                        #
+                        'LFpressure': eval(reference_lap_results['LFpressure']),
+                        'RFpressure': eval(reference_lap_results['RFpressure']),
+                        'LRpressure': eval(reference_lap_results['LRpressure']),
+                        'RRpressure': eval(reference_lap_results['RRpressure']),
+                        #
+                        'LFtempL': eval(reference_lap_results['LFtempL']),
+                        'RFtempL': eval(reference_lap_results['RFtempL']),
+                        'LRtempL': eval(reference_lap_results['LRtempL']),
+                        'RRtempL': eval(reference_lap_results['RRtempL']),
+                        #
+                        'LFtempM': eval(reference_lap_results['LFtempM']),
+                        'RFtempM': eval(reference_lap_results['RFtempM']),
+                        'LRtempM': eval(reference_lap_results['LRtempM']),
+                        'RRtempM': eval(reference_lap_results['RRtempL']),
+                        #
+                        'LFtempR': eval(reference_lap_results['LFtempR']),
+                        'RFtempR': eval(reference_lap_results['RFtempR']),
+                        'LRtempR': eval(reference_lap_results['LRtempR']),
+                        'RRtempR': eval(reference_lap_results['RRtempR']),
+                    }
 
                     # Assign with eval() to convert str to dict
                     session_data = {
-                        'charts_data': eval(this_demo['charts_data']),
-                        'fuel_usage_report_data': eval(this_demo['fuel_usage_report_data']),
-                        'laps_data': eval(this_demo['laps_data']),
-                        'laps_report_data': eval(this_demo['laps_report_data']),
-                        'reference_lap_data': eval(this_demo['reference_lap_data']),
-                        'throttle_brake_coast_report_data': eval(this_demo['throttle_brake_coast_report_data']),
-                        'weather_report_data': eval(this_demo['weather_report_data']),
+                        'charts_data': charts_data,
+                        'fuel_usage_report_data': eval(report_results['fuel_usage_report_data']),
+                        'laps_data': eval(report_results['laps_data']),
+                        'laps_report_data': eval(report_results['laps_report_data']),
+                        'reference_lap_data': reference_lap_data,
+                        'throttle_brake_coast_report_data': eval(report_results['throttle_brake_coast_report_data']),
+                        'weather_report_data': eval(report_results['weather_report_data']),
                     }
                     sector_data = {
-                        'sector_times_data': eval(this_demo['sector_times_data']),
-                        'sectors_data': eval(this_demo['sectors_data']),
-                        'sectors_report_data': eval(this_demo['sectors_report_data']),
+                        'sector_times_data': eval(report_results['sector_times_data']),
+                        'sectors_data': eval(report_results['sectors_data']),
+                        'sectors_report_data': eval(report_results['sectors_report_data']),
                     }
-                    static_data = eval(this_demo['static_data'])
-                    undocumented_sensors_data = eval(this_demo['undocumented_sensors_data'])
-
-                    this_db.close()
+                    static_data = eval(report_results['static_data'])
+                    undocumented_sensors_data = eval(report_results['undocumented_sensors_data'])
 
                 return render_template(
                     'display.html',
@@ -219,7 +246,7 @@ def upload_file():
         # Connect to db for demo name list
         this_db = sqlite3.connect(DATABASE)
         cursor = this_db.cursor()
-        cursor.execute('SELECT name FROM telemetry')
+        cursor.execute('SELECT name FROM telemetry_reports')
 
         demo_files = [row[0] for row in cursor.fetchall()]
 

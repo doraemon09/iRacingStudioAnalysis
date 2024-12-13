@@ -120,6 +120,7 @@ def upload_file():
                     """
                     # Dump data into txt file
                     this_charts_data = this_file_name.rsplit('.', 1)[0] + '_charts_data.txt'
+                    this_fuel_usage_report_data = this_file_name.rsplit('.', 1)[0] + '_fuel_usage_report_data.txt'
                     this_laps_data = this_file_name.rsplit('.', 1)[0] + '_laps_data.txt'
                     this_laps_report_data = this_file_name.rsplit('.', 1)[0] + '_laps_report_data.txt'
                     this_reference_lap_data = this_file_name.rsplit('.', 1)[0] + '_reference_lap_data.txt'
@@ -133,6 +134,8 @@ def upload_file():
 
                     with open(this_charts_data, "w") as txt_file:
                         txt_file.write(repr(session_data['charts_data']))
+                    with open(this_fuel_usage_report_data, "w") as txt_file:
+                        txt_file.write(repr(session_data['fuel_usage_report_data']))
                     with open(this_laps_data, "w") as txt_file:
                         txt_file.write(repr(session_data['laps_data']))
                     with open(this_laps_report_data, "w") as txt_file:
@@ -150,7 +153,7 @@ def upload_file():
                     with open(this_throttle_brake_coast_report_data, "w") as txt_file:
                         txt_file.write(repr(session_data['throttle_brake_coast_report_data']))
                     with open(this_undocumented_sensors_data, "w") as txt_file:
-                        txt_file.write(repr(session_data['undocumented_sensors_data']))
+                        txt_file.write(repr(undocumented_sensors_data))
                     with open(this_weather_report_data, "w") as txt_file:
                         txt_file.write(repr(session_data['weather_report_data']))
                     """
@@ -170,6 +173,7 @@ def upload_file():
                     # Assign with eval() to convert str to dict
                     session_data = {
                         'charts_data': eval(this_demo['charts_data']),
+                        'fuel_usage_report_data': eval(this_demo['fuel_usage_report_data']),
                         'laps_data': eval(this_demo['laps_data']),
                         'laps_report_data': eval(this_demo['laps_report_data']),
                         'reference_lap_data': eval(this_demo['reference_lap_data']),

@@ -199,10 +199,10 @@ General:
             Label:
                 en: "Unit"
                 jp: "単位"
-        Unlisted:
+        Undocumented:
             Label:
-                en: "Unlisted"
-                jp: "未掲載"
+                en: "Undocumented"
+                jp: "未記載"
         Upload:
             Label:
                 en: "Upload"

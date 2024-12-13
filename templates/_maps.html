@@ -691,7 +691,11 @@
                         marker: {
                             size: 4,
                             color: speeds_kph,
-                            colorscale: 'RdBu',
+                            colorscale: [
+                                [0, '#ffff00'],  // Purple for low speeds
+                                [0.5, '#00ff00'], // Green for middle speeds
+                                [1, '#800080'],    // Yellow for high speeds
+                            ],
                             colorbar: {
                                 title: '(kph)',
                             }
@@ -703,7 +707,7 @@
                             '🟢 %{customdata[3]} %<br>' +
                             '🔴 %{customdata[4]} %' +
                             '<br><br>' +
-                            '🗂️ Ride Height<br>' +
+                            '💻 Ride Height<br>' +
                             '%{customdata[5]} mm' +
                             '⬅️⬆️➡️' +
                             '%{customdata[6]} mm' +
@@ -712,7 +716,7 @@
                             '⬅️⬇️➡️' +
                             '%{customdata[8]} mm' +
                             '<br><br>' +
-                            '🗂️ Shock Deflection<br>' +
+                            '💻 Shock Deflection<br>' +
                             '%{customdata[9]} mm' +
                             '⬅️⬆️➡️' +
                             '%{customdata[10]} mm' +
@@ -721,7 +725,7 @@
                             '⬅️⬇️➡️' +
                             '%{customdata[12]} mm' +
                             '<br><br>' +
-                            '🗂️ Shock Velocity<br>' +
+                            '💻 Shock Velocity<br>' +
                             '%{customdata[13]} mm/s' +
                             '⬅️⬆️➡️' +
                             '%{customdata[14]} mm/s' +
@@ -730,7 +734,7 @@
                             '⬅️⬇️➡️' +
                             '%{customdata[16]} mm/s' +
                             '<br><br>' +
-                            '🗂️ Tire Pressure<br>' +
+                            '💻 Tire Pressure<br>' +
                             '%{customdata[17]} psi' +
                             '⬅️⬆️➡️' +
                             '%{customdata[18]} psi' +
@@ -739,7 +743,7 @@
                             '⬅️⬇️➡️' +
                             '%{customdata[20]} psi' +
                             '<br><br>' +
-                            '🗂️ Tire Temperature<br>' +
+                            '💻 Tire Temperature<br>' +
                             '[%{customdata[21]}][%{customdata[22]}][%{customdata[23]}]' +
                             '⬅️⬆️➡️' +
                             '[%{customdata[24]}][%{customdata[25]}][%{customdata[26]}]' +

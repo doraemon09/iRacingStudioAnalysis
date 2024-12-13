@@ -13,122 +13,6 @@
             <div class="col-md-6 col-12">
                 <div id="chartDeltaSpeed"></div>
             </div>
-
-            <script>
-                $(document).ready(function() {
-                    /*
-                        =========================
-                        Delta: Lap Time
-                        =========================
-                    */
-                    var chartDeltaLapTime_traces = [];
-
-                    // Show message when 1 lap only
-                    // therefore no data to compare with
-                    {% if (charts_info | length) == 1 %}
-                        chartDeltaLapTime_traces.push({
-                            x: [0.5],
-                            y: [0.5],
-                            mode: 'text',
-                            text: ['No Data Available'],
-                            textfont: {
-                                size: 20,
-                                color: 'red',
-                            },
-                            hoverinfo: 'none',
-                            showlegend: false,
-                        });
-                    {% else %}
-                        {% for lap, data in charts_info.items() %}
-                            var laptimes_cleaned = {{ data['LapTime'] | tojson }}.map(lapTimeFormat);
-
-                            chartDeltaLapTime_traces.push({
-                                x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
-                                y: {{ data['LapTimeDelta'] | tojson }},
-                                mode: 'lines',
-                                name: 'Lap {{ lap }}',
-                                customdata: laptimes_cleaned,
-                                hovertemplate: '⏱️ %{customdata}',
-                                //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
-                            });
-                        {% endfor %}
-                    {% endif %}
-
-                    var chartDeltaLapTime_layout = {
-                        autosize: true,
-                        showlegend: true,
-                        title: 'Delta: Lap Time',
-                        xaxis: {
-                            title: 'Distance (m)',
-                        },
-                        yaxis: {
-                            title: 'Lap Time Delta (s)',
-                        },
-                    };
-
-                    Plotly.newPlot(
-                        'chartDeltaLapTime',
-                        chartDeltaLapTime_traces,
-                        chartDeltaLapTime_layout,
-                    );
-
-                    /*
-                        =========================
-                        Delta: Speed
-                        =========================
-                    */
-                    var chartDeltaSpeed_traces = [];
-
-                    // Show message when 1 lap only
-                    // therefore no data to compare with
-                    {% if (charts_info | length) == 1 %}
-                        chartDeltaSpeed_traces.push({
-                            x: [0.5],
-                            y: [0.5],
-                            mode: 'text',
-                            text: ['No Data Available'],
-                            textfont: {
-                                size: 20,
-                                color: 'red',
-                            },
-                            hoverinfo: 'none',
-                            showlegend: false,
-                        });
-                    {% else %}
-                        {% for lap, data in charts_info.items() %}
-                            var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * 3.6).toFixed(2));
-
-                            chartDeltaSpeed_traces.push({
-                                x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
-                                y: {{ data['SpeedDelta'] | tojson }},
-                                mode: 'lines',
-                                name: 'Lap {{ lap }}',
-                                customdata: speeds_kmh,
-                                hovertemplate: '🏎️ %{customdata} kph',
-                                //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
-                            });
-                        {% endfor %}
-                    {% endif %}
-
-                    var chartDeltaSpeed_layout = {
-                        autosize: true,
-                        showlegend: true,
-                        title: 'Delta: Speed',
-                        xaxis: {
-                            title: 'Distance (m)',
-                        },
-                        yaxis: {
-                            title: 'Speed Delta (m/s)',
-                        },
-                    };
-
-                    Plotly.newPlot(
-                        'chartDeltaSpeed',
-                        chartDeltaSpeed_traces,
-                        chartDeltaSpeed_layout,
-                    );
-                });
-            </script>
         </div>
 
         <div class="row my-2">
@@ -138,143 +22,6 @@
             <div class="col-md-6 col-12">
                 <div id="chartSpeedGear"></div>
             </div>
-
-            <!-- Ployly chart -->
-            <script>
-                $(document).ready(function() {
-                    /*
-                        =========================
-                        Brake and Throttle
-                        =========================
-                    */
-                    var chartBrakeThrottle_traces = [];
-
-                    {% for lap, data in charts_info.items() %}
-                        var throttle_cleaned = {{ data['Throttle'] | tojson }}.map(throttle => throttle.toFixed(3));
-
-                        chartBrakeThrottle_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: {{ data['Throttle'] | tojson }},
-                            yaxis: 'y1',
-                            mode: 'lines',
-                            name: 'L{{ lap }} Throttle',
-                            customdata: throttle_cleaned,
-                            hovertemplate: '🟢 %{customdata}&nbsp;',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-
-                        var brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => brake.toFixed(3));
-
-                        chartBrakeThrottle_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: {{ data['Brake'] | tojson }},
-                            yaxis: 'y2',
-                            mode: 'lines',
-                            name: 'L{{ lap }} Brake',
-                            customdata: brake_cleaned,
-                            hovertemplate: '🔴 %{customdata}&nbsp;',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-                    {% endfor %}
-
-                    var chartBrakeThrottle_layout = {
-                        autosize: true,
-                        showlegend: true,
-                        title: 'Brake and Throttle',
-                        xaxis: {
-                            title: 'Distance (m)',
-                        },
-                        yaxis: {
-                            title: 'Throttle (%)',
-                            side: 'left',
-                            overlaying: 'y2'
-                        },
-                        yaxis2: {
-                            title: 'Brake (%)',
-                            side: 'right',
-                        },
-                        legend: {
-                            x: 1.1,
-                            y: 1,
-                            xanchor: 'left',
-                            yanchor: 'top',
-                        },
-                    };
-
-                    Plotly.newPlot(
-                        'chartBrakeThrottle',
-                        chartBrakeThrottle_traces,
-                        chartBrakeThrottle_layout,
-                    );
-
-                    /*
-                        =========================
-                        Speed and Gear
-                        =========================
-                    */
-                    var chartSpeedGear_traces = [];
-
-                    {% for lap, data in charts_info.items() %}
-                        var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * 3.6).toFixed(2));
-
-                        chartSpeedGear_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: speeds_kmh,
-                            yaxis: 'y1',
-                            mode: 'lines',
-                            name: 'L{{ lap }} Speed',
-                            hovertemplate: '🏎️ %{y} kph',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-
-                        chartSpeedGear_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: {{ data['Gear'] | tojson }},
-                            yaxis: 'y2',
-                            mode: 'markers',
-                            marker: {
-                                size: 4,
-                                symbol: 'circle',
-                            },
-                            name: 'L{{ lap }} Gear',
-                            hovertemplate: '⚙️ %{y}&nbsp;',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-                    {% endfor %}
-
-                    var chartSpeedGear_layout = {
-                        autosize: true,
-                        showlegend: true,
-                        title: 'Speed and Gears',
-                        xaxis: {
-                            title: 'Distance (m)',
-                        },
-                        yaxis: {
-                            title: 'Speed (kph)',
-                            side: 'left',
-                            overlaying: 'y2'
-                        },
-                        yaxis2: {
-                            title: 'Gear',
-                            side: 'right',
-                            dtick: 1,
-                        },
-                        legend: {
-                            x: 1.1,
-                            y: 1,
-                            xanchor: 'left',
-                            yanchor: 'top',
-                        },
-                    };
-
-                    Plotly.newPlot(
-                        'chartSpeedGear',
-                        chartSpeedGear_traces,
-                        chartSpeedGear_layout,
-                    );
-
-                });
-            </script>
         </div>
 
         <div class="row my-2">
@@ -284,140 +31,384 @@
             <div class="col-md-6 col-12">
                 <div id="chartSteeringAngleTorque"></div>
             </div>
-
-            <!-- Ployly chart -->
-            <script>
-                $(document).ready(function() {
-                    /*
-                        =========================
-                        Speed and Fuel Usage
-                        =========================
-                    */
-                    var chartSpeedFuelUsage_traces = [];
-
-                    {% for lap, data in charts_info.items() %}
-                        var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * 3.6).toFixed(2));
-
-                        chartSpeedFuelUsage_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: speeds_kmh,
-                            yaxis: 'y1',
-                            mode: 'lines',
-                            name: 'L{{ lap }} Speed',
-                            hovertemplate: '🏎️ %{y} kph',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-
-                        var fuel_cleaned = {{ data['FuelUsePerHour'] | tojson }}.map(fuel => fuel.toFixed(3));
-
-                        chartSpeedFuelUsage_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: {{ data['FuelUsePerHour'] | tojson }},
-                            yaxis: 'y2',
-                            mode: 'lines',
-                            name: 'L{{ lap }} Fuel',
-                            customdata: fuel_cleaned,
-                            hovertemplate: '⛽ %{customdata} l/h',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-                    {% endfor %}
-
-                    var chartSpeedFuelUsage_layout = {
-                        autosize: true,
-                        showlegend: true,
-                        title: 'Speed and Fuel Use Per Hour',
-                        xaxis: {
-                            title: 'Distance (m)',
-                        },
-                        yaxis: {
-                            title: 'Speed (kph)',
-                            side: 'left',
-                            overlaying: 'y2'
-                        },
-                        yaxis2: {
-                            title: 'Fuel Use Per Hour (l/h)',
-                            side: 'right',
-                        },
-                        legend: {
-                            x: 1.1,
-                            y: 1,
-                            xanchor: 'left',
-                            yanchor: 'top',
-                        },
-                    };
-
-                    Plotly.newPlot(
-                        'chartSpeedFuelUsage',
-                        chartSpeedFuelUsage_traces,
-                        chartSpeedFuelUsage_layout,
-                    );
-
-                    /*
-                        =========================
-                        Steering Angle and Torque
-                        =========================
-                    */
-                    var chartSteeringAngleTorque_traces = [];
-
-                    {% for lap, data in charts_info.items() %}
-                        var angle_cleaned = {{ data['SteeringWheelAngle'] | tojson }}.map(angle => angle.toFixed(3));
-
-                        chartSteeringAngleTorque_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: {{ data['SteeringWheelAngle'] | tojson }},
-                            yaxis: 'y1',
-                            mode: 'lines',
-                            name: 'L{{ lap }} Angle',
-                            customdata: angle_cleaned.map(angle => angle > 0 ? '⬅️🕹️ (' + angle + ' rad)' : '🕹️➡️ (' + angle + ' rad)'),
-                            hovertemplate: '%{customdata}',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-
-                        var torque_cleaned = {{ data['SteeringWheelTorque'] | tojson }}.map(torque => torque.toFixed(3));
-
-                        chartSteeringAngleTorque_traces.push({
-                            x: {{ data['Distance'] | tojson }},
-                            y: {{ data['SteeringWheelTorque'] | tojson }},
-                            yaxis: 'y2',
-                            mode: 'lines',
-                            name: 'L{{ lap }} Torque',
-                            customdata: torque_cleaned,
-                            hovertemplate: '💪 %{customdata} N*m',
-                            visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
-                        });
-                    {% endfor %}
-
-                    var chartSteeringAngleTorque_layout = {
-                        autosize: true,
-                        showlegend: true,
-                        title: 'Steering Wheel Angle and Torque',
-                        xaxis: {
-                            title: 'Distance (m)',
-                        },
-                        yaxis: {
-                            title: 'Angle (rad)',
-                            side: 'left',
-                            overlaying: 'y2'
-                        },
-                        yaxis2: {
-                            title: 'Torque (N*m)',
-                            side: 'right',
-                        },
-                        legend: {
-                            x: 1.1,
-                            y: 1,
-                            xanchor: 'left',
-                            yanchor: 'top',
-                        },
-                    };
-
-                    Plotly.newPlot(
-                        'chartSteeringAngleTorque',
-                        chartSteeringAngleTorque_traces,
-                        chartSteeringAngleTorque_layout,
-                    );
-                });
-            </script>
         </div>
+
+        <script>
+            $(document).ready(function() {
+                /* Set up defaults for 3d maps */
+                const ms_to_kph = 3.6;
+                const ms_to_mph = 2.237;
+
+                {% for lap, data in charts_info.items() %}
+                        var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * ms_to_kph).toFixed(2));
+                {% endfor %}
+
+                /*
+                    =========================
+                    Delta: Lap Time
+                    =========================
+                */
+                var chartDeltaLapTime_traces = [];
+
+                // Show message when 1 lap only
+                // therefore no data to compare with
+                {% if (charts_info | length) == 1 %}
+                    chartDeltaLapTime_traces.push({
+                        x: [0.5],
+                        y: [0.5],
+                        mode: 'text',
+                        text: ['No Data Available'],
+                        textfont: {
+                            size: 20,
+                            color: 'red',
+                        },
+                        hoverinfo: 'none',
+                        showlegend: false,
+                    });
+                {% else %}
+                    {% for lap, data in charts_info.items() %}
+                        var laptimes_cleaned = {{ data['LapTime'] | tojson }}.map(lapTimeFormat);
+
+                        chartDeltaLapTime_traces.push({
+                            x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
+                            y: {{ data['LapTimeDelta'] | tojson }},
+                            mode: 'lines',
+                            name: 'Lap {{ lap }}',
+                            customdata: laptimes_cleaned,
+                            hovertemplate: '⏱️ %{customdata}',
+                            //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+                {% endif %}
+
+                var chartDeltaLapTime_layout = {
+                    autosize: true,
+                    showlegend: true,
+                    title: 'Delta: Lap Time',
+                    xaxis: {
+                        title: 'Distance (m)',
+                    },
+                    yaxis: {
+                        title: 'Lap Time Delta (s)',
+                    },
+                };
+
+                Plotly.newPlot(
+                    'chartDeltaLapTime',
+                    chartDeltaLapTime_traces,
+                    chartDeltaLapTime_layout,
+                );
+
+                /*
+                    =========================
+                    Delta: Speed
+                    =========================
+                */
+                var chartDeltaSpeed_traces = [];
+
+                // Show message when 1 lap only
+                // therefore no data to compare with
+                {% if (charts_info | length) == 1 %}
+                    chartDeltaSpeed_traces.push({
+                        x: [0.5],
+                        y: [0.5],
+                        mode: 'text',
+                        text: ['No Data Available'],
+                        textfont: {
+                            size: 20,
+                            color: 'red',
+                        },
+                        hoverinfo: 'none',
+                        showlegend: false,
+                    });
+                {% else %}
+                    {% for lap, data in charts_info.items() %}
+                        chartDeltaSpeed_traces.push({
+                            x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
+                            y: {{ data['SpeedDelta'] | tojson }},
+                            mode: 'lines',
+                            name: 'Lap {{ lap }}',
+                            customdata: speeds_kmh,
+                            hovertemplate: '🏎️ %{customdata} kph',
+                            //visible: {% if loop.index == data['LapBest'] %} true {% else %} 'legendonly' {% endif %},
+                        });
+                    {% endfor %}
+                {% endif %}
+
+                var chartDeltaSpeed_layout = {
+                    autosize: true,
+                    showlegend: true,
+                    title: 'Delta: Speed',
+                    xaxis: {
+                        title: 'Distance (m)',
+                    },
+                    yaxis: {
+                        title: 'Speed Delta (m/s)',
+                    },
+                };
+
+                Plotly.newPlot(
+                    'chartDeltaSpeed',
+                    chartDeltaSpeed_traces,
+                    chartDeltaSpeed_layout,
+                );
+
+                /*
+                    =========================
+                    Brake and Throttle
+                    =========================
+                */
+                var chartBrakeThrottle_traces = [];
+
+                {% for lap, data in charts_info.items() %}
+                    var throttle_cleaned = {{ data['Throttle'] | tojson }}.map(throttle => throttle.toFixed(3));
+
+                    chartBrakeThrottle_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: {{ data['Throttle'] | tojson }},
+                        yaxis: 'y1',
+                        mode: 'lines',
+                        name: 'L{{ lap }} Throttle',
+                        customdata: throttle_cleaned,
+                        hovertemplate: '🟢 %{customdata}&nbsp;',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+
+                    var brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => brake.toFixed(3));
+
+                    chartBrakeThrottle_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: {{ data['Brake'] | tojson }},
+                        yaxis: 'y2',
+                        mode: 'lines',
+                        name: 'L{{ lap }} Brake',
+                        customdata: brake_cleaned,
+                        hovertemplate: '🔴 %{customdata}&nbsp;',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+                {% endfor %}
+
+                var chartBrakeThrottle_layout = {
+                    autosize: true,
+                    showlegend: true,
+                    title: 'Brake and Throttle',
+                    xaxis: {
+                        title: 'Distance (m)',
+                    },
+                    yaxis: {
+                        title: 'Throttle (%)',
+                        side: 'left',
+                        overlaying: 'y2'
+                    },
+                    yaxis2: {
+                        title: 'Brake (%)',
+                        side: 'right',
+                    },
+                    legend: {
+                        x: 1.1,
+                        y: 1,
+                        xanchor: 'left',
+                        yanchor: 'top',
+                    },
+                };
+
+                Plotly.newPlot(
+                    'chartBrakeThrottle',
+                    chartBrakeThrottle_traces,
+                    chartBrakeThrottle_layout,
+                );
+
+                /*
+                    =========================
+                    Speed and Gear
+                    =========================
+                */
+                var chartSpeedGear_traces = [];
+
+                {% for lap, data in charts_info.items() %}
+                    chartSpeedGear_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: speeds_kmh,
+                        yaxis: 'y1',
+                        mode: 'lines',
+                        name: 'L{{ lap }} Speed',
+                        hovertemplate: '🏎️ %{y} kph',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+
+                    chartSpeedGear_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: {{ data['Gear'] | tojson }},
+                        yaxis: 'y2',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            symbol: 'circle',
+                        },
+                        name: 'L{{ lap }} Gear',
+                        hovertemplate: '⚙️ %{y}&nbsp;',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+                {% endfor %}
+
+                var chartSpeedGear_layout = {
+                    autosize: true,
+                    showlegend: true,
+                    title: 'Speed and Gears',
+                    xaxis: {
+                        title: 'Distance (m)',
+                    },
+                    yaxis: {
+                        title: 'Speed (kph)',
+                        side: 'left',
+                        overlaying: 'y2'
+                    },
+                    yaxis2: {
+                        title: 'Gear',
+                        side: 'right',
+                        dtick: 1,
+                    },
+                    legend: {
+                        x: 1.1,
+                        y: 1,
+                        xanchor: 'left',
+                        yanchor: 'top',
+                    },
+                };
+
+                Plotly.newPlot(
+                    'chartSpeedGear',
+                    chartSpeedGear_traces,
+                    chartSpeedGear_layout,
+                );
+
+                /*
+                    =========================
+                    Speed and Fuel Usage
+                    =========================
+                */
+                var chartSpeedFuelUsage_traces = [];
+
+                {% for lap, data in charts_info.items() %}
+                    chartSpeedFuelUsage_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: speeds_kmh,
+                        yaxis: 'y1',
+                        mode: 'lines',
+                        name: 'L{{ lap }} Speed',
+                        hovertemplate: '🏎️ %{y} kph',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+
+                    var fuel_cleaned = {{ data['FuelUsePerHour'] | tojson }}.map(fuel => fuel.toFixed(3));
+
+                    chartSpeedFuelUsage_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: {{ data['FuelUsePerHour'] | tojson }},
+                        yaxis: 'y2',
+                        mode: 'lines',
+                        name: 'L{{ lap }} Fuel',
+                        customdata: fuel_cleaned,
+                        hovertemplate: '⛽ %{customdata} l/h',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+                {% endfor %}
+
+                var chartSpeedFuelUsage_layout = {
+                    autosize: true,
+                    showlegend: true,
+                    title: 'Speed and Fuel Use Per Hour',
+                    xaxis: {
+                        title: 'Distance (m)',
+                    },
+                    yaxis: {
+                        title: 'Speed (kph)',
+                        side: 'left',
+                        overlaying: 'y2'
+                    },
+                    yaxis2: {
+                        title: 'Fuel Use Per Hour (l/h)',
+                        side: 'right',
+                    },
+                    legend: {
+                        x: 1.1,
+                        y: 1,
+                        xanchor: 'left',
+                        yanchor: 'top',
+                    },
+                };
+
+                Plotly.newPlot(
+                    'chartSpeedFuelUsage',
+                    chartSpeedFuelUsage_traces,
+                    chartSpeedFuelUsage_layout,
+                );
+
+                /*
+                    =========================
+                    Steering Angle and Torque
+                    =========================
+                */
+                var chartSteeringAngleTorque_traces = [];
+
+                {% for lap, data in charts_info.items() %}
+                    var angle_cleaned = {{ data['SteeringWheelAngle'] | tojson }}.map(angle => angle.toFixed(3));
+
+                    chartSteeringAngleTorque_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: {{ data['SteeringWheelAngle'] | tojson }},
+                        yaxis: 'y1',
+                        mode: 'lines',
+                        name: 'L{{ lap }} Angle',
+                        customdata: angle_cleaned.map(angle => angle > 0 ? '⬅️🕹️ (' + angle + ' rad)' : '🕹️➡️ (' + angle + ' rad)'),
+                        hovertemplate: '%{customdata}',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+
+                    var torque_cleaned = {{ data['SteeringWheelTorque'] | tojson }}.map(torque => torque.toFixed(3));
+
+                    chartSteeringAngleTorque_traces.push({
+                        x: {{ data['Distance'] | tojson }},
+                        y: {{ data['SteeringWheelTorque'] | tojson }},
+                        yaxis: 'y2',
+                        mode: 'lines',
+                        name: 'L{{ lap }} Torque',
+                        customdata: torque_cleaned,
+                        hovertemplate: '💪 %{customdata} N*m',
+                        visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
+                    });
+                {% endfor %}
+
+                var chartSteeringAngleTorque_layout = {
+                    autosize: true,
+                    showlegend: true,
+                    title: 'Steering Wheel Angle and Torque',
+                    xaxis: {
+                        title: 'Distance (m)',
+                    },
+                    yaxis: {
+                        title: 'Angle (rad)',
+                        side: 'left',
+                        overlaying: 'y2'
+                    },
+                    yaxis2: {
+                        title: 'Torque (N*m)',
+                        side: 'right',
+                    },
+                    legend: {
+                        x: 1.1,
+                        y: 1,
+                        xanchor: 'left',
+                        yanchor: 'top',
+                    },
+                };
+
+                Plotly.newPlot(
+                    'chartSteeringAngleTorque',
+                    chartSteeringAngleTorque_traces,
+                    chartSteeringAngleTorque_layout,
+                );
+            });
+        </script>
     </div>
 </div>

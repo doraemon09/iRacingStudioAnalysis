@@ -315,7 +315,7 @@ function chart_hover_sync() {
     });
 };
 
-// On page load
+// On DOM loaded
 document.addEventListener('DOMContentLoaded', () => {
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'en';
     switchLanguage(preferredLanguage);
@@ -323,7 +323,10 @@ document.addEventListener('DOMContentLoaded', () => {
     checkOrientation();
 
     checkMobile();
+});
 
+// On page load
+window.addEventListener('load', () => {
     // Look for index page
     const index_page = document.getElementById('index');
 

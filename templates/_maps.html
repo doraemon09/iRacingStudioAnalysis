@@ -20,6 +20,12 @@
                 <div id="mapShockVelocity"></div>
             </div>
             <div class="col-lg-6 col-12">
+                <div id="mapTirePressure"></div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div id="mapTireTemperature"></div>
+            </div>
+            <div class="col-lg-6 col-12">
                 <div id="mapSectors"></div>
             </div>
 
@@ -33,6 +39,9 @@
                     const altitudes_min = Math.min(...altitudes);
                     const altitudes_max = Math.max(...altitudes);
                     const altitudes_cleaned = altitudes.map(alt => alt.toFixed(3));
+
+                    const m_to_mm = 1000;
+                    const kPa_to_psi = 0.14503773773;
 
                     // Scaled down to (0-1 * normalize_reduced)
                     const normalize_reduced = 0.5
@@ -121,13 +130,14 @@
                     const lrrideheight = {{ reference_lap_info['LRrideHeight'] | tojson }};
                     const rrrideheight = {{ reference_lap_info['RRrideHeight'] | tojson }};
 
-                    const lfrideheight_cleaned = lfrideheight.map(lf => (lf * 1000).toFixed(3));
-                    const rfrideheight_cleaned = rfrideheight.map(rf => (rf * 1000).toFixed(3));
-                    const lrrideheight_cleaned = lrrideheight.map(lr => (lr * 1000).toFixed(3));
-                    const rrrideheight_cleaned = rrrideheight.map(rr => (rr * 1000).toFixed(3));
+                    // Convert m to mm
+                    const lfrideheight_cleaned = lfrideheight.map(lf => (lf * m_to_mm).toFixed(3));
+                    const rfrideheight_cleaned = rfrideheight.map(rf => (rf * m_to_mm).toFixed(3));
+                    const lrrideheight_cleaned = lrrideheight.map(lr => (lr * m_to_mm).toFixed(3));
+                    const rrrideheight_cleaned = rrrideheight.map(rr => (rr * m_to_mm).toFixed(3));
 
                     let rideheight_avg = lfrideheight.map((value, index) => {
-                        return (value + rfrideheight[index] + lrrideheight[index] + rrrideheight[index]) * 1000 / 4;
+                        return (value + rfrideheight[index] + lrrideheight[index] + rrrideheight[index]) * m_to_mm / 4;
                     });
 
                     const mapRideHeight_customdata = altitudes.map((_, i) => [
@@ -209,13 +219,14 @@
                     const lrshockdefl = {{ reference_lap_info['LRshockDefl'] | tojson }};
                     const rrshockdefl = {{ reference_lap_info['RRshockDefl'] | tojson }};
 
-                    const lfshockdefl_cleaned = lfshockdefl.map(lf => (lf * 1000).toFixed(3));
-                    const rfshockdefl_cleaned = rfshockdefl.map(rf => (rf * 1000).toFixed(3));
-                    const lrshockdefl_cleaned = lrshockdefl.map(lr => (lr * 1000).toFixed(3));
-                    const rrshockdefl_cleaned = rrshockdefl.map(rr => (rr * 1000).toFixed(3));
+                    // Convert m to mm
+                    const lfshockdefl_cleaned = lfshockdefl.map(lf => (lf * m_to_mm).toFixed(3));
+                    const rfshockdefl_cleaned = rfshockdefl.map(rf => (rf * m_to_mm).toFixed(3));
+                    const lrshockdefl_cleaned = lrshockdefl.map(lr => (lr * m_to_mm).toFixed(3));
+                    const rrshockdefl_cleaned = rrshockdefl.map(rr => (rr * m_to_mm).toFixed(3));
 
                     let shockdefl_avg = lfshockdefl.map((value, index) => {
-                        return (value + rfshockdefl[index] + lrshockdefl[index] + rrshockdefl[index]) * 1000 / 4;
+                        return (value + rfshockdefl[index] + lrshockdefl[index] + rrshockdefl[index]) * m_to_mm / 4;
                     });
 
                     const mapShockDeflection_customdata = altitudes.map((_, i) => [
@@ -297,13 +308,14 @@
                     const lrshockvel = {{ reference_lap_info['LRshockVel'] | tojson }};
                     const rrshockvel = {{ reference_lap_info['RRshockVel'] | tojson }};
 
-                    const lfshockvel_cleaned = lfshockvel.map(lf => (lf * 1000).toFixed(3));
-                    const rfshockvel_cleaned = rfshockvel.map(rf => (rf * 1000).toFixed(3));
-                    const lrshockvel_cleaned = lrshockvel.map(lr => (lr * 1000).toFixed(3));
-                    const rrshockvel_cleaned = rrshockvel.map(rr => (rr * 1000).toFixed(3));
+                    // Convert m/s to mm/s
+                    const lfshockvel_cleaned = lfshockvel.map(lf => (lf * m_to_mm).toFixed(3));
+                    const rfshockvel_cleaned = rfshockvel.map(rf => (rf * m_to_mm).toFixed(3));
+                    const lrshockvel_cleaned = lrshockvel.map(lr => (lr * m_to_mm).toFixed(3));
+                    const rrshockvel_cleaned = rrshockvel.map(rr => (rr * m_to_mm).toFixed(3));
 
                     let shockvel_avg = lfshockvel.map((value, index) => {
-                        return (value + rfshockvel[index] + lrshockvel[index] + rrshockvel[index]) * 1000 / 4;
+                        return (value + rfshockvel[index] + lrshockvel[index] + rrshockvel[index]) * m_to_mm / 4;
                     });
 
                     const mapShockVelocity_customdata = altitudes.map((_, i) => [
@@ -373,6 +385,237 @@
                         'mapShockVelocity',
                         mapShockVelocity_traces,
                         mapShockVelocity_layout,
+                    );
+
+                    /*
+                        =========================
+                        Tire Pressure
+                        =========================
+                    */
+                    const lfpressure = {{ reference_lap_info['LFpressure'] | tojson }};
+                    const rfpressure = {{ reference_lap_info['RFpressure'] | tojson }};
+                    const lrpressure = {{ reference_lap_info['LRpressure'] | tojson }};
+                    const rrpressure = {{ reference_lap_info['RRpressure'] | tojson }};
+
+                    // Convert kPA to psi
+                    const lfpressure_cleaned = lfpressure.map(lf => (lf * kPa_to_psi).toFixed(2));
+                    const rfpressure_cleaned = rfpressure.map(rf => (rf * kPa_to_psi).toFixed(2));
+                    const lrpressure_cleaned = lrpressure.map(lr => (lr * kPa_to_psi).toFixed(2));
+                    const rrpressure_cleaned = rrpressure.map(rr => (rr * kPa_to_psi).toFixed(2));
+
+                    let pressure_avg = lfpressure.map((value, index) => {
+                        return (value + rfpressure[index] + lrpressure[index] + rrpressure[index]) * kPa_to_psi / 4;
+                    });
+
+                    const mapTirePressure_customdata = altitudes.map((_, i) => [
+                        altitudes_cleaned[i],
+                        lfpressure_cleaned[i],
+                        rfpressure_cleaned[i],
+                        lrpressure_cleaned[i],
+                        rrpressure_cleaned[i],
+                    ]);
+
+                    // Cold pressure set in garage
+                    // therefore value does not change
+                    const lfcoldPressure = {{ reference_lap_info['LFcoldPressure'][0] }};
+                    const rfcoldPressure = {{ reference_lap_info['RFcoldPressure'][0] }};
+                    const lrcoldPressure = {{ reference_lap_info['LRcoldPressure'][0] }};
+                    const rrcoldPressure = {{ reference_lap_info['RRcoldPressure'][0] }};
+
+                    const lfcoldPressure_cleaned = (lfcoldPressure * kPa_to_psi).toFixed(2)
+                    const rfcoldPressure_cleaned = (rfcoldPressure * kPa_to_psi).toFixed(2)
+                    const lrcoldPressure_cleaned = (lrcoldPressure * kPa_to_psi).toFixed(2)
+                    const rrcoldPressure_cleaned = (rrcoldPressure * kPa_to_psi).toFixed(2)
+
+                    var mapTirePressure_traces = []
+
+                    mapTirePressure_traces.push({
+                        x: longitudes,
+                        y: latitudes,
+                        z: altitudes_normalized,
+                        type: 'scatter3d',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            color: pressure_avg,
+                            colorscale: 'Turbo',
+                            colorbar: {
+                                title: '(psi, Avg)',
+                            }
+                        },
+                        customdata: mapTirePressure_customdata,
+                        hovertemplate:
+                            '⛰️ %{customdata[0]} m<br>' +
+                            '%{customdata[1]} psi' +
+                            '⬅️⬆️➡️' +
+                            '%{customdata[2]} psi' +
+                            '<br>' +
+                            '%{customdata[3]} psi' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[4]} psi' +
+                            '<extra></extra>',
+                    });
+
+                    mapTirePressure_layout = {
+                        title:
+                            'Tire Pressure<br>' +
+                            '🧊' + lfcoldPressure_cleaned +
+                            '⬅️⬆️➡️' +
+                            rfcoldPressure_cleaned + '🧊' +
+                            '<br>' +
+                            '🧊' + lrcoldPressure_cleaned +
+                            '⬅️⬇️➡️' +
+                            rrcoldPressure_cleaned + '🧊',
+                        scene: {
+                            xaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            yaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            zaxis: {
+                                title: 'Tire Pressure',
+                                showticklabels: false,
+                                range: [-5, 5],
+                            },
+                            camera: {
+                                eye: {
+                                    x: 1,
+                                    y: 1,
+                                    z: 1,
+                                },
+                            },
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'mapTirePressure',
+                        mapTirePressure_traces,
+                        mapTirePressure_layout,
+                    );
+
+                    /*
+                        =========================
+                        Tire Temperature
+                        =========================
+                    */
+                    const lftempl = {{ reference_lap_info['LFtempL'] | tojson }};
+                    const rftempl = {{ reference_lap_info['RFtempL'] | tojson }};
+                    const lrtempl = {{ reference_lap_info['LRtempL'] | tojson }};
+                    const rrtempl = {{ reference_lap_info['RRtempL'] | tojson }};
+
+                    const lftempm = {{ reference_lap_info['LFtempM'] | tojson }};
+                    const rftempm = {{ reference_lap_info['RFtempM'] | tojson }};
+                    const lrtempm = {{ reference_lap_info['LRtempM'] | tojson }};
+                    const rrtempm = {{ reference_lap_info['RRtempM'] | tojson }};
+
+                    const lftempr = {{ reference_lap_info['LFtempR'] | tojson }};
+                    const rftempr = {{ reference_lap_info['RFtempR'] | tojson }};
+                    const lrtempr = {{ reference_lap_info['LRtempR'] | tojson }};
+                    const rrtempr = {{ reference_lap_info['RRtempR'] | tojson }};
+
+                    const lftempl_cleaned = lftempl.map(lf => lf.toFixed(2));
+                    const rftempl_cleaned = rftempl.map(rf => rf.toFixed(2));
+                    const lrtempl_cleaned = lrtempl.map(lr => lr.toFixed(2));
+                    const rrtempl_cleaned = rrtempl.map(rr => rr.toFixed(2));
+
+                    const lftempm_cleaned = lftempm.map(lf => lf.toFixed(2));
+                    const rftempm_cleaned = rftempm.map(rf => rf.toFixed(2));
+                    const lrtempm_cleaned = lrtempm.map(lr => lr.toFixed(2));
+                    const rrtempm_cleaned = rrtempm.map(rr => rr.toFixed(2));
+
+                    const lftempr_cleaned = lftempr.map(lf => lf.toFixed(2));
+                    const rftempr_cleaned = rftempr.map(rf => rf.toFixed(2));
+                    const lrtempr_cleaned = lrtempr.map(lr => lr.toFixed(2));
+                    const rrtempr_cleaned = rrtempr.map(rr => rr.toFixed(2));
+
+
+                    let temperature_avg = lftempm.map((value, index) => {
+                        return (value + rftempm[index] + lrtempm[index] + rrtempm[index]) / 4;
+                    });
+
+                    const mapTireTemperature_customdata = altitudes.map((_, i) => [
+                        altitudes_cleaned[i],
+
+                        lftempl_cleaned[i],
+                        lftempm_cleaned[i],
+                        lftempr_cleaned[i],
+
+                        rftempl_cleaned[i],
+                        rftempm_cleaned[i],
+                        rftempr_cleaned[i],
+
+                        lrtempl_cleaned[i],
+                        lrtempm_cleaned[i],
+                        lrtempr_cleaned[i],
+
+                        rrtempl_cleaned[i],
+                        rrtempm_cleaned[i],
+                        rrtempr_cleaned[i],
+                    ]);
+
+                    var mapTireTemperature_traces = []
+
+                    mapTireTemperature_traces.push({
+                        x: longitudes,
+                        y: latitudes,
+                        z: altitudes_normalized,
+                        type: 'scatter3d',
+                        mode: 'markers',
+                        marker: {
+                            size: 4,
+                            color: temperature_avg,
+                            colorscale: 'Turbo',
+                            colorbar: {
+                                title: '(C, Avg)',
+                            }
+                        },
+                        customdata: mapTireTemperature_customdata,
+                        hovertemplate:
+                            '⛰️ %{customdata[0]} m<br>' +
+                            '[%{customdata[1]}][%{customdata[2]}][%{customdata[3]}]' +
+                            '⬅️⬆️➡️' +
+                            '[%{customdata[4]}][%{customdata[5]}][%{customdata[6]}]' +
+                            '<br>' +
+                            '[%{customdata[7]}][%{customdata[8]}][%{customdata[9]}]' +
+                            '⬅️⬇️➡️' +
+                            '[%{customdata[10]}][%{customdata[11]}][%{customdata[12]}]' +
+                            '<extra></extra>',
+                    });
+
+                    mapTireTemperature_layout = {
+                        title:
+                            'Tire Temperature',
+                        scene: {
+                            xaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            yaxis: {
+                                title: '',
+                                showticklabels: false,
+                            },
+                            zaxis: {
+                                title: 'Tire Temperature',
+                                showticklabels: false,
+                                range: [-5, 5],
+                            },
+                            camera: {
+                                eye: {
+                                    x: 1,
+                                    y: 1,
+                                    z: 1,
+                                },
+                            },
+                        },
+                    };
+
+                    Plotly.newPlot(
+                        'mapTireTemperature',
+                        mapTireTemperature_traces,
+                        mapTireTemperature_layout,
                     );
                 });
             </script>

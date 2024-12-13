@@ -170,7 +170,10 @@
                         marker: {
                             size: 4,
                             color: rideheight_avg,
-                            colorscale: 'Viridis',
+                            colorscale: [
+                                [0, '#ff0000'],     // for low
+                                [1, '#ffff00'],     // for high
+                            ],
                             colorbar: {
                                 title: '(mm, Avg)',
                             }
@@ -692,9 +695,9 @@
                             size: 4,
                             color: speeds_kph,
                             colorscale: [
-                                [0, '#ffff00'],  // Purple for low speeds
-                                [0.5, '#00ff00'], // Green for middle speeds
-                                [1, '#800080'],    // Yellow for high speeds
+                                [0, '#ffff00'],     // for low
+                                [0.5, '#00ff00'],   // for mid
+                                [1, '#800080'],     // for high
                             ],
                             colorbar: {
                                 title: '(kph)',

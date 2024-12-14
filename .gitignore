@@ -1,5 +1,6 @@
 # Folders
 __pycache__/
+_txt/
 demo_files/
 env/
 uploads/
@@ -9,6 +10,5 @@ venv/
 *.ibt
 *.pyc
 *.pem
-*.txt
 *.db
 *.csv

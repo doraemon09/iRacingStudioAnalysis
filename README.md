@@ -1,4 +1,4 @@
-# Telemetry Data Processor
+# iRacing Studio Analysis
 
 A Flask-based web application designed to process, analyze, and display iRacing telemetry data. The application supports file uploads, telemetry processing, and detailed data visualizations, offering insights into laps, sectors, throttle/brake usage, and more.
 
@@ -24,8 +24,8 @@ The demo is hosted on an AWS EC2 instance (Free Tier).
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-username/telemetry-data-processor.git
-   cd telemetry-data-processor
+   git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
+   cd iRacingStudioAnalysis
    ```
 2. **Set Up Virtual Environment**:
    ```bash

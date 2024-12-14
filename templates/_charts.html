@@ -161,7 +161,7 @@
                 var chartBrakeThrottle_traces = [];
 
                 {% for lap, data in charts_info.items() %}
-                    var throttle_cleaned = {{ data['Throttle'] | tojson }}.map(throttle => throttle.toFixed(3));
+                    var throttle_cleaned = {{ data['Throttle'] | tojson }}.map(throttle => (throttle * 100).toFixed(2));
 
                     chartBrakeThrottle_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -174,7 +174,7 @@
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
-                    var brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => brake.toFixed(3));
+                    var brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => (brake * 100).toFixed(2));
 
                     chartBrakeThrottle_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -360,7 +360,7 @@
                         yaxis: 'y1',
                         mode: 'lines',
                         name: 'L{{ lap }} Angle',
-                        customdata: angle_cleaned.map(angle => angle > 0 ? '⬅️🕹️ (' + angle + ' rad)' : '🕹️➡️ (' + angle + ' rad)'),
+                        customdata: angle_cleaned.map(angle => angle > 0 ? '⬅️🕹️ ' + angle + ' rad' : '🕹️➡️ ' + angle + ' rad'),
                         hovertemplate: '%{customdata}',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });

@@ -26,7 +26,7 @@
 
         <div class="row my-2">
             <div class="col-md-6 col-12">
-                <div id="chartSpeedFuelUsage"></div>
+                <div id="chartLatAccelYaw"></div>
             </div>
             <div class="col-md-6 col-12">
                 <div id="chartSteeringAngleTorque"></div>
@@ -38,6 +38,7 @@
                 /* Set up defaults for 3d maps */
                 const ms_to_kph = 3.6;
                 const ms_to_mph = 2.237;
+                const gravity = 9.81;
 
                 {% for lap, data in charts_info.items() %}
                     var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * ms_to_kph).toFixed(2));
@@ -284,51 +285,55 @@
 
                 /*
                     =========================
-                    Speed and Fuel Usage
+                    Lateral G-Force and Yaw
                     =========================
                 */
-                var chartSpeedFuelUsage_traces = [];
+                var chartLatAccelYaw_traces = [];
 
                 {% for lap, data in charts_info.items() %}
-                    chartSpeedFuelUsage_traces.push({
+                    var lateral_gforce = {{ data['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(3));
+
+                    chartLatAccelYaw_traces.push({
                         x: {{ data['Distance'] | tojson }},
-                        y: speeds_kmh,
+                        y: lateral_gforce,
                         yaxis: 'y1',
                         mode: 'lines',
-                        name: 'L{{ lap }} Speed',
-                        hovertemplate: '🏎️ %{y} kph',
+                        name: 'L{{ lap }} Lat G-Force',
+                        customdata: lateral_gforce.map(gforce => gforce > 0 ? '⬅️🧲 ' + gforce + ' g' : '🕹️➡️ ' + gforce + ' g'),
+                        hovertemplate: '%{customdata}',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
-                    var fuel_cleaned = {{ data['FuelUsePerHour'] | tojson }}.map(fuel => fuel.toFixed(3));
+                    var yaw_cleaned = {{ data['Yaw'] | tojson }}.map(yaw => yaw.toFixed(3));
 
-                    chartSpeedFuelUsage_traces.push({
+                    chartLatAccelYaw_traces.push({
                         x: {{ data['Distance'] | tojson }},
-                        y: {{ data['FuelUsePerHour'] | tojson }},
+                        y: {{ data['Yaw'] | tojson }},
                         yaxis: 'y2',
                         mode: 'lines',
-                        name: 'L{{ lap }} Fuel',
-                        customdata: fuel_cleaned,
-                        hovertemplate: '⛽ %{customdata} l/h',
+                        name: 'L{{ lap }} Yaw',
+                        customdata: yaw_cleaned,
+                        customdata: yaw_cleaned.map(yaw => yaw > 0 ? '⬅️🕹️ ' + yaw + ' g' : '🕹️➡️ ' + yaw + ' rad'),
+                        hovertemplate: '%{customdata}',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
                 {% endfor %}
 
-                var chartSpeedFuelUsage_layout = {
+                var chartLatAccelYaw_layout = {
                     autosize: true,
                     showlegend: true,
-                    title: 'Speed and Fuel Use Per Hour',
+                    title: 'Lateral G-Force and Yaw',
                     xaxis: {
                         title: 'Distance (m)',
                     },
                     yaxis: {
-                        title: 'Speed (kph)',
-                        side: 'left',
+                        title: 'Lateral G-Force (g)',
+                        side: 'right',
                         overlaying: 'y2'
                     },
                     yaxis2: {
-                        title: 'Fuel Use Per Hour (l/h)',
-                        side: 'right',
+                        title: 'Yaw (rad)',
+                        side: 'left',
                     },
                     legend: {
                         x: 1.1,
@@ -339,9 +344,9 @@
                 };
 
                 Plotly.newPlot(
-                    'chartSpeedFuelUsage',
-                    chartSpeedFuelUsage_traces,
-                    chartSpeedFuelUsage_layout,
+                    'chartLatAccelYaw',
+                    chartLatAccelYaw_traces,
+                    chartLatAccelYaw_layout,
                 );
 
                 /*

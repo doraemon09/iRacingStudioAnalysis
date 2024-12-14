@@ -115,6 +115,10 @@ General:
             Label:
                 en: "Fuel"
                 jp: "燃料"
+        Google:
+            Label:
+                en: "Google"
+                jp: "グーグル"
         Home:
             Icon: "fa-solid fa-house"
             Label:
@@ -140,6 +144,10 @@ General:
             Label:
                 en: "Live"
                 jp: "ライブ"
+        Map:
+            Label:
+                en: "Map"
+                jp: "マップ"
         Max:
             Label:
                 en: "Max"
@@ -191,6 +199,10 @@ General:
             Label:
                 en: "Time"
                 jp: "タイム"
+        Track:
+            Label:
+                en: "Track"
+                jp: "サーキット"
         TrackMap:
             Label:
                 en: "Track Map"

@@ -2,7 +2,13 @@
     <div class="row my-2">
         <div class="col-md-12 d-flex flex-wrap gap-1">
             {% for key in ['Lap', 'Chart', 'TrackMap'] %}
-                <button class="btn btn-info" onclick="showTelemetrySection('{{ key }}')">
+                <button class="btn btn-info" onclick="showTelemetrySection('{{ key }}');">
+                    <span
+                        id="{{ key }}-spinner"
+                        class="spinner-border spinner-border-sm d-none"
+                        role="status"
+                        aria-hidden="true"
+                    ></span>
                     <span
                         data-en="{{ yaml_info['General']['Vocab'][key]['Label']['en'] }}s"
                         data-jp="{{ yaml_info['General']['Vocab'][key]['Label']['jp'] }}"

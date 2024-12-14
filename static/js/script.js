@@ -26,6 +26,17 @@ function hideSections(section_list) {
     });
 };
 
+// Show spinner for button
+function showSpinner(button) {
+    let this_spinner = document.getElementById(button + '-spinner');
+
+    this_spinner.classList.remove('d-none'); // Removes `display:none`
+
+    setTimeout(() => {
+        this_spinner.classList.add('d-none'); // Adds `display:none`
+    }, 800); // set in milliseconds
+};
+
 // Sensor section
 function showSensorData() {
     document.getElementById('sensor_data').style.display = 'block';
@@ -103,6 +114,9 @@ function showTelemetryData() {
     // Hide all telemetry sections
     hideSections(telemetry_sections)
 
+    // Show spinner for button
+    showSpinner(telemetry_sections[0])
+
     const default_section = document.getElementById(telemetry_sections[0]);
     default_section.style.display = 'block';
 };
@@ -115,6 +129,9 @@ function showTelemetrySection(section) {
     // Show selected section
     const this_section = document.getElementById(section);
     this_section.style.display = 'block';
+
+    // Show spinner for button
+    showSpinner(section)
 
     if(section === 'Chart') {
         chart_hover_sync();

@@ -7,6 +7,9 @@
             >
                 {{ yaml_info['General']['Vocab']['TrackMap']['Label']['en'] }}s
             </h3>
+            <div class="col-lg-12 col-12">
+                <a id="buttonGoogleMaps" type="button" class="btn btn-success" href="https://www.google.com" target="_blank">Google Maps</a>
+            </div>
             <div class="col-lg-6 col-12">
                 <div id="mapAltLatLon"></div>
             </div>
@@ -985,6 +988,15 @@
                         mapSectors_traces,
                         mapSectors_layout
                     );
+
+                    /*
+                        =========================
+                        Button: Google Maps url
+                        =========================
+                    */
+                    const urlGoogleMaps = "https://www.google.com/maps/search/?api=1&query=" + latitude_start + "," + longitude_start;
+
+                    document.getElementById('buttonGoogleMaps').href = urlGoogleMaps;
                 });
             </script>
         </div>

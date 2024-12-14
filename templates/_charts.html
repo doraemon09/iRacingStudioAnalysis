@@ -299,8 +299,8 @@
                         yaxis: 'y1',
                         mode: 'lines',
                         name: 'L{{ lap }} Lat G-Force',
-                        customdata: lateral_gforce.map(gforce => gforce > 0 ? '⬅️🧲 ' + gforce + ' g' : '🧲➡️ ' + gforce + ' g'),
-                        hovertemplate: '%{customdata}',
+                        customdata: lateral_gforce.map(gforce => gforce > 0 ? '⬅️🧲 ' + gforce : '🧲➡️ ' + gforce),
+                        hovertemplate: '%{customdata} g',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
@@ -313,8 +313,8 @@
                         mode: 'lines',
                         name: 'L{{ lap }} Yaw',
                         customdata: yaw_cleaned,
-                        customdata: yaw_cleaned.map(yaw => yaw > 0 ? '⬅️🕹️ ' + yaw + ' g' : '🕹️➡️ ' + yaw + ' rad'),
-                        hovertemplate: '%{customdata}',
+                        customdata: yaw_cleaned.map(yaw => yaw > 0 ? '⬅️🕹️ ' + yaw : '🕹️➡️ ' + yaw),
+                        hovertemplate: '%{customdata} rad',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
                 {% endfor %}

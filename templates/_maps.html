@@ -50,6 +50,7 @@
                     const normalize_reduced = 0.5;
                     const ms_to_kph = 3.6;
                     const ms_to_mph = 2.237;
+                    const gravity = 9.81;
 
                     const speeds = {{ charts_info[laps_report_info['TopLaps'][0]]['Speed'] | tojson }};
 
@@ -68,6 +69,9 @@
                     const speeds_kph = speeds.map(speed => (speed * ms_to_kph).toFixed(2));
                     const speeds_mph = speeds.map(speed => (speed * ms_to_mph).toFixed(2));
 
+                    // Calculate Lateral G-Force
+                    const lateral_gforce = {{ charts_info[laps_report_info['TopLaps'][0]]['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(3));
+
                     /*
                         =========================
                         Altitude
@@ -83,6 +87,7 @@
                         altitudes_cleaned[i],
                         throttle_cleaned[i],
                         brake_cleaned[i],
+                        lateral_gforce[i],
                     ]);
 
                     var mapAltLatLon_traces = []
@@ -106,6 +111,7 @@
                             '⛰️ %{customdata[0]} m<br>' +
                             '🟢 %{customdata[1]} %<br>' +
                             '🔴 %{customdata[2]} %<br>' +
+                            '🧲 %{customdata[3]} g<br>' +
                             '<extra></extra>',
                     });
 
@@ -655,6 +661,7 @@
 
                         throttle_cleaned[i],
                         brake_cleaned[i],
+                        lateral_gforce[i],
 
                         lfrideheight_cleaned[i],
                         rfrideheight_cleaned[i],
@@ -718,52 +725,53 @@
                             '⛰️ %{customdata[0]} m<br>' +
                             '🏎️ %{customdata[1]} kph | %{customdata[2]} mph<br>' +
                             '🟢 %{customdata[3]} %<br>' +
-                            '🔴 %{customdata[4]} %' +
-                            '<br><br>' +
+                            '🔴 %{customdata[4]} %<br>' +
+                            '🧲 %{customdata[5]} g' +
+                            '<br>' +
                             '💻 Ride Height<br>' +
-                            '%{customdata[5]} mm' +
-                            '⬅️⬆️➡️' +
                             '%{customdata[6]} mm' +
-                            '<br>' +
+                            '⬅️⬆️➡️' +
                             '%{customdata[7]} mm' +
-                            '⬅️⬇️➡️' +
+                            '<br>' +
                             '%{customdata[8]} mm' +
-                            '<br><br>' +
-                            '💻 Shock Deflection<br>' +
+                            '⬅️⬇️➡️' +
                             '%{customdata[9]} mm' +
-                            '⬅️⬆️➡️' +
+                            '<br>' +
+                            '💻 Shock Deflection<br>' +
                             '%{customdata[10]} mm' +
-                            '<br>' +
+                            '⬅️⬆️➡️' +
                             '%{customdata[11]} mm' +
-                            '⬅️⬇️➡️' +
+                            '<br>' +
                             '%{customdata[12]} mm' +
-                            '<br><br>' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[13]} mm' +
+                            '<br>' +
                             '💻 Shock Velocity<br>' +
-                            '%{customdata[13]} mm/s' +
-                            '⬅️⬆️➡️' +
                             '%{customdata[14]} mm/s' +
-                            '<br>' +
+                            '⬅️⬆️➡️' +
                             '%{customdata[15]} mm/s' +
-                            '⬅️⬇️➡️' +
+                            '<br>' +
                             '%{customdata[16]} mm/s' +
-                            '<br><br>' +
+                            '⬅️⬇️➡️' +
+                            '%{customdata[17]} mm/s' +
+                            '<br>' +
                             '💻 Tire Pressure<br>' +
-                            '%{customdata[17]} psi' +
-                            '⬅️⬆️➡️' +
                             '%{customdata[18]} psi' +
-                            '<br>' +
-                            '%{customdata[19]} psi' +
-                            '⬅️⬇️➡️' +
-                            '%{customdata[20]} psi' +
-                            '<br><br>' +
-                            '💻 Tire Temperature<br>' +
-                            '[%{customdata[21]}][%{customdata[22]}][%{customdata[23]}]' +
                             '⬅️⬆️➡️' +
-                            '[%{customdata[24]}][%{customdata[25]}][%{customdata[26]}]' +
+                            '%{customdata[19]} psi' +
                             '<br>' +
-                            '[%{customdata[27]}][%{customdata[28]}][%{customdata[29]}]' +
+                            '%{customdata[20]} psi' +
                             '⬅️⬇️➡️' +
-                            '[%{customdata[30]}][%{customdata[31]}][%{customdata[32]}]' +
+                            '%{customdata[21]} psi' +
+                            '<br>' +
+                            '💻 Tire Temperature<br>' +
+                            '[%{customdata[22]}][%{customdata[23]}][%{customdata[24]}]' +
+                            '⬅️⬆️➡️' +
+                            '[%{customdata[25]}][%{customdata[26]}][%{customdata[27]}]' +
+                            '<br>' +
+                            '[%{customdata[28]}][%{customdata[29]}][%{customdata[30]}]' +
+                            '⬅️⬇️➡️' +
+                            '[[%{customdata[31]}][%{customdata[32]}]%{customdata[33]}]' +
 
                             '<extra></extra>',
                     });

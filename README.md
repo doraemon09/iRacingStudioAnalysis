@@ -1,121 +1,157 @@
 # iRacing Studio Analysis
 
-> A Flask application for uploading and analyzing iRacing telemetry (`.ibt`) files to retrieve session and telemetry information.
-
-## Introduction
-
-This application allows users to upload iRacing telemetry files in `.ibt` format to view session metadata (e.g., weather and car setup) and telemetry data (e.g., lap times and throttle information). The data is displayed on an HTML page for easy viewing.
+A Flask-based web application designed to process, analyze, and display iRacing telemetry data. The application supports file uploads, telemetry processing, and detailed data visualizations, offering insights into laps, sectors, throttle/brake usage, and more.
 
 ## Features
 
-- **File Upload**: Securely upload `.ibt` telemetry files for processing.
-- **Session Information Retrieval**: Extracts session metadata like weather and car setup.
-- **Telemetry Data Extraction**: Retrieves telemetry data such as lap times and throttle values.
-- **Secure Filename Handling**: Ensures safe storage of uploaded files with sanitized filenames.
+- **Telemetry File Upload**: Accepts iRacing telemetry files (`.ibt`) for processing.
+- **Data Visualization**: Provides detailed charts and graphs for lap performance, fuel usage, and more.
+- **Sector Analysis**: Breaks down lap times by track sectors with theoretical best lap calculations.
+- **Advanced Data Insights**:
+  - Throttle, brake, and coast time analysis.
+  - Fuel usage reports.
+  - Reference lap data with comparisons.
+  - Weather conditions and sensor data.
+- **Database Integration**: Retrieves preprocessed telemetry data for demonstration purposes.
+- **Custom Jinja2 Filters**: Formats lap times, converts distances, and more.
 
-## Credits
+## Demo
 
-This project uses the [pyirsdk](https://github.com/kutu/pyirsdk) library to access iRacing telemetry data. Special thanks to the contributors of `pyirsdk` for making this project possible.
+A live demo of the application is available at **[http://13.52.127.109/](http://13.52.127.109/)**.  
+The demo is hosted on an AWS EC2 instance (Free Tier).
 
-## Setup Instructions
+## Installation
 
-Follow these steps to set up and run the application locally.
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
+   cd iRacingStudioAnalysis
+   ```
+2. **Set Up Virtual Environment**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. **Install Required Packages**: Install the following Python packages:
+   ```bash
+   pip install flask irsdk numpy pandas pyyaml sqlite3 werkzeug
+   ```
+4. **Run the Application**:
+   - **Local Mode**:
+     ```bash
+     python app.py --localhost
+     ```
+   - **Production Mode**:
+     ```bash
+     python app.py
+     ```
 
-### 1. Create the "uploads" folder
-At the root of your project directory, create a folder named `uploads`. This is where uploaded files will be stored.
-```bash
-mkdir uploads
-```
+## Usage
 
-### 2. Install Python 3.13.0
-Make sure you have [Python 3.13.0](https://www.python.org/downloads/) installed on your machine.
-To check if you already have Python installed, run the following command:
-```bash
-python --version
-```
-If Python is not installed, download and install Python 3.13.0 from the official website linked above.
+1. **Upload Telemetry Files**:
+   - Navigate to the root URL (`http://127.0.0.1:5001` for local mode).
+   - Upload `.ibt` files for processing.
 
-### 3. Install Required Dependencies
-The project requires several Python packages. You can install them using `pip`.
-Run the following commands to install the required packages:
-```bash
-pip install flask
-pip install pyyaml
-pip install pandas
-pip install pyirsdk
-```
+2. **Explore Data**:
+   - View charts, reports, and telemetry details in the web interface.
 
-### 4. Start the Application
-Once everything is installed and configured, you can start the Flask development server by running:
-```bash
-python app.py --localhost
-```
-By default, the server will be accessible at `http://127.0.0.1:5001/` in your browser.
+3. **Demo Mode**:
+   - In production, access preloaded demo data from the database.
 
-### 5. Accessing the Application
-Open your web browser and go to `http://127.0.0.1:5001/` to access the application.
+## Contribution
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -m "Description"`).
+4. Push to your branch (`git push origin feature-name`).
+5. Submit a pull request.
+
+## Acknowledgments
+
+- This project utilizes the [pyirsdk library](https://github.com/kutu/pyirsdk) to access iRacing telemetry data. Special thanks to the contributors of `pyirsdk` for making this integration possible and enabling efficient telemetry processing.
+- Built with [Flask](https://flask.palletsprojects.com/).
+- Utilizes libraries like `pandas`, `numpy`, `sqlite3`, and `irsdk`.
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **Apache License 2.0**. See the `LICENSE` file for details.
 
 ---
 
-# iRacing スタジオ アナリシス
+# iRacingスタジオアナリシス
 
-> iRacing テレメトリ (`.ibt`) ファイルをアップロードおよび分析し、セッションとテレメトリ情報を取得するための Flask アプリケーション。
-
-## 概要
-
-このアプリケーションを使用すると、ユーザーは `.ibt` 形式の iRacing テレメトリ ファイルをアップロードし、セッションのメタデータ（天気、車両設定など）やテレメトリ データ（ラップタイム、スロットルデータなど）を表示できます。データは HTML ページに表示され、簡単に閲覧できます。
+Flaskベースのウェブアプリケーションで、iRacingのテレメトリーデータを処理、分析、表示するためのツールです。このアプリケーションはファイルのアップロード、テレメトリーデータの処理、詳細なデータの可視化をサポートしており、ラップ、セクター、スロットル/ブレーキ使用状況などの分析を提供します。
 
 ## 機能
 
-- **ファイルアップロード**: `.ibt` テレメトリ ファイルの安全なアップロードが可能
-- **セッション情報の取得**: 天候や車両設定などのセッション メタデータを抽出
-- **テレメトリデータの抽出**: ラップタイムやスロットル値などのテレメトリ データを取得
-- **安全なファイル名処理**: `werkzeug.utils.secure_filename` を使用してファイル名を安全に保存
+- **テレメトリーファイルのアップロード**：iRacingのテレメトリーファイル（`.ibt`）を処理します。
+- **データの可視化**：ラップパフォーマンス、燃料使用量、その他の詳細なチャートとグラフを提供します。
+- **セクター分析**：ラップタイムをトラックセクターごとに分割し、理論的な最速ラップの計算を行います。
+- **高度なデータインサイト**：
+  - スロットル、ブレーキ、コーストタイムの分析
+  - 燃料使用レポート
+  - リファレンスラップデータの比較
+  - 天候条件とセンサーデータ
+- **データベース統合**：デモンストレーション用に事前処理されたテレメトリーデータを取得します。
+- **カスタムJinja2フィルター**：ラップタイムの書式設定、距離の変換など。
 
-## クレジット
+## デモ
 
-このプロジェクトでは、iRacing テレメトリ データにアクセスするための [pyirsdk](https://github.com/kutu/pyirsdk) ライブラリを使用しています。`pyirsdk` の貢献者の皆様に感謝いたします。
+アプリケーションのライブデモは **[http://13.52.127.109/](http://13.52.127.109/)** にて利用可能です。  
+このデモはAWS EC2インスタンス（無料枠）でホストされています。
 
-## セットアップ手順
+## インストール
 
-以下の手順に従って、アプリケーションをローカル環境でセットアップして実行してください。
+1. **リポジトリをクローン**:
+   ```bash
+   git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
+   cd iRacingStudioAnalysis
+    ```
+2. **仮想環境を設定**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. **必要なパッケージをインストール**: 以下のPythonパッケージをインストールします:
+   ```bash
+   pip install flask irsdk numpy pandas pyyaml sqlite3 werkzeug
+   ```
+4. **アプリケーションを実行**:
+   - **ローカルモード**:
+     ```bash
+     python app.py --localhost
+     ```
+   - **本番モード**:
+     ```bash
+     python app.py
+     ```
 
-### 1. 「uploads」フォルダーの作成
-プロジェクトディレクトリのルートに`uploads`という名前のフォルダーを作成してください。ここにアップロードされたファイルが保存されます。
-```bash
-mkdir uploads
-```
+## 使い方
 
-### 2. Python 3.13.0 のインストール
-[Python 3.13.0](https://www.python.org/downloads/) がマシンにインストールされていることを確認してください。すでにインストールされているか確認するには、以下のコマンドを実行します：
-```bash
-python --version
-```
-もしPythonがインストールされていない場合は、上記の公式サイトからPython 3.13.0をダウンロードしてインストールしてください。
+1. **テレメトリーファイルをアップロード**：
+   - ルートURL（ローカルモードの場合は`http://127.0.0.1:5001`）にアクセスします。
+   - `.ibt`ファイルをアップロードして処理します。
 
-### 3. 必要な依存関係のインストール
-このプロジェクトにはいくつかのPythonパッケージが必要です。`pip`を使用してインストールできます。以下のコマンドを実行して必要なパッケージをインストールしてください：
-```bash
-pip install flask
-pip install pyyaml
-pip install pandas
-pip install pyirsdk
-```
+2. **データの探索**：
+   - チャート、レポート、テレメトリーデータをウェブインターフェースで表示します。
 
-### 4. アプリケーションの起動
-すべてのインストールと設定が完了したら、以下のコマンドでFlask開発サーバーを起動できます：
-```bash
-python app.py --localhost
-```
-デフォルトでは、サーバーはブラウザで `http://127.0.0.1:5001/` にアクセスすることで利用可能です。
+3. **デモモード**：
+   - 本番環境では、データベースから事前にロードされたデモデータにアクセスできます。
 
-### 5. アプリケーションへのアクセス
-ウェブブラウザを開き、`http://127.0.0.1:5001/` にアクセスしてアプリケーションを使用できます。
+## 貢献
+
+1. リポジトリをフォークします。
+2. 新しいブランチを作成します（`git checkout -b feature-name`）。
+3. 変更をコミットします（`git commit -m "Description"`）。
+4. 自分のブランチにプッシュします（`git push origin feature-name`）。
+5. プルリクエストを送信します。
+
+## 謝辞
+
+- このプロジェクトは、iRacingのテレメトリーデータにアクセスするために[pyirsdkライブラリ](https://github.com/kutu/pyirsdk)を利用しています。`pyirsdk`の貢献者の方々に感謝いたします。
+- [Flask](https://flask.palletsprojects.com/)で作成されています。
+- `pandas`、`numpy`、`sqlite3`、`irsdk`などのライブラリを利用しています。
 
 ## ライセンス
 
-このプロジェクトは Apache License 2.0 の下でライセンスされています。詳細については [LICENSE](LICENSE) ファイルをご覧ください。
+このプロジェクトは**Apache License 2.0**のもとでライセンスされています。詳細は`LICENSE`ファイルをご覧ください。

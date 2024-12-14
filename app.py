@@ -108,7 +108,7 @@ def upload_file():
                     # Undocumented sensors | gets list
                     undocumented_sensors_data = process_undocumented_sensors_data(telemetry_data)
                 else:
-                    # Connect to SQLite
+                    # Open onnecting to SQLite
                     this_db = sqlite3.connect(DATABASE)
 
                     # Convert rows into dictionary-like objects
@@ -129,6 +129,7 @@ def upload_file():
                     cursor.execute('SELECT * FROM telemetry_reference_lap WHERE name = ?', (this_file_name,))
                     reference_lap_results = cursor.fetchone()
 
+                    # Close db connection
                     this_db.close()
 
                     # Rebuild

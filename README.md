@@ -5,7 +5,17 @@ A Flask-based web application designed to process, analyze, and display iRacing 
 ## Features
 
 - **Telemetry File Upload**: Accepts iRacing telemetry files (`.ibt`) for processing.
-- **Data Visualization**: Provides detailed charts and graphs for lap performance, fuel usage, and more.
+- **Data Visualization**: Provides detailed charts and maps for telemetry insights.
+  - **Charts**:
+    - Lap time delta
+    - Speed delta
+    - Brake and throttle usage
+    - Steering angle and torque
+    - Lateral G-force and yaw
+  - **Maps**:
+    - Track map with speed, altitude, and sector data
+    - Tire pressure, temperature, and ride height overlays
+    - Shock deflection and velocity
 - **Sector Analysis**: Breaks down lap times by track sectors with theoretical best lap calculations.
 - **Advanced Data Insights**:
   - Throttle, brake, and coast time analysis.
@@ -53,7 +63,19 @@ The demo is hosted on an AWS EC2 instance (Free Tier).
    - Upload `.ibt` files for processing.
 
 2. **Explore Data**:
-   - View charts, reports, and telemetry details in the web interface.
+   - **Charts**:
+     - View telemetry insights with interactive charts, including:
+       - Lap time delta
+       - Speed delta
+       - Throttle and brake usage
+       - Steering angle and torque
+       - Lateral G-force and yaw
+   - **Maps**:
+     - Visualize telemetry data on track maps:
+       - Speed and sector overlays
+       - Altitude and lateral G-force data
+       - Tire temperature and pressure
+       - Ride height, shock deflection, and velocity insights
 
 3. **Demo Mode**:
    - In production, access preloaded demo data from the database.
@@ -84,16 +106,37 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
 
 ## 機能
 
-- **テレメトリーファイルのアップロード**：iRacingのテレメトリーファイル（`.ibt`）を処理します。
-- **データの可視化**：ラップパフォーマンス、燃料使用量、その他の詳細なチャートとグラフを提供します。
-- **セクター分析**：ラップタイムをトラックセクターごとに分割し、理論的な最速ラップの計算を行います。
-- **高度なデータインサイト**：
+- **テレメトリーファイルのアップロード**:
+  - iRacingのテレメトリーファイル（`.ibt`）を処理します。
+  
+- **データの可視化**:
+  - 詳細なチャートやマップでテレメトリーデータを視覚化します。
+  - **チャート**:
+    - ラップタイムデルタ
+    - スピードデルタ
+    - ブレーキとスロットルの使用状況
+    - ステアリング角度とトルク
+    - 横方向Gフォースとヨー
+  - **マップ**:
+    - トラックマップ上にスピードとセクターオーバーレイを表示
+    - 高度と横方向Gフォースデータ
+    - タイヤ温度と圧力のインサイト
+    - ライドハイト、ショックディフレクション、ショック速度のデータ
+
+- **セクター分析**:
+  - トラックセクターごとにラップタイムを分割し、理論上の最速ラップを計算します。
+
+- **高度なデータ分析**:
   - スロットル、ブレーキ、コーストタイムの分析
   - 燃料使用レポート
   - リファレンスラップデータの比較
-  - 天候条件とセンサーデータ
-- **データベース統合**：デモンストレーション用に事前処理されたテレメトリーデータを取得します。
-- **カスタムJinja2フィルター**：ラップタイムの書式設定、距離の変換など。
+  - 天候条件やセンサーデータの確認
+
+- **データベース統合**:
+  - デモ用に事前処理されたテレメトリーデータを取得できます。
+
+- **カスタムJinja2フィルター**:
+  - ラップタイムのフォーマット、距離の変換などに対応しています。
 
 ## デモ
 
@@ -128,14 +171,26 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
 
 ## 使い方
 
-1. **テレメトリーファイルをアップロード**：
+1. **テレメトリーファイルをアップロード**:
    - ルートURL（ローカルモードの場合は`http://127.0.0.1:5001`）にアクセスします。
    - `.ibt`ファイルをアップロードして処理します。
 
-2. **データの探索**：
-   - チャート、レポート、テレメトリーデータをウェブインターフェースで表示します。
+2. **データの探索**:
+   - **チャート**:
+     - インタラクティブなチャートでテレメトリーデータを視覚化します。以下を含みます：
+       - ラップタイムデルタ
+       - スピードデルタ
+       - スロットルとブレーキの使用状況
+       - ステアリング角度とトルク
+       - 横方向Gフォースとヨー
+   - **マップ**:
+     - トラックマップ上でテレメトリーデータを可視化します：
+       - スピードとセクターオーバーレイ
+       - 高度と横方向Gフォースデータ
+       - タイヤの温度と圧力
+       - ライドハイト、ショックディフレクション、および速度のインサイト
 
-3. **デモモード**：
+3. **デモモード**:
    - 本番環境では、データベースから事前にロードされたデモデータにアクセスできます。
 
 ## 貢献

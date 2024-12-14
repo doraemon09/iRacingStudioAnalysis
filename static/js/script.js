@@ -136,7 +136,7 @@ function showTelemetrySection(section) {
     if(section === 'Chart') {
         chart_hover_sync();
 
-        const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedGear', 'chartSpeedFuelUsage', 'chartSteeringAngleTorque'];
+        const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedGear', 'chartLatAccelYaw', 'chartSteeringAngleTorque'];
 
         this_charts.forEach(chart => {
             Plotly.relayout(chart, {
@@ -239,7 +239,7 @@ function chart_hover_sync() {
         =========================
     */
     var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
-    var chartSpeedFuelUsage = document.getElementById('chartSpeedFuelUsage');
+    var chartLatAccelYaw = document.getElementById('chartLatAccelYaw');
     var chartSpeedGear = document.getElementById('chartSpeedGear');
     var chartSteeringAngleTorque = document.getElementById('chartSteeringAngleTorque');
 
@@ -247,7 +247,7 @@ function chart_hover_sync() {
     chartBrakeThrottle.on('plotly_hover', function(data) {
         var { curveNumber, pointIndex } = data.points[0];
 
-        const connect_charts = ['chartSpeedFuelUsage', 'chartSpeedGear', 'chartSteeringAngleTorque']
+        const connect_charts = ['chartLatAccelYaw', 'chartSpeedGear', 'chartSteeringAngleTorque']
 
         connect_charts.forEach(chart => {
             Plotly.Fx.hover(chart, [{
@@ -258,15 +258,15 @@ function chart_hover_sync() {
     });
 
     chartBrakeThrottle.on('plotly_unhover', function(data) {
-        const connect_charts = ['chartSpeedFuelUsage', 'chartSpeedGear', 'chartSteeringAngleTorque']
+        const connect_charts = ['chartLatAccelYaw', 'chartSpeedGear', 'chartSteeringAngleTorque']
 
         connect_charts.forEach(chart => {
             Plotly.Fx.unhover(chart);
         });
     });
 
-    // chartSpeedFuelUsage
-    chartSpeedFuelUsage.on('plotly_hover', function(data) {
+    // chartLatAccelYaw
+    chartLatAccelYaw.on('plotly_hover', function(data) {
         var { curveNumber, pointIndex } = data.points[0];
 
         const connect_charts = ['chartBrakeThrottle', 'chartSpeedGear', 'chartSteeringAngleTorque']
@@ -279,7 +279,7 @@ function chart_hover_sync() {
         });
     });
 
-    chartSpeedFuelUsage.on('plotly_unhover', function(data) {
+    chartLatAccelYaw.on('plotly_unhover', function(data) {
         const connect_charts = ['chartBrakeThrottle', 'chartSpeedGear', 'chartSteeringAngleTorque']
 
         connect_charts.forEach(chart => {
@@ -291,7 +291,7 @@ function chart_hover_sync() {
     chartSpeedGear.on('plotly_hover', function(data) {
         var { curveNumber, pointIndex } = data.points[0];
 
-        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSteeringAngleTorque']
+        const connect_charts = ['chartBrakeThrottle', 'chartLatAccelYaw', 'chartSteeringAngleTorque']
 
         connect_charts.forEach(chart => {
             Plotly.Fx.hover(chart, [{
@@ -302,7 +302,7 @@ function chart_hover_sync() {
     });
 
     chartSpeedGear.on('plotly_unhover', function(data) {
-        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSteeringAngleTorque']
+        const connect_charts = ['chartBrakeThrottle', 'chartLatAccelYaw', 'chartSteeringAngleTorque']
 
         connect_charts.forEach(chart => {
             Plotly.Fx.unhover(chart);
@@ -313,7 +313,7 @@ function chart_hover_sync() {
     chartSteeringAngleTorque.on('plotly_hover', function(data) {
         var { curveNumber, pointIndex } = data.points[0];
 
-        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSpeedGear']
+        const connect_charts = ['chartBrakeThrottle', 'chartLatAccelYaw', 'chartSpeedGear']
 
         connect_charts.forEach(chart => {
             Plotly.Fx.hover(chart, [{
@@ -324,7 +324,7 @@ function chart_hover_sync() {
     });
 
     chartSteeringAngleTorque.on('plotly_unhover', function(data) {
-        const connect_charts = ['chartBrakeThrottle', 'chartSpeedFuelUsage', 'chartSpeedGear']
+        const connect_charts = ['chartBrakeThrottle', 'chartLatAccelYaw', 'chartSpeedGear']
 
         connect_charts.forEach(chart => {
             Plotly.Fx.unhover(chart);

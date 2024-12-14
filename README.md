@@ -42,10 +42,11 @@ The demo is hosted on an AWS EC2 instance (Free Tier).
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-3. **Install Required Packages**: Install the following Python packages:
-   ```bash
-   pip install flask irsdk numpy pandas pyyaml sqlite3 werkzeug
-   ```
+3. **Install Required Packages**:
+   - Install all dependencies listed in the `requirements.txt` file:
+     ```bash
+     pip install -r requirements.txt
+     ```
 4. **Run the Application**:
    - **Local Mode**:
      ```bash
@@ -155,10 +156,11 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-3. **必要なパッケージをインストール**: 以下のPythonパッケージをインストールします:
-   ```bash
-   pip install flask irsdk numpy pandas pyyaml sqlite3 werkzeug
-   ```
+3. **必要なパッケージのインストール**:
+   - `requirements.txt`ファイルに記載されたすべての依存関係をインストールします：
+     ```bash
+     pip install -r requirements.txt
+     ```
 4. **アプリケーションを実行**:
    - **ローカルモード**:
      ```bash

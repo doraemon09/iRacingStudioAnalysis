@@ -170,7 +170,7 @@
                         mode: 'lines',
                         name: 'L{{ lap }} Throttle',
                         customdata: throttle_cleaned,
-                        hovertemplate: '🟢 %{customdata}&nbsp;',
+                        hovertemplate: '🟢 %{customdata} %',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
@@ -183,7 +183,7 @@
                         mode: 'lines',
                         name: 'L{{ lap }} Brake',
                         customdata: brake_cleaned,
-                        hovertemplate: '🔴 %{customdata}&nbsp;',
+                        hovertemplate: '🔴 %{customdata} %',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
                 {% endfor %}

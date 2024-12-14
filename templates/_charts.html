@@ -299,7 +299,7 @@
                         yaxis: 'y1',
                         mode: 'lines',
                         name: 'L{{ lap }} Lat G-Force',
-                        customdata: lateral_gforce.map(gforce => gforce > 0 ? '⬅️🧲 ' + gforce + ' g' : '🕹️➡️ ' + gforce + ' g'),
+                        customdata: lateral_gforce.map(gforce => gforce > 0 ? '⬅️🧲 ' + gforce + ' g' : '🧲➡️ ' + gforce + ' g'),
                         hovertemplate: '%{customdata}',
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });

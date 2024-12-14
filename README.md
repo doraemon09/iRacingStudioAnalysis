@@ -75,3 +75,83 @@ The demo is hosted on an AWS EC2 instance (Free Tier).
 ## License
 
 This project is licensed under the **Apache License 2.0**. See the `LICENSE` file for details.
+
+---
+
+# iRacingスタジオアナリシス
+
+Flaskベースのウェブアプリケーションで、iRacingのテレメトリーデータを処理、分析、表示するためのツールです。このアプリケーションはファイルのアップロード、テレメトリーデータの処理、詳細なデータの可視化をサポートしており、ラップ、セクター、スロットル/ブレーキ使用状況などの分析を提供します。
+
+## 機能
+
+- **テレメトリーファイルのアップロード**：iRacingのテレメトリーファイル（`.ibt`）を処理します。
+- **データの可視化**：ラップパフォーマンス、燃料使用量、その他の詳細なチャートとグラフを提供します。
+- **セクター分析**：ラップタイムをトラックセクターごとに分割し、理論的な最速ラップの計算を行います。
+- **高度なデータインサイト**：
+  - スロットル、ブレーキ、コーストタイムの分析
+  - 燃料使用レポート
+  - リファレンスラップデータの比較
+  - 天候条件とセンサーデータ
+- **データベース統合**：デモンストレーション用に事前処理されたテレメトリーデータを取得します。
+- **カスタムJinja2フィルター**：ラップタイムの書式設定、距離の変換など。
+
+## デモ
+
+アプリケーションのライブデモは**[http://13.52.127.109/](http://13.52.127.109/)**にて利用可能です。  
+このデモはAWS EC2インスタンス（Free Tier）でホストされています。
+
+## インストール
+
+1. **リポジトリをクローン**:
+   ```bash
+   git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
+   cd iRacingStudioAnalysis
+    ```
+2. **仮想環境を設定**:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. **必要なパッケージをインストール**: 以下のPythonパッケージをインストールします:
+   ```bash
+   pip install flask irsdk numpy pandas pyyaml sqlite3 werkzeug
+   ```
+4. **アプリケーションを実行**:
+   - **ローカルモード**:
+     ```bash
+     python app.py --localhost
+     ```
+   - **本番モード**:
+     ```bash
+     python app.py
+     ```
+
+## 使い方
+
+1. **テレメトリーファイルをアップロード**：
+   - ルートURL（ローカルモードの場合は`http://127.0.0.1:5001`）にアクセスします。
+   - `.ibt`ファイルをアップロードして処理します。
+
+2. **データの探索**：
+   - チャート、レポート、テレメトリーデータをウェブインターフェースで表示します。
+
+3. **デモモード**：
+   - 本番環境では、データベースから事前にロードされたデモデータにアクセスできます。
+
+## 貢献
+
+1. リポジトリをフォークします。
+2. 新しいブランチを作成します（`git checkout -b feature-name`）。
+3. 変更をコミットします（`git commit -m "Description"`）。
+4. 自分のブランチにプッシュします（`git push origin feature-name`）。
+5. プルリクエストを送信します。
+
+## 謝辞
+
+- このプロジェクトは、iRacingのテレメトリーデータにアクセスするために[pyirsdkライブラリ](https://github.com/kutu/pyirsdk)を利用しています。`pyirsdk`の貢献者の方々に感謝いたします。
+- [Flask](https://flask.palletsprojects.com/)で作成されています。
+- `pandas`、`numpy`、`sqlite3`、`irsdk`などのライブラリを利用しています。
+
+## ライセンス
+
+このプロジェクトは**Apache License 2.0**のもとでライセンスされています。詳細は`LICENSE`ファイルをご覧ください。

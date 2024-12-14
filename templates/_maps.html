@@ -60,7 +60,7 @@
 
                     const altitudes_min = Math.min(...altitudes);
                     const altitudes_max = Math.max(...altitudes);
-                    const altitudes_cleaned = altitudes.map(alt => alt.toFixed(3));
+                    const altitudes_cleaned = altitudes.map(alt => alt.toFixed(2));
 
                     // Scaled down to (0-1 * normalize_reduced)
                     const altitudes_normalized = altitudes.map(alt => (alt - altitudes_min) / (altitudes_max - altitudes_min) * normalize_reduced);
@@ -70,7 +70,7 @@
                     const speeds_mph = speeds.map(speed => (speed * ms_to_mph).toFixed(2));
 
                     // Calculate Lateral G-Force
-                    const lateral_gforce = {{ charts_info[laps_report_info['TopLaps'][0]]['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(3));
+                    const lateral_gforce = {{ charts_info[laps_report_info['TopLaps'][0]]['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(2));
 
                     /*
                         =========================
@@ -158,10 +158,10 @@
                     const rrrideheight = {{ reference_lap_info['RRrideHeight'] | tojson }};
 
                     // Convert m to mm
-                    const lfrideheight_cleaned = lfrideheight.map(lf => (lf * m_to_mm).toFixed(3));
-                    const rfrideheight_cleaned = rfrideheight.map(rf => (rf * m_to_mm).toFixed(3));
-                    const lrrideheight_cleaned = lrrideheight.map(lr => (lr * m_to_mm).toFixed(3));
-                    const rrrideheight_cleaned = rrrideheight.map(rr => (rr * m_to_mm).toFixed(3));
+                    const lfrideheight_cleaned = lfrideheight.map(lf => (lf * m_to_mm).toFixed(2));
+                    const rfrideheight_cleaned = rfrideheight.map(rf => (rf * m_to_mm).toFixed(2));
+                    const lrrideheight_cleaned = lrrideheight.map(lr => (lr * m_to_mm).toFixed(2));
+                    const rrrideheight_cleaned = rrrideheight.map(rr => (rr * m_to_mm).toFixed(2));
 
                     let rideheight_avg = lfrideheight.map((value, index) => {
                         return (value + rfrideheight[index] + lrrideheight[index] + rrrideheight[index]) * m_to_mm / 4;
@@ -250,10 +250,10 @@
                     const rrshockdefl = {{ reference_lap_info['RRshockDefl'] | tojson }};
 
                     // Convert m to mm
-                    const lfshockdefl_cleaned = lfshockdefl.map(lf => (lf * m_to_mm).toFixed(3));
-                    const rfshockdefl_cleaned = rfshockdefl.map(rf => (rf * m_to_mm).toFixed(3));
-                    const lrshockdefl_cleaned = lrshockdefl.map(lr => (lr * m_to_mm).toFixed(3));
-                    const rrshockdefl_cleaned = rrshockdefl.map(rr => (rr * m_to_mm).toFixed(3));
+                    const lfshockdefl_cleaned = lfshockdefl.map(lf => (lf * m_to_mm).toFixed(2));
+                    const rfshockdefl_cleaned = rfshockdefl.map(rf => (rf * m_to_mm).toFixed(2));
+                    const lrshockdefl_cleaned = lrshockdefl.map(lr => (lr * m_to_mm).toFixed(2));
+                    const rrshockdefl_cleaned = rrshockdefl.map(rr => (rr * m_to_mm).toFixed(2));
 
                     let shockdefl_avg = lfshockdefl.map((value, index) => {
                         return (value + rfshockdefl[index] + lrshockdefl[index] + rrshockdefl[index]) * m_to_mm / 4;
@@ -339,10 +339,10 @@
                     const rrshockvel = {{ reference_lap_info['RRshockVel'] | tojson }};
 
                     // Convert m/s to mm/s
-                    const lfshockvel_cleaned = lfshockvel.map(lf => (lf * m_to_mm).toFixed(3));
-                    const rfshockvel_cleaned = rfshockvel.map(rf => (rf * m_to_mm).toFixed(3));
-                    const lrshockvel_cleaned = lrshockvel.map(lr => (lr * m_to_mm).toFixed(3));
-                    const rrshockvel_cleaned = rrshockvel.map(rr => (rr * m_to_mm).toFixed(3));
+                    const lfshockvel_cleaned = lfshockvel.map(lf => (lf * m_to_mm).toFixed(2));
+                    const rfshockvel_cleaned = rfshockvel.map(rf => (rf * m_to_mm).toFixed(2));
+                    const lrshockvel_cleaned = lrshockvel.map(lr => (lr * m_to_mm).toFixed(2));
+                    const rrshockvel_cleaned = rrshockvel.map(rr => (rr * m_to_mm).toFixed(2));
 
                     let shockvel_avg = lfshockvel.map((value, index) => {
                         return (value + rfshockvel[index] + lrshockvel[index] + rrshockvel[index]) * m_to_mm / 4;
@@ -771,7 +771,7 @@
                             '<br>' +
                             '[%{customdata[28]}][%{customdata[29]}][%{customdata[30]}]' +
                             '⬅️⬇️➡️' +
-                            '[[%{customdata[31]}][%{customdata[32]}]%{customdata[33]}]' +
+                            '[%{customdata[31]}][%{customdata[32]}][%{customdata[33]}]' +
 
                             '<extra></extra>',
                     });

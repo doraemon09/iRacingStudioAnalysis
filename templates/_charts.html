@@ -291,7 +291,7 @@
                 var chartLatAccelYaw_traces = [];
 
                 {% for lap, data in charts_info.items() %}
-                    var lateral_gforce = {{ data['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(3));
+                    var lateral_gforce = {{ data['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(2));
 
                     chartLatAccelYaw_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -304,7 +304,7 @@
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
-                    var yaw_cleaned = {{ data['Yaw'] | tojson }}.map(yaw => yaw.toFixed(3));
+                    var yaw_cleaned = {{ data['Yaw'] | tojson }}.map(yaw => yaw.toFixed(2));
 
                     chartLatAccelYaw_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -357,7 +357,7 @@
                 var chartSteeringAngleTorque_traces = [];
 
                 {% for lap, data in charts_info.items() %}
-                    var angle_cleaned = {{ data['SteeringWheelAngle'] | tojson }}.map(angle => angle.toFixed(3));
+                    var angle_cleaned = {{ data['SteeringWheelAngle'] | tojson }}.map(angle => angle.toFixed(2));
 
                     chartSteeringAngleTorque_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -370,7 +370,7 @@
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
-                    var torque_cleaned = {{ data['SteeringWheelTorque'] | tojson }}.map(torque => torque.toFixed(3));
+                    var torque_cleaned = {{ data['SteeringWheelTorque'] | tojson }}.map(torque => torque.toFixed(2));
 
                     chartSteeringAngleTorque_traces.push({
                         x: {{ data['Distance'] | tojson }},

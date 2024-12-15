@@ -205,6 +205,27 @@ function formatWithPlus(value) {
     return value > 0 ? `+${value}` : value;
 }
 
+// Assign bearing based on degree of angle
+function compassBearing(degree) {
+    if(337.5 <= degree || degree < 22.5) {
+        return "N"
+    } else if(22.5 <= degree && degree < 67.5) {
+        return "NE"
+    } else if(67.5 <= degree && degree < 112.5) {
+        return "E"
+    } else if(112.5 <= degree && degree < 157.5) {
+        return "SE"
+    } else if(157.5 <= degree && degree < 202.5) {
+        return "S"
+    } else if(202.5 <= degree && degree < 247.5) {
+        return "SW"
+    } else if(247.5 <= degree && degree < 292.5) {
+        return "W"
+    } else if(292.5 <= degree && degree < 337.5) {
+        return "NW"
+    }
+};
+
 // Sync charts on hover
 function chart_hover_sync() {
     /*

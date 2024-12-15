@@ -205,6 +205,12 @@ function formatWithPlus(value) {
     return value > 0 ? `+${value}` : value;
 }
 
+// radian to degree
+function radian2Degree(radian) {
+    return radian * (180 / Math.PI);
+}
+
+
 // Assign bearing based on degree of angle
 function compassBearing(degree) {
     if(337.5 <= degree || degree < 22.5) {

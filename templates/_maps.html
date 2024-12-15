@@ -980,6 +980,7 @@
                             point.properties.gear,
                         ]);
 
+                        // Sector lines
                         mapSectors_traces.push({
                             type: 'scattergeo',
                             mode: 'lines',
@@ -998,10 +999,8 @@
                                 width: 5,
                             },
                         });
-                    {% endfor %}
 
-                    // Start from 1 since sector 0 marker is the same as start
-                    {% for idx in range(1,sectors_info['Sectors']['Percentages'] | length) %}
+                        // Sector markers
                         mapSectors_traces.push({
                             type: 'scattergeo',
                             mode: 'markers',
@@ -1017,6 +1016,53 @@
                             hoverinfo: 'text',
                         });
                     {% endfor %}
+
+                    // Add directional flow arrows
+                    const arrow_placement = [75, 150, 225]; // position index for lat/lon
+
+                    // Get latitudes/longitudes based on the placement index
+                    const arrow_points = arrow_placement.map(idx => ({
+                        lat: latitudes[idx],
+                        lon: longitudes[idx],
+                    }));
+
+                    // Calculate bearings (Turf.js)
+                    const arrow_bearings = arrow_placement.map(idx => {
+                        const start = turf.point([longitudes[idx], latitudes[idx]]);
+                        const end = turf.point([longitudes[idx + 1], latitudes[idx + 1]]);
+
+                        return turf.bearing(start, end);
+                    });
+
+                    // Add flow traces
+                    arrow_points.forEach((point, i) => {
+                        // Clean negative bearing
+                        bearing_cleaned = (arrow_bearings[i] < 0 ? arrow_bearings[i] + 360 : arrow_bearings[i])
+
+                        this_bearing = compassBearing(bearing_cleaned)
+
+                        icon_bearing =
+                            this_bearing == 'N' ? 'up' :
+                            this_bearing == 'S' ? 'down' :
+                            this_bearing == 'E' ? 'right' :
+                            this_bearing == 'W' ? 'left' :
+                            this_bearing.toLowerCase();
+
+                        mapSectors_traces.push({
+                            type: 'scattergeo',
+                            mode: 'markers',
+                            lat: [point.lat],
+                            lon: [point.lon],
+                            marker: {
+                                size: 8,
+                                color: 'green',
+                                symbol: `triangle-${icon_bearing}`,
+                            },
+                            name: `Direction of Flow (${this_bearing})`,
+                            text: `Direction of Flow (${this_bearing})`,
+                            hoverinfo: 'text',
+                        });
+                    });
 
                     // Add finish point/line to the trace
                     mapSectors_traces.push({

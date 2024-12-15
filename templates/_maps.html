@@ -66,6 +66,67 @@
                     // Calculate Lateral G-Force
                     const lateral_gforce = {{ charts_info[laps_report_info['TopLaps'][0]]['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(2));
 
+                    // Grab ride height / camber / toe-in from static data
+                    {% if static_info['CarSetup']['Chassis'] %}
+                        const lfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftFront']['RideHeight'] }}";
+                        const rfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightFront']['RideHeight'] }}";
+                        const lrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftRear']['RideHeight'] }}";
+                        const rrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightRear']['RideHeight'] }}";
+
+                        let lfcamber = "{{ static_info['CarSetup']['Chassis']['LeftFront']['Camber'] }}";
+                        lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
+
+                        let lftoe = "{{ static_info['CarSetup']['Chassis']['LeftFront']['ToeIn'] }}";
+                        lftoe = lftoe.length > 0 ? lftoe : "{{ static_info['CarSetup']['Chassis']['Front']['ToeIn'] }}";
+
+                        let rfcamber = "{{ static_info['CarSetup']['Chassis']['RightFront']['Camber'] }}";
+                        rfcamber = rfcamber = rfcamber.length > 0 ? rfcamber : 'N/A';
+
+                        let rftoe = "{{ static_info['CarSetup']['Chassis']['RightFront']['ToeIn'] }}";
+                        rftoe = rftoe.length > 0 ? rftoe : "{{ static_info['CarSetup']['Chassis']['Front']['ToeIn'] }}";
+
+                        let lrcamber = "{{ static_info['CarSetup']['Chassis']['LeftRear']['Camber'] }}";
+                        lrcamber = lrcamber.length > 0 ? lrcamber : 'N/A';
+
+                        let lrtoe = "{{ static_info['CarSetup']['Chassis']['LeftRear']['ToeIn'] }}";
+                        lrtoe = lrtoe.length > 0 ? lrtoe : 'N/A';
+
+                        let rrcamber = "{{ static_info['CarSetup']['Chassis']['RightRear']['Camber'] }}";
+                        rrcamber = rrcamber.length > 0 ? rrcamber : 'N/A';
+
+                        let rrtoe = "{{ static_info['CarSetup']['Chassis']['RightRear']['ToeIn'] }}";
+                        rrtoe = rrtoe.length > 0 ? rrtoe : 'N/A';
+                    {% else %}
+                        const lfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftFront']['RideHeight'] }}";
+                        const rfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightFront']['RideHeight'] }}";
+                        const lrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftRear']['RideHeight'] }}";
+                        const rrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightRear']['RideHeight'] }}";
+
+                        let lfcamber = "{{ static_info['CarSetup']['Suspension']['LeftFront']['Camber'] }}";
+                        lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
+
+                        let lftoe = "{{ static_info['CarSetup']['Suspension']['LeftFront']['ToeIn'] }}";
+                        lftoe = lftoe.length > 0 ? lftoe : "{{ static_info['CarSetup']['Suspension']['Front']['ToeIn'] }}";
+
+                        let rfcamber = "{{ static_info['CarSetup']['Suspension']['RightFront']['Camber'] }}";
+                        rfcamber = rfcamber = rfcamber.length > 0 ? rfcamber : 'N/A';
+
+                        let rftoe = "{{ static_info['CarSetup']['Suspension']['RightFront']['ToeIn'] }}";
+                        rftoe = rftoe.length > 0 ? rftoe : "{{ static_info['CarSetup']['Suspension']['Front']['ToeIn'] }}";
+
+                        let lrcamber = "{{ static_info['CarSetup']['Suspension']['LeftRear']['Camber'] }}";
+                        lrcamber = lrcamber.length > 0 ? lrcamber : 'N/A';
+
+                        let lrtoe = "{{ static_info['CarSetup']['Suspension']['LeftRear']['ToeIn'] }}";
+                        lrtoe = lrtoe.length > 0 ? lrtoe : "{{ static_info['CarSetup']['Suspension']['Rear']['ToeIn'] }}";
+
+                        let rrcamber = "{{ static_info['CarSetup']['Suspension']['RightRear']['Camber'] }}";
+                        rrcamber = rrcamber.length > 0 ? rrcamber : 'N/A';
+
+                        let rrtoe = "{{ static_info['CarSetup']['Suspension']['RightRear']['ToeIn'] }}";
+                        rrtoe = rrtoe.length > 0 ? rrtoe : "{{ static_info['CarSetup']['Suspension']['Rear']['ToeIn'] }}";
+                    {% endif %}
+
                     /*
                         =========================
                         Altitude
@@ -203,7 +264,15 @@
                     });
 
                     mapRideHeight_layout = {
-                        title: 'Ride Height',
+                        title:
+                            'Ride Height<br>' +
+                            lfrideheight_garage +
+                            '⬅️⬆️➡️' +
+                            rfrideheight_garage +
+                            '<br>' +
+                            lrrideheight_garage +
+                            '⬅️⬇️➡️' +
+                            rrrideheight_garage,
                         scene: {
                             xaxis: {
                                 title: '',
@@ -537,9 +606,6 @@
                     const lftempm_cleaned = lftempm.map(lf => lf.toFixed(2));
                     const lftempr_cleaned = lftempr.map(lf => lf.toFixed(2));
 
-                    let lfcamber = "{{ static_info['CarSetup']['Chassis']['LeftFront']['Camber'] }}";
-                    lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
-
                     // Right Front
                     const rftempr = {{ reference_lap_info['RFtempR'] | tojson }};
                     const rftempm = {{ reference_lap_info['RFtempM'] | tojson }};
@@ -548,9 +614,6 @@
                     const rftempr_cleaned = rftempr.map(rf => rf.toFixed(2));
                     const rftempm_cleaned = rftempm.map(rf => rf.toFixed(2));
                     const rftempl_cleaned = rftempl.map(rf => rf.toFixed(2));
-
-                    let rfcamber = "{{ static_info['CarSetup']['Chassis']['RightFront']['Camber'] }}";
-                    rfcamber = rfcamber = rfcamber.length > 0 ? rfcamber : 'N/A';
 
                     // Left Rear
                     const lrtempl = {{ reference_lap_info['LRtempL'] | tojson }};
@@ -561,9 +624,6 @@
                     const lrtempm_cleaned = lrtempm.map(lr => lr.toFixed(2));
                     const lrtempr_cleaned = lrtempr.map(lr => lr.toFixed(2));
 
-                    let lrcamber = "{{ static_info['CarSetup']['Chassis']['LeftRear']['Camber'] }}";
-                    lrcamber = lrcamber.length > 0 ? lrcamber : 'N/A';
-
                     // Right Rear
                     const rrtempr = {{ reference_lap_info['RRtempR'] | tojson }};
                     const rrtempm = {{ reference_lap_info['RRtempM'] | tojson }};
@@ -572,9 +632,6 @@
                     const rrtempr_cleaned = rrtempr.map(rr => rr.toFixed(2));
                     const rrtempm_cleaned = rrtempm.map(rr => rr.toFixed(2));
                     const rrtempl_cleaned = rrtempl.map(rr => rr.toFixed(2));
-
-                    let rrcamber = "{{ static_info['CarSetup']['Chassis']['RightRear']['Camber'] }}";
-                    rrcamber = rrcamber.length > 0 ? rrcamber : 'N/A';
 
                     // Get temp average for marker
                     let temperature_avg = lftempm.map((value, index) => {
@@ -634,11 +691,15 @@
                         title:
                             'Tire Temperature<br>' +
                             lfcamber +
+                            ' ['+ lftoe + ']' +
                             '⬅️⬆️➡️' +
-                            rfcamber+
+                            '['+ rftoe + '] ' +
+                            rfcamber +
                             '<br>' +
                             lrcamber +
+                            ' ['+ lrtoe + ']' +
                             '⬅️⬇️➡️' +
+                            '['+ rrtoe + '] ' +
                             rrcamber,
                         scene: {
                             xaxis: {

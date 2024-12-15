@@ -155,9 +155,11 @@ function showTelemetrySection(section) {
     if(section === 'TrackMap') {
         const this_maps = ['mapSectors', 'mapAltLatLon', 'mapRideHeight', 'mapShockDeflection', 'mapShockVelocity', 'mapTirePressure', 'mapTireTemperature', 'mapSpeed'];
 
+        let this_width;
+        let this_height;
         this_maps.forEach(map => {
-            var this_width = document.getElementById('mapSectors').offsetWidth;
-            var this_height = document.getElementById('mapSectors').offsetWidth * 0.75;
+            this_width = document.getElementById('mapSectors').offsetWidth;
+            this_height = document.getElementById('mapSectors').offsetWidth * 0.75;
 
             Plotly.relayout(map, {
                 'width': this_width,
@@ -210,11 +212,11 @@ function chart_hover_sync() {
         Lap Time & Speed delta charts
         =========================
     */
-    var chartDeltaLapTime = document.getElementById('chartDeltaLapTime');
-    var chartDeltaSpeed = document.getElementById('chartDeltaSpeed');
+    const chartDeltaLapTime = document.getElementById('chartDeltaLapTime');
+    const chartDeltaSpeed = document.getElementById('chartDeltaSpeed');
 
     chartDeltaLapTime.on('plotly_hover', function(data) {
-        var { curveNumber, pointIndex } = data.points[0];
+        let { curveNumber, pointIndex } = data.points[0];
 
         Plotly.Fx.hover('chartDeltaSpeed', [{
             curveNumber: curveNumber, // match lap trace
@@ -227,7 +229,7 @@ function chart_hover_sync() {
     });
 
     chartDeltaSpeed.on('plotly_hover', function(data) {
-        var { curveNumber, pointIndex } = data.points[0];
+        let { curveNumber, pointIndex } = data.points[0];
 
         Plotly.Fx.hover('chartDeltaLapTime', [{
             curveNumber: curveNumber,   // match trace
@@ -244,14 +246,14 @@ function chart_hover_sync() {
         Brake/Throttle & Speed/Gear & Speed/Fuel Usage & Steering Angle/Torque
         =========================
     */
-    var chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
-    var chartLatAccelYaw = document.getElementById('chartLatAccelYaw');
-    var chartSpeedGear = document.getElementById('chartSpeedGear');
-    var chartSteeringAngleTorque = document.getElementById('chartSteeringAngleTorque');
+    const chartBrakeThrottle = document.getElementById('chartBrakeThrottle');
+    const chartLatAccelYaw = document.getElementById('chartLatAccelYaw');
+    const chartSpeedGear = document.getElementById('chartSpeedGear');
+    const chartSteeringAngleTorque = document.getElementById('chartSteeringAngleTorque');
 
     // chartBrakeThrottle
     chartBrakeThrottle.on('plotly_hover', function(data) {
-        var { curveNumber, pointIndex } = data.points[0];
+        let { curveNumber, pointIndex } = data.points[0];
 
         const connect_charts = ['chartLatAccelYaw', 'chartSpeedGear', 'chartSteeringAngleTorque']
 
@@ -273,7 +275,7 @@ function chart_hover_sync() {
 
     // chartLatAccelYaw
     chartLatAccelYaw.on('plotly_hover', function(data) {
-        var { curveNumber, pointIndex } = data.points[0];
+        let { curveNumber, pointIndex } = data.points[0];
 
         const connect_charts = ['chartBrakeThrottle', 'chartSpeedGear', 'chartSteeringAngleTorque']
 
@@ -295,7 +297,7 @@ function chart_hover_sync() {
 
     // chartSpeedGear
     chartSpeedGear.on('plotly_hover', function(data) {
-        var { curveNumber, pointIndex } = data.points[0];
+        let { curveNumber, pointIndex } = data.points[0];
 
         const connect_charts = ['chartBrakeThrottle', 'chartLatAccelYaw', 'chartSteeringAngleTorque']
 
@@ -317,7 +319,7 @@ function chart_hover_sync() {
 
     // chartSteeringAngleTorque
     chartSteeringAngleTorque.on('plotly_hover', function(data) {
-        var { curveNumber, pointIndex } = data.points[0];
+        let { curveNumber, pointIndex } = data.points[0];
 
         const connect_charts = ['chartBrakeThrottle', 'chartLatAccelYaw', 'chartSpeedGear']
 

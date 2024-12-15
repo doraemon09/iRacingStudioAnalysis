@@ -84,7 +84,7 @@
                         lateral_gforce[i],
                     ]);
 
-                    var mapAltLatLon_traces = []
+                    let mapAltLatLon_traces = []
 
                     mapAltLatLon_traces.push({
                         x: longitudes,
@@ -169,7 +169,7 @@
                         rrrideheight_cleaned[i],
                     ]);
 
-                    var mapRideHeight_traces = []
+                    let mapRideHeight_traces = []
 
                     mapRideHeight_traces.push({
                         x: longitudes,
@@ -261,7 +261,7 @@
                         rrshockdefl_cleaned[i],
                     ]);
 
-                    var mapShockDeflection_traces = []
+                    let mapShockDeflection_traces = []
 
                     mapShockDeflection_traces.push({
                         x: longitudes,
@@ -350,7 +350,7 @@
                         formatWithPlus(rrshockvel_cleaned[i]),
                     ]);
 
-                    var mapShockVelocity_traces = []
+                    let mapShockVelocity_traces = []
 
                     mapShockVelocity_traces.push({
                         x: longitudes,
@@ -451,7 +451,7 @@
                     const lrcoldPressure_cleaned = (lrcoldPressure * kPa_to_psi).toFixed(2)
                     const rrcoldPressure_cleaned = (rrcoldPressure * kPa_to_psi).toFixed(2)
 
-                    var mapTirePressure_traces = []
+                    let mapTirePressure_traces = []
 
                     mapTirePressure_traces.push({
                         x: longitudes,
@@ -580,7 +580,7 @@
                         rrtempr_cleaned[i],
                     ]);
 
-                    var mapTireTemperature_traces = []
+                    let mapTireTemperature_traces = []
 
                     mapTireTemperature_traces.push({
                         x: longitudes,
@@ -694,7 +694,7 @@
                         rrtempr_cleaned[i],
                     ]);
 
-                    var mapSpeed_traces = []
+                    let mapSpeed_traces = []
 
                     mapSpeed_traces.push({
                         x: longitudes,
@@ -879,23 +879,30 @@
                     ];
 
                     // Define the data trace for the map
-                    var mapSectors_traces = [];
+                    let mapSectors_traces = [];
 
                     // Set marker for sectors
+                    let sector_start;
+                    let sector_end;
+                    let sector_lat;
+                    let sector_lon;
+                    let sector_speed_kph;
+                    let sector_custom_data;
+
                     {% for idx in range(sectors_info['Sectors']['Percentages'] | length) %}
                         {% if idx == (sectors_info['Sectors']['Percentages'] | length) - 1 %}
-                            var sector_start = {{ sectors_info['Sectors']['SectorPoints'][idx] }};
-                            var sector_end = -1;
+                            sector_start = {{ sectors_info['Sectors']['SectorPoints'][idx] }};
+                            sector_end = -1;
                         {% else %}
-                            var sector_start = {{ sectors_info['Sectors']['SectorPoints'][idx] }};
-                            var sector_end = {{ sectors_info['Sectors']['SectorPoints'][idx + 1] }};
+                            sector_start = {{ sectors_info['Sectors']['SectorPoints'][idx] }};
+                            sector_end = {{ sectors_info['Sectors']['SectorPoints'][idx + 1] }};
                         {% endif %}
 
-                        var sector_lat = latitudes.slice(sector_start, sector_end);
-                        var sector_lon = longitudes.slice(sector_start, sector_end);
-                        var sector_speed_kph = speeds_kph.slice(sector_start, sector_end);
+                        sector_lat = latitudes.slice(sector_start, sector_end);
+                        sector_lon = longitudes.slice(sector_start, sector_end);
+                        sector_speed_kph = speeds_kph.slice(sector_start, sector_end);
 
-                        var sector_custom_data = mapSectors_points.slice(sector_start, sector_end).map((point) => [
+                        sector_custom_data = mapSectors_points.slice(sector_start, sector_end).map((point) => [
                             point.properties.laptime,
                             point.properties.speed_mph,
                             point.properties.rpm,
@@ -973,7 +980,7 @@
                     });
 
                     // Define the layout for the map, with center, zoom, and bounding box
-                    var mapSectors_layout = {
+                    let mapSectors_layout = {
                         autosize: true,
                         showlegend: false,
                         title: 'Sectors',

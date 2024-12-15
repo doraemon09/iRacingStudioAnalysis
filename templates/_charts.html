@@ -36,8 +36,17 @@
         <script>
             $(document).ready(function() {
                 /* Set up defaults for charts */
+                let speeds_kmh;
+                let laptimes_cleaned;
+                let throttle_cleaned;
+                let brake_cleaned;
+                let lateral_gforce;
+                let yaw_cleaned;
+                let angle_cleaned;
+                let torque_cleaned;
+
                 {% for lap, data in charts_info.items() %}
-                    var speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * ms_to_kph).toFixed(2));
+                    speeds_kmh = {{ data['Speed'] | tojson }}.map(speed => (speed * ms_to_kph).toFixed(2));
                 {% endfor %}
 
                 /*
@@ -45,7 +54,7 @@
                     Delta: Lap Time
                     =========================
                 */
-                var chartDeltaLapTime_traces = [];
+                let chartDeltaLapTime_traces = [];
 
                 // Show message when 1 lap only
                 // therefore no data to compare with
@@ -64,7 +73,7 @@
                     });
                 {% else %}
                     {% for lap, data in charts_info.items() %}
-                        var laptimes_cleaned = {{ data['LapTime'] | tojson }}.map(lapTimeFormat);
+                        laptimes_cleaned = {{ data['LapTime'] | tojson }}.map(lapTimeFormat);
 
                         chartDeltaLapTime_traces.push({
                             x: {{ data['Distance'] | tojson }}, // Switched out `DistanceRefLap`
@@ -77,7 +86,7 @@
                     {% endfor %}
                 {% endif %}
 
-                var chartDeltaLapTime_layout = {
+                let chartDeltaLapTime_layout = {
                     autosize: true,
                     showlegend: true,
                     title: 'Delta: Lap Time',
@@ -100,7 +109,7 @@
                     Delta: Speed
                     =========================
                 */
-                var chartDeltaSpeed_traces = [];
+                let chartDeltaSpeed_traces = [];
 
                 // Show message when 1 lap only
                 // therefore no data to compare with
@@ -130,7 +139,7 @@
                     {% endfor %}
                 {% endif %}
 
-                var chartDeltaSpeed_layout = {
+                let chartDeltaSpeed_layout = {
                     autosize: true,
                     showlegend: true,
                     title: 'Delta: Speed',
@@ -153,10 +162,10 @@
                     Brake and Throttle
                     =========================
                 */
-                var chartBrakeThrottle_traces = [];
+                let chartBrakeThrottle_traces = [];
 
                 {% for lap, data in charts_info.items() %}
-                    var throttle_cleaned = {{ data['Throttle'] | tojson }}.map(throttle => (throttle * 100).toFixed(2));
+                    throttle_cleaned = {{ data['Throttle'] | tojson }}.map(throttle => (throttle * 100).toFixed(2));
 
                     chartBrakeThrottle_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -169,7 +178,7 @@
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
-                    var brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => (brake * 100).toFixed(2));
+                    brake_cleaned = {{ data['Brake'] | tojson }}.map(brake => (brake * 100).toFixed(2));
 
                     chartBrakeThrottle_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -183,7 +192,7 @@
                     });
                 {% endfor %}
 
-                var chartBrakeThrottle_layout = {
+                let chartBrakeThrottle_layout = {
                     autosize: true,
                     showlegend: true,
                     title: 'Brake and Throttle',
@@ -218,7 +227,7 @@
                     Speed and Gear
                     =========================
                 */
-                var chartSpeedGear_traces = [];
+                let chartSpeedGear_traces = [];
 
                 {% for lap, data in charts_info.items() %}
                     chartSpeedGear_traces.push({
@@ -246,7 +255,7 @@
                     });
                 {% endfor %}
 
-                var chartSpeedGear_layout = {
+                let chartSpeedGear_layout = {
                     autosize: true,
                     showlegend: true,
                     title: 'Speed and Gears',
@@ -282,10 +291,10 @@
                     Lateral G-Force and Yaw
                     =========================
                 */
-                var chartLatAccelYaw_traces = [];
+                let chartLatAccelYaw_traces = [];
 
                 {% for lap, data in charts_info.items() %}
-                    var lateral_gforce = {{ data['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(2));
+                    lateral_gforce = {{ data['LatAccel'] | tojson }}.map(accel => (accel / gravity).toFixed(2));
 
                     chartLatAccelYaw_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -298,7 +307,7 @@
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
-                    var yaw_cleaned = {{ data['Yaw'] | tojson }}.map(yaw => yaw.toFixed(2));
+                    yaw_cleaned = {{ data['Yaw'] | tojson }}.map(yaw => yaw.toFixed(2));
 
                     chartLatAccelYaw_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -313,7 +322,7 @@
                     });
                 {% endfor %}
 
-                var chartLatAccelYaw_layout = {
+                let chartLatAccelYaw_layout = {
                     autosize: true,
                     showlegend: true,
                     title: 'Lateral G-Force and Yaw',
@@ -348,10 +357,10 @@
                     Steering Angle and Torque
                     =========================
                 */
-                var chartSteeringAngleTorque_traces = [];
+                let chartSteeringAngleTorque_traces = [];
 
                 {% for lap, data in charts_info.items() %}
-                    var angle_cleaned = {{ data['SteeringWheelAngle'] | tojson }}.map(angle => angle.toFixed(2));
+                    angle_cleaned = {{ data['SteeringWheelAngle'] | tojson }}.map(angle => angle.toFixed(2));
 
                     chartSteeringAngleTorque_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -364,7 +373,7 @@
                         visible: {% if lap == laps_report_info['TopLaps'][0] %} true {% else %} 'legendonly' {% endif %},
                     });
 
-                    var torque_cleaned = {{ data['SteeringWheelTorque'] | tojson }}.map(torque => torque.toFixed(2));
+                    torque_cleaned = {{ data['SteeringWheelTorque'] | tojson }}.map(torque => torque.toFixed(2));
 
                     chartSteeringAngleTorque_traces.push({
                         x: {{ data['Distance'] | tojson }},
@@ -378,7 +387,7 @@
                     });
                 {% endfor %}
 
-                var chartSteeringAngleTorque_layout = {
+                let chartSteeringAngleTorque_layout = {
                     autosize: true,
                     showlegend: true,
                     title: 'Steering Wheel Angle and Torque',

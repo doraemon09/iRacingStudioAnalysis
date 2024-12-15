@@ -1,4 +1,10 @@
 // Global var
+const ms_to_kph = 3.6;
+const ms_to_mph = 2.237;
+const gravity = 9.81;
+const m_to_mm = 1000;
+const kPa_to_psi = 0.14503773773;
+
 const sensor_sections = ['Timing', 'Vehicle', 'Garage', 'Pitstop', 'Positioning', 'Session', 'Weather', 'Radio', 'Replay', 'Camera', 'Miscellaneous', 'CarIdx', 'Undocumented'];
 const static_sections = ['WeekendInfo', 'SessionInfo', 'QualifyResultsInfo', 'SplitTimeInfo', 'CarSetup', 'DriverInfo', 'RadioInfo', 'CameraInfo'];
 const telemetry_sections = ['Lap', 'Chart', 'TrackMap'];
@@ -22,7 +28,7 @@ function switchLanguage(language) {
 // Hide sections
 function hideSections(section_list) {
     section_list.forEach(section => {
-        document.getElementById(section).style.display = 'none';
+        document.getElementById(section).classList.add('d-none');
     });
 };
 
@@ -39,22 +45,22 @@ function showSpinner(button) {
 
 // Sensor section
 function showSensorData() {
-    document.getElementById('sensor_data').style.display = 'block';
+    document.getElementById('sensor_data').classList.remove('d-none');
 
     // Check if exists
     if(document.getElementById('static_data')) {
-        document.getElementById('static_data').style.display = 'none';
+        document.getElementById('static_data').classList.add('d-none');
     };
 
     if(document.getElementById('telemetry_data')) {
-        document.getElementById('telemetry_data').style.display = 'none';
+        document.getElementById('telemetry_data').classList.add('d-none');
     };
 
     // Hide all static sections
     hideSections(sensor_sections)
 
     const default_section = document.getElementById(sensor_sections[0]);
-    default_section.style.display = 'block';
+    default_section.classList.remove('d-none');
 };
 
 // Sensor buttons
@@ -64,28 +70,28 @@ function showSensorSection(section) {
 
     // Show selected section
     const this_section = document.getElementById(section);
-    this_section.style.display = 'block';
+    this_section.classList.remove('d-none');
 };
 
 
 // Static Info section
 function showStaticData() {
-    document.getElementById('static_data').style.display = 'block';
+    document.getElementById('static_data').classList.remove('d-none');
 
     // Check if exists
     if(document.getElementById('sensor_data')) {
-        document.getElementById('sensor_data').style.display = 'none';
+        document.getElementById('sensor_data').classList.add('d-none');
     };
 
     if(document.getElementById('telemetry_data')) {
-        document.getElementById('telemetry_data').style.display = 'none';
+        document.getElementById('telemetry_data').classList.add('d-none');
     };
 
     // Hide all static sections
     hideSections(static_sections)
 
     const default_section = document.getElementById(static_sections[0]);
-    default_section.style.display = 'block';
+    default_section.classList.remove('d-none');
 };
 
 // Static Info buttons
@@ -95,20 +101,20 @@ function showStaticSection(section) {
 
     // Show selected section
     const this_section = document.getElementById(section);
-    this_section.style.display = 'block';
+    this_section.classList.remove('d-none');
 };
 
 // Telemetry Info section
 function showTelemetryData() {
-    document.getElementById('telemetry_data').style.display = 'block';
+    document.getElementById('telemetry_data').classList.remove('d-none');
 
     // Check if exists
     if(document.getElementById('sensor_data')) {
-        document.getElementById('sensor_data').style.display = 'none';
+        document.getElementById('sensor_data').classList.add('d-none');
     };
 
     if(document.getElementById('static_data')) {
-        document.getElementById('static_data').style.display = 'none';
+        document.getElementById('static_data').classList.add('d-none');
     };
 
     // Hide all telemetry sections
@@ -118,7 +124,7 @@ function showTelemetryData() {
     showSpinner(telemetry_sections[0])
 
     const default_section = document.getElementById(telemetry_sections[0]);
-    default_section.style.display = 'block';
+    default_section.classList.remove('d-none');
 };
 
 // Telemetry Info buttons
@@ -128,7 +134,7 @@ function showTelemetrySection(section) {
 
     // Show selected section
     const this_section = document.getElementById(section);
-    this_section.style.display = 'block';
+    this_section.classList.remove('d-none');
 
     // Show spinner for button
     showSpinner(section)
@@ -164,22 +170,22 @@ function showTelemetrySection(section) {
 
 // Check if user is on mobile
 function checkMobile() {
-    document.getElementById('mobile-warning').style.display = 'none';
+    document.getElementById('mobile-warning').classList.add('d-none');
 
     is_mobile = /Mobi|Android|iPhone|iPad|iPod|BlackBerry|Windows Phone|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     if(is_mobile) {
-        document.getElementById('mobile-warning').style.display = 'block';
+        document.getElementById('mobile-warning').classList.remove('d-none');
     };
 };
 
 // Check orientation on mobile
 function checkOrientation() {
-    document.getElementById('orientation-warning').style.display = 'none';
+    document.getElementById('orientation-warning').classList.add('d-none');
 
     // Width < Height = Landscape
     if(window.innerWidth < window.innerHeight) {
-        document.getElementById('orientation-warning').style.display = 'block';
+        document.getElementById('orientation-warning').classList.remove('d-none');
     };
 };
 
@@ -366,7 +372,7 @@ window.addEventListener('load', () => {
 
     if (display_page) {
         // Hide loading spinner
-        document.getElementById('spinner-container').style.display = 'none';
+        document.getElementById('spinner-container').classList.add('d-none');
 
         // If exists, show telemetry section on load by default
         if(document.getElementById('telemetry_data')) {

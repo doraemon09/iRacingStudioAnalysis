@@ -1,4 +1,4 @@
-<div id="sensor_data" class="container-fluid" style="display: none;">
+<div id="sensor_data" class="container-fluid d-none">
     <div class="row my-2">
         <div class="col-md-12 d-flex flex-wrap gap-1">
             {% for key in yaml_info['Telemetry'] %}
@@ -23,7 +23,7 @@
     </div>
 
     {% for key in yaml_info['Telemetry'] %}
-        <div id="{{ key }}" class="row my-2" style="display: none;">
+        <div id="{{ key }}" class="row my-2 d-none">
             <div class="col-md-12">
                 <div class="row my-2">
                     <h3 scope="col"
@@ -117,7 +117,7 @@
         </div>
     {% endfor %}
 
-    <div id="Undocumented" class="row my-2" style="display: none;">
+    <div id="Undocumented" class="row my-2 d-none">
         <div class="col-md-12">
             <div class="row my-2">
                 <h3 scope="col"

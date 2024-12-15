@@ -1,4 +1,4 @@
-<div id="TrackMap" class="row my-2" style="display: none;">
+<div id="TrackMap" class="row my-2 d-none">
     <div class="col-md-12">
         <div class="row my-2">
             <h3
@@ -45,13 +45,6 @@
             <script>
                 $(document).ready(function() {
                     /* Set up defaults for maps */
-                    const m_to_mm = 1000;
-                    const kPa_to_psi = 0.14503773773;
-                    const normalize_reduced = 0.5;
-                    const ms_to_kph = 3.6;
-                    const ms_to_mph = 2.237;
-                    const gravity = 9.81;
-
                     const speeds = {{ charts_info[laps_report_info['TopLaps'][0]]['Speed'] | tojson }};
 
                     const longitudes = {{ reference_lap_info['Longitude'] | tojson }};
@@ -63,6 +56,7 @@
                     const altitudes_cleaned = altitudes.map(alt => alt.toFixed(2));
 
                     // Scaled down to (0-1 * normalize_reduced)
+                    const normalize_reduced = 0.5;
                     const altitudes_normalized = altitudes.map(alt => (alt - altitudes_min) / (altitudes_max - altitudes_min) * normalize_reduced);
 
                     // m/s to kph and mph

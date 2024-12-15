@@ -143,7 +143,6 @@ def upload_file():
                             'Brake': eval(chart['Brake']),
                             'Throttle': eval(chart['Throttle']),
                             'Speed': eval(chart['Speed']),
-                            'RPM': eval(chart['RPM']),
                             'Gear': eval(chart['Gear']),
                             'SteeringWheelAngle': eval(chart['SteeringWheelAngle']),
                             'SteeringWheelTorque': eval(chart['SteeringWheelTorque']),
@@ -156,6 +155,8 @@ def upload_file():
 
                     # Rebuild
                     reference_lap_data = {
+                        'RPM': eval(reference_lap_results['RPM']),
+                        #
                         'Altitude': eval(reference_lap_results['Altitude']),
                         'Latitude': eval(reference_lap_results['Latitude']),
                         'Longitude': eval(reference_lap_results['Longitude']),
@@ -578,6 +579,8 @@ def process_session_data(ibt_telemetry_data):
         lap_reference_dataframe = main_dataframe[main_dataframe['Lap'] == lap_best][main_dataframe.columns.tolist()]
 
         reference_lap = {
+            'RPM': lap_reference_dataframe['RPM'].values.tolist(),
+            #
             'Altitude': lap_reference_dataframe['Alt'].values.tolist(),
             'Latitude': lap_reference_dataframe['Lat'].values.tolist(),
             'Longitude': lap_reference_dataframe['Lon'].values.tolist(),
@@ -651,7 +654,7 @@ def process_session_data(ibt_telemetry_data):
                 'Brake': chart_dataframe['Brake'].values.tolist(),
                 'Throttle': chart_dataframe['Throttle'].values.tolist(),
                 'Speed': chart_dataframe['Speed'].values.tolist(),
-                'RPM': chart_dataframe['RPM'].values.tolist(),
+                #'RPM': chart_dataframe['RPM'].values.tolist(),
                 'Gear': chart_dataframe['Gear'].values.tolist(),
                 'SteeringWheelAngle': chart_dataframe['SteeringWheelAngle'].values.tolist(),
                 'SteeringWheelTorque': chart_dataframe['SteeringWheelTorque'].values.tolist(),

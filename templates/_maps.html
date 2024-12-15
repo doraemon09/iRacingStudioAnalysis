@@ -68,78 +68,46 @@
 
                     // Grab ride height / camber / toe-in from static data
                     {% if static_info['CarSetup']['Chassis'] %}
-                        let lfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftFront']['RideHeight'] }}";
-                        lfrideheight_garage = lfrideheight_garage.length > 0 ? lfrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Front']['RideHeight'] }}";
-
-                        let rfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightFront']['RideHeight'] }}";
-                        rfrideheight_garage = rfrideheight_garage.length > 0 ? rfrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Front']['RideHeight'] }}";
-
-                        let lrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftRear']['RideHeight'] }}";
-                        lrrideheight_garage = lrrideheight_garage.length > 0 ? lrrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Rear']['RideHeight'] }}";
-
-                        let rrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightRear']['RideHeight'] }}";
-                        rrrideheight_garage = rrrideheight_garage.length > 0 ? rrrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Rear']['RideHeight'] }}";
-
-                        let lfcamber = "{{ static_info['CarSetup']['Chassis']['LeftFront']['Camber'] }}";
-                        lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
-
-                        let lftoe = "{{ static_info['CarSetup']['Chassis']['LeftFront']['ToeIn'] }}";
-                        lftoe = lftoe.length > 0 ? lftoe : "{{ static_info['CarSetup']['Chassis']['Front']['ToeIn'] }}";
-
-                        let rfcamber = "{{ static_info['CarSetup']['Chassis']['RightFront']['Camber'] }}";
-                        rfcamber = rfcamber = rfcamber.length > 0 ? rfcamber : 'N/A';
-
-                        let rftoe = "{{ static_info['CarSetup']['Chassis']['RightFront']['ToeIn'] }}";
-                        rftoe = rftoe.length > 0 ? rftoe : "{{ static_info['CarSetup']['Chassis']['Front']['ToeIn'] }}";
-
-                        let lrcamber = "{{ static_info['CarSetup']['Chassis']['LeftRear']['Camber'] }}";
-                        lrcamber = lrcamber.length > 0 ? lrcamber : 'N/A';
-
-                        let lrtoe = "{{ static_info['CarSetup']['Chassis']['LeftRear']['ToeIn'] }}";
-                        lrtoe = lrtoe.length > 0 ? lrtoe : 'N/A';
-
-                        let rrcamber = "{{ static_info['CarSetup']['Chassis']['RightRear']['Camber'] }}";
-                        rrcamber = rrcamber.length > 0 ? rrcamber : 'N/A';
-
-                        let rrtoe = "{{ static_info['CarSetup']['Chassis']['RightRear']['ToeIn'] }}";
-                        rrtoe = rrtoe.length > 0 ? rrtoe : 'N/A';
+                        {% set chassis_suspension = 'Chassis' %}
                     {% else %}
-                        let lfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftFront']['RideHeight'] }}";
-                        lfrideheight_garage = lfrideheight_garage.length > 0 ? lfrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Front']['RideHeight'] }}";
-
-                        let rfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightFront']['RideHeight'] }}";
-                        rfrideheight_garage = rfrideheight_garage.length > 0 ? rfrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Front']['RideHeight'] }}";
-
-                        let lrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftRear']['RideHeight'] }}";
-                        lrrideheight_garage = lrrideheight_garage.length > 0 ? lrrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Rear']['RideHeight'] }}";
-
-                        let rrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightRear']['RideHeight'] }}";
-                        rrrideheight_garage = rrrideheight_garage.length > 0 ? rrrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Rear']['RideHeight'] }}";
-
-                        let lfcamber = "{{ static_info['CarSetup']['Suspension']['LeftFront']['Camber'] }}";
-                        lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
-
-                        let lftoe = "{{ static_info['CarSetup']['Suspension']['LeftFront']['ToeIn'] }}";
-                        lftoe = lftoe.length > 0 ? lftoe : "{{ static_info['CarSetup']['Suspension']['Front']['ToeIn'] }}";
-
-                        let rfcamber = "{{ static_info['CarSetup']['Suspension']['RightFront']['Camber'] }}";
-                        rfcamber = rfcamber = rfcamber.length > 0 ? rfcamber : 'N/A';
-
-                        let rftoe = "{{ static_info['CarSetup']['Suspension']['RightFront']['ToeIn'] }}";
-                        rftoe = rftoe.length > 0 ? rftoe : "{{ static_info['CarSetup']['Suspension']['Front']['ToeIn'] }}";
-
-                        let lrcamber = "{{ static_info['CarSetup']['Suspension']['LeftRear']['Camber'] }}";
-                        lrcamber = lrcamber.length > 0 ? lrcamber : 'N/A';
-
-                        let lrtoe = "{{ static_info['CarSetup']['Suspension']['LeftRear']['ToeIn'] }}";
-                        lrtoe = lrtoe.length > 0 ? lrtoe : "{{ static_info['CarSetup']['Suspension']['Rear']['ToeIn'] }}";
-
-                        let rrcamber = "{{ static_info['CarSetup']['Suspension']['RightRear']['Camber'] }}";
-                        rrcamber = rrcamber.length > 0 ? rrcamber : 'N/A';
-
-                        let rrtoe = "{{ static_info['CarSetup']['Suspension']['RightRear']['ToeIn'] }}";
-                        rrtoe = rrtoe.length > 0 ? rrtoe : "{{ static_info['CarSetup']['Suspension']['Rear']['ToeIn'] }}";
+                        {% set chassis_suspension = 'Suspension' %}
                     {% endif %}
+
+                    let lfrideheight_garage = "{{ static_info['CarSetup'][chassis_suspension]['LeftFront']['RideHeight'] }}";
+                    lfrideheight_garage = lfrideheight_garage.length > 0 ? lfrideheight_garage : "{{ static_info['CarSetup'][chassis_suspension]['Front']['RideHeight'] }}";
+
+                    let rfrideheight_garage = "{{ static_info['CarSetup'][chassis_suspension]['RightFront']['RideHeight'] }}";
+                    rfrideheight_garage = rfrideheight_garage.length > 0 ? rfrideheight_garage : "{{ static_info['CarSetup'][chassis_suspension]['Front']['RideHeight'] }}";
+
+                    let lrrideheight_garage = "{{ static_info['CarSetup'][chassis_suspension]['LeftRear']['RideHeight'] }}";
+                    lrrideheight_garage = lrrideheight_garage.length > 0 ? lrrideheight_garage : "{{ static_info['CarSetup'][chassis_suspension]['Rear']['RideHeight'] }}";
+
+                    let rrrideheight_garage = "{{ static_info['CarSetup'][chassis_suspension]['RightRear']['RideHeight'] }}";
+                    rrrideheight_garage = rrrideheight_garage.length > 0 ? rrrideheight_garage : "{{ static_info['CarSetup'][chassis_suspension]['Rear']['RideHeight'] }}";
+
+                    let lfcamber = "{{ static_info['CarSetup'][chassis_suspension]['LeftFront']['Camber'] }}";
+                    lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
+
+                    let lftoe = "{{ static_info['CarSetup'][chassis_suspension]['LeftFront']['ToeIn'] }}";
+                    lftoe = lftoe.length > 0 ? lftoe : "{{ static_info['CarSetup'][chassis_suspension]['Front']['ToeIn'] }}";
+
+                    let rfcamber = "{{ static_info['CarSetup'][chassis_suspension]['RightFront']['Camber'] }}";
+                    rfcamber = rfcamber = rfcamber.length > 0 ? rfcamber : 'N/A';
+
+                    let rftoe = "{{ static_info['CarSetup'][chassis_suspension]['RightFront']['ToeIn'] }}";
+                    rftoe = rftoe.length > 0 ? rftoe : "{{ static_info['CarSetup'][chassis_suspension]['Front']['ToeIn'] }}";
+
+                    let lrcamber = "{{ static_info['CarSetup'][chassis_suspension]['LeftRear']['Camber'] }}";
+                    lrcamber = lrcamber.length > 0 ? lrcamber : 'N/A';
+
+                    let lrtoe = "{{ static_info['CarSetup'][chassis_suspension]['LeftRear']['ToeIn'] }}";
+                    lrtoe = lrtoe.length > 0 ? lrtoe : "{{ static_info['CarSetup'][chassis_suspension]['Rear']['ToeIn'] }}";
+
+                    let rrcamber = "{{ static_info['CarSetup'][chassis_suspension]['RightRear']['Camber'] }}";
+                    rrcamber = rrcamber.length > 0 ? rrcamber : 'N/A';
+
+                    let rrtoe = "{{ static_info['CarSetup'][chassis_suspension]['RightRear']['ToeIn'] }}";
+                    rrtoe = rrtoe.length > 0 ? rrtoe : "{{ static_info['CarSetup'][chassis_suspension]['Rear']['ToeIn'] }}";
 
                     /*
                         =========================

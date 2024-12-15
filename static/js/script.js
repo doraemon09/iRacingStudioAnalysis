@@ -140,7 +140,7 @@ function showTelemetrySection(section) {
     showSpinner(section)
 
     if(section === 'Chart') {
-        chart_hover_sync();
+        chartHoverSync();
 
         const this_charts = ['chartDeltaLapTime', 'chartDeltaSpeed', 'chartBrakeThrottle', 'chartSpeedGear', 'chartLatAccelYaw', 'chartSteeringAngleTorque'];
 
@@ -233,7 +233,7 @@ function compassBearing(degree) {
 };
 
 // Sync charts on hover
-function chart_hover_sync() {
+function chartHoverSync() {
     /*
         =========================
         Lap Time & Speed delta charts

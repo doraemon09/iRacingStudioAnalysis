@@ -157,6 +157,7 @@
                     const lrrideheight_cleaned = lrrideheight.map(lr => (lr * m_to_mm).toFixed(2));
                     const rrrideheight_cleaned = rrrideheight.map(rr => (rr * m_to_mm).toFixed(2));
 
+                    // Get ride height average for marker
                     let rideheight_avg = lfrideheight.map((value, index) => {
                         return (value + rfrideheight[index] + lrrideheight[index] + rrrideheight[index]) * m_to_mm / 4;
                     });
@@ -249,6 +250,7 @@
                     const lrshockdefl_cleaned = lrshockdefl.map(lr => (lr * m_to_mm).toFixed(2));
                     const rrshockdefl_cleaned = rrshockdefl.map(rr => (rr * m_to_mm).toFixed(2));
 
+                    // Get deflection average for marker
                     let shockdefl_avg = lfshockdefl.map((value, index) => {
                         return (value + rfshockdefl[index] + lrshockdefl[index] + rrshockdefl[index]) * m_to_mm / 4;
                     });
@@ -338,6 +340,7 @@
                     const lrshockvel_cleaned = lrshockvel.map(lr => (lr * m_to_mm).toFixed(2));
                     const rrshockvel_cleaned = rrshockvel.map(rr => (rr * m_to_mm).toFixed(2));
 
+                    // Get velocity average for marker
                     let shockvel_avg = lfshockvel.map((value, index) => {
                         return (value + rfshockvel[index] + lrshockvel[index] + rrshockvel[index]) * m_to_mm / 4;
                     });
@@ -523,7 +526,6 @@
                     /*
                         =========================
                         Tire Temperature
-                        L = Outer| M = Middle | R = Inner
                         =========================
                     */
                     // Left Front
@@ -535,6 +537,9 @@
                     const lftempm_cleaned = lftempm.map(lf => lf.toFixed(2));
                     const lftempr_cleaned = lftempr.map(lf => lf.toFixed(2));
 
+                    let lfcamber = "{{ static_info['CarSetup']['Chassis']['LeftFront']['Camber'] }}";
+                    lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
+
                     // Right Front
                     const rftempr = {{ reference_lap_info['RFtempR'] | tojson }};
                     const rftempm = {{ reference_lap_info['RFtempM'] | tojson }};
@@ -543,6 +548,9 @@
                     const rftempr_cleaned = rftempr.map(rf => rf.toFixed(2));
                     const rftempm_cleaned = rftempm.map(rf => rf.toFixed(2));
                     const rftempl_cleaned = rftempl.map(rf => rf.toFixed(2));
+
+                    let rfcamber = "{{ static_info['CarSetup']['Chassis']['RightFront']['Camber'] }}";
+                    rfcamber = rfcamber = rfcamber.length > 0 ? rfcamber : 'N/A';
 
                     // Left Rear
                     const lrtempl = {{ reference_lap_info['LRtempL'] | tojson }};
@@ -553,6 +561,9 @@
                     const lrtempm_cleaned = lrtempm.map(lr => lr.toFixed(2));
                     const lrtempr_cleaned = lrtempr.map(lr => lr.toFixed(2));
 
+                    let lrcamber = "{{ static_info['CarSetup']['Chassis']['LeftRear']['Camber'] }}";
+                    lrcamber = lrcamber.length > 0 ? lrcamber : 'N/A';
+
                     // Right Rear
                     const rrtempr = {{ reference_lap_info['RRtempR'] | tojson }};
                     const rrtempm = {{ reference_lap_info['RRtempM'] | tojson }};
@@ -562,7 +573,10 @@
                     const rrtempm_cleaned = rrtempm.map(rr => rr.toFixed(2));
                     const rrtempl_cleaned = rrtempl.map(rr => rr.toFixed(2));
 
+                    let rrcamber = "{{ static_info['CarSetup']['Chassis']['RightRear']['Camber'] }}";
+                    rrcamber = rrcamber.length > 0 ? rrcamber : 'N/A';
 
+                    // Get temp average for marker
                     let temperature_avg = lftempm.map((value, index) => {
                         return (value + rftempm[index] + lrtempm[index] + rrtempm[index]) / 4;
                     });
@@ -574,17 +588,17 @@
                         lftempm_cleaned[i],
                         lftempr_cleaned[i],
 
-                        rftempr_cleaned[i],
-                        rftempm_cleaned[i],
                         rftempl_cleaned[i],
+                        rftempm_cleaned[i],
+                        rftempr_cleaned[i],
 
                         lrtempl_cleaned[i],
                         lrtempm_cleaned[i],
                         lrtempr_cleaned[i],
 
-                        rrtempr_cleaned[i],
-                        rrtempm_cleaned[i],
                         rrtempl_cleaned[i],
+                        rrtempm_cleaned[i],
+                        rrtempr_cleaned[i],
                     ]);
 
                     let mapTireTemperature_traces = []
@@ -618,7 +632,14 @@
 
                     mapTireTemperature_layout = {
                         title:
-                            'Tire Temperature',
+                            'Tire Temperature<br>' +
+                            lfcamber +
+                            '⬅️⬆️➡️' +
+                            rfcamber+
+                            '<br>' +
+                            lrcamber +
+                            '⬅️⬇️➡️' +
+                            rrcamber,
                         scene: {
                             xaxis: {
                                 title: '',
@@ -688,17 +709,17 @@
                         lftempm_cleaned[i],
                         lftempr_cleaned[i],
 
-                        rftempr_cleaned[i],
-                        rftempm_cleaned[i],
                         rftempl_cleaned[i],
+                        rftempm_cleaned[i],
+                        rftempr_cleaned[i],
 
                         lrtempl_cleaned[i],
                         lrtempm_cleaned[i],
                         lrtempr_cleaned[i],
 
-                        rrtempr_cleaned[i],
-                        rrtempm_cleaned[i],
                         rrtempl_cleaned[i],
+                        rrtempm_cleaned[i],
+                        rrtempr_cleaned[i],
                     ]);
 
                     let mapSpeed_traces = []

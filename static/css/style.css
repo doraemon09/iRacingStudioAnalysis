@@ -4,6 +4,16 @@
 }
 
 /* === ===*/
+.border-color-revert {
+    border-color: revert;
+}
+
+/* === ===*/
+.sector-purple {
+    background-color: violet !important;
+}
+
+/* === ===*/
 .collapsible .icon {
     transition: transform 0.2s; /* for smooth rotation */
 }

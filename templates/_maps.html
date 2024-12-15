@@ -523,37 +523,44 @@
                     /*
                         =========================
                         Tire Temperature
+                        L = Outer| M = Middle | R = Inner
                         =========================
                     */
+                    // Left Front
                     const lftempl = {{ reference_lap_info['LFtempL'] | tojson }};
-                    const rftempl = {{ reference_lap_info['RFtempL'] | tojson }};
-                    const lrtempl = {{ reference_lap_info['LRtempL'] | tojson }};
-                    const rrtempl = {{ reference_lap_info['RRtempL'] | tojson }};
-
                     const lftempm = {{ reference_lap_info['LFtempM'] | tojson }};
-                    const rftempm = {{ reference_lap_info['RFtempM'] | tojson }};
-                    const lrtempm = {{ reference_lap_info['LRtempM'] | tojson }};
-                    const rrtempm = {{ reference_lap_info['RRtempM'] | tojson }};
-
                     const lftempr = {{ reference_lap_info['LFtempR'] | tojson }};
-                    const rftempr = {{ reference_lap_info['RFtempR'] | tojson }};
-                    const lrtempr = {{ reference_lap_info['LRtempR'] | tojson }};
-                    const rrtempr = {{ reference_lap_info['RRtempR'] | tojson }};
 
                     const lftempl_cleaned = lftempl.map(lf => lf.toFixed(2));
-                    const rftempl_cleaned = rftempl.map(rf => rf.toFixed(2));
-                    const lrtempl_cleaned = lrtempl.map(lr => lr.toFixed(2));
-                    const rrtempl_cleaned = rrtempl.map(rr => rr.toFixed(2));
-
                     const lftempm_cleaned = lftempm.map(lf => lf.toFixed(2));
-                    const rftempm_cleaned = rftempm.map(rf => rf.toFixed(2));
-                    const lrtempm_cleaned = lrtempm.map(lr => lr.toFixed(2));
-                    const rrtempm_cleaned = rrtempm.map(rr => rr.toFixed(2));
-
                     const lftempr_cleaned = lftempr.map(lf => lf.toFixed(2));
+
+                    // Right Front
+                    const rftempr = {{ reference_lap_info['RFtempR'] | tojson }};
+                    const rftempm = {{ reference_lap_info['RFtempM'] | tojson }};
+                    const rftempl = {{ reference_lap_info['RFtempL'] | tojson }};
+
                     const rftempr_cleaned = rftempr.map(rf => rf.toFixed(2));
+                    const rftempm_cleaned = rftempm.map(rf => rf.toFixed(2));
+                    const rftempl_cleaned = rftempl.map(rf => rf.toFixed(2));
+
+                    // Left Rear
+                    const lrtempl = {{ reference_lap_info['LRtempL'] | tojson }};
+                    const lrtempm = {{ reference_lap_info['LRtempM'] | tojson }};
+                    const lrtempr = {{ reference_lap_info['LRtempR'] | tojson }};
+
+                    const lrtempl_cleaned = lrtempl.map(lr => lr.toFixed(2));
+                    const lrtempm_cleaned = lrtempm.map(lr => lr.toFixed(2));
                     const lrtempr_cleaned = lrtempr.map(lr => lr.toFixed(2));
+
+                    // Right Rear
+                    const rrtempr = {{ reference_lap_info['RRtempR'] | tojson }};
+                    const rrtempm = {{ reference_lap_info['RRtempM'] | tojson }};
+                    const rrtempl = {{ reference_lap_info['RRtempL'] | tojson }};
+
                     const rrtempr_cleaned = rrtempr.map(rr => rr.toFixed(2));
+                    const rrtempm_cleaned = rrtempm.map(rr => rr.toFixed(2));
+                    const rrtempl_cleaned = rrtempl.map(rr => rr.toFixed(2));
 
 
                     let temperature_avg = lftempm.map((value, index) => {
@@ -567,17 +574,17 @@
                         lftempm_cleaned[i],
                         lftempr_cleaned[i],
 
-                        rftempl_cleaned[i],
-                        rftempm_cleaned[i],
                         rftempr_cleaned[i],
+                        rftempm_cleaned[i],
+                        rftempl_cleaned[i],
 
                         lrtempl_cleaned[i],
                         lrtempm_cleaned[i],
                         lrtempr_cleaned[i],
 
-                        rrtempl_cleaned[i],
-                        rrtempm_cleaned[i],
                         rrtempr_cleaned[i],
+                        rrtempm_cleaned[i],
+                        rrtempl_cleaned[i],
                     ]);
 
                     let mapTireTemperature_traces = []
@@ -681,17 +688,17 @@
                         lftempm_cleaned[i],
                         lftempr_cleaned[i],
 
-                        rftempl_cleaned[i],
-                        rftempm_cleaned[i],
                         rftempr_cleaned[i],
+                        rftempm_cleaned[i],
+                        rftempl_cleaned[i],
 
                         lrtempl_cleaned[i],
                         lrtempm_cleaned[i],
                         lrtempr_cleaned[i],
 
-                        rrtempl_cleaned[i],
-                        rrtempm_cleaned[i],
                         rrtempr_cleaned[i],
+                        rrtempm_cleaned[i],
+                        rrtempl_cleaned[i],
                     ]);
 
                     let mapSpeed_traces = []

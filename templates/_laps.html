@@ -61,11 +61,9 @@
                                 <th scope="row">{{ idx.LapNum }}</th>
                                 <td
                                     {% if idx.LapNum == laps_report_info['TopLaps'][0] %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% elif idx.LapNum == laps_report_info['TopLaps'][1] %}
-                                        class="table-warning fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-warning fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ idx.LapTime | laptimeformat }}
@@ -74,33 +72,27 @@
                                 <td>{{ idx.DeltaToBestLapPercent | round(2) }}</td>
                                 <td
                                     {% if idx.LapDistance == laps_report_info['TopLapDistances'][0] %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% elif idx.LapDistance == laps_report_info['TopLapDistances'][1] %}
-                                        class="table-warning fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-warning fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ idx.LapDistance | to_km }}
                                 </td>
                                 <td
                                     {% if idx.SpeedMax == laps_report_info['TopMaxSpeeds'][0] %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% elif idx.SpeedMax == laps_report_info['TopMaxSpeeds'][1] %}
-                                        class="table-warning fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-warning fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ idx.SpeedMax | round(3) }}
                                 </td>
                                 <td
                                     {% if idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][0] %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% elif idx.SpeedAvg == laps_report_info['TopAvgSpeeds'][1] %}
-                                        class="table-warning fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-warning fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ idx.SpeedAvg | round(3) }}
@@ -172,8 +164,7 @@
                                 <th scope="row">{{ idx }}</th>
                                 <td
                                     {% if idx == laps_report_info['TopLaps'][0] %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ sector_times_info[idx]['LapTime'] | laptimeformat }}
@@ -183,8 +174,7 @@
                                     {% set best_sector_time = sectors_report_info['BestSectorTimes'][time] %}
                                     <td
                                         {% if this_sector_time == best_sector_time %}
-                                            class="table-success fw-bold"
-                                            style="border-color: revert; background-color: violet;"
+                                            class="table-success fw-bold border-color-revert sector-purple"
                                         {% endif %}
                                     >
                                         {{ this_sector_time | laptimeformat }}
@@ -284,40 +274,35 @@
                                 <th scope="row">{{ idx }}</th>
                                 <td
                                     {% if this_throttle_full == best_throttle_full %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_throttle_full | laptimeformat }}
                                 </td>
                                 <td
                                     {% if this_throttle_partial == best_throttle_partial %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_throttle_partial | laptimeformat }}
                                 </td>
                                 <td
                                     {% if this_brake_full == best_brake_full %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_brake_full | laptimeformat }}
                                 </td>
                                 <td
                                     {% if this_brake_partial == best_brake_partial %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_brake_partial | laptimeformat }}
                                 </td>
                                 <td
                                     {% if this_coast == best_coast %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_coast | laptimeformat }}
@@ -409,8 +394,7 @@
                                 <td>{{ this_level | round(3) }}</td>
                                 <td
                                     {% if this_used == best_used %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_used | round(3) }}
@@ -418,16 +402,14 @@
                                 <td>{{ this_levelpct | round(3) }}</td>
                                 <td
                                     {% if this_useperhouravg == best_useperhouravg %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_useperhouravg | round(3) }}
                                 </td>
                                 <td
                                     {% if this_useperhouravg == best_useperhouravg %}
-                                        class="table-success fw-bold"
-                                        style="border-color: revert;"
+                                        class="table-success fw-bold border-color-revert"
                                     {% endif %}
                                 >
                                     {{ this_useperhouravg_literhour | round(3) }}

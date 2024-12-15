@@ -68,10 +68,17 @@
 
                     // Grab ride height / camber / toe-in from static data
                     {% if static_info['CarSetup']['Chassis'] %}
-                        const lfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftFront']['RideHeight'] }}";
-                        const rfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightFront']['RideHeight'] }}";
-                        const lrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftRear']['RideHeight'] }}";
-                        const rrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightRear']['RideHeight'] }}";
+                        let lfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftFront']['RideHeight'] }}";
+                        lfrideheight_garage = lfrideheight_garage.length > 0 ? lfrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Front']['RideHeight'] }}";
+
+                        let rfrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightFront']['RideHeight'] }}";
+                        rfrideheight_garage = rfrideheight_garage.length > 0 ? rfrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Front']['RideHeight'] }}";
+
+                        let lrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['LeftRear']['RideHeight'] }}";
+                        lrrideheight_garage = lrrideheight_garage.length > 0 ? lrrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Rear']['RideHeight'] }}";
+
+                        let rrrideheight_garage = "{{ static_info['CarSetup']['Chassis']['RightRear']['RideHeight'] }}";
+                        rrrideheight_garage = rrrideheight_garage.length > 0 ? rrrideheight_garage : "{{ static_info['CarSetup']['Chassis']['Rear']['RideHeight'] }}";
 
                         let lfcamber = "{{ static_info['CarSetup']['Chassis']['LeftFront']['Camber'] }}";
                         lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';
@@ -97,10 +104,17 @@
                         let rrtoe = "{{ static_info['CarSetup']['Chassis']['RightRear']['ToeIn'] }}";
                         rrtoe = rrtoe.length > 0 ? rrtoe : 'N/A';
                     {% else %}
-                        const lfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftFront']['RideHeight'] }}";
-                        const rfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightFront']['RideHeight'] }}";
-                        const lrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftRear']['RideHeight'] }}";
-                        const rrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightRear']['RideHeight'] }}";
+                        let lfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftFront']['RideHeight'] }}";
+                        lfrideheight_garage = lfrideheight_garage.length > 0 ? lfrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Front']['RideHeight'] }}";
+
+                        let rfrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightFront']['RideHeight'] }}";
+                        rfrideheight_garage = rfrideheight_garage.length > 0 ? rfrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Front']['RideHeight'] }}";
+
+                        let lrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['LeftRear']['RideHeight'] }}";
+                        lrrideheight_garage = lrrideheight_garage.length > 0 ? lrrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Rear']['RideHeight'] }}";
+
+                        let rrrideheight_garage = "{{ static_info['CarSetup']['Suspension']['RightRear']['RideHeight'] }}";
+                        rrrideheight_garage = rrrideheight_garage.length > 0 ? rrrideheight_garage : "{{ static_info['CarSetup']['Suspension']['Rear']['RideHeight'] }}";
 
                         let lfcamber = "{{ static_info['CarSetup']['Suspension']['LeftFront']['Camber'] }}";
                         lfcamber = lfcamber.length > 0 ? lfcamber : 'N/A';

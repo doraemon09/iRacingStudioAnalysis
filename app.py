@@ -546,8 +546,8 @@ def process_session_data(ibt_telemetry_data):
                 'Severity': ibt_telemetry_data['TrackWetness'].iloc[0],
             },
             'Wind': {
-                'Direction': rad_to_direction(ibt_telemetry_data['WindDir'].iloc[0]),
-                'Velocity': ibt_telemetry_data['WindVel'].iloc[0] * 3.6, # m/s to km/h
+                'Direction': ibt_telemetry_data['WindDir'].iloc[0],
+                'Velocity': ibt_telemetry_data['WindVel'].iloc[0],
             },
         }
 
@@ -814,30 +814,6 @@ def process_undocumented_sensors_data(telemetry_data):
         undocumented = [sensor for sensor in undocumented if sensor not in this_list]
 
     return undocumented
-
-
-"""
-Radian to compass direction
-"""
-def rad_to_direction(rad):
-    this_degrees = rad * (180 / math.pi)
-
-    if 337.5 <= this_degrees or this_degrees < 22.5:
-        return "N"
-    elif 22.5 <= this_degrees < 67.5:
-        return "NE"
-    elif 67.5 <= this_degrees < 112.5:
-        return "E"
-    elif 112.5 <= this_degrees < 157.5:
-        return "SE"
-    elif 157.5 <= this_degrees < 202.5:
-        return "S"
-    elif 202.5 <= this_degrees < 247.5:
-        return "SW"
-    elif 247.5 <= this_degrees < 292.5:
-        return "W"
-    elif 292.5 <= this_degrees < 337.5:
-        return "NW"
 
 
 """

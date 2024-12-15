@@ -23,6 +23,17 @@
         <script src="https://cdn.jsdelivr.net/npm/@turf/turf"></script>
         <script src="/static/js/script.js" defer></script>
 
+        <script>
+            $(document).ready(function() {
+                const wind_bearing = radian2Degree({{ weather_report_info['Wind']['Direction'] }})
+                const wind_direction = compassBearing(wind_bearing)
+                document.getElementById('wind_direction').innerHTML = wind_direction;
+
+                const wind_velocity_kph = {{ weather_report_info['Wind']['Velocity'] }} * ms_to_kph;
+                document.getElementById('wind_velocity').innerHTML = wind_velocity_kph.toFixed(1) + ' km/h';
+            });
+        </script>
+
         <!-- -->
         <title
             data-en="{{ yaml_info['General']['Title']['Label']['en'] }}"
@@ -89,8 +100,8 @@
                         <i class="fa-solid fa-temperature-half"></i>
                         {{ weather_report_info['Temperature']['Air'] | round(1) }}&deg;C
                         <i class="fa-solid fa-wind"></i>
-                        {{ weather_report_info['Wind']['Direction'] | round(1) }}
-                        {{ weather_report_info['Wind']['Velocity'] | round(1) }} km/h
+                        <span id="wind_direction"></span>
+                        <span id="wind_velocity"></span>
                     </button>
                 </div>
             </div>

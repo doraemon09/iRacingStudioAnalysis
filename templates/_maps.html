@@ -952,6 +952,9 @@
                     // Define the data trace for the map
                     let mapSectors_traces = [];
 
+                    // Positions for directional flow arrows
+                    let arrow_placement = [];
+
                     // Set marker for sectors
                     let sector_start;
                     let sector_end;
@@ -972,6 +975,14 @@
                         sector_lat = latitudes.slice(sector_start, sector_end);
                         sector_lon = longitudes.slice(sector_start, sector_end);
                         sector_speed_kph = speeds_kph.slice(sector_start, sector_end);
+
+                        {% if idx ==  0 %}
+                            placement_percentage = 0.0625; // Get position at 1/16th of a section
+
+                            [1, 2, 3].forEach(num => {
+                                arrow_placement.push(Math.round(placement_percentage * num * sector_lat.length));
+                            });
+                        {% endif %}
 
                         sector_custom_data = mapSectors_points.slice(sector_start, sector_end).map((point) => [
                             point.properties.laptime,
@@ -1016,9 +1027,6 @@
                             hoverinfo: 'text',
                         });
                     {% endfor %}
-
-                    // Add directional flow arrows
-                    const arrow_placement = [75, 150, 225]; // position index for lat/lon
 
                     // Get latitudes/longitudes based on the placement index
                     const arrow_points = arrow_placement.map(idx => ({

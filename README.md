@@ -154,7 +154,7 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
 2. **仮想環境を設定**:
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate  # Windowsの場合: venv\Scripts\activate
    ```
 3. **必要なパッケージのインストール**:
    - `requirements.txt`ファイルに記載されたすべての依存関係をインストールします：

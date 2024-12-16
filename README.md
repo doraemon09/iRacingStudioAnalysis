@@ -32,22 +32,36 @@ The demo is hosted on an AWS EC2 instance (Free Tier).
 
 ## Installation
 
-1. **Clone the Repository**:
+1. **Install Python**:
+   - Download and install Python (version 3.8 or higher):
+     - Visit the official [Python downloads page](https://www.python.org/downloads/).
+     - Choose the appropriate installer for your operating system.
+     - Ensure you check **"Add Python to PATH"** during installation (Windows users).
+
+   - Verify the installation:
+     ```bash
+     python --version
+     ```
+     Or, if required:
+     ```bash
+     python3 --version
+     ```
+2. **Clone the Repository**:
    ```bash
    git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
    cd iRacingStudioAnalysis
    ```
-2. **Set Up Virtual Environment**:
+3. **Set Up Virtual Environment**:
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-3. **Install Required Packages**:
+4. **Install Required Packages**:
    - Install all dependencies listed in the `requirements.txt` file:
      ```bash
      pip install -r requirements.txt
      ```
-4. **Run the Application**:
+5. **Run the Application**:
    - **Local Mode**:
      ```bash
      python app.py --localhost

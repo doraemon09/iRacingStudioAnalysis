@@ -10,5 +10,4 @@ venv/
 *.ibt
 *.pyc
 *.pem
-*.db
 *.csv

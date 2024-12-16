@@ -45,6 +45,8 @@
             <script>
                 $(document).ready(function() {
                     /* Set up defaults for maps */
+                    const vehicle = "{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
+
                     const speeds = {{ charts_info[laps_report_info['TopLaps'][0]]['Speed'] | tojson }};
 
                     const longitudes = {{ reference_lap_info['Longitude'] | tojson }};
@@ -133,6 +135,7 @@
                         x: longitudes,
                         y: latitudes,
                         z: altitudes_normalized,
+                        name: vehicle,
                         type: 'scatter3d',
                         mode: 'markers',
                         marker: {
@@ -148,8 +151,7 @@
                             '⛰️ %{customdata[0]} m<br>' +
                             '🟢 %{customdata[1]} %<br>' +
                             '🔴 %{customdata[2]} %<br>' +
-                            '🧲 %{customdata[3]} g<br>' +
-                            '<extra></extra>',
+                            '🧲 %{customdata[3]} g',
                     });
 
                     mapAltLatLon_layout = {
@@ -219,6 +221,7 @@
                         x: longitudes,
                         y: latitudes,
                         z: altitudes_normalized,
+                        name: vehicle,
                         type: 'scatter3d',
                         mode: 'markers',
                         marker: {
@@ -241,8 +244,7 @@
                             '<br>' +
                             '%{customdata[3]} mm' +
                             '⬅️⬇️➡️' +
-                            '%{customdata[4]} mm' +
-                            '<extra></extra>',
+                            '%{customdata[4]} mm',
                     });
 
                     mapRideHeight_layout = {
@@ -320,6 +322,7 @@
                         x: longitudes,
                         y: latitudes,
                         z: altitudes_normalized,
+                        name: vehicle,
                         type: 'scatter3d',
                         mode: 'markers',
                         marker: {
@@ -339,8 +342,7 @@
                             '<br>' +
                             '%{customdata[3]} mm' +
                             '⬅️⬇️➡️' +
-                            '%{customdata[4]} mm' +
-                            '<extra></extra>',
+                            '%{customdata[4]} mm',
                     });
 
                     mapShockDeflection_layout = {
@@ -410,6 +412,7 @@
                         x: longitudes,
                         y: latitudes,
                         z: altitudes_normalized,
+                        name: vehicle,
                         type: 'scatter3d',
                         mode: 'markers',
                         marker: {
@@ -429,8 +432,7 @@
                             '<br>' +
                             '%{customdata[3]} mm/s' +
                             '⬅️⬇️➡️' +
-                            '%{customdata[4]} mm/s' +
-                            '<extra></extra>',
+                            '%{customdata[4]} mm/s',
                     });
 
                     mapShockVelocity_layout = {
@@ -511,6 +513,7 @@
                         x: longitudes,
                         y: latitudes,
                         z: altitudes_normalized,
+                        name: vehicle,
                         type: 'scatter3d',
                         mode: 'markers',
                         marker: {
@@ -530,8 +533,7 @@
                             '<br>' +
                             '%{customdata[3]} psi' +
                             '⬅️⬇️➡️' +
-                            '%{customdata[4]} psi' +
-                            '<extra></extra>',
+                            '%{customdata[4]} psi',
                     });
 
                     mapTirePressure_layout = {
@@ -646,6 +648,7 @@
                         x: longitudes,
                         y: latitudes,
                         z: altitudes_normalized,
+                        name: vehicle,
                         type: 'scatter3d',
                         mode: 'markers',
                         marker: {
@@ -665,8 +668,7 @@
                             '<br>' +
                             '[%{customdata[7]}][%{customdata[8]}][%{customdata[9]}]' +
                             '⬅️⬇️➡️' +
-                            '[%{customdata[10]}][%{customdata[11]}][%{customdata[12]}]' +
-                            '<extra></extra>',
+                            '[%{customdata[10]}][%{customdata[11]}][%{customdata[12]}]',
                     });
 
                     mapTireTemperature_layout = {
@@ -771,6 +773,7 @@
                         x: longitudes,
                         y: latitudes,
                         z: altitudes_normalized,
+                        name: vehicle,
                         type: 'scatter3d',
                         mode: 'markers',
                         marker: {
@@ -836,9 +839,7 @@
                             '<br>' +
                             '[%{customdata[28]}][%{customdata[29]}][%{customdata[30]}]' +
                             '⬅️⬇️➡️' +
-                            '[%{customdata[31]}][%{customdata[32]}][%{customdata[33]}]' +
-
-                            '<extra></extra>',
+                            '[%{customdata[31]}][%{customdata[32]}][%{customdata[33]}]',
                     });
 
                     mapSpeed_layout = {
@@ -878,8 +879,6 @@
                         Sectors
                         =========================
                     */
-                    const vehicle = "{{ static_info['DriverInfo']['Drivers'][0]['CarScreenName'] }}";
-
                     const latitude_start = latitudes[0];
                     const longitude_start = longitudes[0]
 

@@ -160,22 +160,41 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
 
 ## インストール
 
-1. **リポジトリをクローン**:
+1. **Pythonをインストール**:
+   - Python（バージョン3.8以上）をダウンロードしてインストールします：
+     - 公式サイトの[Pythonダウンロードページ](https://www.python.org/downloads/)にアクセスしてください。
+     - お使いのOS（Windows、macOS、Linux）に適したインストーラーを選択します。
+     - インストール中に以下を確認してください：
+       - **Windows**: 「**Add Python to PATH**」にチェックを入れてください。
+       - **macOS/Linux**: Python 3が既にインストールされている場合があります。以下のコマンドで確認できます：
+         ```bash
+         python3 --version
+         ```
+
+   - インストール後、以下のコマンドでPythonのインストールを確認してください：
+     ```bash
+     python --version
+     ```
+     または、Python 3を使用する場合：
+     ```bash
+     python3 --version
+     ```
+2. **リポジトリをクローン**:
    ```bash
    git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
    cd iRacingStudioAnalysis
     ```
-2. **仮想環境を設定**:
+3. **仮想環境を設定**:
    ```bash
    python -m venv venv
    source venv/bin/activate  # Windowsの場合: venv\Scripts\activate
    ```
-3. **必要なパッケージのインストール**:
+4. **必要なパッケージのインストール**:
    - `requirements.txt`ファイルに記載されたすべての依存関係をインストールします：
      ```bash
      pip install -r requirements.txt
      ```
-4. **アプリケーションを実行**:
+5. **アプリケーションを実行**:
    - **ローカルモード**:
      ```bash
      python app.py --localhost

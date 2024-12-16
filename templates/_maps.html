@@ -1039,14 +1039,14 @@
                         // Clean negative bearing
                         bearing_cleaned = (arrow_bearings[i] < 0 ? arrow_bearings[i] + 360 : arrow_bearings[i])
 
-                        this_bearing = compassBearing(bearing_cleaned)
+                        this_direction = bearing2Direction(bearing_cleaned)
 
-                        icon_bearing =
-                            this_bearing == 'N' ? 'up' :
-                            this_bearing == 'S' ? 'down' :
-                            this_bearing == 'E' ? 'right' :
-                            this_bearing == 'W' ? 'left' :
-                            this_bearing.toLowerCase();
+                        icon_direction =
+                            this_direction == 'N' ? 'up' :
+                            this_direction == 'S' ? 'down' :
+                            this_direction == 'E' ? 'right' :
+                            this_direction == 'W' ? 'left' :
+                            this_direction.toLowerCase();
 
                         mapSectors_traces.push({
                             type: 'scattergeo',
@@ -1056,10 +1056,10 @@
                             marker: {
                                 size: 8,
                                 color: 'green',
-                                symbol: `triangle-${icon_bearing}`,
+                                symbol: `triangle-${icon_direction}`,
                             },
-                            name: `Direction of Flow (${this_bearing})`,
-                            text: `Direction of Flow (${this_bearing})`,
+                            name: `Direction of Flow (${this_direction})`,
+                            text: `Direction of Flow (${this_direction})`,
                             hoverinfo: 'text',
                         });
                     });

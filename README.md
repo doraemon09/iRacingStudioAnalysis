@@ -164,12 +164,7 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
    - Python（バージョン3.8以上）をダウンロードしてインストールします：
      - 公式サイトの[Pythonダウンロードページ](https://www.python.org/downloads/)にアクセスしてください。
      - お使いのOS（Windows、macOS、Linux）に適したインストーラーを選択します。
-     - インストール中に以下を確認してください：
-       - **Windows**: 「**Add Python to PATH**」にチェックを入れてください。
-       - **macOS/Linux**: Python 3が既にインストールされている場合があります。以下のコマンドで確認できます：
-         ```bash
-         python3 --version
-         ```
+     - **Windows**: 「**Add Python to PATH**」にチェックを入れてください。
 
    - インストール後、以下のコマンドでPythonのインストールを確認してください：
      ```bash

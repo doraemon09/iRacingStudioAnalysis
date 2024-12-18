@@ -36,7 +36,7 @@ The demo is hosted on an AWS EC2 instance (Free Tier).
    - Download and install Python (version 3.8 or higher):
      - Visit the official [Python downloads page](https://www.python.org/downloads/).
      - Choose the appropriate installer for your operating system.
-     - Ensure you check **"Add Python to PATH"** during installation (Windows users).
+     - Ensure you check **"Add python.exe to PATH"** during installation (Windows users).
 
    - Verify the installation:
      ```bash
@@ -49,11 +49,15 @@ The demo is hosted on an AWS EC2 instance (Free Tier).
 2. **Clone the Repository**:
    ```bash
    git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
+   ```
+   ```bash
    cd iRacingStudioAnalysis
    ```
 3. **Set Up Virtual Environment**:
    ```bash
    python -m venv venv
+   ```
+   ```bash
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 4. **Install Required Packages**:
@@ -164,7 +168,7 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
    - Python（バージョン3.8以上）をダウンロードしてインストールします：
      - 公式サイトの[Pythonダウンロードページ](https://www.python.org/downloads/)にアクセスしてください。
      - お使いのOS（Windows、macOS、Linux）に適したインストーラーを選択します。
-     - **Windows**: 「**Add Python to PATH**」にチェックを入れてください。
+     - **Windows**: 「**Add python.exe to PATH**」にチェックを入れてください。
 
    - インストール後、以下のコマンドでPythonのインストールを確認してください：
      ```bash
@@ -177,11 +181,15 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
 2. **リポジトリをクローン**:
    ```bash
    git clone https://github.com/doraemon09/iRacingStudioAnalysis.git
+   ```
+   ```bash
    cd iRacingStudioAnalysis
     ```
 3. **仮想環境を設定**:
    ```bash
    python -m venv venv
+   ```
+   ```bash
    source venv/bin/activate  # Windowsの場合: venv\Scripts\activate
    ```
 4. **必要なパッケージのインストール**:

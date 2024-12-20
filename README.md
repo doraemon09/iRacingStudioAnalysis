@@ -27,7 +27,7 @@ A Flask-based web application designed to process, analyze, and display iRacing 
 
 ## Demo
 
-A live demo of the application is available at **[http://13.52.127.109/](http://13.52.127.109/)**.
+A live demo of the application is available at **[http://13.52.127.109/](http://13.52.127.109/)**.  
 The demo is hosted on an AWS EC2 instance (Free Tier).
 
 https://github.com/user-attachments/assets/69059013-7929-4c72-bd7a-08691abf77c7
@@ -163,6 +163,8 @@ Flaskベースのウェブアプリケーションで、iRacingのテレメト�
 
 アプリケーションのライブデモは **[http://13.52.127.109/](http://13.52.127.109/)** にて利用可能です。  
 このデモはAWS EC2インスタンス（無料枠）でホストされています。
+
+https://github.com/user-attachments/assets/69059013-7929-4c72-bd7a-08691abf77c7
 
 ## インストール
 

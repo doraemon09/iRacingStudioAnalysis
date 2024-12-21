@@ -170,7 +170,7 @@ https://github.com/user-attachments/assets/96ba54cc-0e72-4529-a3d1-71cd4e144742
    - Python（バージョン3.8以上）をダウンロードしてインストールします：
      - 公式サイトの[Pythonダウンロードページ](https://www.python.org/downloads/)にアクセスしてください。
      - お使いのOS（Windows、macOS、Linux）に適したインストーラーを選択します。
-     - **Windows**: 「**Add python.exe to PATH**」にチェックを入れてください。
+     - インストール中に **Add python.exe to PATH** にチェックを入れてください（Windowsユーザー）。
 
    - インストール後、以下のコマンドでPythonのインストールを確認してください：
      ```bash

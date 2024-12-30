@@ -1,6 +1,6 @@
 # iRacing Studio Analysis
 
-A Flask-based web application designed to process, analyze, and display iRacing telemetry data. The application supports file uploads, telemetry processing, and detailed data visualizations, offering insights into laps, sectors, throttle/brake usage, and more.
+A Flask-based web application designed to process, analyze, and display [iRacing](https://www.iracing.com/) telemetry data. The application supports file uploads, telemetry processing, and detailed data visualizations, offering insights into laps, sectors, throttle/brake usage, and more.
 
 ## Features
 
@@ -122,7 +122,7 @@ This project is licensed under the **Apache License 2.0**. See the `LICENSE` fil
 
 # iRacingスタジオアナリシス
 
-Flaskベースのウェブアプリケーションで、iRacingのテレメトリーデータを処理、分析、表示するためのツールです。このアプリケーションはファイルのアップロード、テレメトリーデータの処理、詳細なデータの可視化をサポートしており、ラップ、セクター、スロットル/ブレーキ使用状況などの分析を提供します。
+Flaskベースのウェブアプリケーションで、[iRacing](https://www.iracing.com/)のテレメトリーデータを処理、分析、表示するためのツールです。このアプリケーションはファイルのアップロード、テレメトリーデータの処理、詳細なデータの可視化をサポートしており、ラップ、セクター、スロットル/ブレーキ使用状況などの分析を提供します。
 
 ## 機能
 

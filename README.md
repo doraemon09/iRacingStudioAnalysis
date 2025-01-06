@@ -111,7 +111,7 @@ https://github.com/user-attachments/assets/55d70c3b-ebd6-4ed5-8862-3d143ee80da9
 ## Acknowledgments
 
 - This project utilizes the [pyirsdk library](https://github.com/kutu/pyirsdk) to access iRacing telemetry data. Special thanks to the contributors of `pyirsdk` for making this integration possible and enabling efficient telemetry processing.
-- Built with [Flask](https://flask.palletsprojects.com/).
+- Built with [Flask](https://flask.palletsprojects.com/) and [Plotly](https://plotly.com/).
 - Utilizes libraries like `pandas`, `numpy`, `sqlite3`, and `irsdk`.
 
 ## License
@@ -244,7 +244,7 @@ https://github.com/user-attachments/assets/96ba54cc-0e72-4529-a3d1-71cd4e144742
 ## 謝辞
 
 - このプロジェクトは、iRacingのテレメトリーデータにアクセスするために[pyirsdkライブラリ](https://github.com/kutu/pyirsdk)を利用しています。`pyirsdk`の貢献者の方々に感謝いたします。
-- [Flask](https://flask.palletsprojects.com/)で作成されています。
+- [Flask](https://flask.palletsprojects.com/)と[Plotly](https://plotly.com/)で作成されています。
 - `pandas`、`numpy`、`sqlite3`、`irsdk`などのライブラリを利用しています。
 
 ## ライセンス
